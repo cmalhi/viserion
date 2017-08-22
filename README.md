@@ -7,6 +7,6 @@ To install: `npm install`
 
 To run server: `npm start`
 
-To run webpack: `npm run react-dev`
+You may need to: `npm install -g watchman`
 
 ## Notes ##
