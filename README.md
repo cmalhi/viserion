@@ -7,6 +7,6 @@ To install: `npm install`
 
 To run server: `npm start`
 
-You may need to: `npm install -g watchman`
+You may need to: `brew install watchman`
 
 ## Notes ##
