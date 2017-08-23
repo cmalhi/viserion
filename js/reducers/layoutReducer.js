@@ -1,7 +1,10 @@
- export default function (state = [], action) {
+ export default function (state = {}, action) {
   switch (action.type) {
     case 'ADD_LAYOUT':
-      return [...action.payload.data, ...state];
+      return Object.assign({}, state, {[action.payload.data]: true})
+    case 'REMOVE_LAYOUT':
+      return Object.assign({}, state, {[action.payload.data]: false})
+    default: 
+      return state
   }
-  return state;
 }

@@ -1,13 +1,12 @@
 import React from 'react';
 import { Alert, AppRegistry, Button, StyleSheet, Text, View } from 'react-native';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { toggleColor } from '../actions/index'
 
-class ChooseColor extends React.Component {
+export default class ChooseColor extends React.Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      color: ''
+    }
     this.buttonPress = this.buttonPress.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -28,20 +27,15 @@ class ChooseColor extends React.Component {
       <View style={styles.container}>
         <Text>Choose a color ;)</Text>
           <Button
-            onPress={this.props.toggleColor.bind(this, 'red')}
+            onPress={this.buttonPress.bind(this, 'red')}
             title="Red"
             color="#FF0000"
           />
           <Button
-            onPress={this.props.toggleColor.bind(this, 'blue')}
+            onPress={this.buttonPress.bind(this, 'blue')}
             title="Blue"
             color="#0000FF"
           />
-          <Button
-            onPress={this.props.toggleColor.bind(this, 'green')}
-            title="Green"
-            color="#00FF00"
-          />          
           <Button
             onPress={this.handleSubmit}
             title="Submit"
@@ -60,9 +54,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({toggleColor}, dispatch)
-}
-
-export default connect(null, matchDispatchToProps)(ChooseColor);

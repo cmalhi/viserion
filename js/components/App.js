@@ -18,16 +18,6 @@ const store = createStore(
   ),
 );
 
-class ColorScreen extends React.Component {
-  render() {
-    return (
-      <View>
-        <Text>Choose a color!</Text>
-      </View>
-    )
-  }
-}
-
 class HomeScreen extends React.Component {
   render() {
     console.log('this.props', this.props);
