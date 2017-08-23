@@ -37,6 +37,7 @@ local.properties
 node_modules/
 npm-debug.log
 npm-debug.*
+package-lock.json
 
 # webpack
 bundle.js
