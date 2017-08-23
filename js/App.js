@@ -5,6 +5,7 @@ import ChooseColor from './ChooseColor';
 import PageScreen from './PageScreen';
 import ChooseTitle from './ChooseTitle';
 import ChooseLayout from './ChooseLayout';
+import ConfirmSite from './ConfirmSite';
 
 export default () => <AppNavigator />;
 
@@ -29,6 +30,7 @@ class HomeScreen extends React.Component {
         <Button onPress={() => { navigate('Template')}} title="Template" />
         <Button onPress={() => { navigate('Page')}} title="Page" />
         <Button onPress={() => { navigate('Title')}} title="Title" />
+        <Button onPress={() => { navigate('ConfirmSite')}} title="Confirm Site" />
       </ScrollView>
     )
   }
@@ -40,6 +42,7 @@ const AppNavigator = StackNavigator({
   Title: { screen: ChooseTitle },
   Template: { screen: ChooseLayout },
   Page: { screen: PageScreen },
+  ConfirmSite: { screen: ConfirmSite },
 });
 
 const styles = StyleSheet.create({
