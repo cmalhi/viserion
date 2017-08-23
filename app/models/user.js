@@ -6,7 +6,7 @@ const userSchema = mongoose.Schema({
   password: String,
   email: String,
   name: String,
-  Preferences: { Layout: [String], Color: [String], Title: String },
+  preferences: { layout: [String], color: [String], title: String },
 });
 
 userSchema.plugin(findOrCreate);
