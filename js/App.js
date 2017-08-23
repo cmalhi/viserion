@@ -4,12 +4,17 @@ import { StackNavigator } from 'react-navigation';
 import ChooseColor from './ChooseColor';
 import PageScreen from './PageScreen';
 import ChooseTitle from './ChooseTitle';
+import ChooseLayout from './ChooseLayout';
 
 export default () => <AppNavigator />;
 
-class TemplateScreen extends React.Component {
+class ColorScreen extends React.Component {
   render() {
-    return <Text>Choose a template!</Text>
+    return (
+      <View>
+        <Text>Choose a color!</Text>
+      </View>
+    )
   }
 }
 
@@ -32,9 +37,9 @@ class HomeScreen extends React.Component {
 const AppNavigator = StackNavigator({
   Index: { screen: HomeScreen },
   Color: { screen: ChooseColor },
-  Template: { screen: TemplateScreen },
+  Title: { screen: ChooseTitle },
+  Template: { screen: ChooseLayout },
   Page: { screen: PageScreen },
-  Title: { screen: ChooseTitle }
 });
 
 const styles = StyleSheet.create({
