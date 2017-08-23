@@ -6,10 +6,11 @@ import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
 import rootReducer from '../reducers/index';
 import ChooseColor from './ChooseColor';
-import PageScreen from './PageScreen';
 import ChooseTitle from './ChooseTitle';
 import ChooseLayout from './ChooseLayout';
 import ConfirmSite from './ConfirmSite';
+import PageScreen from './PageScreen';
+import ImageUploader from './ImageUploader';
 
 const store = createStore(
   rootReducer,
@@ -34,13 +35,15 @@ class HomeScreen extends React.Component {
     const { navigate } = this.props.navigation;
     // console.log('navigate', navigate);
     return (
-      <ScrollView>
-        <Button onPress={() => { navigate('Color')}} title="Color" />
-        <Button onPress={() => { navigate('Template')}} title="Template" />
-        <Button onPress={() => { navigate('Page')}} title="Page" />
-        <Button onPress={() => { navigate('Title')}} title="Title" />
-        <Button onPress={() => { navigate('ConfirmSite')}} title="Confirm Site" />
-      </ScrollView>
+      <View style={styles.container}>
+        <Text style={styles.title}>Create a page</Text>
+        <Text onPress={() => { navigate('Template')}} style={styles.defaultText,styles.selectedText}>Step 1: Template</Text>
+        <Text onPress={() => { navigate('Color')}} style={styles.defaultText,styles.selectedText}>Step 2: Color</Text>
+        <Text onPress={() => { navigate('Title')}} style={styles.defaultText,styles.selectedText}>Step 3: Title</Text>
+        <Text onPress={() => { navigate('ConfirmSite')}} style={styles.defaultText,styles.selectedText}>Step 4: View generated pages</Text>
+        <Text onPress={() => { navigate('Page')}} style={styles.defaultText,styles.selectedText}>Final Page</Text>
+        <Text onPress={() => { navigate('Image')}} style={styles.defaultText,styles.selectedText}>(Optional) Add Image</Text>
+      </View>
     )
   }
 }
@@ -48,36 +51,28 @@ class HomeScreen extends React.Component {
 const AppNavigator = StackNavigator({
   Index: { screen: HomeScreen },
   Color: { screen: ChooseColor },
-  Title: { screen: ChooseTitle },
   Template: { screen: ChooseLayout },
-  Page: { screen: PageScreen },
+  Title: { screen: ChooseTitle },
   ConfirmSite: { screen: ConfirmSite },
+  Page: { screen: PageScreen },
+  Image: { screen: ImageUploader },
 });
 
 const styles = StyleSheet.create({
-  item: {
-    backgroundColor: '#fff',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#ddd',
-  },
-  image: {
-    width: 120,
-    height: 120,
-    alignSelf: 'center',
-    marginBottom: 20,
-    resizeMode: 'contain',
+  container: {
+    justifyContent: 'flex-start',
   },
   title: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#444',
   },
-  description: {
-    fontSize: 13,
-    color: '#999',
+  defaultText: {
+
   },
+  selectedText: {
+    backgroundColor: 'yellow',
+  }
 });
 
 export default () => (
