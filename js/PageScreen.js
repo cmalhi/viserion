@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, WebView } from 'react-native';
 
 export default class PageScreen extends React.Component {
   constructor(props) {
@@ -8,7 +8,7 @@ export default class PageScreen extends React.Component {
 
   render() {
     return (
-      <Text>Page</Text>
+      <WebView source={{uri:"http://localhost:8080/pages/blue"}} />
     )
   };
 }

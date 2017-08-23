@@ -1,0 +1,16 @@
+/*--------------------------------------------------------------
+Boxes
+--------------------------------------------------------------*/
+
+.box {
+    max-width: 500px;
+    margin: 0 auto 1em;
+}
+
+.box a {
+    display: block;
+    padding: 1em;
+    text-decoration: none;
+    color: black;
+    background: white;
+}
