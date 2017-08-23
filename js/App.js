@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Button, Text, View, ScrollView } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import ChooseColor from './ChooseColor';
+import PageScreen from './PageScreen';
 
 export default () => <AppNavigator />;
 
@@ -30,6 +31,7 @@ class HomeScreen extends React.Component {
       <ScrollView>
         <Button onPress={() => { navigate('Color')}} title="Color" />
         <Button onPress={() => { navigate('Template')}} title="Template" />
+        <Button onPress={() => { navigate('Page')}} title="Page" />
       </ScrollView>
     )
   }
@@ -38,7 +40,8 @@ class HomeScreen extends React.Component {
 const AppNavigator = StackNavigator({
   Index: { screen: HomeScreen },
   Color: { screen: ChooseColor },
-  Template: { screen: TemplateScreen }
+  Template: { screen: TemplateScreen },
+  Page: { screen: PageScreen },
 });
 
 const styles = StyleSheet.create({
