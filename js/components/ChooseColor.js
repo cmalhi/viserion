@@ -1,25 +1,19 @@
 import React from 'react';
 import { Alert, AppRegistry, Button, ListView, Text, TouchableHighlight, View, StyleSheet } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { toggleColor } from '../actions/index'
 
-export default class ChooseColor extends React.Component {
+class ChooseColor extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      color: '',
-    };
-    this.setColor = this.setColor.bind(this);
+
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  setColor(color) {
-    //Animate button so the user knows what theyre about to submit
-    console.log('You pressed the', color, 'button');
-    this.setState({color: color});
-  }
-
   handleSubmit() {
-    //Send data to DB
-    console.log('Handle submit function. Color: ', this.state.color);
+    //go to next page 
+    console.log('go to next page');
   }
 
   render() {
@@ -29,14 +23,23 @@ export default class ChooseColor extends React.Component {
 
         <View style={styles.linebreak} />
 
-        <TouchableHighlight onPress={this.setColor.bind(this, 'blue')} >
+        <TouchableHighlight onPress={this.props.toggleColor.bind(this, 'blue')} >
           <View style={{width: 100, height: 100, backgroundColor: '#0070FF'}} />
         </TouchableHighlight>
 
-        <TouchableHighlight onPress={this.setColor.bind(this, 'red')} >
+        <TouchableHighlight onPress={this.props.toggleColor.bind(this, 'red')} >
           <View style={{width: 100, height: 100, backgroundColor: '#F02311'}} />
         </TouchableHighlight>
 
+        <TouchableHighlight onPress={this.props.toggleColor.bind(this, 'green')} >
+          <View style={{width: 100, height: 100, backgroundColor: '#00FF00'}} />
+        </TouchableHighlight>
+        
+        <Button
+          onPress={this.handleSubmit}
+          title="Submit"
+          color="#000000"
+        />
       </View>
     );
   }
@@ -54,3 +57,9 @@ const styles = StyleSheet.create({
     width: '100%',
   }
 });
+
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators({toggleColor}, dispatch)
+}
+
+export default connect(null, matchDispatchToProps)(ChooseColor);
