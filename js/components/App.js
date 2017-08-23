@@ -1,13 +1,22 @@
 import React from 'react';
 import { StyleSheet, Button, Text, View, ScrollView } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import { createLogger } from 'redux-logger';
+import rootReducer from '../reducers/index';
 import ChooseColor from './ChooseColor';
 import PageScreen from './PageScreen';
 import ChooseTitle from './ChooseTitle';
 import ChooseLayout from './ChooseLayout';
 import ConfirmSite from './ConfirmSite';
 
-export default () => <AppNavigator />;
+const store = createStore(
+  rootReducer,
+  applyMiddleware(
+    createLogger()
+  ),
+);
 
 class ColorScreen extends React.Component {
   render() {
@@ -70,3 +79,9 @@ const styles = StyleSheet.create({
     color: '#999',
   },
 });
+
+export default () => (
+  <Provider store={store}>
+    <AppNavigator />
+  </Provider>
+  );
