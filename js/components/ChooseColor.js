@@ -1,17 +1,17 @@
 import React from 'react';
-import { Alert, AppRegistry, Button, StyleSheet, Text, View } from 'react-native';
+import { Alert, AppRegistry, Button, ListView, Text, TouchableHighlight, View, StyleSheet } from 'react-native';
 
 export default class ChooseColor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      color: ''
-    }
-    this.buttonPress = this.buttonPress.bind(this);
+      color: '',
+    };
+    this.setColor = this.setColor.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  buttonPress(color) {
+  setColor(color) {
     //Animate button so the user knows what theyre about to submit
     console.log('You pressed the', color, 'button');
     this.setState({color: color});
@@ -26,31 +26,31 @@ export default class ChooseColor extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Choose a color ;)</Text>
-          <Button
-            onPress={this.buttonPress.bind(this, 'red')}
-            title="Red"
-            color="#FF0000"
-          />
-          <Button
-            onPress={this.buttonPress.bind(this, 'blue')}
-            title="Blue"
-            color="#0000FF"
-          />
-          <Button
-            onPress={this.handleSubmit}
-            title="Submit"
-            color="#000000"
-          />
+
+        <View style={styles.linebreak} />
+
+        <TouchableHighlight onPress={this.setColor.bind(this, 'blue')} >
+          <View style={{width: 100, height: 100, backgroundColor: '#0070FF'}} />
+        </TouchableHighlight>
+
+        <TouchableHighlight onPress={this.setColor.bind(this, 'red')} >
+          <View style={{width: 100, height: 100, backgroundColor: '#F02311'}} />
+        </TouchableHighlight>
+
       </View>
     );
-  }
+  }gg
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
   },
+  linebreak: {
+    width: '100%',
+  }
 });

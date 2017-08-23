@@ -1,17 +1,15 @@
 const express = require('express');
 const db = require('../../config/database');
 const router = express.Router();
+const Page = require('./models/page');
+const User = require('./models/user');
 
-router.post('/layout_preference', function(req, res) {
+router.post('/preferences', function(req, res) {
+  const preferences = req.data;
+  console.log('req.data');
   // update db with layout preference
-});
-
-router.post('/color_preference', function(req, res) {
-  // update db with color preference
-});
-
-router.post('/title_preference', function(req, res) {
-  // update db with title preference
+  // var newUser = new User({ preferences: req.data });
+  res.send('Posted!')
 });
 
 module.exports = router;
