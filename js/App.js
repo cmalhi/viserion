@@ -3,12 +3,17 @@ import { StyleSheet, Button, Text, View, ScrollView } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import ChooseColor from './ChooseColor';
 import ChooseTitle from './ChooseTitle';
+import ChooseLayout from './ChooseLayout';
 
 export default () => <AppNavigator />;
 
-class TemplateScreen extends React.Component {
+class ColorScreen extends React.Component {
   render() {
-    return <Text>Choose a template!</Text>
+    return (
+      <View>
+        <Text>Choose a color!</Text>
+      </View>
+    )
   }
 }
 
@@ -30,8 +35,8 @@ class HomeScreen extends React.Component {
 const AppNavigator = StackNavigator({
   Index: { screen: HomeScreen },
   Color: { screen: ChooseColor },
-  Template: { screen: TemplateScreen },
   Title: { screen: ChooseTitle }
+  Template: { screen: ChooseLayout }
 });
 
 const styles = StyleSheet.create({

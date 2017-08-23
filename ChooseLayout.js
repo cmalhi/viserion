@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableHighlight } from 'react-native';
 
 export default class ChooseLayout extends React.Component {
   constructor(props) {
@@ -21,18 +21,7 @@ export default class ChooseLayout extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Choose a Layout</Text>
-        <View style={styles.row}>
-          <View onPress={this.handleTemplateClick} style={{width: 120, height: 150, backgroundColor: 'skyblue'}} />
-          <View style={{width: 120, height: 150, backgroundColor: 'powderblue'}} />
-        </View>
-        <View style={styles.row}>
-          <View style={{width: 120, height: 150, backgroundColor: 'powderblue'}} />
-          <View style={{width: 120, height: 150, backgroundColor: 'skyblue'}} />
-        </View>
-        <View style={styles.row}>
-          <View style={{width: 120, height: 150, backgroundColor: 'skyblue'}} />
-          <View style={{width: 120, height: 150, backgroundColor: 'powderblue'}} />
-        </View>
+        
       </View>
     );
   }
@@ -47,13 +36,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     height: 400,
   },
-  row: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: 270,
-  },
   template: {
-
+    width: 150,
+    height: 100,
   }
 });
