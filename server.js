@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 var items = require('./config/database.js');
+var routes = require('./app/routes');
 
 const app = express();
 
@@ -9,18 +10,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Routes
+app.use('/', routes);
+
 app.get('/', (req, res) => {
   res.send('Connected!');
-});
-
-app.get('/items', (req, res) => {
-  items.selectAll((err, data) => {
-    if (err) {
-      res.sendStatus(500);
-    } else {
-      res.json(data);
-    }
-  });
 });
 
 app.listen(8080, () => {
