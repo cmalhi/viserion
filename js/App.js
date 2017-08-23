@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Button, Text, View, ScrollView } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import ChooseColor from './ChooseColor';
 
 export default () => <AppNavigator />;
 
@@ -36,7 +37,7 @@ class HomeScreen extends React.Component {
 
 const AppNavigator = StackNavigator({
   Index: { screen: HomeScreen },
-  Color: { screen: ColorScreen },
+  Color: { screen: ChooseColor },
   Template: { screen: TemplateScreen }
 });
 
