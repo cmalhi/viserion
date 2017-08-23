@@ -16,7 +16,22 @@ router.post('/preferences', function(req, res) {
   });
 });
 
+/*
+ * /POST /generate
+ * Queries current user preferences and generates a file based on that
+ */
 router.post('/generate', function(req, res) {
+  // Get user preferences
+  const userPreferences = { layout: ['standard'], color: ['blue', 'green'], title: "Chetan's Milk Shop"};
+
+  // Query Page collections for matching pages
+  const pageResults = [ { id: 1, fileLocation: 'simple' } ];
+
+  // Generate a new custom template
+    // Replace the template with 'skyblue'
+    // Replace the template with 'powderblue'
+    // Replace the template with 'green'
+    // Replace the template with 'olive'
 
 });
 
