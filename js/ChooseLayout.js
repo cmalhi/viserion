@@ -11,7 +11,7 @@ export default class ChooseLayout extends React.Component {
     this.handleTemplateClick = this.handleTemplateClick.bind(this);
   }
 
-  handleTemplateClick() {
+  handleTemplateClick(event) {
     this.setState({template: ''});
     console.log('template clicked');
   }
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     height: 350,
   },
   template: {
