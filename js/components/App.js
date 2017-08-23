@@ -10,6 +10,7 @@ import PageScreen from './PageScreen';
 import ChooseTitle from './ChooseTitle';
 import ChooseLayout from './ChooseLayout';
 import ConfirmSite from './ConfirmSite';
+import PageScreen from './PageScreen';
 
 const store = createStore(
   rootReducer,
@@ -37,9 +38,9 @@ class HomeScreen extends React.Component {
       <ScrollView>
         <Button onPress={() => { navigate('Color')}} title="Color" />
         <Button onPress={() => { navigate('Template')}} title="Template" />
-        <Button onPress={() => { navigate('Page')}} title="Page" />
         <Button onPress={() => { navigate('Title')}} title="Title" />
         <Button onPress={() => { navigate('ConfirmSite')}} title="Confirm Site" />
+        <Button onPress={() => { navigate('Page')}} title="Page" />
       </ScrollView>
     )
   }
@@ -48,10 +49,10 @@ class HomeScreen extends React.Component {
 const AppNavigator = StackNavigator({
   Index: { screen: HomeScreen },
   Color: { screen: ChooseColor },
-  Title: { screen: ChooseTitle },
   Template: { screen: ChooseLayout },
-  Page: { screen: PageScreen },
+  Title: { screen: ChooseTitle },
   ConfirmSite: { screen: ConfirmSite },
+  Page: { screen: PageScreen },
 });
 
 const styles = StyleSheet.create({
