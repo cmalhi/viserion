@@ -1,5 +1,5 @@
 const express = require('express');
-const db = require('../config/database');
+const db = require('../../config/database');
 const router = express.Router();
 
 router.post('/layout_preference', function(req, res) {
@@ -13,3 +13,5 @@ router.post('/color_preference', function(req, res) {
 router.post('/title_preference', function(req, res) {
   // update db with title preference
 });
+
+module.exports = router;
