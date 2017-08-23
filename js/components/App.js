@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
 import rootReducer from '../reducers/index';
 import ChooseColor from './ChooseColor';
-import PageScreen from './PageScreen';
 import ChooseTitle from './ChooseTitle';
 import ChooseLayout from './ChooseLayout';
 import ConfirmSite from './ConfirmSite';

@@ -39,7 +39,7 @@ export default class ChooseColor extends React.Component {
 
       </View>
     );
-  }gg
+  }
 }
 
 const styles = StyleSheet.create({
