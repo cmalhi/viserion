@@ -7,6 +7,13 @@ import { toggleColor, postPreferences } from '../actions/index'
 class ChooseColor extends React.Component {
   constructor(props) {
     super(props);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit() {
+    //go to next page 
+    console.log('go to next page');
   }
 
   render() {

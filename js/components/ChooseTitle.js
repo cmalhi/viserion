@@ -1,7 +1,9 @@
 import React from 'react';
 import { AppRegistry, Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { connect } from 'react-redux';
+import { postPreferences } from '../actions/index'
 
-export default class ChooseTitle extends React.Component {
+class ChooseTitle extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,7 +30,7 @@ export default class ChooseTitle extends React.Component {
           clearButtonMode={'unless-editing'}
         />
         <Button
-          onPress={() => { navigate('Page')}}
+          onPress={ this.props.postPreferences }
           title="Submit"
           color="#000000"
         />
@@ -45,3 +47,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default connect(null, { postPreferences })(ChooseTitle);
