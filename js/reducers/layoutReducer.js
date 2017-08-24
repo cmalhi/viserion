@@ -1,9 +1,12 @@
- export default function (state = {}, action) {
+export default function (state = {}, action) {
   switch (action.type) {
-    case 'ADD_LAYOUT':
-      return Object.assign({}, state, {[action.payload]: true})
-    case 'REMOVE_LAYOUT':
-      return Object.assign({}, state, {[action.payload]: false})
+    case 'TOGGLE_LAYOUT':
+      const layoutId = action.payload;
+      var layoutStatus = true;
+      if (state[layoutId]){
+        layoutStatus = false;
+      }
+      return Object.assign({}, state, {[layoutId]: layoutStatus})
     default: 
       return state
   }
