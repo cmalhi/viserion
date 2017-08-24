@@ -15,7 +15,7 @@ const fileController = require('./fileController');
 /*
  * /GET /:filename
  */
-router.get('/:filename', fileController.retrieveOne);
+router.get('/files/:filename', fileController.retrieveOne);
 
 /*
  * /POST /preferences
