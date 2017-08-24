@@ -3,10 +3,20 @@ const db = require('../../config/database');
 const router = express.Router();
 const Page = require('../models/page');
 const User = require('../models/user');
+const path = require('path');
+const root = path.dirname(require.main.filename);
+const Promise = require("bluebird");
 const fse = require('fs-extra');
+const fs = require('fs');
+Promise.promisifyAll(fs);
+const async = require('async');
+const fileController = require('./fileController');
 
-var path = require('path');
-var appDir = path.dirname(require.main.filename);
+/*
+ * /GET /:filename
+ */
+router.get('/files/:filename', fileController.retrieveOne);
+
 
 /*
  * /POST /preferences
@@ -26,19 +36,31 @@ router.post('/preferences', function(req, res) {
  */
 router.post('/generate', function(req, res) {
   // Get user preferences
-  const userPreferences = { layout: ['standard'], color: ['blue', 'green'], title: "Chetan's Milk Shop"};
+  const userPreferences = { layout: ['standard'], color: ['blue'], title: "Chetan's Milk Shop"};
 
   // Query Page collections for matching pages
   const pageResults = [ { id: 1, fileLocation: 'simple', keywords: ['standard'] } ];
 
-  let hero1 = `.hero { background: ${userPreferences.color[0]}; }`;
-  let hero2 = `.hero { background: ${userPreferences.color[1]}; }`;
+  // Handle colors
+  const colorMapper = { 'blue': ['powderblue', 'steelblue'] };
+  const heros = [];
+  const allColors = colorMapper[userPreferences['color']];
 
-  console.log('appDir', appDir);
-  // read in templateFile
-  // fse.copy('../pages/')
-    // append hero to header.css
-    //
+  allColors.forEach((color) => {
+    heros.push(`.hero { background: ${color}; }`)
+  });
+
+  // Read in template file
+  fse.copy(root + '/app/pages/templates/simple', root + '/app/pages/user-pages/01')
+    .then(() => {
+      // Write new 'hero' to header.css
+      const cssFile = root + '/app/pages/user-pages/01/css/header.css';
+      fs.appendFileAsync(cssFile, heros[0])
+        .then(() => {
+        })
+        .catch((err) => console.error(err));
+    })
+    .catch(err => console.error(err));
 
 
   // Generate new custom templates
