@@ -7,16 +7,10 @@ import { toggleColor } from '../actions/index'
 class ChooseColor extends React.Component {
   constructor(props) {
     super(props);
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit() {
-    //go to next page 
-    console.log('go to next page');
   }
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <Text>Choose a color ;)</Text>
@@ -36,7 +30,7 @@ class ChooseColor extends React.Component {
         </TouchableHighlight>
         
         <Button
-          onPress={this.handleSubmit}
+          onPress={() => { navigate('Title')}}
           title="Submit"
           color="#000000"
         />

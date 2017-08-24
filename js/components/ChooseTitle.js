@@ -16,6 +16,7 @@ export default class ChooseTitle extends React.Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <Text>Enter a title</Text>
@@ -27,7 +28,7 @@ export default class ChooseTitle extends React.Component {
           clearButtonMode={'unless-editing'}
         />
         <Button
-          onPress={this.handleSubmit}
+          onPress={() => { navigate('Page')}}
           title="Submit"
           color="#000000"
         />
