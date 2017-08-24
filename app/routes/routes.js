@@ -25,9 +25,17 @@ router.post('/generate', function(req, res) {
   const userPreferences = { layout: ['standard'], color: ['blue', 'green'], title: "Chetan's Milk Shop"};
 
   // Query Page collections for matching pages
-  const pageResults = [ { id: 1, fileLocation: 'simple' } ];
+  const pageResults = [ { id: 1, fileLocation: 'simple', keywords: ['standard'] } ];
 
-  // Generate a new custom template
+  let hero1 = `.hero { background: ${userPreferences.color[0]}; }`;
+  let hero2 = `.hero { background: ${userPreferences.color[1]}; }`;
+
+  // read in templateFile
+    // append hero to header.css
+    //
+
+
+  // Generate new custom templates
     // Replace the template with 'skyblue'
     // Replace the template with 'powderblue'
     // Replace the template with 'green'
