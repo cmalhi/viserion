@@ -12,7 +12,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
 app.use('/', routes);
-app.use('/pages', express.static('./app/pages'));
+app.use('/pages/templates', express.static('./app/pages/templates'));
+app.use('/pages/user-pages', express.static('./app/pages/user-pages'));
+app.use('/pages/temporary', express.static('./app/pages/temporary'));
 
 app.get('/', (req, res) => {
   res.send('Connected!');

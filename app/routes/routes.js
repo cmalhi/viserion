@@ -3,6 +3,19 @@ const db = require('../../config/database');
 const router = express.Router();
 const Page = require('../models/page');
 const User = require('../models/user');
+const path = require('path');
+const root = path.dirname(require.main.filename);
+const Promise = require("bluebird");
+const fse = require('fs-extra');
+const fs = require('fs');
+Promise.promisifyAll(fs);
+const async = require('async');
+const fileController = require('./fileController');
+
+/*
+ * /GET /:filename
+ */
+router.get('/:filename', fileController.retrieveOne);
 
 /*
  * /POST /preferences
@@ -22,16 +35,19 @@ router.post('/preferences', function(req, res) {
  */
 router.post('/generate', function(req, res) {
   // Get user preferences
-  const userPreferences = { layout: ['standard'], color: ['blue', 'green'], title: "Chetan's Milk Shop"};
+  const userPreferences = { layout: ['standard'], color: ['blue'], title: "Chetan's Milk Shop"};
 
   // Query Page collections for matching pages
-  const pageResults = [ { id: 1, fileLocation: 'simple' } ];
+  const pageResults = [ { id: 1, fileLocation: 'simple', keywords: ['standard'] } ];
 
-  // Generate a new custom template
-    // Replace the template with 'skyblue'
-    // Replace the template with 'powderblue'
-    // Replace the template with 'green'
-    // Replace the template with 'olive'
+  // Handle colors
+  const colorMapper = { 'blue': ['powderblue', 'steelblue'] };
+  const heros = [];
+  const allColors = colorMapper[userPreferences['color']];
+
+  allColors.forEach((color) => {
+    heros.push(`.hero { background: ${color}; }`)
+  });
 
 });
 
