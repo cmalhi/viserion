@@ -3,6 +3,10 @@ const db = require('../../config/database');
 const router = express.Router();
 const Page = require('../models/page');
 const User = require('../models/user');
+const fse = require('fs-extra');
+
+var path = require('path');
+var appDir = path.dirname(require.main.filename);
 
 /*
  * /POST /preferences
@@ -30,7 +34,9 @@ router.post('/generate', function(req, res) {
   let hero1 = `.hero { background: ${userPreferences.color[0]}; }`;
   let hero2 = `.hero { background: ${userPreferences.color[1]}; }`;
 
+  console.log('appDir', appDir);
   // read in templateFile
+  // fse.copy('../pages/')
     // append hero to header.css
     //
 
