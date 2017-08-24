@@ -8,6 +8,7 @@ const rootReducer = combineReducers({
   layouts: layoutReducer,
   colors: colorReducer,
   title: titleReducer,
+  form: formReducer,
 });
 
 export default rootReducer;
