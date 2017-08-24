@@ -2,7 +2,7 @@ import React from 'react';
 import { Alert, AppRegistry, Button, ListView, Text, TouchableHighlight, View, StyleSheet } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { toggleColor } from '../actions/index'
+import { toggleColor, postPreferences } from '../actions/index'
 
 class ChooseColor extends React.Component {
   constructor(props) {
@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({toggleColor}, dispatch)
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({toggleColor, postPreferences}, dispatch)
 }
 
-export default connect(null, matchDispatchToProps)(ChooseColor);
+export default connect(null, mapDispatchToProps)(ChooseColor);
