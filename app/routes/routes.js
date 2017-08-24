@@ -22,10 +22,11 @@ router.get('/:filename', fileController.retrieveOne);
  * Receives a JSON of type { layout: [], color: [], title: '' }
  */
 router.post('/preferences', function(req, res) {
+  console.log('post to preferences', req.body)
   var newUser = new User({ preferences: req.body });
-  newUser.save(function(err) {
+  newUser.save(function(err, result) {
     if (err) return console.err('Err saving user: ', err);
-    res.status(200).send('Posted!')
+    res.status(200).send(result)
   });
 });
 

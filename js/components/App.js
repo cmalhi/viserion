@@ -4,6 +4,7 @@ import { StackNavigator } from 'react-navigation';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
+import thunk from 'redux-thunk';
 import rootReducer from '../reducers/index';
 import ChooseColor from './ChooseColor';
 import ChooseTitle from './ChooseTitle';
@@ -15,6 +16,7 @@ import ImageUploader from './ImageUploader';
 const store = createStore(
   rootReducer,
   applyMiddleware(
+    thunk,
     createLogger()
   ),
 );
