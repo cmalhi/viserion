@@ -1,7 +1,10 @@
 import React from 'react';
 import { AppRegistry, Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { addTitle } from '../actions/index';
 
-export default class ChooseTitle extends React.Component {
+class ChooseTitle extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,12 +14,13 @@ export default class ChooseTitle extends React.Component {
   }
 
   handleSubmit() {
-    //Save title preference to DB
+    const { navigate } = this.props.navigation; 
+    this.props.addTitle(this.state.text); 
     console.log('You submitted: ', this.state.text);
+    navigate('Page');
   }
 
   render() {
-    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <Text>Enter a title</Text>
@@ -28,7 +32,7 @@ export default class ChooseTitle extends React.Component {
           clearButtonMode={'unless-editing'}
         />
         <Button
-          onPress={() => { navigate('Page')}}
+          onPress={this.handleSubmit}
           title="Submit"
           color="#000000"
         />
@@ -45,3 +49,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators({addTitle}, dispatch)
+}
+
+export default connect(null, matchDispatchToProps)(ChooseTitle);
