@@ -15,8 +15,7 @@ const fileController = require('./fileController');
 /*
  * /GET /:filename
  */
-router.get('/files/:filename', fileController.retrieveOne);
-
+router.get('/:filename', fileController.retrieveOne);
 
 /*
  * /POST /preferences
@@ -49,25 +48,6 @@ router.post('/generate', function(req, res) {
   allColors.forEach((color) => {
     heros.push(`.hero { background: ${color}; }`)
   });
-
-  // Read in template file
-  fse.copy(root + '/app/pages/templates/simple', root + '/app/pages/user-pages/01')
-    .then(() => {
-      // Write new 'hero' to header.css
-      const cssFile = root + '/app/pages/user-pages/01/css/header.css';
-      fs.appendFileAsync(cssFile, heros[0])
-        .then(() => {
-        })
-        .catch((err) => console.error(err));
-    })
-    .catch(err => console.error(err));
-
-
-  // Generate new custom templates
-    // Replace the template with 'skyblue'
-    // Replace the template with 'powderblue'
-    // Replace the template with 'green'
-    // Replace the template with 'olive'
 
 });
 
