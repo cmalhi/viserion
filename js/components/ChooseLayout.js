@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableHighlight } from 'react-native';
+import { Button, StyleSheet, Text, View, Image, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import { toggleLayout } from '../actions/index'
 
@@ -12,6 +12,7 @@ class ChooseLayout extends React.Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>        
         <Text>Choose a Layout!</Text>
@@ -32,6 +33,12 @@ class ChooseLayout extends React.Component {
             source={require('../../images/contact-template.png')}
           />
         </TouchableHighlight>
+
+        <Button
+          onPress={() => { navigate('Color')}}
+          title="Submit"
+          color="#000000"
+        />
 
       </View>
     );
