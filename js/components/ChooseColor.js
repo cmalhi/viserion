@@ -2,7 +2,7 @@ import React from 'react';
 import { Alert, AppRegistry, Button, ListView, Text, TouchableHighlight, View, StyleSheet } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { toggleColor } from '../actions/index'
+import { toggleColor } from '../actions/index';
 
 class ChooseColor extends React.Component {
   constructor(props) {
