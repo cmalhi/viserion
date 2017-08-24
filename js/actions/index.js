@@ -18,3 +18,4 @@ export function toggleColor(color) {
     payload: color
   }
 }
+
