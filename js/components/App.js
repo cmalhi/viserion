@@ -32,6 +32,7 @@ class HomeScreen extends React.Component {
         <Text onPress={() => { navigate('Template')}} style={styles.defaultText,styles.selectedText}>Step 1: Template</Text>
         <Text onPress={() => { navigate('Color')}} style={styles.defaultText,styles.selectedText}>Step 2: Color</Text>
         <Text onPress={() => { navigate('Title')}} style={styles.defaultText,styles.selectedText}>Step 3: Title</Text>
+        <Text onPress={() => { navigate('ConfirmSite')}} style={styles.defaultText,styles.selectedText}>Step 4: Confirm Selection</Text>
         <Text onPress={() => { navigate('Page')}} style={styles.defaultText,styles.selectedText}>Final Page</Text>
         <Text onPress={() => { navigate('Image')}} style={styles.defaultText,styles.selectedText}>(Optional) Add Image</Text>
       </View>
@@ -44,6 +45,7 @@ const AppNavigator = StackNavigator({
   Color: { screen: ChooseColor },
   Template: { screen: ChooseLayout },
   Title: { screen: ChooseTitle },
+  ConfirmSite: { screen: ConfirmSite},
   Page: { screen: PageScreen },
   Image: { screen: ImageUploader },
 });
