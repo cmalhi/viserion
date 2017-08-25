@@ -1,7 +1,8 @@
 import React from 'react'
 import {
   Text,
-  View
+  View,
+  WebView
 } from 'react-native'
 import Swiper from 'react-native-swiper'
 
@@ -39,21 +40,39 @@ var styles = {
   }
 }
 
+var source =  [{uri: 'http://google.com'},{uri: 'http://spotify.com'},{uri: 'http://nfl.com'},{uri: 'http://cnn.com'}];
+
 export default class ConfirmSite extends React.Component {
   render() {
     return (
       <Swiper style={styles.wrapper} showsButtons>
         <View style={styles.slide1}>
-          <Text style={styles.text}>Option 1</Text>
+          <WebView style={{padding: 20, width:400}}
+          automaticallyAdjustContentInsets={false}
+          scrollEnabled={true}
+          source={source[0]}>
+         </WebView>
         </View>
         <View style={styles.slide2}>
-          <Text style={styles.text}>Option 2</Text>
+          <WebView style={{padding: 20, width:400}}
+          automaticallyAdjustContentInsets={false}
+          scrollEnabled={true}
+          source={source[1]}>
+          </WebView>
         </View>
         <View style={styles.slide3}>
-          <Text style={styles.text}>Option 3</Text>
+          <WebView style={{padding: 20, width:400}}
+          automaticallyAdjustContentInsets={false}
+          scrollEnabled={false}
+          source={source[2]}>
+          </WebView>
         </View>
         <View style={styles.slide4}>
-          <Text style={styles.text}>Option 4</Text>
+         <WebView style={{padding: 20, width:400}}
+          automaticallyAdjustContentInsets={false}
+          scrollEnabled={false}
+          source={source[3]}>
+          </WebView>
         </View>
       </Swiper>
     )
