@@ -3,8 +3,6 @@ const db = require('../../config/database');
 const router = express.Router();
 const Page = require('../models/page');
 const User = require('../models/user');
-const path = require('path');
-const root = path.dirname(require.main.filename);
 const Promise = require("bluebird");
 const fse = require('fs-extra');
 const fs = require('fs');
@@ -15,7 +13,7 @@ const fileController = require('./fileController');
 /*
  * /GET /:filename
  */
-router.get('/:filename', fileController.retrieveOne);
+router.get('/files/:filename', fileController.retrieveOne);
 
 /*
  * /POST /preferences
@@ -38,17 +36,17 @@ router.post('/generate', function(req, res) {
   // Get user preferences
   const userPreferences = { layout: ['standard'], color: ['blue'], title: "Chetan's Milk Shop"};
 
-  // Query Page collections for matching pages
-  const pageResults = [ { id: 1, fileLocation: 'simple', keywords: ['standard'] } ];
+  const beg = '<!DOCTYPE html><html lang="en">';
+  const end = '</body></html>';
 
-  // Handle colors
-  const colorMapper = { 'blue': ['powderblue', 'steelblue'] };
-  const heros = [];
-  const allColors = colorMapper[userPreferences['color']];
+  // Get head, style, hero, body, footer
 
-  allColors.forEach((color) => {
-    heros.push(`.hero { background: ${color}; }`)
-  });
+  // Replace color in style
+  // Replace title in hero
+
+  // Concatenate them
+  // Save into User database
+  // Send the result
 
 });
 
