@@ -9,11 +9,24 @@ const fs = require('fs');
 Promise.promisifyAll(fs);
 const async = require('async');
 const fileController = require('./fileController');
+const File = require('../models/file');
+const UserTemplate = require('../models/userTemplate');
+const userTemplateController = require('./userTemplateController');
 
 /*
  * /GET /:filename
  */
 router.get('/files/:filename', fileController.retrieveOne);
+
+/*
+ *  Returns an array of template IDs URLs ['usertemplates/:id', ...] from userID
+ */
+router.get('/usertemplates/list', userTemplateController.retrieveTemplates);
+
+/*
+ * /GET /:templateid
+ */
+router.get('/usertemplates/:id', userTemplateController.retrieveOne);
 
 /*
  * /POST /preferences
@@ -39,15 +52,26 @@ router.post('/generate', function(req, res) {
   const beg = '<!DOCTYPE html><html lang="en">';
   const end = '</body></html>';
 
-  // Get head, style, hero, body, footer
+  const fileNames = ['head.html', 'style.html', 'hero.html', 'content.html', 'footer.html'];
 
-  // Replace color in style
-  // Replace title in hero
+  // Finds file names in file table and concatenates bodies of each file object
+  Promise.all(fileNames.map(file => File.find({name: file}).exec()))
+    .then(files => {
+      const page = files.reduce((acc, item) => {
+        return acc + item[0].body
+      }, '');
+      const customPage = page.replace('${BG-COLOR}', userPreferences.color).replace('${TITLE}', userPreferences.title);
+      const finalPage = beg + customPage + end;
 
-  // Concatenate them
-  // Save into User database
-  // Send the result
+      // TODO: update user id
+      UserTemplate.create({body: finalPage, userid: '1'})
+        .then(template => {
+          console.log(template);
+          res.send(finalPage);
+        })
+        .catch(err => console.log(err));
 
+    });
 });
 
 module.exports = router;
