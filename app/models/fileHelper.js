@@ -34,7 +34,7 @@ fs.readdirAsync(filesPath)
       })
       .catch(err => console.log(err))
   })
-  .catch(err => console.error('Err reading files ', err))
+  .catch(err => console.error('Err reading files ', err));
 
 
 
