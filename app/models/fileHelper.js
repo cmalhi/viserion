@@ -17,16 +17,13 @@ fs.readdirAsync(filesPath)
     Promise.all(filePromises)
       .then(fileBodies => {
         Promise.each(filenames, (file, i) => {
-          var fileDoc = {name: file, body: fileBodies[i].replace(/\s+/g, ' ').trim() };
-          console.log("file name and index:", file, i);
-
+          var fileDoc = {name: file, body: fileBodies[i] };
           File.findOneAndUpdate(
             { name: file },
             fileDoc,
             { upsert: true, new: true })
             .exec(function(err, file){
-              console.log('err', err)
-              console.log('file', file)
+              if (err) console.log('err', err);
             })
             .then(result => console.log('res', result))
             .catch(err => console.log(err))
