@@ -1,13 +1,12 @@
- export default function (state = {}, action) {
+ export default function (state = [], action) {
   switch (action.type) {
-    case 'TOGGLE_COLOR':
+    case 'ADD_COLORS':
       const color = action.payload;
-      var colorStatus = true;
-      if (state[color]){
-        colorStatus = false;
-      }
-      console.log('the status of ', color, 'is ', colorStatus);
-      return Object.assign({}, state, {[action.payload]: colorStatus})
+      console.log('the status of ', color);
+      return [
+        ...state,
+        color
+      ]
     default: 
       return state;
   }
