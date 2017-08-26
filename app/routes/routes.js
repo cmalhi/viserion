@@ -2,11 +2,10 @@ const express = require('express');
 const db = require('../../config/database');
 const router = express.Router();
 const Promise = require("bluebird");
-const fse = require('fs-extra');
 const fs = require('fs');
 Promise.promisifyAll(fs);
 const async = require('async');
-const Page = require('../models/page');
+const Screenshot = require('url-to-screenshot');
 const User = require('../models/user');
 const File = require('../models/file');
 const UserTemplate = require('../models/userTemplate');
@@ -40,6 +39,16 @@ router.post('/preferences', function(req, res) {
   });
 });
 
+
+/*
+ * /POST /submitchoice
+ * Grabs templateID, generates screenshot image, inserts screenshot image into userTemplates
+ */
+router.post('/submitchoice', function(req, res) {
+  const templateId = "59a198e9c687341065916399";
+
+});
+
 /*
  * /POST /generate
  * 1) Uses user preferences to pull relevant file components
@@ -56,18 +65,18 @@ router.post('/generate', function(req, res) {
 
   // Create templates for each combination or user selected style
   // Finds file names in file table and concatenates bodies of each file object
-  var fileComponents = {};
+  var components = {};
   var query = { keywords: ['basic'] };
   File.find(query).exec()
     .then(files => {
       files.map(file => {
         const section = file.section;
-        if (fileComponents[section]) {
-          fileComponents[section].push(file);
+        if (components[section]) {
+          components[section].push(file);
         } else {
-          fileComponents[section] = [file];
+          components[section] = [file];
         }
-        // fileComponents[section] = fileComponents[section] ? fileComponents[section].push(file) : [file]
+        // components[section] = components[section] ? components[section].push(file) : [file]
       });
 
       /*
@@ -90,13 +99,12 @@ router.post('/generate', function(req, res) {
         return combinations;
       };
 
-      const combinations = produceCombinations(fileComponents);
+      const combinations = produceCombinations(components);
 
       // Replace with user preferences: replace color and title for each template
       async.each(combinations, function(combination) {
         userPreferences.colors.forEach((color) => {
           let page = combination.replace('${BG-COLOR}', color).replace('${TITLE}', userPreferences.title);
-          console.log('newPage', page);
           page = beg + page + end;
 
           // Store combinations in DB
