@@ -76,13 +76,16 @@ router.post('/submitchoice', function(req, res) {
  * 4) Stores templates into userTemplates
  */
 router.post('/generate', function(req, res) {
-  // TODO: Get user preferences
-  const userPreferences = { layout: ['standard'], colors: ['blue', 'green'], title: "Chetan's Milk Shop"};
+  // Get user preferences
+
+  const userPreferences = { layouts: ['standard'], colors: ['blue', 'green'], title: "Chetan's Milk Shop"};
 
   const beg = '<!DOCTYPE html><html lang="en">';
   const end = '</body></html>';
 
   // Create templates for each combination or user selected style
+  const fileNames = ['head.html', 'style.html', 'hero.html', 'content.html', 'footer.html'];
+
   // Finds file names in file table and concatenates bodies of each file object
   var components = {};
   var query = { keywords: ['basic'] };
