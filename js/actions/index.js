@@ -16,9 +16,9 @@ export function addTitle(title) {
   }
 }
 
-export function toggleColor(color) {
+export function addColors(color) {
   return {
-    type: 'TOGGLE_COLOR',
+    type: 'ADD_COLORS',
     payload: color
   }
 }
