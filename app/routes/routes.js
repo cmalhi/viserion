@@ -58,9 +58,10 @@ router.post('/submitchoice', function(req, res) {
     .capture()
     .then(img => {
       // TODO: Store in S3
-      fs.writeFileSync(__dirname + '/example.png', img);
-      console.log(__dirname + '/example.png');
-      const screenshotUrl = __dirname + '/example.png';
+
+      const screenshotUrl = __dirname + '/../../js/components/example.png';
+      fs.writeFileSync(screenshotUrl, img);
+      console.log(screenshotUrl);
 
       userTemplateController.upsert({ _id: templateId }, { screenshot: screenshotUrl})
         .then(updatedDoc => console.log('new screenshotUrl: ' + updatedDoc.screenshot));
