@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
 });
 
 const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({addTitle, postPreferences}, dispatch)
+  return bindActionCreators({addSite, postPreferences}, dispatch)
 }
 
 export default connect(null, matchDispatchToProps)(ChooseTitle);

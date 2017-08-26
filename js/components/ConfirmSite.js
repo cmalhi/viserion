@@ -6,6 +6,9 @@ import {
   Button
 } from 'react-native'
 import Swiper from 'react-native-swiper'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { addSite } from '../actions/index';
 
 const styles = {
   wrapper: {},
@@ -33,7 +36,7 @@ class ConfirmSite extends React.Component {
   }
 
   handlePress(index){
-   
+    this.props.addSite(this.state.uris[index].uri);
     console.log('The URI clicked was',this.state.uris[index].uri);
   }
 
@@ -59,4 +62,8 @@ class ConfirmSite extends React.Component {
   }
 }
 
-export default ConfirmSite;
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators({addSite}, dispatch)
+}
+
+export default connect(null, matchDispatchToProps)(ConfirmSite);

@@ -16,6 +16,13 @@ export function addTitle(title) {
   }
 }
 
+export function addSite(site) {
+  return {
+    type: 'ADD_SITE',
+    payload: site
+  }  
+}
+
 export function addColors(color) {
   return {
     type: 'ADD_COLORS',
