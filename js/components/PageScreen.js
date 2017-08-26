@@ -8,7 +8,9 @@ export default class PageScreen extends React.Component {
 
   render() {
     return (
-      <WebView source={{uri:"http://localhost:8080/pages/templates/simple"}} />
+      <View>
+        <WebView source={{uri:"http://localhost:8080/pages/templates/simple"}} />
+      </View>
     )
   };
 }

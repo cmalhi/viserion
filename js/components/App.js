@@ -43,7 +43,7 @@ const AppNavigator = StackNavigator({
   Template: { screen: ChooseLayout },
   Title: { screen: ChooseTitle },
   Page: { screen: PageScreen },
-  Image: { screen: ImageUploader },
+  Image: { screen: ImageUploader }, 
 });
 
 const styles = StyleSheet.create({

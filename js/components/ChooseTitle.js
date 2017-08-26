@@ -26,6 +26,7 @@ export default class ChooseTitle extends React.Component {
           onChangeText={(text) => this.setState({text})}
           onSubmitEditing={this.handleSubmit}
           clearButtonMode={'unless-editing'}
+          keyboardType={"default"}
         />
         <Button
           onPress={() => { navigate('Page')}}

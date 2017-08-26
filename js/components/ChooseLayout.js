@@ -1,14 +1,11 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View, Image, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
-import { toggleLayout } from '../actions/index'
+import { toggleLayout } from '../actions/index';
 
 class ChooseLayout extends React.Component {
   constructor(props) {
-    super(props)
-    this.state= {
-      template: '',
-    }
+    super(props);
   }
 
   render() {
