@@ -9,6 +9,12 @@ To run React Native Expo: `npm start`
 
 To run server: `npm run server`
 
-You may need to: `brew install watchman`
+You may need to: 
+
+`brew install watchman`
+
+and 
+
+`npm install -g phantomjs`
 
 ## Notes ##

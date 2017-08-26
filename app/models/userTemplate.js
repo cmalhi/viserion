@@ -5,6 +5,7 @@ const userTemplateSchema = mongoose.Schema({
   name: String,
   body: String,
   userid: String,
+  screenshot: String,
   // userid: {type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });
 

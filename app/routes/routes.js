@@ -1,16 +1,15 @@
 const express = require('express');
 const db = require('../../config/database');
 const router = express.Router();
-const Page = require('../models/page');
-const User = require('../models/user');
 const Promise = require("bluebird");
-const fse = require('fs-extra');
 const fs = require('fs');
 Promise.promisifyAll(fs);
 const async = require('async');
-const fileController = require('./fileController');
+const Screenshot = require('url-to-screenshot');
+const User = require('../models/user');
 const File = require('../models/file');
 const UserTemplate = require('../models/userTemplate');
+const fileController = require('./fileController');
 const userTemplateController = require('./userTemplateController');
 
 /*
@@ -33,7 +32,6 @@ router.get('/usertemplates/:id', userTemplateController.retrieveOne);
  * Receives a JSON of type { layout: [], color: [], title: '' }
  */
 router.post('/preferences', function(req, res) {
-  console.log('post to preferences', req.body)
   var newUser = new User({ preferences: req.body });
   newUser.save(function(err, result) {
     if (err) return console.err('Err saving user: ', err);
@@ -41,76 +39,85 @@ router.post('/preferences', function(req, res) {
   });
 });
 
+
+/*
+ * /POST /submitchoice
+ * Grabs templateID, generates screenshot image, inserts screenshot image into userTemplates
+ */
+router.post('/submitchoice', function(req, res) {
+  const templateId = "59a198e9c687341065916399";
+
+});
+
 /*
  * /POST /generate
- * Queries current user preferences and generates a file based on that
+ * 1) Uses user preferences to pull relevant file components
+ * 2) Combines file components to create many different templates
+ * 3) Replaces strings in templates with user preferences (e.g. ${BG-COLOR})
+ * 4) Stores templates into userTemplates
  */
 router.post('/generate', function(req, res) {
-  // Get user preferences
+  // TODO: Get user preferences
   const userPreferences = { layout: ['standard'], colors: ['blue', 'green'], title: "Chetan's Milk Shop"};
 
   const beg = '<!DOCTYPE html><html lang="en">';
   const end = '</body></html>';
 
-  const fileNames = ['head.html', 'style.html', 'hero.html', 'content.html', 'footer.html'];
-
   // Create templates for each combination or user selected style
-
-  // Replace color and title for each template
-
   // Finds file names in file table and concatenates bodies of each file object
-  var fileComponents = {};
+  var components = {};
   var query = { keywords: ['basic'] };
-
   File.find(query).exec()
     .then(files => {
       files.map(file => {
         const section = file.section;
-        if (fileComponents[section]) {
-          fileComponents[section].push(file);
+        if (components[section]) {
+          components[section].push(file);
         } else {
-          fileComponents[section] = [file];
+          components[section] = [file];
         }
-        // fileComponents[section] = fileComponents[section] ? fileComponents[section].push(file) : [file]
-      })
+        // components[section] = components[section] ? components[section].push(file) : [file]
+      });
 
-      // Interate through fileComponenets 
-      // Produce combinations of components
+      /*
+       * produceCombinations: Produces combinations of components
+       * input: { 0: [File({body: 'a'}), File({body: 'b'})],
+       *          1: [File({body: 'c'})],
+       *          2: [File({body: 'd'})] }
+       * output: ['acd', 'bcd']
+       */
       var produceCombinations = (obj) => {
         var keys = Object.keys(obj);
         var combinations = [];
         function recur(currCombination, i) {
-          if (i === keys.length) return combinations.push(currCombination)
+          if (i === keys.length) return combinations.push(currCombination);
           for (var inner = 0; inner < obj[keys[i]].length; inner++) {
             recur(currCombination + obj[keys[i]][inner].body, i+1)
           }
         }
         recur('', 0);
         return combinations;
-      }
+      };
 
-      const combinations = produceCombinations(fileComponents);
+      const combinations = produceCombinations(components);
 
-      // Replace with user preferences
-        // Handle colors
-        // Insert title
+      // Replace with user preferences: replace color and title for each template
       async.each(combinations, function(combination) {
         userPreferences.colors.forEach((color) => {
           let page = combination.replace('${BG-COLOR}', color).replace('${TITLE}', userPreferences.title);
-          console.log('newPage', page);
           page = beg + page + end;
-          // customPages.push(beg + page + end);
+
           // Store combinations in DB
+          // TODO: update user id
           UserTemplate.create({body: page, userid: '1'})
             .then(template => {
-              console.log(template);
             })
             .catch(err => console.log(err));
-        })
+        });
         res.send('User pages generated');
       })
     });
-      // TODO: update user id
+
 });
 
 module.exports = router;

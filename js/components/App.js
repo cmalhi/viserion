@@ -12,6 +12,7 @@ import ChooseLayout from './ChooseLayout';
 import ConfirmSite from './ConfirmSite';
 import PageScreen from './PageScreen';
 import ImageUploader from './ImageUploader';
+import SavedPages from './SavedPages';
 
 const store = createStore(
   rootReducer,
@@ -35,6 +36,7 @@ class HomeScreen extends React.Component {
         <Text onPress={() => { navigate('ConfirmSite')}} style={styles.defaultText,styles.selectedText}>Step 4: Confirm Selection</Text>
         <Text onPress={() => { navigate('Page')}} style={styles.defaultText,styles.selectedText}>Final Page</Text>
         <Text onPress={() => { navigate('Image')}} style={styles.defaultText,styles.selectedText}>(Optional) Add Image</Text>
+        <Text onPress={() => { navigate('Saved')}} style={styles.defaultText,styles.selectedText}>Saved Pages</Text>
       </View>
     )
   }
@@ -47,7 +49,8 @@ const AppNavigator = StackNavigator({
   Title: { screen: ChooseTitle },
   ConfirmSite: { screen: ConfirmSite},
   Page: { screen: PageScreen },
-  Image: { screen: ImageUploader }, 
+  Image: { screen: ImageUploader },
+  Saved: { screen: SavedPages },
 });
 
 const styles = StyleSheet.create({
