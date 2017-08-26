@@ -32,6 +32,7 @@
     "node-sass": "^4.5.3",
     "npm": "^4.6.1",
     "path": "^0.12.7",
+    "phantomjs": "^2.1.7",
     "react": "16.0.0-alpha.12",
     "react-native": "^0.47.0",
     "react-native-color-picker": "^0.3.1",
@@ -39,6 +40,7 @@
     "react-navigation": "^1.0.0-beta.11",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "url-to-screenshot": "^1.0.1"
   }
 }
