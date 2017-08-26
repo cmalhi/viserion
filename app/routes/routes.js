@@ -1,16 +1,16 @@
 const express = require('express');
 const db = require('../../config/database');
 const router = express.Router();
-const Page = require('../models/page');
-const User = require('../models/user');
 const Promise = require("bluebird");
 const fse = require('fs-extra');
 const fs = require('fs');
 Promise.promisifyAll(fs);
 const async = require('async');
-const fileController = require('./fileController');
+const Page = require('../models/page');
+const User = require('../models/user');
 const File = require('../models/file');
 const UserTemplate = require('../models/userTemplate');
+const fileController = require('./fileController');
 const userTemplateController = require('./userTemplateController');
 
 /*
@@ -33,7 +33,6 @@ router.get('/usertemplates/:id', userTemplateController.retrieveOne);
  * Receives a JSON of type { layout: [], color: [], title: '' }
  */
 router.post('/preferences', function(req, res) {
-  console.log('post to preferences', req.body)
   var newUser = new User({ preferences: req.body });
   newUser.save(function(err, result) {
     if (err) return console.err('Err saving user: ', err);
@@ -43,7 +42,10 @@ router.post('/preferences', function(req, res) {
 
 /*
  * /POST /generate
- * Queries current user preferences and generates a file based on that
+ * 1) Uses user preferences to pull relevant file components
+ * 2) Combines file components to create many different templates
+ * 3) Replaces strings in templates with user preferences (e.g. ${BG-COLOR})
+ * 4) Stores templates into userTemplates
  */
 router.post('/generate', function(req, res) {
   // TODO: Get user preferences
