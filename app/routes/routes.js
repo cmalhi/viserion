@@ -22,6 +22,9 @@ router.get('/files/:filename', fileController.retrieveOne);
  */
 router.get('/usertemplates/list', userTemplateController.retrieveTemplates);
 
+
+router.get('/usertemplates/all', userTemplateController.retrieve);
+
 /*
  * /GET /:templateid
  */
@@ -45,10 +48,10 @@ router.post('/preferences', function(req, res) {
  * Grabs templateID, generates screenshot image, inserts screenshot image into userTemplates
  */
 router.post('/submitchoice', function(req, res) {
-  console.log('submitchoice')
-  const templateId = "59a198e9c687341065916399";
+  console.log('submitchoice');
+  const templateId = "59a19409bc1b89b728fe07cb";
 
-  new Screenshot('http://localhost:8080/usertemplates/59a198e9c68734106591639a')
+  new Screenshot('http://localhost:8080/usertemplates/' + templateId)
     .width(1080)
     .height(1920)
     .clip()
@@ -60,10 +63,8 @@ router.post('/submitchoice', function(req, res) {
       const screenshotUrl = __dirname + '/example.png';
 
       userTemplateController.upsert({ _id: templateId }, { screenshot: screenshotUrl})
-        .then(updatedDoc => console.log('res' + updatedDoc));
-
+        .then(updatedDoc => console.log('new screenshotUrl: ' + updatedDoc.screenshot));
     });
-
 });
 
 /*

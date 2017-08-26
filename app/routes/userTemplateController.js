@@ -3,8 +3,7 @@ const UserTemplate = require('../models/userTemplate');
 exports.retrieveOne = function(req, res) {
   const fileId = req.params.id;
   UserTemplate.findOne( { _id: fileId }, 'body', function(err, file) {
-    if (err) return res.status(500).send({ success: false, error: 'Error retrieving file' });
-    if (!file) return res.status(500).send({ success: false, error: 'Error retrieving file: ' + req.params.id });
+    if (err || !file) return res.status(500).send({ success: false, error: 'Error retrieving template with id ' + req.params.id });
     res.send(file['body']);
   })
 };
@@ -16,10 +15,18 @@ exports.retrieveTemplates = function(req, res) {
     .then(templates => {
       const templateIds = templates.map((template) => 'usertemplates/' + template._id);
       res.send(templateIds);
-    });
+    })
+    .catch(err => res.status(500).send({ success: false, error: 'Error retrieving template URLs ' + err}));
 };
 
-exports.upsertTemplate = function(query, updated) {
+exports.retrieve = function(req, res) {
+  return UserTemplate.find({})
+    .exec()
+    .then(usertemplates => res.send(usertemplates))
+    .catch(err => res.status(500).send({ success: false, error: 'Error retrieving all templates ' + err}));
+};
+
+exports.upsert = function(query, updated) {
   return UserTemplate.findOneAndUpdate(
     query,
     updated,
