@@ -8,6 +8,7 @@ class ChooseLayout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      // Stub layout data
       layouts: [
         { name: 'basic',
           uri: require('../../images/portfolio-template.jpg'),
