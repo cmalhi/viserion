@@ -19,7 +19,7 @@ class ChooseTitle extends React.Component {
     this.props.addTitle(this.state.text);
     this.props.postPreferences();
     console.log('You submitted: ', this.state.text);
-    navigate('ConfirmSite');
+    navigate('ConfirmSite');  
   }
 
   render() {

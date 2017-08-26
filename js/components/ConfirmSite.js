@@ -1,61 +1,62 @@
 import React from 'react'
 import {
   Text,
-  View
+  View,
+  WebView,
+  Button
 } from 'react-native'
 import Swiper from 'react-native-swiper'
 
-var styles = {
-  wrapper: {
-  },
-  slide1: {
+const styles = {
+  wrapper: {},
+  slides: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#22965A'
-  },
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#910F66'
-  },
-  slide3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#92BBD9'
-  },
-  slide4: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F4BBD4'
-  },
-  text: {
-    color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold'
+    backgroundColor: 'rgba(0,0,0,0)'
   }
 }
 
-export default class ConfirmSite extends React.Component {
+var source =  [{uri: 'http://google.com'},{uri: 'http://spotify.com'},{uri: 'http://nfl.com'},{uri: 'http://cnn.com'}];
+
+class ConfirmSite extends React.Component {
+  constructor(props){
+      super(props);
+      this.state = {
+        uris: []
+      }
+      this.handlePress = this.handlePress.bind(this);
+  }
+
+  componentDidMount(){
+    this.setState({uris: [...this.state.uris, ...source]},console.log('source',...source));
+  }
+
+  handlePress(index){
+   
+    console.log('The URI clicked was',this.state.uris[index].uri);
+  }
+
   render() {
+    var slides = [];
+    for(var u = 0; u < this.state.uris.length; u +=1) {
+      slides.push(<View key={u} style={styles.slides}>
+                    <WebView style={{padding: 20, width:400}}
+                    automaticallyAdjustContentInsets={false}
+                    scrollEnabled={true}
+                    source={this.state.uris[u]}>
+                    </WebView>
+                    <Button  title="Submit" onPress={this.handlePress.bind(this, u)} />
+                  </View>
+      )
+
+    }
     return (
       <Swiper style={styles.wrapper} showsButtons>
-        <View style={styles.slide1}>
-          <Text style={styles.text}>Option 1</Text>
-        </View>
-        <View style={styles.slide2}>
-          <Text style={styles.text}>Option 2</Text>
-        </View>
-        <View style={styles.slide3}>
-          <Text style={styles.text}>Option 3</Text>
-        </View>
-        <View style={styles.slide4}>
-          <Text style={styles.text}>Option 4</Text>
-        </View>
+        {slides} 
       </Swiper>
     )
   }
 }
+
+export default ConfirmSite;
