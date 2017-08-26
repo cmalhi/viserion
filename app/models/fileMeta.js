@@ -1,3 +1,4 @@
+// Map that contains the names of files, keywords, and section
 module.exports = {
   'head.html': {
     keywords: ['basic'],

@@ -64,7 +64,6 @@ router.post('/generate', function(req, res) {
 
   File.find(query).exec()
     .then(files => {
-      // console.log('ALL FILES: ',files);
       files.map(file => {
         const section = file.section;
         if (fileComponents[section]) {
@@ -80,12 +79,8 @@ router.post('/generate', function(req, res) {
       var produceCombinations = (obj) => {
         var keys = Object.keys(obj);
         var combinations = [];
-        // console.log(' file obj >>', obj);
         function recur(currCombination, i) {
-          // base case
           if (i === keys.length) return combinations.push(currCombination)
-          
-          // recursive case
           for (var inner = 0; inner < obj[keys[i]].length; inner++) {
             recur(currCombination + obj[keys[i]][inner].body, i+1)
           }
@@ -95,7 +90,7 @@ router.post('/generate', function(req, res) {
       }
 
       const combinations = produceCombinations(fileComponents);
-      // let customPages = [];
+
       // Replace with user preferences
         // Handle colors
         // Insert title
@@ -112,31 +107,10 @@ router.post('/generate', function(req, res) {
             })
             .catch(err => console.log(err));
         })
-        // console.log('customPages', customPages)
-        // cb();
         res.send('User pages generated');
       })
-      
-
-      // combinations.forEach((combination) => { 
-        
-      // })
-
-      
-
-      
-
-
-
     });
-
-      // const page = files.reduce((acc, item) => {
-      //   return acc + item[0].body
-      // }, '');
-
       // TODO: update user id
-
-
 });
 
 module.exports = router;
