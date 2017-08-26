@@ -45,7 +45,24 @@ router.post('/preferences', function(req, res) {
  * Grabs templateID, generates screenshot image, inserts screenshot image into userTemplates
  */
 router.post('/submitchoice', function(req, res) {
+  console.log('submitchoice')
   const templateId = "59a198e9c687341065916399";
+
+  new Screenshot('http://localhost:8080/usertemplates/59a198e9c68734106591639a')
+    .width(1080)
+    .height(1920)
+    .clip()
+    .capture()
+    .then(img => {
+      // TODO: Store in S3
+      fs.writeFileSync(__dirname + '/example.png', img);
+      console.log(__dirname + '/example.png');
+      const screenshotUrl = __dirname + '/example.png';
+
+      userTemplateController.upsert({ _id: templateId }, { screenshot: screenshotUrl})
+        .then(updatedDoc => console.log('res' + updatedDoc));
+
+    });
 
 });
 
