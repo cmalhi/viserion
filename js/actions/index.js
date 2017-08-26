@@ -47,8 +47,8 @@ export function postPreferences() {
     }, []);
 
     axios.post(`${ROOT_URL}/preferences`, {
-      layout: layout,
-      color: color,
+      layouts: layout,
+      colors: color,
       title: title,
     })
       .then(response => {
