@@ -4,6 +4,7 @@ const fileSchema = mongoose.Schema({
   id: mongoose.Schema.Types.ObjectId,
   name: String,
   body: String,
+  section: String,
   keywords: [String],
 });
 
