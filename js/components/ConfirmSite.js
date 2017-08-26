@@ -9,6 +9,7 @@ import Swiper from 'react-native-swiper'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addSite } from '../actions/index';
+import axios from 'axios';
 
 const styles = {
   wrapper: {},
@@ -16,23 +17,41 @@ const styles = {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0)'
+    backgroundColor: 'rgba(0,0,0,0)',
   }
 }
 
-var source =  [{uri: 'http://google.com'},{uri: 'http://spotify.com'},{uri: 'http://nfl.com'},{uri: 'http://cnn.com'}];
+var source =  [{uri: 'http://google.com'},{uri: "http://127.0.0.1:8080/usertemplates/59a19409bc1b89b728fe07cc"},{uri: 'http://nfl.com'},{uri: 'http://cnn.com'}];
 
 class ConfirmSite extends React.Component {
   constructor(props){
       super(props);
       this.state = {
-        uris: []
+          uris: [],
       }
       this.handlePress = this.handlePress.bind(this);
+      this.getURIs = this.getURIs.bind(this);
   }
 
   componentDidMount(){
-    this.setState({uris: [...this.state.uris, ...source]},console.log('source',...source));
+  //  this.setState({uris: [{uri: 'http://google.com'},{uri: "http://127.0.0.1:8080/usertemplates/59a19409bc1b89b728fe07cc"},{uri: 'http://nfl.com'},{uri: 'http://cnn.com'}]})
+  //  this.setState({uris: [{uri: "http://cnn.com"}]})
+  this.getURIs()
+  }
+
+ getURIs(){
+    axios.get('http://127.0.0.1:8080/usertemplates/list')
+    .then((response) => {
+      var result = response.data.map(function(val){
+        var site = 'http://127.0.0.1:8080/' + val;
+        return {uri: site}
+      });
+      console.log("rsult", result)
+      this.setState({uris: [...result]}, console.log('results from getURIs ', this.state.uris))
+      //cb(source)
+    }).catch(function(err){
+      console.log('There was an error(msg):',err);
+    })  
   }
 
   handlePress(index){
@@ -41,25 +60,30 @@ class ConfirmSite extends React.Component {
   }
 
   render() {
-    var slides = [];
-    for(var u = 0; u < this.state.uris.length; u +=1) {
-      slides.push(<View key={u} style={styles.slides}>
-                    <WebView style={{padding: 20, width:400}}
-                    automaticallyAdjustContentInsets={false}
-                    scrollEnabled={true}
-                    source={this.state.uris[u]}>
-                    </WebView>
-                    <Button  title="Submit" onPress={this.handlePress.bind(this, u)} />
-                  </View>
-      )
-
+    if(this.state.uris.length){
+      var slides = [];
+      for(var u = 0; u < this.state.uris.length; u +=1) {
+        slides.push(
+          <View key={u} style={styles.slides}>
+            <WebView style={{padding: 10, width:360 }}
+              automaticallyAdjustContentInsets={false}
+              scrollEnabled={true}
+              scalesPageToFit={true}
+              source={this.state.uris[u]}>
+            </WebView>
+            <Button title={'Submit'} onPress={this.handlePress.bind(this, u)} />
+          </View>
+        )
+      }
+      return (
+        <Swiper style={styles.wrapper} showsButtons>
+          {slides} 
+        </Swiper>
+      ) 
+    } else {
+      return(<Text>LOADING...</Text>)
     }
-    return (
-      <Swiper style={styles.wrapper} showsButtons>
-        {slides} 
-      </Swiper>
-    )
-  }
+  }  
 }
 
 const matchDispatchToProps = (dispatch) => {
