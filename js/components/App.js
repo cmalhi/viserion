@@ -11,7 +11,6 @@ import ChooseTitle from './ChooseTitle';
 import ChooseLayout from './ChooseLayout';
 import ChooseKeywords from './ChooseKeywords';
 import ConfirmSite from './ConfirmSite';
-import PageScreen from './PageScreen';
 import ImageUploader from './ImageUploader';
 import SavedPages from './SavedPages';
 import SharedScreen from './ShareScreen';
@@ -26,9 +25,7 @@ const store = createStore(
 
 class HomeScreen extends React.Component {
   render() {
-    console.log('this.props', this.props);
     const { navigate } = this.props.navigation;
-    // console.log('navigate', navigate);
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Create a page</Text>
@@ -36,7 +33,7 @@ class HomeScreen extends React.Component {
         <Text onPress={() => { navigate('Color')}} style={styles.defaultText,styles.selectedText}>Step 2: Color</Text>
         <Text onPress={() => { navigate('Keywords')}} style={styles.defaultText,styles.selectedText}>Step 3: Keywords</Text>
         <Text onPress={() => { navigate('Title')}} style={styles.defaultText,styles.selectedText}>Step 4: Title</Text>
-        <Text onPress={() => { navigate('ConfirmSite')}} style={styles.defaultText,styles.selectedText}>Step 5: Confirm Selection</Text>
+        <Text onPress={() => { navigate('ConfirmSite')}} style={styles.defaultText,styles.selectedText}>Step 5: Choose a page</Text>
         <Text onPress={() =>{ navigate('ShareScreen')}} style={styles.defaultText,styles.selectedText}>Step 6: Share Link </Text>
         <Text onPress={() => { navigate('Image')}} style={styles.defaultText,styles.selectedText}>(Optional) Add Image</Text>
         <Text onPress={() => { navigate('Saved')}} style={styles.defaultText,styles.selectedText}>Saved Pages</Text>

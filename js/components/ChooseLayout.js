@@ -26,9 +26,9 @@ class ChooseLayout extends React.Component {
   }
 
   renderLayoutChoices() {
-    return this.state.layouts.map(layout => {
+    return this.state.layouts.map((layout, index) => {
       return ( 
-        <TouchableHighlight style={this.props.layouts[layout.name] && styles.selected} onPress={this.props.toggleLayout.bind(this, layout.name)}>
+        <TouchableHighlight key={index} style={this.props.layouts[layout.name] && styles.selected} onPress={this.props.toggleLayout.bind(this, layout.name)}>
           <Image
             style={styles.template}
             source={layout.uri}/>

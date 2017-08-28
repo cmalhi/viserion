@@ -35,9 +35,9 @@ class ChooseKeywords extends React.Component {
   }
 
   renderKeywordChoices() {
-    return this.state.keywords.map(keyword => {
+    return this.state.keywords.map((keyword, index) => {
       return ( 
-        <TouchableHighlight style={[styles.keyword, this.state.selectedKeywords[keyword] && styles.selected]} onPress={this.handleKeywordPress.bind(this, keyword)} >
+        <TouchableHighlight key={index} style={[styles.keyword, this.state.selectedKeywords[keyword] && styles.selected]} onPress={this.handleKeywordPress.bind(this, keyword)} >
           <Text style={styles.keywordText} >{keyword}</Text>
         </TouchableHighlight > 
       );
