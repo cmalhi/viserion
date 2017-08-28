@@ -6,6 +6,7 @@ const fileSchema = mongoose.Schema({
   body: String,
   section: String,
   keywords: [String],
+  layouts: [String],
 });
 
 module.exports = mongoose.model('File', fileSchema);

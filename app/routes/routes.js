@@ -76,7 +76,7 @@ router.post('/submitchoice', function(req, res) {
  */
 router.post('/generate', function(req, res) {
   // TODO: Get user preferences
-  // const userPreferences = { layout: ['standard'], colors: ['blue', 'green'], title: "Chetan's Milk Shop"};
+  // const userPreferences = { layouts: ['grid'], colors: ['blue', 'green'], title: "Chetan's Milk Shop", keywords: ['cooking']};
 
   const userPreferences = req.body;
   console.log('userPreferences in generate', req.body, userPreferences);
@@ -87,7 +87,17 @@ router.post('/generate', function(req, res) {
   // Create templates for each combination or user selected style
   // Finds file names in file table and concatenates bodies of each file object
   var components = {};
-  var query = { keywords: ['basic'] };
+  var queryTerms = [{layouts: 'base'}];
+
+  userPreferences.layouts.forEach(layout=> {
+    queryTerms.push({layouts: layout});
+  });
+
+  userPreferences.keywords.forEach(keyword => {
+    queryTerms.push({keywords: keyword});
+  });
+
+  var query = { $or: queryTerms };
   File.find(query).exec()
     .then(files => {
       files.map(file => {

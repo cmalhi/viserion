@@ -10,10 +10,10 @@ class ChooseLayout extends React.Component {
     this.state = {
       // Stub layout data
       layouts: [
-        { name: 'basic',
+        { name: 'grid',
           uri: require('../../images/portfolio-template.jpg'),
         },
-        { name: 'grid',
+        { name: 'basic',
           uri: require('../../images/spotify-template.png'),
         },
         { name: 'contact',
