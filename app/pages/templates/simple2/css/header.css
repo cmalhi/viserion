@@ -2,9 +2,9 @@
     #Header
 ---------------*/
 
-/*.hero {*/
-    /*background: #eee;*/
-/*}*/
+.hero {
+    background: #eee;
+}
 
 .site-title {
     margin: 0 0 1em;
