@@ -25,7 +25,7 @@ module.exports = {
     section: '2'
   },
   'content-grid.html': {
-    keywords: [],
+    keywords: ['grid'],
     section: '2'
   }
 };
