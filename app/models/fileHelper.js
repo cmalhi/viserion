@@ -12,14 +12,15 @@ const filesPath = __dirname + '/../pages/files';
 fs.readdirAsync(filesPath)
   .then((files) => {
     // Get file names
+    console.log('Files in file helper', files);
     return { filenames: files, filePromises: files.map((file) => fs.readFileAsync(filesPath + '/' + file, 'utf8')) };
   })
   .then(({ filenames, filePromises }) => {
     Promise.all(filePromises)
       .then(fileBodies => {
         Promise.each(filenames, (file, i) => {
-          const { section, keywords } = fileMeta[file];
-          var fileDoc = {name: file, body: fileBodies[i], section, keywords };
+          const { section, keywords, layouts } = fileMeta[file];
+          var fileDoc = {name: file, body: fileBodies[i], section, keywords, layouts };
           File.findOneAndUpdate(
             { name: file },
             fileDoc,

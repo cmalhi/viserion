@@ -1,31 +1,38 @@
 // Map that contains the names of files, keywords, and section
 module.exports = {
   'head.html': {
-    keywords: ['basic'],
+    layouts: ['base'],
+    keywords: [''],
     section: '0'
   },
   'style.html': {
-    keywords: ['basic'],
+    layouts: ['base'],
+    keywords: [''],
     section: '1'
   },
   'hero.html': {
-    keywords: ['basic'],
+    layouts: ['base'],
+    keywords: [''],
     section: '2'
   },
   'content.html': {
-    keywords: ['basic'],
+    layouts: ['basic'],
+    keywords: [''],
     section: '3'
   },
   'footer.html': {
-    keywords: ['basic'],
+    layouts: ['base'],
+    keywords: [''],
     section: '4'
   },
   'image-caption.html': {
-    keywords: [],
-    section: '2'
+    layouts: ['contact'],
+    keywords: [''],
+    section: '3'
   },
   'content-grid.html': {
-    keywords: ['grid'],
-    section: '2'
+    layouts: ['grid'],
+    keywords: [''],
+    section: '3'
   }
 };
