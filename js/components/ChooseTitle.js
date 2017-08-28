@@ -17,9 +17,11 @@ class ChooseTitle extends React.Component {
   handleSubmit() {
     const { navigate } = this.props.navigation; 
     this.props.addTitle(this.state.text);
-    this.props.postPreferences();
+
+    // Only navigate to ConfirmSite when all
+    this.props.postPreferences(() => navigate('ConfirmSite') );
     console.log('You submitted: ', this.state.text);
-    navigate('ConfirmSite');  
+    // navigate('ConfirmSite');  
   }
 
   render() {

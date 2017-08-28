@@ -4,7 +4,6 @@ const router = express.Router();
 const Promise = require("bluebird");
 const fs = require('fs');
 Promise.promisifyAll(fs);
-const async = require('async');
 const Screenshot = require('url-to-screenshot');
 const User = require('../models/user');
 const File = require('../models/file');
@@ -122,28 +121,33 @@ router.post('/generate', function(req, res) {
       };
 
       const combinations = produceCombinations(components);
+      let templatePromises = [];
 
       // Replace with user preferences: replace color and title for each template
-      async.each(combinations, function(combination) {
+      combinations.forEach((combination) => {
         userPreferences.colors.forEach((color) => {
           let page = combination.replace('${BG-COLOR}', color).replace('${TITLE}', userPreferences.title);
           page = beg + page + end;
 
           // Store combinations in DB
           // TODO: update user id
-          UserTemplate.create({body: page, userid: '1'})
+          templatePromises.push(
+            UserTemplate.create({body: page, userid: '1'})
             .then(template => {
+              return template;
             })
-            .catch(err => console.log(err));
+            .catch(err => console.log(err))
+          )
         });
-      }, (err, results) => {
-        if (err) { 
-          console.log(err);
-        } else {
-          console.log('results rom async', results);
+      })
+
+      // Resolve promise additions to usertemplates collection
+      Promise.all(templatePromises)
+        .then(templates => {
           res.send('User pages generated');
-        }
-      });
+        })
+        .catch(err => console.log(err));
+
     });
 
 });

@@ -64,12 +64,13 @@ class ChooseKeywords extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 30,
+    flexDirection: 'column',
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
   },
   title: {
+    marginTop: 50,
     fontSize: 20,
   },
   keyword: {
