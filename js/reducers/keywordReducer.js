@@ -1,8 +1,8 @@
  export default function (state = [], action) {
   switch (action.type) {
-    case 'ADD_COLORS':
-      const color = action.payload;
-      return color;
+    case 'ADD_KEYWORDS':
+      const keywords = action.payload;
+      return keywords;
     default: 
       return state;
   }

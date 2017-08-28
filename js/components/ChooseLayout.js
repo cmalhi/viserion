@@ -2,41 +2,56 @@ import React from 'react';
 import { Button, StyleSheet, Text, View, Image, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import { toggleLayout } from '../actions/index';
+// import { default as test } from '../../images/portfolio-template.jpg';
 
 class ChooseLayout extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      // Stub layout data
+      layouts: [
+        { name: 'basic',
+          uri: require('../../images/portfolio-template.jpg'),
+        },
+        { name: 'grid',
+          uri: require('../../images/spotify-template.png'),
+        },
+        { name: 'contact',
+          uri: require('../../images/contact-template.png'),
+        },
+      ],
+    }
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.renderLayoutChoices = this.renderLayoutChoices.bind(this);
+  }
+
+  renderLayoutChoices() {
+    return this.state.layouts.map(layout => {
+      return ( 
+        <TouchableHighlight style={this.props.layouts[layout.name] && styles.selected} onPress={this.props.toggleLayout.bind(this, layout.name)}>
+          <Image
+            style={styles.template}
+            source={layout.uri}/>
+        </TouchableHighlight > 
+      )
+    })
+  }
+
+  handleSubmit() {
+    const { navigate } = this.props.navigation;
+    navigate('Color');
   }
 
   render() {
-    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>        
         <Text>Choose a Layout!</Text>
-        <TouchableHighlight style={this.props.layouts[1] && styles.selected} onPress={this.props.toggleLayout.bind(this, '1')}>
-          <Image
-            style={styles.template}
-            source={require('../../images/portfolio-template.jpg')}/>
-        </TouchableHighlight >
-        <TouchableHighlight style={this.props.layouts[2] && styles.selected} onPress={this.props.toggleLayout.bind(this, '2')}>
-          <Image
-            style={styles.template}
-            source={require('../../images/spotify-template.png')}
-          />
-        </TouchableHighlight>
-        <TouchableHighlight style={this.props.layouts[3] && styles.selected} onPress={this.props.toggleLayout.bind(this, '3')}>
-          <Image
-            style={styles.template}
-            source={require('../../images/contact-template.png')}
-          />
-        </TouchableHighlight>
-
+        { this.renderLayoutChoices() }
         <Button
-          onPress={() => { navigate('Color')}}
+          onPress={this.handleSubmit}
           title="Submit"
           color="#000000"
         />
-
       </View>
     );
   }

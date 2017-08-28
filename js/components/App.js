@@ -9,6 +9,7 @@ import rootReducer from '../reducers/index';
 import ChooseColor from './ChooseColor';
 import ChooseTitle from './ChooseTitle';
 import ChooseLayout from './ChooseLayout';
+import ChooseKeywords from './ChooseKeywords';
 import ConfirmSite from './ConfirmSite';
 import PageScreen from './PageScreen';
 import ImageUploader from './ImageUploader';
@@ -32,8 +33,9 @@ class HomeScreen extends React.Component {
         <Text style={styles.title}>Create a page</Text>
         <Text onPress={() => { navigate('Template')}} style={styles.defaultText,styles.selectedText}>Step 1: Template</Text>
         <Text onPress={() => { navigate('Color')}} style={styles.defaultText,styles.selectedText}>Step 2: Color</Text>
-        <Text onPress={() => { navigate('Title')}} style={styles.defaultText,styles.selectedText}>Step 3: Title</Text>
-        <Text onPress={() => { navigate('ConfirmSite')}} style={styles.defaultText,styles.selectedText}>Step 4: Confirm Selection</Text>
+        <Text onPress={() => { navigate('Keywords')}} style={styles.defaultText,styles.selectedText}>Step 3: Keywords</Text>
+        <Text onPress={() => { navigate('Title')}} style={styles.defaultText,styles.selectedText}>Step 4: Title</Text>
+        <Text onPress={() => { navigate('ConfirmSite')}} style={styles.defaultText,styles.selectedText}>Step 5: Confirm Selection</Text>
         <Text onPress={() => { navigate('Page')}} style={styles.defaultText,styles.selectedText}>Final Page</Text>
         <Text onPress={() => { navigate('Image')}} style={styles.defaultText,styles.selectedText}>(Optional) Add Image</Text>
         <Text onPress={() => { navigate('Saved')}} style={styles.defaultText,styles.selectedText}>Saved Pages</Text>
@@ -47,6 +49,7 @@ const AppNavigator = StackNavigator({
   Color: { screen: ChooseColor },
   Template: { screen: ChooseLayout },
   Title: { screen: ChooseTitle },
+  Keywords: { screen: ChooseKeywords },
   ConfirmSite: { screen: ConfirmSite},
   Page: { screen: PageScreen },
   Image: { screen: ImageUploader },

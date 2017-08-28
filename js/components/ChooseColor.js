@@ -11,7 +11,7 @@ class ChooseColor extends React.Component {
     this.state = {
       color: '#FF0000',
       count: 0,
-      chosenColors: ['#222', '#222','#222'],
+      chosenColors: ['#F00', '#0F0','#00F'],
       color1: '#F00',
       color2: '#0F0',
       color3: '#00F',
@@ -35,17 +35,21 @@ class ChooseColor extends React.Component {
     this.setState({currentColor: color}, ()=>{console.log('current color is ', this.state.currentColor)})
     if (this.state.currentTab === 1){
       this.setState({color1: this.state.currentColor})
+      this.setState({chosenColors: [this.state.color1, this.state.color2, this.state.color3]})
     } else if (this.state.currentTab === 2) {
       this.setState({color2: this.state.currentColor})
+      this.setState({chosenColors: [this.state.color1, this.state.color2, this.state.color3]})
     } else if (this.state.currentTab === 3){
       this.setState({color3: this.state.currentColor})
+      this.setState({chosenColors: [this.state.color1, this.state.color2, this.state.color3]})
     }
   }
 
   submitColor() {
     const { navigate } = this.props.navigation;
     this.props.addColors(this.state.chosenColors);
-    navigate('Title')
+    console.log('chosen colors', this.state.chosenColors);
+    navigate('Keywords')
   }
 
   setCurrentTab() {
