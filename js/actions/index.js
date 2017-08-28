@@ -30,29 +30,44 @@ export function addColors(color) {
   }
 }
 
-export function postPreferences() {
+export function addKeywords(keywords) {
+  return {
+    type: 'ADD_KEYWORDS',
+    payload: keywords
+  }
+}
+
+export function postPreferences(navigateToNext) {
   return (dispatch, getState) => {
-    const { layouts, colors, title } = getState();
+    const { layouts, colors, title, keywords } = getState();
 
     //  Collect layouts that from global state that are true
-    const layout = _.reduce(layouts, (result, layoutStatus, layoutId) => {
+    const layoutsArr = _.reduce(layouts, (result, layoutStatus, layoutId) => {
       if (layoutStatus === true ) result.push(layoutId);
       return result;
     }, []);
 
-    // Collect colors from global state that are true
-    const color = _.reduce(colors, (result, colorStatus, color) => {
-      if (colorStatus === true ) result.push(color);
-      return result;
-    }, []);
-
-    axios.post(`${ROOT_URL}/preferences`, {
-      layouts: layout,
-      colors: color,
+    // Preferences posted to generate templates
+    axios.post(`${ROOT_URL}/generate`, {
+      layouts: layoutsArr,
+      colors: colors,
       title: title,
+      keywords: keywords,
     })
       .then(response => {
-      console.log('axios posted', response.data);
+        console.log('axios posted to generate templates ', response.data);
+        navigateToNext();
+    })
+      .catch(err => console.log(err));
+
+    // Preferences are stored in user table
+    axios.post(`${ROOT_URL}/preferences`, {
+      layouts: layoutsArr,
+      colors: colors,
+      title: title,
+      keywords: keywords,
+    })
+      .then(response => {
       dispatch({
         type: 'POST_PREFERENCES',
         payload: response,

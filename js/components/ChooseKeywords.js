@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
-import { toggleLayout } from '../actions/index';
+import _ from 'lodash';
+import { addKeywords } from '../actions/index';
 
 class ChooseKeywords extends React.Component {
   constructor(props) {
@@ -15,31 +16,38 @@ class ChooseKeywords extends React.Component {
     this.renderKeywordChoices = this.renderKeywordChoices.bind(this);
   }
 
+  handleKeywordPress(keyword) {
+    const selected = this.state.selectedKeywords[keyword] ? false : true;
+    const newSelectedKeywords = Object.assign({}, this.state.selectedKeywords, {[keyword]: selected});
+    this.setState({selectedKeywords: newSelectedKeywords }, () => console.log('keyword has been pressed', this.state.selectedKeywords) );
+  }
+
+  handleSubmit() {
+    const { navigate } = this.props.navigation;
+    navigate('Title');
+
+    const keywords = _.reduce(this.state.selectedKeywords, (result, selectedStatus, keyword) => {
+      if (selectedStatus === true ) result.push(keyword);
+      return result;
+    }, []);
+
+    this.props.addKeywords(keywords);
+  }
+
   renderKeywordChoices() {
     return this.state.keywords.map(keyword => {
       return ( 
-        <TouchableHighlight style={this.state.selectedKeywords[keyword.name] && styles.selected, styles.keyword} onPress={(keyword) => this.handleKeywordPress(keyword)}>
+        <TouchableHighlight style={[styles.keyword, this.state.selectedKeywords[keyword] && styles.selected]} onPress={this.handleKeywordPress.bind(this, keyword)} >
           <Text style={styles.keywordText} >{keyword}</Text>
         </TouchableHighlight > 
       );
     });
   }
 
-  handleKeywordPress(keyword) {
-    const selected = this.state.selectedKeywords[keyword] ? false : true;
-    this.setState(...this.state.selectedKeywords, {keyword: selected});
-    console.log(keyword, 'has been pressed');
-  }
-
-  handleSubmit() {
-    const { navigate } = this.props.navigation;
-    navigate('ConfirmSite');
-  }
-
   render() {
     return (
       <View style={styles.container}>
-        <Text>Choose Some Keywords!</Text>
+        <Text style={styles.title}>Choose Some Keywords!</Text>
         <View style={styles.keywordsContainer}>        
           { this.renderKeywordChoices() }
         </View>
@@ -58,12 +66,11 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 30,
     backgroundColor: '#fff',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     alignItems: 'center',
   },
-  selected: {
-    opacity: 0.5,
-    backgroundColor: '#000'
+  title: {
+    fontSize: 20,
   },
   keyword: {
     backgroundColor: '#2E9D88',
@@ -79,6 +86,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
+  selected: {
+    opacity: 0.7,
+    backgroundColor: '#15433A',
+  },
   keywordText: {
     fontSize: 20,
     color: '#fff',
@@ -86,4 +97,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default connect(null, {  })(ChooseKeywords);
+export default connect(null, { addKeywords })(ChooseKeywords);

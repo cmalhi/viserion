@@ -33,8 +33,8 @@ class HomeScreen extends React.Component {
         <Text style={styles.title}>Create a page</Text>
         <Text onPress={() => { navigate('Template')}} style={styles.defaultText,styles.selectedText}>Step 1: Template</Text>
         <Text onPress={() => { navigate('Color')}} style={styles.defaultText,styles.selectedText}>Step 2: Color</Text>
-        <Text onPress={() => { navigate('Title')}} style={styles.defaultText,styles.selectedText}>Step 3: Title</Text>
-        <Text onPress={() => { navigate('Keywords')}} style={styles.defaultText,styles.selectedText}>Step 4: Keywords</Text>
+        <Text onPress={() => { navigate('Keywords')}} style={styles.defaultText,styles.selectedText}>Step 3: Keywords</Text>
+        <Text onPress={() => { navigate('Title')}} style={styles.defaultText,styles.selectedText}>Step 4: Title</Text>
         <Text onPress={() => { navigate('ConfirmSite')}} style={styles.defaultText,styles.selectedText}>Step 5: Confirm Selection</Text>
         <Text onPress={() => { navigate('Page')}} style={styles.defaultText,styles.selectedText}>Final Page</Text>
         <Text onPress={() => { navigate('Image')}} style={styles.defaultText,styles.selectedText}>(Optional) Add Image</Text>

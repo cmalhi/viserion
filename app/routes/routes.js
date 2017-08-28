@@ -76,16 +76,16 @@ router.post('/submitchoice', function(req, res) {
  * 4) Stores templates into userTemplates
  */
 router.post('/generate', function(req, res) {
-  // Get user preferences
+  // TODO: Get user preferences
+  // const userPreferences = { layout: ['standard'], colors: ['blue', 'green'], title: "Chetan's Milk Shop"};
 
-  const userPreferences = { layouts: ['standard'], colors: ['blue', 'green'], title: "Chetan's Milk Shop"};
+  const userPreferences = req.body;
+  console.log('userPreferences in generate', req.body, userPreferences);
 
   const beg = '<!DOCTYPE html><html lang="en">';
   const end = '</body></html>';
 
   // Create templates for each combination or user selected style
-  const fileNames = ['head.html', 'style.html', 'hero.html', 'content.html', 'footer.html'];
-
   // Finds file names in file table and concatenates bodies of each file object
   var components = {};
   var query = { keywords: ['basic'] };
@@ -136,8 +136,14 @@ router.post('/generate', function(req, res) {
             })
             .catch(err => console.log(err));
         });
-        res.send('User pages generated');
-      })
+      }, (err, results) => {
+        if (err) { 
+          console.log(err);
+        } else {
+          console.log('results rom async', results);
+          res.send('User pages generated');
+        }
+      });
     });
 
 });
