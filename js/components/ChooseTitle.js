@@ -18,7 +18,7 @@ class ChooseTitle extends React.Component {
     const { navigate } = this.props.navigation; 
     this.props.addTitle(this.state.text);
 
-    // Only navigate to ConfirmSite when all
+    // Only navigate to ConfirmSite when all templates added
     this.props.postPreferences(() => navigate('ConfirmSite') );
     console.log('You submitted: ', this.state.text);
     // navigate('ConfirmSite');  
