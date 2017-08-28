@@ -55,8 +55,10 @@ class ConfirmSite extends React.Component {
   }
 
   handlePress(index){
+    const { navigate } = this.props.navigation; 
     this.props.addSite(this.state.uris[index].uri);
     console.log('The URI clicked was',this.state.uris[index].uri);
+    navigate('ShareScreen');   
   }
 
   render() {

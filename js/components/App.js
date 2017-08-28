@@ -13,6 +13,7 @@ import ConfirmSite from './ConfirmSite';
 import PageScreen from './PageScreen';
 import ImageUploader from './ImageUploader';
 import SavedPages from './SavedPages';
+import SharedScreen from './ShareScreen';
 
 const store = createStore(
   rootReducer,
@@ -34,7 +35,7 @@ class HomeScreen extends React.Component {
         <Text onPress={() => { navigate('Color')}} style={styles.defaultText,styles.selectedText}>Step 2: Color</Text>
         <Text onPress={() => { navigate('Title')}} style={styles.defaultText,styles.selectedText}>Step 3: Title</Text>
         <Text onPress={() => { navigate('ConfirmSite')}} style={styles.defaultText,styles.selectedText}>Step 4: Confirm Selection</Text>
-        <Text onPress={() => { navigate('Page')}} style={styles.defaultText,styles.selectedText}>Final Page</Text>
+        <Text onPress={() =>{ navigate('ShareScreen')}} style={styles.defaultText,styles.selectedText}>Step 5: Share Link </Text>
         <Text onPress={() => { navigate('Image')}} style={styles.defaultText,styles.selectedText}>(Optional) Add Image</Text>
         <Text onPress={() => { navigate('Saved')}} style={styles.defaultText,styles.selectedText}>Saved Pages</Text>
       </View>
@@ -47,7 +48,8 @@ const AppNavigator = StackNavigator({
   Color: { screen: ChooseColor },
   Template: { screen: ChooseLayout },
   Title: { screen: ChooseTitle },
-  ConfirmSite: { screen: ConfirmSite},
+  ConfirmSite: { screen: ConfirmSite },
+  ShareScreen: { screen: SharedScreen },
   Page: { screen: PageScreen },
   Image: { screen: ImageUploader },
   Saved: { screen: SavedPages },
