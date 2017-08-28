@@ -20,4 +20,12 @@ module.exports = {
     keywords: ['basic'],
     section: '4'
   },
-}
+  'image-caption.html': {
+    keywords: [],
+    section: '2'
+  },
+  'content-grid.html': {
+    keywords: [],
+    section: '2'
+  }
+};
