@@ -67,7 +67,7 @@ class ConfirmSite extends React.Component {
       for(var u = 0; u < this.state.uris.length; u +=1) {
         slides.push(
           <View key={u} style={styles.slides}>
-            <WebView style={{padding: 10, width:360 }}
+            <WebView style={{padding: 10, width:320 }}
               automaticallyAdjustContentInsets={false}
               scrollEnabled={true}
               scalesPageToFit={true}

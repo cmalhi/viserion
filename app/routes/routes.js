@@ -110,26 +110,6 @@ router.post('/generate', function(req, res) {
         // components[section] = components[section] ? components[section].push(file) : [file]
       });
 
-      /*
-       * produceCombinations: Produces combinations of components
-       * input: { 0: [File({body: 'a'}), File({body: 'b'})],
-       *          1: [File({body: 'c'})],
-       *          2: [File({body: 'd'})] }
-       * output: ['acd', 'bcd']
-       */
-      var produceCombinations = (obj) => {
-        var keys = Object.keys(obj);
-        var combinations = [];
-        function recur(currCombination, i) {
-          if (i === keys.length) return combinations.push(currCombination);
-          for (var inner = 0; inner < obj[keys[i]].length; inner++) {
-            recur(currCombination + obj[keys[i]][inner].body, i+1)
-          }
-        }
-        recur('', 0);
-        return combinations;
-      };
-
       const combinations = produceCombinations(components);
       let templatePromises = [];
 
@@ -149,7 +129,9 @@ router.post('/generate', function(req, res) {
             .catch(err => console.log(err))
           )
         });
-      })
+      });
+
+      refreshUserTemplates();
 
       // Resolve promise additions to usertemplates collection
       Promise.all(templatePromises)
@@ -161,5 +143,39 @@ router.post('/generate', function(req, res) {
     });
 
 });
+
+
+/*
+ * Removes user's old templates
+ */
+var refreshUserTemplates = () => {
+  // TODO: add user ID
+  UserTemplate
+    .remove({})
+    .exec()
+    .then(data => {
+      return "Old templates successfully deleted";
+    })
+};
+
+/*
+ * produceCombinations: Produces combinations of components
+ * input: { 0: [File({body: 'a'}), File({body: 'b'})],
+ *          1: [File({body: 'c'})],
+ *          2: [File({body: 'd'})] }
+ * output: ['acd', 'bcd']
+ */
+var produceCombinations = (obj) => {
+  var keys = Object.keys(obj);
+  var combinations = [];
+  function recur(currCombination, i) {
+    if (i === keys.length) return combinations.push(currCombination);
+    for (var inner = 0; inner < obj[keys[i]].length; inner++) {
+      recur(currCombination + obj[keys[i]][inner].body, i+1)
+    }
+  }
+  recur('', 0);
+  return combinations;
+};
 
 module.exports = router;
