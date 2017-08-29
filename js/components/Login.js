@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import LoginForm from './LoginForm';
 
-
-
-
 export default class Login extends Component {
   render() {
     return (
