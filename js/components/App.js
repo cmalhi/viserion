@@ -14,13 +14,15 @@ import ConfirmSite from './ConfirmSite';
 import ImageUploader from './ImageUploader';
 import SavedPages from './SavedPages';
 import SharedScreen from './ShareScreen';
+import Login from './Login';
+import SignUp from './SignUp';
 
 const store = createStore(
   rootReducer,
   applyMiddleware(
     thunk,
     createLogger()
-  ),
+  )
 );
 
 class HomeScreen extends React.Component {
@@ -29,6 +31,8 @@ class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Create a page</Text>
+        <Text onPress={() => { navigate('SignUp')}} style={styles.defaultText,styles.selectedText}>Step 0: Sign Up</Text>
+        <Text onPress={() => { navigate('Login')}} style={styles.defaultText,styles.selectedText}>Step 0.5: Log In</Text>
         <Text onPress={() => { navigate('Template')}} style={styles.defaultText,styles.selectedText}>Step 1: Template</Text>
         <Text onPress={() => { navigate('Color')}} style={styles.defaultText,styles.selectedText}>Step 2: Color</Text>
         <Text onPress={() => { navigate('Keywords')}} style={styles.defaultText,styles.selectedText}>Step 3: Keywords</Text>
@@ -52,6 +56,8 @@ const AppNavigator = StackNavigator({
   Keywords: { screen: ChooseKeywords },
   Image: { screen: ImageUploader },
   Saved: { screen: SavedPages },
+  Login: { screen: Login },
+  SignUp: { screen: SignUp },
 });
 
 const styles = StyleSheet.create({
