@@ -1,7 +1,7 @@
 const express = require('express');
 const db = require('../../config/database');
 const router = express.Router();
-const Promise = require("bluebird");
+const Promise = require('bluebird');
 const fs = require('fs');
 Promise.promisifyAll(fs);
 const Screenshot = require('url-to-screenshot');
