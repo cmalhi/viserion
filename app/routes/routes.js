@@ -5,7 +5,7 @@ const Promise = require("bluebird");
 const fs = require('fs');
 Promise.promisifyAll(fs);
 const async = require('async');
-const Screenshot = require('url-to-screenshot');
+// const Screenshot = require('url-to-screenshot');
 const User = require('../models/user');
 const File = require('../models/file');
 const UserTemplate = require('../models/userTemplate');
@@ -48,24 +48,24 @@ router.post('/preferences', function(req, res) {
  * Grabs templateID, generates screenshot image, inserts screenshot image into userTemplates
  */
 router.post('/submitchoice', function(req, res) {
-  console.log('submitchoice');
-  const templateId = "59a19409bc1b89b728fe07cb";
+  // console.log('submitchoice');
+  // const templateId = "59a19409bc1b89b728fe07cb";
 
-  new Screenshot('http://localhost:8080/usertemplates/' + templateId)
-    .width(1080)
-    .height(1920)
-    .clip()
-    .capture()
-    .then(img => {
-      // TODO: Store in S3
+  // new Screenshot('http://localhost:8080/usertemplates/' + templateId)
+  //   .width(1080)
+  //   .height(1920)
+  //   .clip()
+  //   .capture()
+  //   .then(img => {
+  //     // TODO: Store in S3
 
-      const screenshotUrl = __dirname + '/../../js/components/example.png';
-      fs.writeFileSync(screenshotUrl, img);
-      console.log(screenshotUrl);
+  //     const screenshotUrl = __dirname + '/../../js/components/example.png';
+  //     fs.writeFileSync(screenshotUrl, img);
+  //     console.log(screenshotUrl);
 
-      userTemplateController.upsert({ _id: templateId }, { screenshot: screenshotUrl})
-        .then(updatedDoc => console.log('new screenshotUrl: ' + updatedDoc.screenshot));
-    });
+  //     userTemplateController.upsert({ _id: templateId }, { screenshot: screenshotUrl})
+  //       .then(updatedDoc => console.log('new screenshotUrl: ' + updatedDoc.screenshot));
+  //   });
 });
 
 /*

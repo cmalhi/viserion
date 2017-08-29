@@ -14,6 +14,9 @@
 <link rel='stylesheet' href='css/typography.css' />
 
 <!-- TODO: Meta tags -->
+
+<link href="https://fonts.googleapis.com/css?family=Oranienbaum" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
 </head>
 
 <body>
@@ -21,10 +24,39 @@
   <div class="outer-wrap">
     <header class="hero">
       <div class="centered">
-        <h1 class="site-title">Demo</h1>
+        <script class="title" id="js" contenteditable>
+          EDIT DIS
+        </script>
       </div>
     </header>
   </div>
+
+<script>
+(function() {
+
+  var timer,
+      js = document.getElementById('js'),
+      delay = 2000;
+
+  js.onkeyup = function(event) {
+
+    if (typeof timer != "undefined") {
+
+      clearTimeout(timer);
+      timer = 0;
+    }
+
+    timer = setTimeout(executeCode, delay);
+  };
+
+ function executeCode() {
+    var script = document.createElement("script");
+    script.innerHTML = js.innerHTML;
+    js.parentNode.insertBefore(script, js);
+ }
+
+})();
+</script>
 
   <div class="content">
     <main class="main-area">
@@ -34,6 +66,31 @@
       </article>
     </main>
   </div>
+
+
+
+
+
+  
+  <div class="content">
+    <input type='file' id='getval' /><br/><br/>
+    <div class='uploadPic'></div>
+  </div>
+  <script>
+    document.getElementById('getval').addEventListener('change', readURL, true);
+    function readURL(){
+      var file = document.getElementById("getval").files[0];
+      var reader = new FileReader();
+      reader.onloadend = function(){
+        document.getElementById('clock').style.backgroundImage = "url(" + reader.result + ")";        
+      }
+      if(file){
+        reader.readAsDataURL(file);
+      } else {
+      }
+    }
+  </script>
+
 
   <footer class="footer-area">
     <p>Footer</p>
