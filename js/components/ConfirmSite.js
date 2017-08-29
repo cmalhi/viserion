@@ -11,6 +11,8 @@ import { connect } from 'react-redux';
 import { addSite } from '../actions/index';
 import axios from 'axios';
 
+const HOST = 'http://ec2-54-203-8-222.us-west-2.compute.amazonaws.com:8080';
+
 const styles = {
   wrapper: {},
   slides: {
@@ -21,7 +23,7 @@ const styles = {
   }
 }
 
-var source =  [{uri: 'http://google.com'},{uri: "http://127.0.0.1:8080/usertemplates/59a19409bc1b89b728fe07cc"},{uri: 'http://nfl.com'},{uri: 'http://cnn.com'}];
+var source =  [{uri: 'http://google.com'},{uri: 'http://nfl.com'},{uri: 'http://cnn.com'}];
 
 class ConfirmSite extends React.Component {
   constructor(props){
@@ -40,15 +42,14 @@ class ConfirmSite extends React.Component {
   }
 
  getURIs(){
-    axios.get('http://127.0.0.1:8080/usertemplates/list')
+    axios.get(HOST + '/usertemplates/list')
     .then((response) => {
       var result = response.data.map(function(val){
-        var site = 'http://127.0.0.1:8080/' + val;
+        var site = HOST + val;
         return {uri: site}
       });
       console.log("rsult", result)
       this.setState({uris: [...result]}, console.log('results from getURIs ', this.state.uris))
-      //cb(source)
     }).catch(function(err){
       console.log('There was an error(msg):',err);
     })  

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image, View, Text} from 'react-native';
 import axios from 'axios';
+const HOST = 'http://ec2-54-203-8-222.us-west-2.compute.amazonaws.com:8080';
 
 export default class SavedPages extends React.Component {
   constructor(props) {
@@ -10,7 +11,7 @@ export default class SavedPages extends React.Component {
 
   componentDidMount() {
     // TODO: Get templates from userTemplates
-    axios.get('http://localhost:8080/usertemplates/all')
+    axios.get(HOST + '/usertemplates/all')
       .then((res) => {
         this.setState({ templates: res.data });
       })
