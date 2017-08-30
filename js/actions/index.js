@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import axios from 'axios';
-const ROOT_URL = 'http://127.0.0.1:8080';
 
 export function toggleLayout(layoutId) {
   return {
@@ -48,7 +47,7 @@ export function postPreferences(navigateToNext) {
     }, []);
 
     // Preferences posted to generate templates
-    axios.post(`${ROOT_URL}/generate`, {
+    axios.post(`${global.HOST}/generate`, {
       layouts: layoutsArr,
       colors: colors,
       title: title,
@@ -61,7 +60,7 @@ export function postPreferences(navigateToNext) {
       .catch(err => console.log(err));
 
     // Preferences are stored in user table
-    axios.post(`${ROOT_URL}/preferences`, {
+    axios.post(`${global.HOST}/preferences`, {
       layouts: layoutsArr,
       colors: colors,
       title: title,

@@ -11,8 +11,6 @@ import { connect } from 'react-redux';
 import { addSite } from '../actions/index';
 import axios from 'axios';
 
-const HOST = 'http://ec2-54-203-8-222.us-west-2.compute.amazonaws.com:8080';
-
 const styles = {
   wrapper: {},
   slides: {
@@ -36,20 +34,17 @@ class ConfirmSite extends React.Component {
   }
 
   componentDidMount(){
-  //  this.setState({uris: [{uri: 'http://google.com'},{uri: "http://127.0.0.1:8080/usertemplates/59a19409bc1b89b728fe07cc"},{uri: 'http://nfl.com'},{uri: 'http://cnn.com'}]})
-  //  this.setState({uris: [{uri: "http://cnn.com"}]})
-  this.getURIs()
+    this.getURIs()
   }
 
  getURIs(){
-    axios.get(HOST + '/usertemplates/list')
+    axios.get(`${global.HOST}/usertemplates/list`)
     .then((response) => {
       var result = response.data.map(function(val){
-        var site = HOST + val;
+        var site = `${global.HOST}/${val}`;
         return {uri: site}
       });
-      console.log("rsult", result)
-      this.setState({uris: [...result]}, console.log('results from getURIs ', this.state.uris))
+      this.setState({uris: [...result]});
     }).catch(function(err){
       console.log('There was an error(msg):',err);
     })  
@@ -58,7 +53,6 @@ class ConfirmSite extends React.Component {
   handlePress(index){
     const { navigate } = this.props.navigation; 
     this.props.addSite(this.state.uris[index].uri);
-    console.log('The URI clicked was',this.state.uris[index].uri);
     navigate('ShareScreen');   
   }
 
@@ -68,7 +62,7 @@ class ConfirmSite extends React.Component {
       for(var u = 0; u < this.state.uris.length; u +=1) {
         slides.push(
           <View key={u} style={styles.slides}>
-            <WebView style={{padding: 10, width:320 }}
+            <WebView style={{padding: 10, width:370 }}
               automaticallyAdjustContentInsets={false}
               scrollEnabled={true}
               scalesPageToFit={true}
@@ -84,7 +78,7 @@ class ConfirmSite extends React.Component {
         </Swiper>
       ) 
     } else {
-      return(<Text>LOADING...</Text>)
+      return(<Text>Loading...</Text>)
     }
   }  
 }
