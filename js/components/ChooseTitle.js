@@ -19,7 +19,7 @@ class ChooseTitle extends React.Component {
     this.props.addTitle(this.state.text);
 
     // Only navigate to ConfirmSite when all templates added
-    this.props.postPreferences(() => navigate('ConfirmSite') );
+    this.props.postPreferewnces(() => navigate('ConfirmSite') );
     console.log('You submitted: ', this.state.text);
     // navigate('ConfirmSite');  
   }
