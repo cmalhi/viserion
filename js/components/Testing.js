@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, WebView } from 'react-native';
+import { Text, View, WebView, Button } from 'react-native';
+import Swiper from 'react-native-swiper';
 
 export default class PageScreen extends React.Component {
   constructor(props) {
@@ -10,23 +11,35 @@ export default class PageScreen extends React.Component {
       title: 'new title',
       js: js,
     }
+    this.handlePress = this.handlePress.bind(this);
   };
 
   componentDidMount() {
     this.setState({html: html})
     var newjs = this.state.js.replace('REPLACE_ME', 'replaced');
-    console.log('new js', newjs)
+    console.log('new js', newjs);
+    this.setState({js: newjs})
+  }
+
+  handlePress() {
+    //needs an old and new replacement variable
+    var newjs = this.state.js.replace('replaced', 'replaced again');
+    console.log('new js', newjs);
+    this.setState({js: newjs})
   }
 
   render() {
     return (
-      <WebView 
-        source={{html: this.state.html}} 
-        injectedJavaScript={this.state.js}
-      />
+      
+        <WebView 
+          source={{html: this.state.html}} 
+          injectedJavaScript={this.state.js}
+        />
     )
   };
 }
+
+//html and css
 
 var title = 'default';
 
@@ -175,6 +188,16 @@ const js = `
   })
 `
 
+const styles = {
+  wrapper: {},
+  slides: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0)',
+  }
+}
+
 
 //chetans notes
 //document.title = newTitle; -set the tab title using js
@@ -184,3 +207,5 @@ const js = `
 //obtain a Selection object for examination or modification, 
 //call window.getSelection().
 
+//SET UP OVERLAY
+//USE OVERLAY TO EDIT TITLE
