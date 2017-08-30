@@ -20,8 +20,11 @@ export default class PageScreen extends React.Component {
       css: '',
       title: 'new title',
       js: js,
+      webview: ''
     }
     this.handlePress = this.handlePress.bind(this);
+    this.reload = this.reload.bind(this);
+    this.customReload = this.customReload.bind(this);
   };
 
 
@@ -30,24 +33,41 @@ export default class PageScreen extends React.Component {
     var newjs = this.state.js.replace('REPLACE_ME', 'replaced');
     console.log('new js', newjs);
     this.setState({js: newjs})
+
   }
 
   handlePress() {
     //needs an old and new replacement variable
     var newjs = this.state.js.replace('replaced', 'replaced again');
     console.log('new js', newjs);
-    this.setState({js: newjs})
+    var temp = this.state.html;
+    //reload the page when state of js is changed using callback in setState
+    this.setState({js: newjs}, () => {
+      this.setState({html: ''}, () => {
+        this.setState({html: temp})
+      })})
+  }
+  reload() {
+    this.refs.webview.reload();
+  }
+
+  customReload() {
+    console.log('custom reload')
   }
 
   render() {
     return (
       <View style={styles.slides}>
         <WebView style={{padding: 10, width:320 }}
+          ref='webview'
           automaticallyAdjustContentInsets={false}
           scrollEnabled={true}
           scalesPageToFit={true}
           source={{html: this.state.html}}
-          injectedJavaScript={this.state.js}>
+          javaScriptEnabled={true}
+          injectedJavaScript={this.state.js}
+          
+          >
         </WebView>
         <Button title={'Submit'} onPress={this.handlePress} />
       </View>
