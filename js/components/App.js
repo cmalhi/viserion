@@ -15,8 +15,10 @@ import ImageUploader from './ImageUploader';
 import SavedPages from './SavedPages';
 import SharedScreen from './ShareScreen';
 import AddPageComponent from './AddPageComponent';
+import PageScreen from './PageScreen';
 import Login from './Login';
 import SignUp from './SignUp';
+import ReactTest from './ReactTest';
 
 const store = createStore(
   rootReducer,
@@ -44,6 +46,7 @@ class HomeScreen extends React.Component {
         <Text onPress={() => { navigate('Image')}} style={styles.defaultText,styles.selectedText}>(Optional) Add Image</Text>
         <Text onPress={() => { navigate('Saved')}} style={styles.defaultText,styles.selectedText}>Saved Pages</Text>
         <Text onPress={() => { navigate('AddPageComponent')}} style={styles.defaultText}>AddPageComponent Test</Text>
+        <Text onPress={() => { navigate('ReactTest')}} style={styles.defaultText}>React Testing</Text>
       </View>
     )
   }
@@ -51,6 +54,7 @@ class HomeScreen extends React.Component {
 
 const AppNavigator = StackNavigator({
   Index: { screen: HomeScreen },
+  ReactTest: { screen: ReactTest },
   Color: { screen: ChooseColor },
   Template: { screen: ChooseLayout },
   Title: { screen: ChooseTitle },
