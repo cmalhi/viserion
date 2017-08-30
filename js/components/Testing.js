@@ -7,13 +7,15 @@ export default class PageScreen extends React.Component {
     this.state = {
       html: '',
       css: '',
-      title: '',
-      js: 'document.getELementByClassName(".site-title").style.backgroundColor = "red"',
+      title: 'new title',
+      js: js,
     }
   };
 
   componentDidMount() {
-    this.setState({html: html}, ()=>{console.log('html', this.state.html)})
+    this.setState({html: html})
+    var newjs = this.state.js.replace('REPLACE_ME', 'replaced');
+    console.log('new js', newjs)
   }
 
   render() {
@@ -165,7 +167,13 @@ const css = `/*---------------
 }`
 
 
-
+const js = `
+  $(document).ready(function(){
+    $('.site-title').click(function(){
+      $(this).html('REPLACE_ME')
+    })
+  })
+`
 
 
 //chetans notes
