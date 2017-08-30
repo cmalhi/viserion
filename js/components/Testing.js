@@ -2,6 +2,16 @@ import React from 'react';
 import { Text, View, WebView, Button } from 'react-native';
 import Swiper from 'react-native-swiper';
 
+const styles = {
+  wrapper: {},
+  slides: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0)',
+  }
+}
+
 export default class PageScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -13,6 +23,7 @@ export default class PageScreen extends React.Component {
     }
     this.handlePress = this.handlePress.bind(this);
   };
+
 
   componentDidMount() {
     this.setState({html: html})
@@ -30,15 +41,24 @@ export default class PageScreen extends React.Component {
 
   render() {
     return (
-      
-        <WebView 
-          source={{html: this.state.html}} 
-          injectedJavaScript={this.state.js}
-        />
+      <View style={styles.slides}>
+        <WebView style={{padding: 10, width:320 }}
+          automaticallyAdjustContentInsets={false}
+          scrollEnabled={true}
+          scalesPageToFit={true}
+          source={{html: this.state.html}}
+          injectedJavaScript={this.state.js}>
+        </WebView>
+        <Button title={'Submit'} onPress={this.handlePress} />
+      </View>
     )
   };
 }
 
+        // <WebView 
+        //   source={{html: this.state.html}} 
+        //   injectedJavaScript={this.state.js}
+        // />
 //html and css
 
 var title = 'default';
@@ -187,16 +207,6 @@ const js = `
     })
   })
 `
-
-const styles = {
-  wrapper: {},
-  slides: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0)',
-  }
-}
 
 
 //chetans notes
