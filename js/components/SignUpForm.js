@@ -1,44 +1,79 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, TouchableOpacity, Text, KeyboardAvoidingView, Button } from 'react-native';
 import Expo from 'expo';
-import firebase from 'firebase';
-
+import firebase from '../firebase';
 
 export default class SignUpForm extends Component {
   constructor() {
     super();
     this.state = {
-      username: '',
+      email: '',
       password: '',
+      errorMessage: null,
     }
 
+    this.handleSignUp = this.handleSignUp.bind(this);
+    this.signup = this.signup.bind(this);
+  }
+
+  signup = async (email, password) => {
+    try {
+      await firebase.auth()
+        .createUserWithEmailAndPassword(email, password);
+        // console.log("Account created");
+        var user = firebase.auth().currentUser;
+        if (user) {
+          this.setState({
+            email: '',
+            password: '',
+          })
+
+          const { navigate } = this.props.navigation;
+          navigate('Template');
+
+        } else {
+          console.log('No user signed in')
+        }
+
+    } catch (error) {
+      const errorMessage = error.toString();
+      this.setState({ errorMessage });
+      console.log(errorMessage);
+    }
+  }
+
+  handleSignUp() {
+    this.signup(this.state.email, this.state.password);
   }
 
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={ styles.container }> 
         <TextInput 
-          placeholder="username or email"
+          placeholder="email"
+          value={ this.state.email }
           returnKeyType="next"
           keyboardType="email-address"
           style={ styles.input }
           autoCapitalize="none"
           autoCorrect={false}
-          ref={ (input) => this.usernameInput = input }
-          onChangeText={text => this.setState( { username: text })}
+          ref={ (input) => this.emailInput = input }
+          onChangeText={text => this.setState( { email: text })}
           onSubmitEditing={ () => this.passwordInput.focus() }
         />
         <TextInput
           placeholder="password"
+          value={ this.state.password }
           returnKeyType="go"
           secureTextEntry
           style={ styles.input }
           onChangeText={text => this.setState( { password: text })}
           ref={ (input) => this.passwordInput = input }
         />
-      <TouchableOpacity onPress={this.handleLogin} style={styles.buttonContainer}>
+      <TouchableOpacity onPress={this.handleSignUp} style={styles.buttonContainer}>
         <Text style={styles.buttonText}>SIGN UP</Text>
       </TouchableOpacity>
+      { this.state.errorMessage && <Text>{this.state.errorMessage}</Text> }
     </KeyboardAvoidingView>
     );
   }

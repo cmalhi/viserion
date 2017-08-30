@@ -1,45 +1,120 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, TouchableOpacity, Text, KeyboardAvoidingView, Button } from 'react-native';
+import Expo from 'expo';
+import firebase from '../firebase';
 
 
 export default class LoginForm extends Component {
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      password: '',
+      errorMessage: null,
+    }
 
-  handleLogin() {
-    console.log('Login Clicked')
+    this.handleEmailLogin = this.handleEmailLogin.bind(this);
+    this.emailLogin = this.emailLogin.bind(this);
   }
 
   handleFacebookLogin = async () => {
-    const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('736407226550495', {
-          permissions: ['public_profile'],
+    const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
+      '736407226550495', {
+      permissions: ['public_profile'],
     });
       
-    console.log('handleFacebookLogin');
     if (type === 'success') {
       
       // Build Firebase credential with Facebook access token
       const credential = firebase.auth.FacebookAuthProvider.credential(token);
 
-      firebase.auth().signInWithCredential(credential).catch((error) => {
-        console.log('FB Login error', err);
-      });
+      firebase.auth().signInWithCredential(credential)
+        .then((sucess) => {
+          var user = firebase.auth().currentUser;
+          if (user) {
+            console.log('user information is:', user);
+            const { navigate } = this.props.navigation;
 
-      console.log('fb credential', credential);
+            this.setState({
+              email: '',
+              password: '',
+            })
+            
+            navigate('Template');
+            // User is signed in.
+          } else {
+            console.log('No user signed in')
+          }
+        })
+        .catch((error) => {
+        console.log('FB firebase Login error', error);
+      });
 
       const response = await fetch(
         `https://graph.facebook.com/me?access_token=${token}`);
-      Alert.alert(
+      console.log(
         'Logged in!',
         `Hi ${(await response.json()).name}!`,
       );
     }
   }
 
-  handleUsernameLogin = async (email, password) => {
+  // Object {
+  //   "displayName": null,
+  //   "email": "55@55.com",
+  //   "phoneNumber": null,
+  //   "photoURL": null,
+  //   "providerId": "password",
+  //   "uid": "55@55.com",
+
+  emailLogin = async (email, password) => {
     try {
       const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
         '736407226550495', // Replace with your own app id in standalone app
         { permissions: ['public_profile'] }
       );
+      await firebase.auth()
+        .signInWithEmailAndPassword(email, password);
+
+      const user = firebase.auth().currentUser;
+      if (user) {
+        console.log('user information is:', user);
+        // AsyncStorage.setItem('username': user.providerData.email);
+        // AsyncStorage.setItem('token': user.stsTokenManager.accessToken);
+        // AsyncStorage.setItem('uid': user.uid);
+
+        this.setState({
+          email: '',
+          password: '',
+        })
+
+        // Navigate to next page
+        const { navigate } = this.props.navigation;
+        navigate('Template');
+
+      } else {
+        // No user is signed in.
+        console.log('No user signed in');
+      }
+    } catch (error) {
+      const errorMessage = error.toString();
+      this.setState({ errorMessage: errorMessage });
+      console.log(errorMessage);
+    }
+  }
+
+  handleEmailLogin() {
+    this.emailLogin(this.state.email, this.state.password)
+  }
+
+  // TO DO: Configure google credentialsS
+  handleGoogleLogin = async () => {
+    try {
+        const result = await Expo.Google.logInAsync({
+          androidClientId: YOUR_CLIENT_ID_HERE,
+          iosClientId: YOUR_CLIENT_ID_HERE,
+          scopes: ['profile', 'email'],
+        });
 
       switch (type) {
         case 'success': {
@@ -78,12 +153,14 @@ export default class LoginForm extends Component {
     return (
       <KeyboardAvoidingView behavior="padding" style={ styles.container }> 
         <TextInput 
-          placeholder="username or email"
+          placeholder="email"
           returnKeyType="next"
           keyboardType="email-address"
           style={ styles.input }
           autoCapitalize="none"
           autoCorrect={false}
+          ref={ (input) => this.emailInput = input }
+          onChangeText={text => this.setState( { email: text })}
           onSubmitEditing={ () => this.passwordInput.focus() }
         />
         <TextInput
@@ -93,13 +170,14 @@ export default class LoginForm extends Component {
           style={ styles.input }
           ref={ (input) => this.passwordInput = input }
         />
-      <TouchableOpacity onPress={this.handleLogin} style={styles.buttonContainer}>
+      <TouchableOpacity onPress={this.handleEmailLogin} style={styles.buttonContainer}>
         <Text style={styles.buttonText}>LOGIN</Text>
       </TouchableOpacity>
       <Button
           title="Login with Facebook"
           onPress={this._handleFacebookLogin}
       />
+      { this.state.errorMessage && <Text>{this.state.errorMessage}</Text> }
     </KeyboardAvoidingView>
     );
   }
