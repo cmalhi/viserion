@@ -44,7 +44,9 @@ class ConfirmSite extends React.Component {
         var site = `${global.HOST}/${val}`;
         return {uri: site}
       });
-      this.setState({uris: [...result]});
+      console.log("result", result)
+      this.setState({uris: [...result]}, console.log('results from getURIs ', this.state.uris))
+      //cb(source)
     }).catch(function(err){
       console.log('There was an error(msg):',err);
     })  

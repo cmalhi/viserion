@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image, TouchableHighlight } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableHighlight, Share } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -12,12 +12,12 @@ class ShareScreen extends React.Component {
     this.notify = this.notify.bind(this);
   };
 
-  notify(selection, message) {
-    if(selection === 'fb'){
-      console.log('Notifying FaceBook Friends: ' + message);
-    } else {
-      console.log('Notifying Follower by tweet: ' + message);
-    }
+  notify(selection, mes) {
+   Share.share({
+     message: mes,
+     url: this.site,
+     title: this.title
+   })
   }
 
   render() {
@@ -25,18 +25,21 @@ class ShareScreen extends React.Component {
      '. Here is the link '+ this.site +'.';
     return (
       <View style={styles.container}>
-        <Text style={styles.screenName}>SHARE</Text>
-        <View style={styles.message}>
+        <Text >SHARE</Text>
+        <View style={styles.message} >
           <Text>{message}</Text>
-        </View>
-        <View>
-          <TouchableHighlight onPress={this.notify.bind(this, selection='tweet', message)}>
-            <Image style={styles.images} source={require('../../images/twitter.png')} />
-          </TouchableHighlight >
-          <TouchableHighlight onPress={this.notify.bind(this, selection='fb', message)}>
-            <Image style={styles.images} source={require('../../images/fb.jpg')} />
-          </TouchableHighlight>
-        </View>
+          <View style={styles.icons} >
+            <TouchableHighlight onPress={this.notify.bind(this, selection='tweet', message)}>
+              <Image style={styles.image} source={require('../../images/twitter.png')} />
+            </TouchableHighlight>
+            <TouchableHighlight onPress={this.notify.bind(this, selection='fb', message)}> 
+              <Image style={styles.image}   source={require('../../images/fb.jpg')} />
+            </TouchableHighlight>
+            <TouchableHighlight onPress={this.notify.bind(this, selection='email', message)}> 
+              <Image style={styles.image} source={require('../../images/email.jpg')} />
+            </TouchableHighlight>             
+          </View>
+        </View>      
       </View>
     )
   };
@@ -45,16 +48,17 @@ class ShareScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     backgroundColor: '#fff',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   screenName: {
     color: 'blue',
     fontWeight: 'bold',
     fontSize: 30
   },
-  images: {
+  image: {
     width: 50,
     height: 50,
   },
@@ -62,9 +66,17 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   messsage: {
-    borderWidth: 2,
-    backgroundColor: 'powderblue'
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  icons: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
   }
+ 
 })
 
 const mapStateToProps = ( {title, site}) => {
