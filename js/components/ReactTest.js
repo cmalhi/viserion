@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, WebView, Button } from 'react-native';
 
-export default class PageScreen extends React.Component {
+export default class ReactTest extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
