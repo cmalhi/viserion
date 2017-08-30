@@ -31,7 +31,7 @@ router.get('/usertemplates/:id', userTemplateController.retrieveOne);
 
 /*
  * /POST /preferences
- * Receives a JSON of type { layout: [], color: [], title: '' }
+ * Receives a JSON of shape { layout: [], color: [], title: '' }
  */
 router.post('/preferences', function(req, res) {
   var newUser = new User({ preferences: req.body });
