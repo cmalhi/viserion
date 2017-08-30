@@ -50,7 +50,7 @@ router.post('/submitchoice', function(req, res) {
   console.log('submitchoice');
   const templateId = "59a19409bc1b89b728fe07cb";
 
-  new Screenshot('http://localhost:8080/usertemplates/' + templateId)
+  new Screenshot('/usertemplates/' + templateId)
     .width(1080)
     .height(1920)
     .clip()
