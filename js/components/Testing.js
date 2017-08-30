@@ -7,22 +7,26 @@ export default class PageScreen extends React.Component {
     this.state = {
       html: '',
       css: '',
+      title: '',
+      js: 'document.getELementByClassName(".site-title").style.backgroundColor = "red"',
     }
   };
 
   componentDidMount() {
-    console.log('HELLO', html)
     this.setState({html: html}, ()=>{console.log('html', this.state.html)})
-    console.log('suh')
   }
 
   render() {
     return (
-        <WebView source={{html: this.state.html}} />
+      <WebView 
+        source={{html: this.state.html}} 
+        injectedJavaScript={this.state.js}
+      />
     )
   };
 }
 
+var title = 'default';
 
 const html = `<!DOCTYPE html>
 <html lang="en">
@@ -40,6 +44,7 @@ const html = `<!DOCTYPE html>
 <link rel='stylesheet' href='css/typography.css' />
 
 <!-- TODO: Meta tags -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -57,6 +62,53 @@ const html = `<!DOCTYPE html>
       <article class="post-content">
         <h2>Lorem ipsum</h2>
         <p>Dolor amit</p>
+      </article>
+    </main>
+  </div>
+
+  <footer class="footer-area">
+    <p>Footer</p>
+  </footer>
+
+</body>
+
+</html>`;
+
+
+const diffHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1, maximum-scale=1" />
+<title>
+  Simple
+</title>
+
+<!-- Stylesheets -->
+<link rel='stylesheet' href='style.css' />
+<link rel='stylesheet' href='css/header.css' />
+<link rel='stylesheet' href='css/typography.css' />
+
+<!-- TODO: Meta tags -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+  <div class="outer-wrap">
+    <header class="hero">
+      <div class="centered">
+        <h1 class="site-title">THIS IS DIFFERENT</h1>
+      </div>
+    </header>
+  </div>
+
+  <div class="content">
+    <main class="main-area">
+      <article class="post-content">
+        <h2>Lorem ipsum!</h2>
+        <p>Dolor amit!</p>
       </article>
     </main>
   </div>
@@ -111,3 +163,16 @@ const css = `/*---------------
         max-width: 52em;
     }
 }`
+
+
+
+
+
+//chetans notes
+//document.title = newTitle; -set the tab title using js
+
+//A Selection object represents the range of text selected 
+//by the user or the current position of the caret. To 
+//obtain a Selection object for examination or modification, 
+//call window.getSelection().
+
