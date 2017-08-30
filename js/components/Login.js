@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#87B59A',
   },
-  tite: {
+  title: {
     textAlign: 'center',
-    fontSize: '40',
+    fontSize: 40,
   }
 })

@@ -65,14 +65,14 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   title: {
-    fontSize: 16,
+    fontSize: 40,
     fontWeight: 'bold',
     color: '#444',
   },
   defaultText: {
-
   },
   selectedText: {
+    fontSize: 25,
     backgroundColor: 'yellow',
   }
 });

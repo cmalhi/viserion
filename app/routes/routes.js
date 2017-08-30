@@ -1,7 +1,7 @@
 const express = require('express');
 const db = require('../../config/database');
 const router = express.Router();
-const Promise = require("bluebird");
+const Promise = require('bluebird');
 const fs = require('fs');
 Promise.promisifyAll(fs);
 const Screenshot = require('url-to-screenshot');
@@ -31,7 +31,7 @@ router.get('/usertemplates/:id', userTemplateController.retrieveOne);
 
 /*
  * /POST /preferences
- * Receives a JSON of type { layout: [], color: [], title: '' }
+ * Receives a JSON of shape { layout: [], color: [], title: '' }
  */
 router.post('/preferences', function(req, res) {
   var newUser = new User({ preferences: req.body });
@@ -50,7 +50,7 @@ router.post('/submitchoice', function(req, res) {
   console.log('submitchoice');
   const templateId = "59a19409bc1b89b728fe07cb";
 
-  new Screenshot('http://localhost:8080/usertemplates/' + templateId)
+  new Screenshot('/usertemplates/' + templateId)
     .width(1080)
     .height(1920)
     .clip()

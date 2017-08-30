@@ -9,8 +9,7 @@ export default class SavedPages extends React.Component {
   }
 
   componentDidMount() {
-    // TODO: Get templates from userTemplates
-    axios.get('http://localhost:8080/usertemplates/all')
+    axios.get(`${global.HOST}/usertemplates/all`)
       .then((res) => {
         this.setState({ templates: res.data });
       })
