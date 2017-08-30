@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
     "jest-expo": "~20.0.0",
     "react-native-scripts": "1.2.1",
     "react-test-renderer": "16.0.0-alpha.12",

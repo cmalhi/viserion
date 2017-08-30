@@ -8,8 +8,33 @@ export default class LoginForm extends Component {
     console.log('Login Clicked')
   }
 
-  _handleFacebookLogin = async () => {
-    console.log('fb log in clicked');
+  handleFacebookLogin = async () => {
+    const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('736407226550495', {
+          permissions: ['public_profile'],
+    });
+      
+    console.log('handleFacebookLogin');
+    if (type === 'success') {
+      
+      // Build Firebase credential with Facebook access token
+      const credential = firebase.auth.FacebookAuthProvider.credential(token);
+
+      firebase.auth().signInWithCredential(credential).catch((error) => {
+        console.log('FB Login error', err);
+      });
+
+      console.log('fb credential', credential);
+
+      const response = await fetch(
+        `https://graph.facebook.com/me?access_token=${token}`);
+      Alert.alert(
+        'Logged in!',
+        `Hi ${(await response.json()).name}!`,
+      );
+    }
+  }
+
+  handleUsernameLogin = async (email, password) => {
     try {
       const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
         '736407226550495', // Replace with your own app id in standalone app
