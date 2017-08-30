@@ -16,6 +16,7 @@ import SavedPages from './SavedPages';
 import SharedScreen from './ShareScreen';
 import Login from './Login';
 import SignUp from './SignUp';
+import Testing from './Testing';
 
 const store = createStore(
   rootReducer,
@@ -41,6 +42,7 @@ class HomeScreen extends React.Component {
         <Text onPress={() =>{ navigate('ShareScreen')}} style={styles.defaultText,styles.selectedText}>Step 6: Share Link </Text>
         <Text onPress={() => { navigate('Image')}} style={styles.defaultText,styles.selectedText}>(Optional) Add Image</Text>
         <Text onPress={() => { navigate('Saved')}} style={styles.defaultText,styles.selectedText}>Saved Pages</Text>
+        <Text onPress={() => { navigate('Testing')}} style={styles.defaultText,styles.selectedText}>Chetans patented dev env</Text>
       </View>
     )
   }
@@ -58,6 +60,7 @@ const AppNavigator = StackNavigator({
   Saved: { screen: SavedPages },
   Login: { screen: Login },
   SignUp: { screen: SignUp },
+  Testing: { screen: Testing },
 });
 
 const styles = StyleSheet.create({
