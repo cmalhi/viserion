@@ -21,7 +21,7 @@ class ShareScreen extends React.Component {
   }
 
   render() {
-    var message = 'Come checkout my new site called '+ this.title +  
+    var message = 'Come checkout my new site called '+ this.title +
      '. Here is the link '+ this.site +'.';
     return (
       <View style={styles.container}>
@@ -31,12 +31,12 @@ class ShareScreen extends React.Component {
         </View>
         <View>
           <TouchableHighlight onPress={this.notify.bind(this, selection='tweet', message)}>
-            <Image style={styles.images} source={require('../../images/twitter.png')} /> 
+            <Image style={styles.images} source={require('../../images/twitter.png')} />
           </TouchableHighlight >
-          <TouchableHighlight onPress={this.notify.bind(this, selection='fb', message)}> 
+          <TouchableHighlight onPress={this.notify.bind(this, selection='fb', message)}>
             <Image style={styles.images} source={require('../../images/fb.jpg')} />
-          </TouchableHighlight>                 
-        </View>      
+          </TouchableHighlight>
+        </View>
       </View>
     )
   };
@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   screenName: {
-    color: 'blue', 
-    fontWeight: 'bold', 
+    color: 'blue',
+    fontWeight: 'bold',
     fontSize: 30
   },
   images: {
