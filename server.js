@@ -18,6 +18,6 @@ app.get('/', (req, res) => {
   res.send('Connected!');
 });
 
-app.listen(process.env.PORT || 8080, function() {
-  console.log('Express server is up and running!');
+var listener = app.listen(process.env.PORT || 8080, function() {
+  console.log('Express server Listening on Port ' +listener.address().port);
 });
