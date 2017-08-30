@@ -28,6 +28,7 @@ class ConfirmSite extends React.Component {
       super(props);
       this.state = {
           uris: [],
+          title: 'hellooo'
       }
       this.handlePress = this.handlePress.bind(this);
       this.getURIs = this.getURIs.bind(this);
