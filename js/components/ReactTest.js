@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated, Dimensions, Text, TouchableOpacity, View, WebView, Button, StyleSheet } from 'react-native';
+import { Animated, Dimensions, Text, TouchableOpacity, View, WebView, Button, StyleSheet, TextInput } from 'react-native';
 const io = require('socket.io-client');
 
 var {
@@ -11,6 +11,7 @@ export default class ReactTest extends React.Component {
     super(props);
     this.state = {
       modal: false,
+      title: 'I am a placeholder'
     }
   };
 
@@ -18,10 +19,9 @@ export default class ReactTest extends React.Component {
     const socket = io(global.HOST, { transports: ['websocket'] });
 
     socket.on('titleChange', (data) => {
-      console.log('pinging modal to come up');
-      console.log('data', data);
+      console.log('RN Client: ', data);
       // pop up modal
-      this.setState({modal: true});
+      this.setState({ modal: true });
 
     });
   }
@@ -66,6 +66,7 @@ class Modal extends React.Component {
             <Text style={styles.center}>Close Menu</Text>
           </TouchableOpacity>
           <Text style={styles.bigText}>Edit Text</Text>
+          <TextInput style={{ borderColor: 'gray' }} onChangeText={(title) => this.setState({title})} value={this.state.title} />
         </View>
       </Animated.View>
     )
