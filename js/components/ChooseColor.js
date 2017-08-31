@@ -96,7 +96,7 @@ class ChooseColor extends React.Component {
     </View>
     <Button
       onPress={this.submitColor}
-      title="Submit deez colors"
+      title="Submit These Colors"
       color='#000'
     ></Button>
   </View>

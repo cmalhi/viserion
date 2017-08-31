@@ -2,6 +2,8 @@ import React from 'react';
 import { Text, View, StyleSheet, Image, TouchableHighlight, Share } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import axios from 'axios';
+const key = require('../../config/apiKeys').urlShortner;
 
 
 class ShareScreen extends React.Component {
@@ -10,36 +12,39 @@ class ShareScreen extends React.Component {
     this.site = this.props.site;
     this.title = this.props.title;
     this.notify = this.notify.bind(this);
+    this.state = {
+      site: ''
+    }
   };
 
   notify(selection, mes) {
-   Share.share({
-     message: mes,
-     url: this.site,
-     title: this.title
-   })
-  }
+    axios.post(`https://www.googleapis.com/urlshortener/v1/url?key=${key}`,{"longUrl": this.site})
+    .then((response) => {
+      Share.share({
+        message: mes,
+        url: response.data.id,
+        title: this.title
+      })
+    });
+  }  
 
   render() {
     var message = 'Come checkout my new site called '+ this.title +
      '. Here is the link '+ this.site +'.';
     return (
       <View style={styles.container}>
-        <Text >SHARE</Text>
+        <Text style={styles.screenName}>SHARE</Text>
         <View style={styles.message} >
           <Text>{message}</Text>
+        </View>  
+        <TouchableHighlight onPress={this.notify.bind(this, selection='', message)}>
           <View style={styles.icons} >
-            <TouchableHighlight onPress={this.notify.bind(this, selection='tweet', message)}>
-              <Image style={styles.image} source={require('../../images/twitter.png')} />
-            </TouchableHighlight>
-            <TouchableHighlight onPress={this.notify.bind(this, selection='fb', message)}> 
-              <Image style={styles.image}   source={require('../../images/fb.jpg')} />
-            </TouchableHighlight>
-            <TouchableHighlight onPress={this.notify.bind(this, selection='email', message)}> 
-              <Image style={styles.image} source={require('../../images/email.jpg')} />
-            </TouchableHighlight>             
-          </View>
-        </View>      
+            <Image style={styles.image} source={require('../../images/twitter.png')} />
+            <Image style={styles.image} source={require('../../images/slack.jpeg')} />
+            <Image style={styles.image} source={require('../../images/fb.jpg')} />
+            <Image style={styles.image} source={require('../../images/email.jpg')} />
+          </View>  
+        </TouchableHighlight>             
       </View>
     )
   };
@@ -66,9 +71,8 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   messsage: {
-    alignSelf: 'center',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-around'
   },
   icons: {
     flex: 1,
