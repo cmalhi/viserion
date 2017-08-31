@@ -21,6 +21,7 @@ import SignUp from './SignUp';
 import ReactTest from './ReactTest';
 const io = require('socket.io-client');
 import axios from 'axios';
+import Testing from './Testing';
 
 const store = createStore(
   rootReducer,
@@ -84,6 +85,7 @@ class HomeScreen extends React.Component {
         <Text onPress={() => { navigate('Saved')}} style={styles.defaultText,styles.selectedText}>Saved Pages</Text>
         <Text onPress={() => { navigate('AddPageComponent')}} style={styles.defaultText}>AddPageComponent Test</Text>
         <Text onPress={() => { navigate('ReactTest')}} style={styles.defaultText}>React Testing</Text>
+        <Text onPress={() => { navigate('Testing')}} style={styles.defaultText,styles.selectedText}>Chetans patented dev env</Text>
       </View>
     )
   }
@@ -103,6 +105,7 @@ const  AppNavigator = StackNavigator({
   Login: { screen: Login },
   SignUp: { screen: SignUp },
   AddPageComponent: { screen: AddPageComponent },
+  Testing: { screen: Testing },
 });
 
 const styles = StyleSheet.create({
