@@ -74,13 +74,16 @@ export default class PageScreen extends React.Component {
   };
 }
 
-        // <WebView 
-        //   source={{html: this.state.html}} 
-        //   injectedJavaScript={this.state.js}
-        // />
-//html and css
+//==================================
+// webview currently refreshes by 
+// changing the state of the source 
+// prop's html
+//==================================
 
-var title = 'default';
+
+//==================================
+// temporary template variables
+//==================================
 
 // const html = `
 // <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.js"></script>
