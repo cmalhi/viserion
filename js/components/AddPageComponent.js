@@ -69,7 +69,7 @@ class Modal extends React.Component {
   render() {
     return (
       <Animated.View
-        style={[styles.modal, styles.flexCenter, {transform: [{translateY: this.state.offset}]}]}>
+        style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
         <View style={styles.innerModal}>
           <TouchableOpacity onPress={this.closeModal}>
             <Text style={styles.center}>Close Menu</Text>

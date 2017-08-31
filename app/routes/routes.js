@@ -12,10 +12,11 @@ const fileController = require('./fileController');
 const userTemplateController = require('./userTemplateController');
 
 var routerInstance = function(io) {
-  router.get('/hello', function (req, res) {
-    console.log('hello!');
-    io.sockets.emit('ping', 'DATA');
-  });
+  // router.get('/hello', function (req, res) {
+  //   console.log('hello!');
+  //   io.sockets.emit('ping', 'DATA');
+  //   io.sockets.emit('titleChange', 'i am a semi new title');
+  // });
 
   /*
    * /GET /:filename
