@@ -11,17 +11,17 @@ export default class ReactTest extends React.Component {
     super(props);
     this.state = {
       modal: false,
-      title: 'I am a placeholder'
+      title: 'I am a placeholder',
     }
   };
 
   componentDidMount() {
     const socket = io(global.HOST, { transports: ['websocket'] });
 
-    socket.on('titleChange', (data) => {
-      console.log('RN Client: ', data);
+    socket.on('titleChange', (title) => {
+      console.log('RN Client: ', title);
       // pop up modal
-      this.setState({ modal: true });
+      this.setState({ title, modal: true });
 
     });
   }
@@ -30,7 +30,7 @@ export default class ReactTest extends React.Component {
     return (
       <View style={styles.flexContainer}>
         <WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/full.html`}} />
-        {this.state.modal ? <Modal closeModal={() => this.setState({modal: false}) } /> : null}
+        {this.state.modal ? <Modal title={this.state.title} closeModal={() => this.setState({modal: false}) } /> : null}
       </View>
     )
   };
@@ -66,7 +66,8 @@ class Modal extends React.Component {
             <Text style={styles.center}>Close Menu</Text>
           </TouchableOpacity>
           <Text style={styles.bigText}>Edit Text</Text>
-          <TextInput style={{ borderColor: 'gray' }} onChangeText={(title) => this.setState({title})} value={this.state.title} />
+          <TextInput style={{ padding: 10, borderColor: '#eee', borderWidth: 1 }} onChangeText={(title) => this.setState({title})} placeholder={this.props.title} value={this.state.title} />
+
         </View>
       </Animated.View>
     )

@@ -297,7 +297,7 @@
 
     $title.click(() => {
       console.log('Web Client: title clicked!');
-      socket.emit('titleChange', 'i am the new title');
+      socket.emit('titleChange', $title.text());
     });
 
   });
