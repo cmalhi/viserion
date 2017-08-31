@@ -48,9 +48,10 @@ class HomeScreen extends React.Component {
     });
 
     socket.on('ping', (data) => {
-      console.log('pinging')
+      console.log('pinging');
       this.setState({data: data});
     });
+
   }
 
   trigger() {
@@ -92,7 +93,8 @@ class HomeScreen extends React.Component {
 }
 
 const  AppNavigator = StackNavigator({
-  Index: { screen: HomeScreen },
+  Index: { screen: ReactTest },
+  // Index: { screen: HomeScreen },
   ReactTest: { screen: ReactTest },
   Color: { screen: ChooseColor },
   Template: { screen: ChooseLayout },

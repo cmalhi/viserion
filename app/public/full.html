@@ -292,14 +292,14 @@
 <script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
   $(function() {
-    var socket = io('http://127.0.0.1:8080');
+    var socket = io();
     $title = $('.site-title');
 
     $title.click(() => {
-      console.log('Web Client: title clicked!');
+      $title.text('new title is changing..');
+      console.log('site title clicked!');
       socket.emit('titleChange', 'i am the new title');
     });
-
   });
 </script>
 </body></html>
