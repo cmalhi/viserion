@@ -8,6 +8,11 @@
 # OSX
 .DS_Store
 
+#config
+apiKeys.js
+database.js
+host.js
+
 # Xcode
 build/
 *.pbxuser
