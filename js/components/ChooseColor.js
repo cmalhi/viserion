@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, AppRegistry, Button, ListView, Text, TouchableHighlight, View, StyleSheet } from 'react-native';
+import { Alert, AppRegistry, Button, ListView, Text, TouchableHighlight, View, StyleSheet, AsyncStorage } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addColors } from '../actions/index';
@@ -65,7 +65,7 @@ class ChooseColor extends React.Component {
   }
 
   componentDidMount() {
-    console.log('mount')
+ 
   }
 
   render() {

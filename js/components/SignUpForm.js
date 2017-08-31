@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, TouchableOpacity, Text, KeyboardAvoidingView, Button } from 'react-native';
+import { StyleSheet, View, TextInput, TouchableOpacity, Text, KeyboardAvoidingView, Button, AsyncStorage } from 'react-native';
 import Expo from 'expo';
-import firebase from '../firebase';
+import firebase from '../../config/firebase';
 
 export default class SignUpForm extends Component {
   constructor() {
@@ -23,6 +23,12 @@ export default class SignUpForm extends Component {
         // console.log("Account created");
         var user = firebase.auth().currentUser;
         if (user) {
+
+          user.getIdToken()
+            .then(IdToken => {
+              AsyncStorage.multiSet([['username', user.providerData[0].email], ['token', IdToken], ['userId', user.uid]])
+            })
+          
           this.setState({
             email: '',
             password: '',

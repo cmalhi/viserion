@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, TouchableOpacity, Text, KeyboardAvoidingView, Button } from 'react-native';
+import { StyleSheet, View, TextInput, TouchableOpacity, Text, KeyboardAvoidingView, Button, AsyncStorage } from 'react-native';
 import Expo from 'expo';
-import firebase from '../firebase';
+import firebase from '../../config/firebase';
 
 
 export default class LoginForm extends Component {
@@ -13,6 +13,7 @@ export default class LoginForm extends Component {
       errorMessage: null,
     }
 
+    this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
     this.handleEmailLogin = this.handleEmailLogin.bind(this);
     this.emailLogin = this.emailLogin.bind(this);
   }
@@ -32,14 +33,18 @@ export default class LoginForm extends Component {
         .then((sucess) => {
           var user = firebase.auth().currentUser;
           if (user) {
-            console.log('user information is:', user);
-            const { navigate } = this.props.navigation;
+            
+            user.getIdToken()
+              .then(IdToken => {
+              AsyncStorage.multiSet([['username', user.providerData[0].displayName], ['token', IdToken], ['userId', user.uid]])
+            })
 
             this.setState({
               email: '',
               password: '',
             })
-            
+
+            const { navigate } = this.props.navigation;
             navigate('Template');
             // User is signed in.
           } else {
@@ -59,14 +64,6 @@ export default class LoginForm extends Component {
     }
   }
 
-  // Object {
-  //   "displayName": null,
-  //   "email": "55@55.com",
-  //   "phoneNumber": null,
-  //   "photoURL": null,
-  //   "providerId": "password",
-  //   "uid": "55@55.com",
-
   emailLogin = async (email, password) => {
     try {
       const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
@@ -77,11 +74,12 @@ export default class LoginForm extends Component {
         .signInWithEmailAndPassword(email, password);
 
       const user = firebase.auth().currentUser;
-      if (user) {
-        console.log('user information is:', user);
-        // AsyncStorage.setItem('username': user.providerData.email);
-        // AsyncStorage.setItem('token': user.stsTokenManager.accessToken);
-        // AsyncStorage.setItem('uid': user.uid);
+      if (user) {        
+        // Get JWT token and set to AsyncStorage
+        user.getIdToken()
+          .then(token => {
+          AsyncStorage.multiSet([['username', user.providerData[0].email], ['token', token],['userId', user.uid]])
+        })
 
         this.setState({
           email: '',
@@ -110,11 +108,11 @@ export default class LoginForm extends Component {
   // TO DO: Configure google credentialsS
   handleGoogleLogin = async () => {
     try {
-        const result = await Expo.Google.logInAsync({
-          androidClientId: YOUR_CLIENT_ID_HERE,
-          iosClientId: YOUR_CLIENT_ID_HERE,
-          scopes: ['profile', 'email'],
-        });
+      const result = await Expo.Google.logInAsync({
+        androidClientId: '875676917845-3g0b0ba1e1f1k48i9fhqspqbdi0gt7j7.apps.googleusercontent.com',
+        iosClientId: '875676917845-acjsnm7amco6a182f76m9m5mcu38ojmg.apps.googleusercontent.com',
+        scopes: ['profile', 'email'],
+      });
 
       switch (type) {
         case 'success': {
@@ -148,6 +146,43 @@ export default class LoginForm extends Component {
       );
     }
   };
+      if (result.type === 'success') {
+        const token = result.accessToken;
+        firebase.auth().signInWithCredential(credential)
+          .then((sucess) => {
+            var user = firebase.auth().currentUser;
+            if (user) {
+
+              console.log('user in google', user);
+              
+              user.getIdToken()
+                .then(IdToken => {
+                AsyncStorage.multiSet([['username', user.providerData[0].displayName], ['token', IdToken], ['userId', user.uid]])
+              })
+
+              this.setState({
+                email: '',
+                password: '',
+              })
+
+              const { navigate } = this.props.navigation;
+              navigate('Template');
+              // User is signed in.
+            } else {
+              console.log('No user signed in')
+            }
+          })
+          .catch((error) => {
+          console.log('FB firebase Login error', error);
+        });
+        
+      } else {
+        return {cancelled: true};
+      }
+    } catch(e) {
+      return {error: true};
+    }
+  }
 
   render() {
     return (
@@ -177,6 +212,12 @@ export default class LoginForm extends Component {
           title="Login with Facebook"
           onPress={this._handleFacebookLogin}
       />
+      <TouchableOpacity style={[styles.buttonContainer, styles.buttonFacebook]} onPress={this.handleFacebookLogin}>
+        <Text style={styles.buttonText}>LOGIN WITH FACEBOOK</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={[styles.buttonContainer, styles.buttonGoogle]} onPress={this.handleGoogleLogin}>
+        <Text style={styles.buttonText}>LOGIN WITH GOOGLE</Text>
+      </TouchableOpacity>
       { this.state.errorMessage && <Text>{this.state.errorMessage}</Text> }
     </KeyboardAvoidingView>
     );
@@ -198,6 +239,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#F7FFFB',
     paddingVertical: 10,
     marginVertical: 5,
+  },
+  buttonFacebook: {
+    backgroundColor: '#4997FF',
+  },
+  buttonGoogle: {
+    backgroundColor: '#FF2B4E',
   },
   buttonText: {
     textAlign: 'center',
