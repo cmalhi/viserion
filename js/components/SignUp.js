@@ -18,7 +18,7 @@ export default class SignUp extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#87B59A',
+    backgroundColor: '#A8B8B7',
   },
   input: {
     height: 40,
@@ -29,6 +29,6 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    fontSize: '40',
+    fontSize: 30,
   }
 })

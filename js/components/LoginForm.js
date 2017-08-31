@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, TouchableOpacity, Text, KeyboardAvoidingView, Button, AsyncStorage } from 'react-native';
 import Expo from 'expo';
+import config from '../../config/config';
 import firebase from '../../config/firebase';
 
 
@@ -20,7 +21,7 @@ export default class LoginForm extends Component {
 
   handleFacebookLogin = async () => {
     const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
-      '736407226550495', {
+      config.facebook.APP_ID, {
       permissions: ['public_profile'],
     });
       
@@ -75,7 +76,7 @@ export default class LoginForm extends Component {
 
       const user = firebase.auth().currentUser;
       if (user) {        
-        // Get JWT token and set to AsyncStorage
+        // Retrieve JWT token and set on AsyncStorage
         user.getIdToken()
           .then(token => {
           AsyncStorage.multiSet([['username', user.providerData[0].email], ['token', token],['userId', user.uid]])
@@ -105,12 +106,11 @@ export default class LoginForm extends Component {
     this.emailLogin(this.state.email, this.state.password)
   }
 
-  // TO DO: Configure google credentialsS
   handleGoogleLogin = async () => {
     try {
       const result = await Expo.Google.logInAsync({
-        androidClientId: '875676917845-3g0b0ba1e1f1k48i9fhqspqbdi0gt7j7.apps.googleusercontent.com',
-        iosClientId: '875676917845-acjsnm7amco6a182f76m9m5mcu38ojmg.apps.googleusercontent.com',
+        androidClientId: config.google.androidClientId,
+        iosClientId: config.google.iosClientId,
         scopes: ['profile', 'email'],
       });
 
@@ -148,13 +148,17 @@ export default class LoginForm extends Component {
   };
       if (result.type === 'success') {
         const token = result.accessToken;
+
+        // Build Firebase credential with Google access token
+        const credential = firebase.auth.GoogleAuthProvider.credential(null, token);
+
+        // Retrieve user information from firebase
         firebase.auth().signInWithCredential(credential)
           .then((sucess) => {
             var user = firebase.auth().currentUser;
             if (user) {
-
-              console.log('user in google', user);
               
+              // Retrieve JWT token and set on AsyncStorage
               user.getIdToken()
                 .then(IdToken => {
                 AsyncStorage.multiSet([['username', user.providerData[0].displayName], ['token', IdToken], ['userId', user.uid]])
@@ -165,9 +169,9 @@ export default class LoginForm extends Component {
                 password: '',
               })
 
+              // Navigate to next page
               const { navigate } = this.props.navigation;
               navigate('Template');
-              // User is signed in.
             } else {
               console.log('No user signed in')
             }
@@ -175,12 +179,11 @@ export default class LoginForm extends Component {
           .catch((error) => {
           console.log('FB firebase Login error', error);
         });
-        
       } else {
-        return {cancelled: true};
+        console.log('Google log in cancelled');
       }
-    } catch(e) {
-      return {error: true};
+    } catch(error) {
+      console.log(error);
     }
   }
 
