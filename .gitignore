@@ -1,5 +1,6 @@
+# Keys
 config/*
-package-lock.json
+
 # React Native
 .expo/
 
