@@ -40,7 +40,7 @@ const js = `
     render: function render() {
       return React.createElement(
         'div',
-        null,
+        { fontSize: 70, fontWeight: 'bold' },
         'Hello'
       );
     }
