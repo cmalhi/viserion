@@ -2,6 +2,7 @@ import React from 'react';
 import { Animated, Dimensions, Text, TouchableOpacity, View, WebView, Button, StyleSheet, TextInput } from 'react-native';
 const io = require('socket.io-client');
 
+
 var {
   height: deviceHeight
 } = Dimensions.get('window');
@@ -11,7 +12,7 @@ export default class ReactTest extends React.Component {
     super(props);
     this.state = {
       modal: false,
-      title: 'I am a placeholder',
+      title: '',
     }
   };
 
@@ -19,10 +20,8 @@ export default class ReactTest extends React.Component {
     const socket = io(global.HOST, { transports: ['websocket'] });
 
     socket.on('titleChange', (title) => {
-      console.log('RN Client: ', title);
-      // pop up modal
+      // Pop up modal
       this.setState({ title, modal: true });
-
     });
   }
 
@@ -39,8 +38,12 @@ export default class ReactTest extends React.Component {
 class Modal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { offset: new Animated.Value(deviceHeight) };
+    this.state = {
+      offset: new Animated.Value(deviceHeight),
+      title: '',
+    };
     this.closeModal = this.closeModal.bind(this);
+    this.closeAndUpdate = this.closeAndUpdate.bind(this);
   }
 
   componentDidMount() {
@@ -57,6 +60,13 @@ class Modal extends React.Component {
     }).start(this.props.closeModal);
   }
 
+  closeAndUpdate() {
+    const socket = io(global.HOST, { transports: ['websocket'] });
+    this.closeModal();
+    // emit to socket to change text
+    socket.emit('titleChange2', this.state.title);
+  }
+
   render() {
     return (
       <Animated.View
@@ -67,7 +77,7 @@ class Modal extends React.Component {
           </TouchableOpacity>
           <Text style={styles.bigText}>Edit Text</Text>
           <TextInput style={{ padding: 10, borderColor: '#eee', borderWidth: 1 }} onChangeText={(title) => this.setState({title})} placeholder={this.props.title} value={this.state.title} />
-
+          <Button onPress={this.closeAndUpdate} title="Enter" />
         </View>
       </Animated.View>
     )

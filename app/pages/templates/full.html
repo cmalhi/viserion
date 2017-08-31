@@ -300,6 +300,10 @@
       socket.emit('titleChange', $title.text());
     });
 
+    socket.on('titleChange2', (title) => {
+      $title.text(title);
+    })
+
   });
 </script>
 </body></html>
