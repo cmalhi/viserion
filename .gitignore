@@ -50,3 +50,12 @@ buck-out/
 \.buckd/
 android/app/libs
 android/keystores/debug.keystore
+<<<<<<< HEAD
+=======
+
+# Config
+config.js
+
+# Lint
+.eslintrc.js
+>>>>>>> Auth formatting

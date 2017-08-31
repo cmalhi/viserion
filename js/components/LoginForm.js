@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, TouchableOpacity, Text, KeyboardAvoidingView, Button, AsyncStorage } from 'react-native';
+import { StyleSheet, View, TextInput, TouchableOpacity, Text, KeyboardAvoidingView, AsyncStorage } from 'react-native';
 import Expo from 'expo';
 import config from '../../config/config';
 import firebase from '../../config/firebase';
@@ -12,14 +12,14 @@ export default class LoginForm extends Component {
       email: '',
       password: '',
       errorMessage: null,
-    }
+    };
 
     this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
     this.handleEmailLogin = this.handleEmailLogin.bind(this);
     this.emailLogin = this.emailLogin.bind(this);
   }
 
-  emailLogin = async (email, password) => {
+  async emailLogin(email, password) {
     try {
       const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
         '736407226550495', // Replace with your own app id in standalone app
@@ -27,11 +27,11 @@ export default class LoginForm extends Component {
       );
       await firebase.auth().signInWithEmailAndPassword(email, password);
       const user = firebase.auth().currentUser;
-      if (user) {   
+      if (user) {
         this.setState({
           email: '',
           password: '',
-        })
+        });
 
         // Navigate to next page
         const { navigate } = this.props.navigation;
@@ -39,25 +39,25 @@ export default class LoginForm extends Component {
 
         // Retrieve JWT token and set on AsyncStorage
         user.getIdToken()
-          .then(token => {
-          AsyncStorage.multiSet([['username', user.email], ['token', token],['userId', user.uid]])
-        })
+          .then((token) => {
+            AsyncStorage.multiSet([['username', user.email], ['token', token], ['userId', user.uid]]);
+          });
       } else {
         // No user is signed in.
         console.log('No user signed in');
       }
     } catch (error) {
       const errorMessage = error.toString();
-      this.setState({ errorMessage: errorMessage });
+      this.setState({ errorMessage });
       console.log(errorMessage);
     }
   }
 
   handleEmailLogin() {
-    this.emailLogin(this.state.email, this.state.password)
+    this.emailLogin(this.state.email, this.state.password);
   }
 
-  handleGoogleLogin = async () => {
+  async handleGoogleLogin() {
     try {
       const result = await Expo.Google.logInAsync({
         androidClientId: config.google.androidClientId,
@@ -68,7 +68,7 @@ export default class LoginForm extends Component {
         this.setState({
           email: '',
           password: '',
-        })
+        });
         // Navigate to next page
         const { navigate } = this.props.navigation;
         navigate('Template');
@@ -84,9 +84,9 @@ export default class LoginForm extends Component {
 
             // Retrieve JWT token and set on AsyncStorage
             user.getIdToken()
-              .then(IdToken => {
+              .then((IdToken) => {
               AsyncStorage.multiSet([['username', user.displayName], ['token', IdToken], ['userId', user.uid]])
-            })
+            });
           })
           .catch((error) => {
           console.log('Google Account Firebase Login error', error);
@@ -99,7 +99,7 @@ export default class LoginForm extends Component {
     }
   }
 
-  handleFacebookLogin = async () => {
+  async handleFacebookLogin() {
     const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
       config.facebook.APP_ID, { permissions: ['public_profile', 'email'] });
     if (type === 'success') {
@@ -116,36 +116,37 @@ export default class LoginForm extends Component {
         .then((user) => {
           // Set username, JWT token, and userId on AsyncStorage
           user.getIdToken()
-            .then(IdToken => {
-            AsyncStorage.multiSet([['username', user.displayName], ['token', IdToken], ['userId', user.uid]])
-          })
+            .then((IdToken) => {
+              AsyncStorage.multiSet([['username', user.displayName], ['token', IdToken], ['userId', user.uid]])
+            });
         })
         .catch((error) => {
-        console.log('FB firebase Login error', error);
+          console.log('FB firebase Login error', error);
       });
     }
   }
 
   render() {
     return (
-      <KeyboardAvoidingView behavior="padding" style={ styles.container }> 
+      <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <TextInput 
           placeholder="email"
           returnKeyType="next"
           keyboardType="email-address"
-          style={ styles.input }
+          style={styles.input}
           autoCapitalize="none"
           autoCorrect={false}
-          ref={ (input) => this.emailInput = input }
+          ref={(input) => this.emailInput = input}
           onChangeText={text => this.setState( { email: text })}
-          onSubmitEditing={ () => this.passwordInput.focus() }
+          onSubmitEditing={() => this.passwordInput.focus()}
         />
         <TextInput
           placeholder="password"
           returnKeyType="go"
           secureTextEntry
-          style={ styles.input }
-          ref={ (input) => this.passwordInput = input }
+          style={styles.input}
+          onChangeText={text => this.setState( {password: text })}
+          ref={(input) => this.passwordInput = input}
         />
       <TouchableOpacity onPress={this.handleEmailLogin} style={styles.buttonContainer}>
         <Text style={styles.buttonText}>LOGIN</Text>
@@ -160,7 +161,7 @@ export default class LoginForm extends Component {
       <TouchableOpacity style={[styles.buttonContainer, styles.buttonGoogle]} onPress={this.handleGoogleLogin}>
         <Text style={styles.buttonText}>LOGIN WITH GOOGLE</Text>
       </TouchableOpacity>
-      { this.state.errorMessage && <Text>{this.state.errorMessage}</Text> }
+      {this.state.errorMessage && <Text>{this.state.errorMessage}</Text>}
     </KeyboardAvoidingView>
     );
   }
@@ -168,15 +169,15 @@ export default class LoginForm extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20
+    padding: 20,
   },
   input: {
     height: 35,
     backgroundColor: 'rgba(225,225,225,0.4)',
     marginVertical: 5,
     color: '#000',
-    paddingHorizontal: 10
-  }, 
+    paddingHorizontal: 10,
+  },
   buttonContainer: {
     backgroundColor: '#F7FFFB',
     paddingVertical: 10,
@@ -191,5 +192,5 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     fontWeight: 'bold',
-  }
+  },
 })

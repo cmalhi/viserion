@@ -16,7 +16,7 @@ export default class SignUpForm extends Component {
     this.signup = this.signup.bind(this);
   }
 
-  signup = async (email, password) => {
+  async signup(email, password) {
     try {
       await firebase.auth()
         .createUserWithEmailAndPassword(email, password);
@@ -27,18 +27,18 @@ export default class SignUpForm extends Component {
           user.getIdToken()
             .then(IdToken => {
               AsyncStorage.multiSet([['username', user.providerData[0].email], ['token', IdToken], ['userId', user.uid]])
-            })
+            });
           
           this.setState({
             email: '',
             password: '',
-          })
+          });
 
           const { navigate } = this.props.navigation;
           navigate('Template');
 
         } else {
-          console.log('No user signed in')
+          console.log('No user signed in');
         }
 
     } catch (error) {
@@ -54,32 +54,32 @@ export default class SignUpForm extends Component {
 
   render() {
     return (
-      <KeyboardAvoidingView behavior="padding" style={ styles.container }> 
+      <KeyboardAvoidingView behavior="padding" style={styles.container}> 
         <TextInput 
           placeholder="email"
-          value={ this.state.email }
+          value={this.state.email}
           returnKeyType="next"
           keyboardType="email-address"
-          style={ styles.input }
+          style={styles.input}
           autoCapitalize="none"
           autoCorrect={false}
-          ref={ (input) => this.emailInput = input }
-          onChangeText={text => this.setState( { email: text })}
-          onSubmitEditing={ () => this.passwordInput.focus() }
+          ref={(input) => this.emailInput = input}
+          onChangeText={text => this.setState({ email: text })}
+          onSubmitEditing={() => this.passwordInput.focus()}
         />
         <TextInput
           placeholder="password"
-          value={ this.state.password }
+          value={this.state.password}
           returnKeyType="go"
           secureTextEntry
-          style={ styles.input }
-          onChangeText={text => this.setState( { password: text })}
-          ref={ (input) => this.passwordInput = input }
+          style={styles.input}
+          onChangeText={text => this.setState({ password: text })}
+          ref={(input) => this.passwordInput = input}
         />
       <TouchableOpacity onPress={this.handleSignUp} style={styles.buttonContainer}>
         <Text style={styles.buttonText}>SIGN UP</Text>
       </TouchableOpacity>
-      { this.state.errorMessage && <Text>{this.state.errorMessage}</Text> }
+      {this.state.errorMessage && <Text>{this.state.errorMessage}</Text>}
     </KeyboardAvoidingView>
     );
   }
@@ -87,14 +87,14 @@ export default class SignUpForm extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20
+    padding: 20,
   },
   input: {
     height: 35,
     backgroundColor: 'rgba(225,225,225,0.4)',
     marginVertical: 5,
     color: '#000',
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
   }, 
   buttonContainer: {
     backgroundColor: '#F7FFFB',
@@ -104,5 +104,5 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     fontWeight: 'bold',
-  }
+  },
 })

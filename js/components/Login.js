@@ -7,9 +7,9 @@ export default class Login extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Log In</Text>
-      <View style={styles.formContainer}>
-        <LoginForm navigation={this.props.navigation} />
-      </View>
+        <View style={styles.formContainer}>
+          <LoginForm navigation={this.props.navigation} />
+        </View>
       </View>
     )
   }
