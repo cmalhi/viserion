@@ -19,69 +19,15 @@ export default class LoginForm extends Component {
     this.emailLogin = this.emailLogin.bind(this);
   }
 
-  handleFacebookLogin = async () => {
-    const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
-      config.facebook.APP_ID, {
-      permissions: ['public_profile'],
-    });
-      
-    if (type === 'success') {
-      
-      // Build Firebase credential with Facebook access token
-      const credential = firebase.auth.FacebookAuthProvider.credential(token);
-
-      firebase.auth().signInWithCredential(credential)
-        .then((sucess) => {
-          var user = firebase.auth().currentUser;
-          if (user) {
-            
-            user.getIdToken()
-              .then(IdToken => {
-              AsyncStorage.multiSet([['username', user.providerData[0].displayName], ['token', IdToken], ['userId', user.uid]])
-            })
-
-            this.setState({
-              email: '',
-              password: '',
-            })
-
-            const { navigate } = this.props.navigation;
-            navigate('Template');
-            // User is signed in.
-          } else {
-            console.log('No user signed in')
-          }
-        })
-        .catch((error) => {
-        console.log('FB firebase Login error', error);
-      });
-
-      const response = await fetch(
-        `https://graph.facebook.com/me?access_token=${token}`);
-      console.log(
-        'Logged in!',
-        `Hi ${(await response.json()).name}!`,
-      );
-    }
-  }
-
   emailLogin = async (email, password) => {
     try {
       const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
         '736407226550495', // Replace with your own app id in standalone app
         { permissions: ['public_profile'] }
       );
-      await firebase.auth()
-        .signInWithEmailAndPassword(email, password);
-
+      await firebase.auth().signInWithEmailAndPassword(email, password);
       const user = firebase.auth().currentUser;
-      if (user) {        
-        // Retrieve JWT token and set on AsyncStorage
-        user.getIdToken()
-          .then(token => {
-          AsyncStorage.multiSet([['username', user.providerData[0].email], ['token', token],['userId', user.uid]])
-        })
-
+      if (user) {   
         this.setState({
           email: '',
           password: '',
@@ -91,6 +37,11 @@ export default class LoginForm extends Component {
         const { navigate } = this.props.navigation;
         navigate('Template');
 
+        // Retrieve JWT token and set on AsyncStorage
+        user.getIdToken()
+          .then(token => {
+          AsyncStorage.multiSet([['username', user.email], ['token', token],['userId', user.uid]])
+        })
       } else {
         // No user is signed in.
         console.log('No user signed in');
@@ -113,77 +64,65 @@ export default class LoginForm extends Component {
         iosClientId: config.google.iosClientId,
         scopes: ['profile', 'email'],
       });
-
-      switch (type) {
-        case 'success': {
-          // Get the user's name using Facebook's Graph API
-          const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
-          const profile = await response.json();
-          Alert.alert(
-            'Logged in!',
-            `Hi ${profile.name}!`,
-          );
-          break;
-        }
-        case 'cancel': {
-          Alert.alert(
-            'Cancelled!',
-            'Login was cancelled!',
-          );
-          break;
-        }
-        default: {
-          Alert.alert(
-            'Oops!',
-            'Login failed!',
-          );
-        }
-      }
-    } catch (e) {
-      Alert.alert(
-        'Oops!',
-        'Login failed!',
-      );
-    }
-  };
       if (result.type === 'success') {
-        const token = result.accessToken;
+        this.setState({
+          email: '',
+          password: '',
+        })
+        // Navigate to next page
+        const { navigate } = this.props.navigation;
+        navigate('Template');
 
         // Build Firebase credential with Google access token
+        const token = result.accessToken;
         const credential = firebase.auth.GoogleAuthProvider.credential(null, token);
 
         // Retrieve user information from firebase
         firebase.auth().signInWithCredential(credential)
-          .then((sucess) => {
-            var user = firebase.auth().currentUser;
-            if (user) {
-              
-              // Retrieve JWT token and set on AsyncStorage
-              user.getIdToken()
-                .then(IdToken => {
-                AsyncStorage.multiSet([['username', user.providerData[0].displayName], ['token', IdToken], ['userId', user.uid]])
-              })
+          .then((user) => {
+            console.log('GOOGLE SIGN IN WITH CREDENTIAL', user);
 
-              this.setState({
-                email: '',
-                password: '',
-              })
-
-              // Navigate to next page
-              const { navigate } = this.props.navigation;
-              navigate('Template');
-            } else {
-              console.log('No user signed in')
-            }
+            // Retrieve JWT token and set on AsyncStorage
+            user.getIdToken()
+              .then(IdToken => {
+              AsyncStorage.multiSet([['username', user.displayName], ['token', IdToken], ['userId', user.uid]])
+            })
           })
           .catch((error) => {
-          console.log('FB firebase Login error', error);
+          console.log('Google Account Firebase Login error', error);
         });
       } else {
-        console.log('Google log in cancelled');
+        console.log('Google Log in cancelled');
       }
     } catch(error) {
-      console.log(error);
+      console.log('Error with google login', error);
+    }
+  }
+
+  handleFacebookLogin = async () => {
+    const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
+      config.facebook.APP_ID, { permissions: ['public_profile', 'email'] });
+    if (type === 'success') {
+      this.setState({
+        email: '',
+        password: '',
+      })
+      const { navigate } = this.props.navigation;
+      navigate('Template');
+
+      // Build Firebase credential with Facebook access token
+      const credential = firebase.auth.FacebookAuthProvider.credential(token);
+      firebase.auth().signInWithCredential(credential)
+        .then((user) => {
+          // Set username, JWT token, and userId on AsyncStorage
+          user.getIdToken()
+            .then(IdToken => {
+            AsyncStorage.multiSet([['username', user.displayName], ['token', IdToken], ['userId', user.uid]])
+          })
+        })
+        .catch((error) => {
+        console.log('FB firebase Login error', error);
+      });
     }
   }
 
@@ -233,7 +172,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 35,
-    backgroundColor: 'rgba(225,225,225,0.2)',
+    backgroundColor: 'rgba(225,225,225,0.4)',
     marginVertical: 5,
     color: '#000',
     paddingHorizontal: 10
