@@ -5,48 +5,68 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 const key = require('../../config/apiKeys').urlShortner;
 
-
 class ShareScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.site = this.props.site;
     this.title = this.props.title;
     this.notify = this.notify.bind(this);
     this.state = {
       site: ''
     }
   };
+  
+  componentDidMount(){
+    console.log('component did mount');
+    this.shortenURL();
+  }
+
+  shortenURL(){
+    axios({
+      method: 'post',
+      url: `https://www.googleapis.com/urlshortener/v1/url?key=${key}`,
+      data: {"longUrl": this.props.site },
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((response) => {
+      this.setState({site: response.data.id});
+      }).catch(function(err) {
+        console.log('error');
+      });
+  }
 
   notify(selection, mes) {
-    axios.post(`https://www.googleapis.com/urlshortener/v1/url?key=${key}`,{"longUrl": this.site})
-    .then((response) => {
-      Share.share({
+    Share.share({
         message: mes,
-        url: response.data.id,
-        title: this.title
-      })
-    });
-  }  
+        url: this.state.site,
+        title: this.title   
+    })
+  }
 
   render() {
-    var message = 'Come checkout my new site called '+ this.title +
-     '. Here is the link '+ this.site +'.';
-    return (
-      <View style={styles.container}>
-        <Text style={styles.screenName}>SHARE</Text>
-        <View style={styles.message} >
-          <Text>{message}</Text>
-        </View>  
-        <TouchableHighlight onPress={this.notify.bind(this, selection='', message)}>
-          <View style={styles.icons} >
-            <Image style={styles.image} source={require('../../images/twitter.png')} />
-            <Image style={styles.image} source={require('../../images/slack.jpeg')} />
-            <Image style={styles.image} source={require('../../images/fb.jpg')} />
-            <Image style={styles.image} source={require('../../images/email.jpg')} />
+    if(this.state.site){
+      var message = 'Come checkout my new site called '+ this.title +
+      '. Here is the link '+ this.state.site +'.';
+      return (
+        <View style={styles.container}>
+          <Text style={styles.screenName}>SHARE</Text>
+          <View style={styles.message} >
+            <Text>{message}</Text>
           </View>  
-        </TouchableHighlight>             
-      </View>
-    )
+          <TouchableHighlight onPress={this.notify.bind(this, selection='', message)}>
+            <View style={styles.icons} >
+              <Image style={styles.image} source={require('../../images/twitter.png')} />
+              <Image style={styles.image} source={require('../../images/slack.jpeg')} />
+              <Image style={styles.image} source={require('../../images/fb.jpg')} />
+              <Image style={styles.image} source={require('../../images/email.jpg')} />
+            </View>  
+          </TouchableHighlight>             
+        </View>
+      )
+    } else {
+      return( <Text>Loading...</Text>);
+    }  
   };
 }
 
@@ -88,4 +108,3 @@ const mapStateToProps = ( {title, site}) => {
 }
 
 export default connect(mapStateToProps)(ShareScreen);
-
