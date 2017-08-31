@@ -40,7 +40,7 @@ class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
-    const socket = io('http://127.0.0.1:8080', { transports: ['websocket'] });
+    const socket = io(global.HOST, { transports: ['websocket'] });
 
     socket.on('connect', () => {
       this.setState({ isConnected: true });
