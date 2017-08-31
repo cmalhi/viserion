@@ -2,7 +2,6 @@ import React from 'react';
 import { Animated, Dimensions, Text, TouchableOpacity, View, WebView, Button, StyleSheet, TextInput } from 'react-native';
 const io = require('socket.io-client');
 
-
 var {
   height: deviceHeight
 } = Dimensions.get('window');
@@ -20,7 +19,6 @@ export default class ReactTest extends React.Component {
     const socket = io(global.HOST, { transports: ['websocket'] });
 
     socket.on('titleChange', (title) => {
-      // Pop up modal
       this.setState({ title, modal: true });
     });
   }
@@ -69,14 +67,13 @@ class Modal extends React.Component {
 
   render() {
     return (
-      <Animated.View
-        style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
+      <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
         <View style={styles.innerModal}>
           <TouchableOpacity onPress={this.closeModal}>
             <Text style={styles.center}>Close Menu</Text>
           </TouchableOpacity>
           <Text style={styles.bigText}>Edit Text</Text>
-          <TextInput style={{ padding: 10, borderColor: '#eee', borderWidth: 1 }} onChangeText={(title) => this.setState({title})} placeholder={this.props.title} value={this.state.title} />
+          <TextInput style={styles.form} onChangeText={(title) => this.setState({title})} placeholder={this.props.title} value={this.state.title} />
           <Button onPress={this.closeAndUpdate} title="Enter" />
         </View>
       </Animated.View>
@@ -85,6 +82,11 @@ class Modal extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  form: {
+    padding: 10,
+    borderColor: '#eee',
+    borderWidth: 1,
+  },
   flexContainer: {
     flex: 1,
   },
