@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 const app = express();
-const server = app.listen(process.env.PORT || 8080, () => console.log(`Listening on ${listener.address().port)}`));
+const server = app.listen(process.env.PORT || 8080, () => console.log(`Listening on ${server.address().port}`));
 const io = require('socket.io').listen(server);
 const routes = require('./app/routes/routes')(io);
 
