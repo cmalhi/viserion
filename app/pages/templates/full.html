@@ -17,7 +17,7 @@
   ---------------*/
 
   .hero {
-    background: #0F0;
+    background: #ffd5c9;
   }
 
   .site-title {
@@ -265,7 +265,7 @@
   <main class="main-area">
     <div id="columns">
       <figure>
-        <img src="https://68.media.tumblr.com/8c03ff7f9a45832be4a65783b5c39ecb/tumblr_ovebbfcc3S1s2tva9o1_1280.jpg" />
+        <img src="https://68.media.tumblr.com/8c03ff7f9a45832be4a65783b5c39ecb/tumblr_ovebbfcc3S1s2tva9o1_1280.jpg" class="img1" />
       </figure>
       <figure>
         <img src="https://68.media.tumblr.com/3523f18b84d111ca2d39797c766d6ab8/tumblr_ov7e3t3Dg61s2tva9o1_1280.jpg" />
@@ -291,17 +291,29 @@
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
-  $(function() {
+//  $(function() {
+  $(document).ready(function() {
+    // TODO make global variable
     var socket = io('http://127.0.0.1:8080');
     $title = $('.site-title');
+    $img1 = $('.img1');
 
     $title.click(() => {
-      console.log('Web Client: title clicked!');
       socket.emit('titleChange', $title.text());
     });
 
     socket.on('titleChange2', (title) => {
       $title.text(title);
+    });
+
+    $img1.click(() => {
+      console.log('img1');
+      socket.emit('imgChange', 'change me change me!!!');
+    });
+
+    socket.on('imgChange2', (img) => {
+      console.log('ok receiving', img)
+      $img1.attr('src', img);
     })
 
   });
