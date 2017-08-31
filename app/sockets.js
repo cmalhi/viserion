@@ -12,12 +12,10 @@ var socketInstance = function(io) {
     });
 
     socket.on('imgChange', function(img) {
-      console.log('okay fine I will ask Alfred to change you');
       io.sockets.emit('imgChange', 'ok changing');
     });
 
     socket.on('imgChange2', function(img) {
-      console.log(1, img)
       io.sockets.emit('imgChange2', img);
     });
 
