@@ -3,7 +3,7 @@ const config = require('../config/config');
 
 mongoose.connect(config.dbUrl);
 
-var db = mongoose.connection;
+var db = mongoose.connection; 
 
 db.on('error', function() {
   console.log('mongoose connection error');
