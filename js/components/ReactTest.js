@@ -72,10 +72,10 @@ class ImageModal extends React.Component {
 
     console.log('imgChange2');
     // TODO: Save image to user preferences
-    // Put image into AWS
     // this.setState({ img: null })
     console.log('closeAndUpdate this.state.img', this.state.img);
 
+    // Put image into AWS
     let file = {
       // `uri` can also be a file system path (i.e. file://)
       uri: this.state.img,
@@ -83,16 +83,7 @@ class ImageModal extends React.Component {
       type: "image/png"
     };
 
-    let options = {
-      keyPrefix: "uploads/",
-      bucket: "viserion-hr",
-      region: "us-east-1",
-      accessKey: "AKIAI4U73XJ3DJ4PGJYQ",
-      secretKey: "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",
-      successActionStatus: 201
-    };
-
-    RNS3.put(file, options).then(response => {
+    RNS3.put(file, global.AWSEC3).then(response => {
       if (response.status !== 201)
         throw new Error("Failed to upload image to S3");
       console.log(response.body);
