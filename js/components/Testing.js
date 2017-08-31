@@ -83,80 +83,81 @@ export default class PageScreen extends React.Component {
 
 var title = 'default';
 
-const html = `
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.js"></script>
-<body>
-<div id="container">
-container
-</div>
-</body>
-`;
-
-const js = `
-  var MyComponent = React.createClass({
-    displayName: 'MyComponent',
-  
-    handleClick: function() {
-      alert('Dont touch me')
-    }
-
-    render: function render() {
-      return React.createElement(
-        'div',
-        { className: "title", onCLick: this.handleClick,  style: { fontSize: 36 } },
-        'Helllllllllllllo kdmsflkdmsf sdf ksdjfnjns dsfsjkdn'
-      );
-    }
-  });
-  ReactDOM.render(React.createElement(MyComponent, null), document.getElementById('container'));
-`;
-
-// const html = `<!DOCTYPE html>
-// <html lang="en">
-// <head>
-//   <meta charset="utf-8" />
-//   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-// <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1, maximum-scale=1" />
-// <title>
-//   Simple
-// </title>
-
-// <!-- Stylesheets -->
-// <link rel='stylesheet' href='style.css' />
-// <link rel='stylesheet' href='css/header.css' />
-// <link rel='stylesheet' href='css/typography.css' />
-
-// <!-- TODO: Meta tags -->
-// <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-// </head>
-
+// const html = `
+// <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.js"></script>
+// <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.js"></script>
 // <body>
-
-//   <div class="outer-wrap">
-//     <header class="hero">
-//       <div class="centered">
-//         <h1 class="site-title">Demo</h1>
-//       </div>
-//     </header>
-//   </div>
-
-//   <div class="content">
-//     <main class="main-area">
-//       <article class="post-content">
-//         <h2>Lorem ipsum</h2>
-//         <p>Dolor amit</p>
-//       </article>
-//     </main>
-//   </div>
-
-//   <footer class="footer-area">
-//     <p>Footer</p>
-//   </footer>
-
+// <div id="container">
+// container
+// </div>
 // </body>
+// `;
 
-// </html>`;
+// const js = `
+//   var MyComponent = React.createClass({
+//     displayName: 'MyComponent',
+  
+//     handleClick: function() {
+//       alert('Dont touch me')
+//     }
+
+//     render: function render() {
+//       return React.createElement(
+//         'div',
+//         { className: "title", onCLick: this.handleClick,  style: { fontSize: 36 } },
+//         'Helllllllllllllo kdmsflkdmsf sdf ksdjfnjns dsfsjkdn'
+//       );
+//     }
+//   });
+//   ReactDOM.render(React.createElement(MyComponent, null), document.getElementById('container'));
+// `;
+
+const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1, maximum-scale=1" />
+<title>
+  Simple
+</title>
+
+<!-- Stylesheets -->
+<link rel='stylesheet' href='style.css' />
+<link rel='stylesheet' href='css/header.css' />
+<link rel='stylesheet' href='css/typography.css' />
+
+<!-- TODO: Meta tags -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+
+  <div class="outer-wrap">
+    <header class="hero">
+      <div class="centered">
+        <h1 class="site-title">Demo</h1>
+      </div>
+    </header>
+  </div>
+
+  <div class="content">
+    <main class="main-area">
+      <article class="post-content">
+        <h2>Lorem ipsum</h2>
+        <p>Dolor amit</p>
+      </article>
+    </main>
+  </div>
+
+  <footer class="footer-area">
+    <p>Footer</p>
+  </footer>
+
+</body>
+
+</html>`;
 
 
 // const diffHtml = `<!DOCTYPE html>
@@ -249,13 +250,13 @@ const js = `
 // }`
 
 
-// const js = `
-//   $(document).ready(function(){
-//     $('.site-title').click(function(){
-//       $(this).html('REPLACE_ME')
-//     })
-//   })
-// `
+const js = `
+  $(document).ready(function(){
+    $('.site-title').click(function(){
+      $(this).html('REPLACE_ME')
+    })
+  })
+`
 
 
 //chetans notes
