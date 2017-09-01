@@ -50,3 +50,9 @@ buck-out/
 \.buckd/
 android/app/libs
 android/keystores/debug.keystore
+
+# Config
+config.js
+
+# Lint
+.eslintrc.js

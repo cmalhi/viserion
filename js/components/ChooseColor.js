@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, AppRegistry, Button, ListView, Text, TouchableHighlight, View, StyleSheet } from 'react-native';
+import { Alert, AppRegistry, Button, ListView, Text, TouchableHighlight, View, StyleSheet, AsyncStorage } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addColors } from '../actions/index';
@@ -11,10 +11,10 @@ class ChooseColor extends React.Component {
     this.state = {
       color: '#FF0000',
       count: 0,
-      chosenColors: ['#F00', '#0F0','#00F'],
-      color1: '#F00',
-      color2: '#0F0',
-      color3: '#00F',
+      chosenColors: ['#FF0000', '#00FF00','#0000FF'],
+      color1: '#FF0000',
+      color2: '#00FF00',
+      color3: '#0000FF',
       currentColor: '#F00',
       currentTab: 1,
     };
@@ -65,7 +65,7 @@ class ChooseColor extends React.Component {
   }
 
   componentDidMount() {
-    console.log('mount')
+ 
   }
 
   render() {
