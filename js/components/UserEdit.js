@@ -17,7 +17,7 @@ export default class UserEdit extends React.Component {
       textModal: false,
       title: '',
       imageModal: false,
-      colorModal: false,
+      colorModal: true,
     }
   };
 
@@ -44,7 +44,7 @@ export default class UserEdit extends React.Component {
         <WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/full.html`}} />
         {this.state.textModal ? <TextModal title={this.state.title} closeModal={() => this.setState({textModal: false}) } /> : null}
         {this.state.imageModal ? <ImageModal closeModal={() => this.setState({imageModal: false})} /> : null}
-        {this.state.colorModal ? <ColorModal closeModal={() => this.setState({colorModal: false})} /> : null}
+        {this.state.colorModal ? <ColorModal navigation={this.props.navigation} closeModal={() => this.setState({colorModal: false})} /> : null}
       </View>
     )
   };
