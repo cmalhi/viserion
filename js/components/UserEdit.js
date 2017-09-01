@@ -10,7 +10,7 @@ var {
   height: deviceHeight
 } = Dimensions.get('window');
 
-export default class ReactTest extends React.Component {
+export default class UserEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -82,6 +82,6 @@ export const styles = StyleSheet.create({
     borderRadius: 10
   },
   bigText:{
-  fontSize: 20,
+    fontSize: 20,
   },
 });
