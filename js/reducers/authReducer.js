@@ -9,8 +9,8 @@ const defaultAuthState = {
 };
 
 const getLoggedIn = () => {
-  AsyncStorage.muliGet()
-}
+  AsyncStorage.muliGet(['username', 'token', 'userId']);
+};
 
 export default function (state = defaultAuthState, action) {
   switch (action.type) {
