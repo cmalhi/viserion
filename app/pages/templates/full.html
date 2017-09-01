@@ -302,7 +302,8 @@
     $header1 = $('.header1');
 
     // Title
-    $title.click(() => {
+    $title.click((e) => {
+      e.stopPropagation();
       socket.emit('titleChange', $title.text());
     });
 
@@ -323,6 +324,10 @@
     $header1.click(() => {
       socket.emit('colorChange', 'change ID x!');
     });
+
+    socket.on('colorChange2', (color) => {
+      $header1.css('background-color', color);
+    })
 
   });
 </script>

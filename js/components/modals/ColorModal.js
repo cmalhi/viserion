@@ -14,10 +14,10 @@ export default class ColorModal extends React.Component {
     this.state = {
       offset: new Animated.Value(deviceHeight),
       color: null,
-      currentColor: null,
     };
     this.closeModal = this.closeModal.bind(this);
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
+    this.setColor = this.setColor.bind(this);
   }
 
   componentDidMount() {
@@ -35,11 +35,17 @@ export default class ColorModal extends React.Component {
   }
 
   closeAndUpdate(){
+    const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
-    console.log('closing and update...')
+    socket.emit('colorChange2', this.state.color);
+  }
+
+  setColor(color) {
+    this.setState({ color });
   }
 
   render() {
+    const { navigate } = this.props.navigation;
     return(
       <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
         <View style={styles.innerModal}>
@@ -47,12 +53,9 @@ export default class ColorModal extends React.Component {
             <Text style={styles.center}>Close menu</Text>
           </TouchableOpacity>
           <Text style={styles.bigText}>Choose a color</Text>
-          <ColorPalette />
-          <TriangleColorPicker
-            defaultColor={this.state.currentColor}
-            onColorChange={this.onColorChange}
-            style={{flex: 1}}
-          />
+          <ColorPalette setColor={this.setColor} />
+          <Text onPress={() => { navigate('ColorPicker')}}>Color picker</Text>
+          <Text>{this.state.color}</Text>
           <Button onPress={this.closeAndUpdate} title="Enter" />
         </View>
       </Animated.View>
@@ -84,13 +87,12 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   innerModal:{
-    width: '80%',
+    width: 300,
     backgroundColor: '#fff',
     padding: 10,
-    position: 'relative',
+    // position: 'relative',
     top: '5%',
     borderRadius: 10,
-    height: '90%',
   },
   bigText:{
     fontSize: 20,
