@@ -13,3 +13,4 @@ global.AWSEC3 = {
     successActionStatus: 201
 };
  
+global.HOST = 'http://66de2dec.ngrok.io'; // Ed's
