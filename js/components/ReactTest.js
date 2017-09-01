@@ -43,7 +43,7 @@ export default class ReactTest extends React.Component {
     console.log(result)
     //send the array to react client
     socket.emit('order', {order: result})
-    socket.on('ping', (data) => {
+    socket.on('orderDOM', (data) => {
       console.log('pinging2')
     });
     //react client updates state to re-render components
@@ -82,9 +82,11 @@ var userPrefrences = {
 }
 
 const html = `
+<head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.js"></script>
 <script src="/socket.io/socket.io.js"></script>
+</head>
 <body>
 <div id="container">
 </div>
@@ -99,20 +101,27 @@ const js = `
     socket: function() {
       io('http://127.0.0.1:8080', { transports: ['websocket'] });
     },
+
+    getInitialState: function() {
+      return {message: 'hi'};
+    },
     
     componentDidMount: function() {
-      alert(this.socket)
-      this.socket.on('connect', (data) => {
-        alert('you got da data')
-      })
-
+      this.socket.on('orderDOM', (data) => {
+        this.setState({message: 'changed'})
+      });
     },
+
+    handleClick: function() {
+      this.setState({message: 'changed'})
+      this.socket.emit('order', 'OOOOO')
+    },  
 
     render: function render() {
       return React.createElement(
         'div',
-        { fontSize: 60, fontWeight: 'bold' },
-        'More lines'
+        { fontSize: 60, fontWeight: 'bold', onClick: this.handleClick },
+        this.state.message,
       );
     }
   });

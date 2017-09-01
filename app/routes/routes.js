@@ -16,13 +16,13 @@ var routerInstance = function(io) {
     console.log('hello!');
     io.sockets.emit('ping', 'DATA');
   });
-    io.on('connection', (socket)=>{
-      console.log('connected to sockets')
-      socket.on('order', (data)=>{
-        console.log('ORDER DATA ', data)
-        socket.emit('orderDOM', data)
-      })
+  io.on('connection', (socket)=>{
+    console.log('connected to sockets in routes.js')
+    socket.on('order', (data)=>{
+      console.log('ORDER DATA ', data)
+      socket.emit('orderDOM', data)
     })
+  })
 
   /*
    * /GET /:filename
