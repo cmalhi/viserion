@@ -50,6 +50,8 @@ class HomeScreen extends React.Component {
       console.log('pinging')
       this.setState({data: data});
     });
+
+    socket.emit('ping2', 'DATA2');
   }
 
   trigger() {

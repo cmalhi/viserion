@@ -16,6 +16,12 @@ var routerInstance = function(io) {
     console.log('hello!');
     io.sockets.emit('ping', 'DATA');
   });
+    io.on('connection', (socket)=>{
+      console.log('connected to sockets')
+      socket.on('order', (data)=>{
+        console.log('ORDER DATA ',data)
+      })
+    })
 
   /*
    * /GET /:filename

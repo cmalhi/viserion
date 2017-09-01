@@ -24,6 +24,8 @@ export default class ReactTest extends React.Component {
   
   handlePress() {
   }
+
+  //this function simulates the user choosing an order order for the components
   handleSubmit() {
     var orderStr = this.state.order;
     var orderArr = orderStr.split('');
@@ -32,13 +34,18 @@ export default class ReactTest extends React.Component {
     // map the components array here
     for (var i = 0; i < orderArr.length; i++) {
     //use switch when scaling this instead of chaining if statements
-    //if element is 1 then push my component 1
+      //if element is 1 then push my component 1
       if (orderArr[i] === '1') {result.push('React.createElement(MyComponent, null)');}
+      //if element is 2 then push my component 2
       if (orderArr[i] === '2') {result.push('React.createElement(MyComponent2, null)');}
       console.log('the current result being pushed is ', result[i])
     }
-    //if element is 2 then push my component 2
+    console.log(result)
     //send the array to react client
+    socket.emit('order', {order: result})
+    socket.on('ping', (data) => {
+      console.log('pinging2')
+    });
     //react client updates state to re-render components
   }
   
@@ -77,9 +84,15 @@ var userPrefrences = {
 const html = `
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io('http://localhost:8080', { transports: ['websockets']})
+  socket.on('ping', function (data) {
+    alert('the data coming back from the socket is ', data);
+  });
+</script>
 <body>
 <div id="container">
-container
 </div>
 </body>
 `;
@@ -87,7 +100,15 @@ container
 const js = `
   var MyComponent2 = React.createClass({
     displayName: 'MyComponent2',
-  
+    
+    componentDidMount: function() {
+      alert('socket goes here')
+      socket.on('ping', (data) => {
+        alert('you got da data')
+      })
+
+    },
+
     render: function render() {
       return React.createElement(
         'div',
