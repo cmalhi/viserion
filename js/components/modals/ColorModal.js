@@ -40,6 +40,7 @@ export default class ColorModal extends React.Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
     return(
       <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
         <View style={styles.innerModal}>
@@ -48,11 +49,7 @@ export default class ColorModal extends React.Component {
           </TouchableOpacity>
           <Text style={styles.bigText}>Choose a color</Text>
           <ColorPalette />
-          <TriangleColorPicker
-            defaultColor={this.state.currentColor}
-            onColorChange={this.onColorChange}
-            style={{flex: 1}}
-          />
+          <Text onPress={() => { navigate('ColorPicker')}}>Color picker</Text>
           <Button onPress={this.closeAndUpdate} title="Enter" />
         </View>
       </Animated.View>
@@ -84,13 +81,12 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   innerModal:{
-    width: '80%',
+    width: 300,
     backgroundColor: '#fff',
     padding: 10,
-    position: 'relative',
+    // position: 'relative',
     top: '5%',
     borderRadius: 10,
-    height: '90%',
   },
   bigText:{
     fontSize: 20,

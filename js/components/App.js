@@ -15,12 +15,12 @@ import ImageUploader from './ImageUploader';
 import SavedPages from './SavedPages';
 import SharedScreen from './ShareScreen';
 import AddPageComponent from './AddPageComponent';
-import PageScreen from './PageScreen';
 import Login from './Login';
 import SignUp from './SignUp';
 import UserEdit from './UserEdit';
+import ColorPicker from './modals/ColorPicker';
+import ColorModal from './modals/ColorModal';
 const io = require('socket.io-client');
-import axios from 'axios';
 
 const store = createStore(
   rootReducer,
@@ -81,8 +81,8 @@ class HomeScreen extends React.Component {
 }
 
 const  AppNavigator = StackNavigator({
-  // Index: { screen: UserEdit },
-  Index: { screen: HomeScreen },
+  Index: { screen: UserEdit },
+  // Index: { screen: HomeScreen },
   Color: { screen: ChooseColor },
   Template: { screen: ChooseLayout },
   Title: { screen: ChooseTitle },
@@ -95,6 +95,8 @@ const  AppNavigator = StackNavigator({
   SignUp: { screen: SignUp },
   AddPageComponent: { screen: AddPageComponent },
   UserEditTest: { screen: UserEdit },
+  ColorPicker: { screen: ColorPicker },
+  ColorModal: { screen: ColorModal },
 });
 
 const styles = StyleSheet.create({
