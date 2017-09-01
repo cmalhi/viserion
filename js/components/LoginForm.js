@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, TouchableOpacity, Text, KeyboardAvoidingView, AsyncStorage } from 'react-native';
+import { Button, StyleSheet, View, TextInput, TouchableOpacity, Text, KeyboardAvoidingView, AsyncStorage } from 'react-native';
 import Expo from 'expo';
 import config from '../../config/config';
 import firebase from '../../config/firebase';
@@ -153,7 +153,7 @@ export default class LoginForm extends Component {
       </TouchableOpacity>
       <Button
           title="Login with Facebook"
-          onPress={this._handleFacebookLogin}
+          onPress={this.handleFacebookLogin}
       />
       <TouchableOpacity style={[styles.buttonContainer, styles.buttonFacebook]} onPress={this.handleFacebookLogin}>
         <Text style={styles.buttonText}>LOGIN WITH FACEBOOK</Text>
