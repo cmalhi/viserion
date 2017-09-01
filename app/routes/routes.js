@@ -9,6 +9,7 @@ const User = require('../models/user');
 const Screenshot = require('url-to-screenshot');
 const File = require('../models/file');
 const Site = require('../models/site');
+const User = require('../models/user');
 const UserTemplate = require('../models/userTemplate');
 const fileController = require('./fileController');
 const userTemplateController = require('./userTemplateController');
@@ -184,7 +185,7 @@ var routerInstance = function(io) {
 
   /*
    * /POST /site
-   * Adds selected site to sites
+   * Adds selected site to user collection and sites collection
    */
 
   router.post('/site', function(req, res) {
@@ -193,10 +194,10 @@ var routerInstance = function(io) {
     const newSite = { userId, html, settings: { components, colors, text } };
     Site.create(newSite)
       .then((newSite) => {
-        User.findOneAndUpdate(userId)
-          
-        console.log(newSite._id);
-        res.send(newSite);
+        const siteId = newSite._id;
+        const update = { $push: { 'savedSites': siteId } }
+        User.findOneAndUpdate(userId, update, { new: true })
+          .then(user => res.send(`User ${user.userId} saved site ${siteId}`));
       })
       .catch(error => console.log('Error saving new site', error));
   });

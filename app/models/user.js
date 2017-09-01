@@ -5,6 +5,7 @@ const userSchema = mongoose.Schema({
   id: mongoose.Schema.Types.ObjectId,
   // UserId authenticated from firebase
   userId: String,
+  savedSites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Site' }],
   password: String,
   email: String,
   name: String,
