@@ -17,7 +17,7 @@ export default class ReactTest extends React.Component {
       textModal: false,
       title: '',
       imageModal: false,
-      colorModal: false,
+      colorModal: true,
     }
   };
 
@@ -41,14 +41,10 @@ export default class ReactTest extends React.Component {
   render() {
     return (
       <View style={styles.flexContainer}>
-        <ColorPicker
-          onColorSelected={color => alert(`Color selected: ${color}`)}
-          styles={{flex: 2}}
-        />
-        {/*<WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/full.html`}} />*/}
-        {/*{this.state.textModal ? <TextModal title={this.state.title} closeModal={() => this.setState({textModal: false}) } /> : null}*/}
-        {/*{this.state.imageModal ? <ImageModal closeModal={() => this.setState({imageModal: false})} /> : null}*/}
-        {/*{this.state.colorModal ? <ColorModal closeModal={() => this.setState({colorModal: false})} /> : null}*/}
+        <WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/full.html`}} />
+        {this.state.textModal ? <TextModal title={this.state.title} closeModal={() => this.setState({textModal: false}) } /> : null}
+        {this.state.imageModal ? <ImageModal closeModal={() => this.setState({imageModal: false})} /> : null}
+        {this.state.colorModal ? <ColorModal closeModal={() => this.setState({colorModal: false})} /> : null}
       </View>
     )
   };

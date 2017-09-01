@@ -1,7 +1,8 @@
 import React from 'react';
 import { Animated, Dimensions, Image, Text, TouchableOpacity, View, Button, StyleSheet, TextInput } from 'react-native';
-import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker';
+import { TriangleColorPicker } from 'react-native-color-picker';
 const io = require('socket.io-client');
+import ColorPalette from './ColorPalette';
 
 var {
   height: deviceHeight
@@ -46,9 +47,11 @@ export default class ColorModal extends React.Component {
             <Text style={styles.center}>Close menu</Text>
           </TouchableOpacity>
           <Text style={styles.bigText}>Choose a color</Text>
-          <ColorPicker
-            onColorSelected={color => alert(`Color selected: ${color}`)}
-            styles={{flex: 2}}
+          <ColorPalette />
+          <TriangleColorPicker
+            defaultColor={this.state.currentColor}
+            onColorChange={this.onColorChange}
+            style={{flex: 1}}
           />
           <Button onPress={this.closeAndUpdate} title="Enter" />
         </View>
