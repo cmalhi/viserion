@@ -35,7 +35,7 @@ export default class ReactTest extends React.Component {
       <View style={styles.flexContainer}>
         <WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/full.html`}} />
         {this.state.textModal ? <TextModal title={this.state.title} closeModal={() => this.setState({textModal: false}) } /> : null}
-        {this.state.imageModal ? <ImageModal /> : null}
+        {this.state.imageModal ? <ImageModal closeModal={() => this.setState({imageModal: false})} /> : null}
       </View>
     )
   };
