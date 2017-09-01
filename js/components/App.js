@@ -53,19 +53,10 @@ class HomeScreen extends React.Component {
 
   }
 
-  trigger() {
-    console.log('trigger');
-    axios.get(`${global.HOST}/hello`)
-      .then((data) => {
-        console.log('data', data);
-      });
-  }
-
   render() {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Button onPress={this.trigger} title="Trigger!" />
         <Text>socket connected: {this.state.isConnected ? 'true' : 'false'}</Text>
         {this.state.data &&
         <Text>
