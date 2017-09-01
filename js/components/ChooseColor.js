@@ -25,22 +25,21 @@ class ChooseColor extends React.Component {
   }
 
   handleClick(color, tab) {
-    console.log('click handled')
-    this.setState({currentColor: color})
+    this.setState({currentColor: color});
     this.setState({currentTab: tab})
   }
  
   onColorChange(color) {
     color = fromHsv(color);
-    this.setState({currentColor: color}, ()=>{console.log('current color is ', this.state.currentColor)})
+    this.setState({currentColor: color});
     if (this.state.currentTab === 1){
-      this.setState({color1: this.state.currentColor})
+      this.setState({color1: this.state.currentColor});
       this.setState({chosenColors: [this.state.color1, this.state.color2, this.state.color3]})
     } else if (this.state.currentTab === 2) {
-      this.setState({color2: this.state.currentColor})
+      this.setState({color2: this.state.currentColor});
       this.setState({chosenColors: [this.state.color1, this.state.color2, this.state.color3]})
     } else if (this.state.currentTab === 3){
-      this.setState({color3: this.state.currentColor})
+      this.setState({color3: this.state.currentColor});
       this.setState({chosenColors: [this.state.color1, this.state.color2, this.state.color3]})
     }
   }
@@ -48,12 +47,10 @@ class ChooseColor extends React.Component {
   submitColor() {
     const { navigate } = this.props.navigation;
     this.props.addColors(this.state.chosenColors);
-    console.log('chosen colors', this.state.chosenColors);
     navigate('Keywords')
   }
 
   setCurrentTab() {
-    console.log('setting current color')
     if (this.state.currentTab === 1){
       this.setState({color1: this.state.currentColor})
     } else if (this.state.currentTab === 2) {
@@ -64,41 +61,37 @@ class ChooseColor extends React.Component {
 
   }
 
-  componentDidMount() {
- 
-  }
-
   render() {
     return (
-  <View style={{flex: 1, padding: 15, backgroundColor: '#FFFFFF'}}>
-    <ColorPicker
-      defaultColor={this.state.currentColor}
-      onColorChange={this.onColorChange}
-      style={{flex: 1}}
-    />
-    <View style={styles.container}>
-      <TouchableHighlight>
-        <View 
-          style={{backgroundColor: this.state.color1, height: 25, width: 90, marginTop: 10}}
-        ><Button onPress={this.handleClick.bind(this, this.state.color1, 1)} title="" /></View>
-      </TouchableHighlight>
-      <TouchableHighlight>
-        <View 
-          style={{backgroundColor: this.state.color2, height: 25, width: 90, marginTop: 10}}
-        ><Button onPress={this.handleClick.bind(this, this.state.color2, 2)} title="" /></View>
-      </TouchableHighlight>
-      <TouchableHighlight>
-        <View 
-          style={{backgroundColor: this.state.color3, height: 25, width: 90, marginTop: 10}}
-        ><Button onPress={this.handleClick.bind(this, this.state.color3, 3)} title="" /></View>
-        </TouchableHighlight>
-    </View>
-    <Button
-      onPress={this.submitColor}
-      title="Submit These Colors"
-      color='#000'
-     />
-  </View>
+      <View style={{flex: 1, padding: 15, backgroundColor: '#FFFFFF'}}>
+        <ColorPicker
+          defaultColor={this.state.currentColor}
+          onColorChange={this.onColorChange}
+          style={{flex: 1}}
+        />
+        <View style={styles.container}>
+          <TouchableHighlight>
+            <View
+              style={{backgroundColor: this.state.color1, height: 25, width: 90, marginTop: 10}}
+            ><Button onPress={this.handleClick.bind(this, this.state.color1, 1)} title="" /></View>
+          </TouchableHighlight>
+          <TouchableHighlight>
+            <View
+              style={{backgroundColor: this.state.color2, height: 25, width: 90, marginTop: 10}}
+            ><Button onPress={this.handleClick.bind(this, this.state.color2, 2)} title="" /></View>
+          </TouchableHighlight>
+          <TouchableHighlight>
+            <View
+              style={{backgroundColor: this.state.color3, height: 25, width: 90, marginTop: 10}}
+            ><Button onPress={this.handleClick.bind(this, this.state.color3, 3)} title="" /></View>
+            </TouchableHighlight>
+        </View>
+        <Button
+          onPress={this.submitColor}
+          title="Submit These Colors"
+          color='#000'
+         />
+      </View>
     );
   }
 }
