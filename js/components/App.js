@@ -21,6 +21,7 @@ import SignUp from './SignUp';
 import UserEdit from './UserEdit';
 const io = require('socket.io-client');
 import axios from 'axios';
+import ImageSearch from './ImageSearch';
 
 const store = createStore(
   rootReducer,
@@ -73,8 +74,10 @@ class HomeScreen extends React.Component {
         <Text onPress={() => { navigate('ShareScreen')}} style={styles.defaultText}>Step 6: Share Link </Text>
         <Text onPress={() => { navigate('Page')}} style={styles.defaultText}>Final Page</Text>
         <Text onPress={() => { navigate('Saved')}} style={styles.inDevelopment}>In development: Saved Pages</Text>
-        <Text onPress={() => { navigate('AddPageComponent')}} style={styles.inDevelopment}>In development: New Component</Text>
         <Text onPress={() => { navigate('UserEditTest')}} style={styles.inDevelopment}>In development: User Editing</Text>
+        <Text onPress={() => { navigate('Image')}} style={styles.defaultText,styles.selectedText}>(Optional) Add Image</Text>
+        <Text onPress={() => { navigate('AddPageComponent')}} style={styles.defaultText}>AddPageComponent Test</Text>
+        <Text onPress={() => { navigate('ImageSearch')}} style={styles.defaultText}>Image Search</Text>
       </View>
     )
   }
@@ -95,6 +98,7 @@ const  AppNavigator = StackNavigator({
   SignUp: { screen: SignUp },
   AddPageComponent: { screen: AddPageComponent },
   UserEditTest: { screen: UserEdit },
+  ImageSearch: { screen: ImageSearch },
 });
 
 const styles = StyleSheet.create({
