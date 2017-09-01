@@ -71,7 +71,6 @@ class ChooseColor extends React.Component {
   render() {
     return (
   <View style={{flex: 1, padding: 15, backgroundColor: '#FFFFFF'}}>
-    <Text style={{color: 'white'}}>React Native Color Picker - Uncontrolled</Text>
     <ColorPicker
       defaultColor={this.state.currentColor}
       onColorChange={this.onColorChange}
@@ -81,24 +80,24 @@ class ChooseColor extends React.Component {
       <TouchableHighlight>
         <View 
           style={{backgroundColor: this.state.color1, height: 25, width: 90, marginTop: 10}}
-        ><Button onPress={this.handleClick.bind(this, this.state.color1, 1)} title=""></Button></View>
+        ><Button onPress={this.handleClick.bind(this, this.state.color1, 1)} title="" /></View>
       </TouchableHighlight>
       <TouchableHighlight>
         <View 
           style={{backgroundColor: this.state.color2, height: 25, width: 90, marginTop: 10}}
-        ><Button onPress={this.handleClick.bind(this, this.state.color2, 2)} title=""></Button></View>
+        ><Button onPress={this.handleClick.bind(this, this.state.color2, 2)} title="" /></View>
       </TouchableHighlight>
       <TouchableHighlight>
         <View 
           style={{backgroundColor: this.state.color3, height: 25, width: 90, marginTop: 10}}
-        ><Button onPress={this.handleClick.bind(this, this.state.color3, 3)} title=""></Button></View> 
+        ><Button onPress={this.handleClick.bind(this, this.state.color3, 3)} title="" /></View>
         </TouchableHighlight>
     </View>
     <Button
       onPress={this.submitColor}
       title="Submit These Colors"
       color='#000'
-    ></Button>
+     />
   </View>
     );
   }
@@ -113,19 +112,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     maxHeight: 20,
   },
-  selected: {
-    opacity: 0.5,
-    backgroundColor: '#0F0',
-    maxHeight: 20
-  },
-  linebreak: {
-    width: '100%',
-  },
-  template: {
-    width: 95,
-    height: 15,
-    borderColor: 'grey',
-  }
 });
 
 function mapStateToProps({ colors }) {
@@ -134,6 +120,6 @@ function mapStateToProps({ colors }) {
 
 const matchDispatchToProps = (dispatch) => {
   return bindActionCreators({addColors}, dispatch)
-}
+};
 
 export default connect(mapStateToProps, matchDispatchToProps)(ChooseColor);

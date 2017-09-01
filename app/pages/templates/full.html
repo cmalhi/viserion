@@ -143,6 +143,7 @@
   .centered {
     margin: 0 auto;
     padding: 0 1em;
+    text-align: center;
   }
 
   @media screen and (min-width: 52em) {
@@ -256,9 +257,9 @@
   }
 </style>
 <div class="outer-wrap">
-  <header class="hero">
+  <header class="hero header1">
     <div class="centered">
-      <h1 class="site-title">Hi</h1>
+      <span class="site-title">Hi</span>
     </div>
   </header>
 </div><div class="content">
@@ -298,7 +299,9 @@
 //    var socket = io('http://ec2-54-203-8-222.us-west-2.compute.amazonaws.com:8080');
     $title = $('.site-title');
     $img1 = $('.img1');
+    $header1 = $('.header1');
 
+    // Title
     $title.click(() => {
       socket.emit('titleChange', $title.text());
     });
@@ -307,15 +310,19 @@
       $title.text(title);
     });
 
+    // Images
     $img1.click(() => {
-      console.log('img1');
       socket.emit('imgChange', 'change me change me!!!');
     });
 
     socket.on('imgChange2', (img) => {
-      console.log('ok receiving', img)
       $img1.attr('src', img);
-    })
+    });
+
+    // Colors
+    $header1.click(() => {
+      socket.emit('colorChange', 'change ID x!');
+    });
 
   });
 </script>
