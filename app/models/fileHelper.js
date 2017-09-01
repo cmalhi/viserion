@@ -1,4 +1,4 @@
-const db = require('../../config/database');
+const db = require('../../database/database');
 const File = require('./file.js');
 const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs'));
