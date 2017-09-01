@@ -302,7 +302,8 @@
     $header1 = $('.header1');
 
     // Title
-    $title.click(() => {
+    $title.click((e) => {
+      e.stopPropagation();
       socket.emit('titleChange', $title.text());
     });
 
