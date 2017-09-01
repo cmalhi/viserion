@@ -3,7 +3,8 @@ import { Text, View, StyleSheet, Image, TouchableHighlight, Share } from 'react-
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import axios from 'axios';
-const key = require('../../config/apiKeys').urlShortner;
+import { urlShortner } from '../../config/config';
+const key = urlShortner.API_KEY;
 
 class ShareScreen extends React.Component {
   constructor(props) {

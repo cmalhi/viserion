@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, StyleSheet, View, TextInput, TouchableOpacity, Text, KeyboardAvoidingView, AsyncStorage } from 'react-native';
 import Expo from 'expo';
 import config from '../../config/config';
-import firebase from '../../config/firebase';
+import firebase from '../../database/firebase';
 
 
 export default class LoginForm extends Component {
@@ -21,10 +21,6 @@ export default class LoginForm extends Component {
 
   async emailLogin(email, password) {
     try {
-      const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
-        config.facebook.APP_ID, // Replace with your own app id in standalone app
-        { permissions: ['public_profile', 'email'] }
-      );
       await firebase.auth().signInWithEmailAndPassword(email, password);
       const user = firebase.auth().currentUser;
       if (user) {
@@ -151,10 +147,6 @@ export default class LoginForm extends Component {
       <TouchableOpacity onPress={this.handleEmailLogin} style={styles.buttonContainer}>
         <Text style={styles.buttonText}>LOGIN</Text>
       </TouchableOpacity>
-      <Button
-          title="Login with Facebook"
-          onPress={this.handleFacebookLogin}
-      />
       <TouchableOpacity style={[styles.buttonContainer, styles.buttonFacebook]} onPress={this.handleFacebookLogin}>
         <Text style={styles.buttonText}>LOGIN WITH FACEBOOK</Text>
       </TouchableOpacity>
