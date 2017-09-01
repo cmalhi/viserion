@@ -44,11 +44,12 @@ export default class ReactTest extends React.Component {
     //send the array to react client
     socket.emit('order', {order: result})
     socket.on('orderDOM', (data) => {
-      console.log('pinging2')
+      console.log('pinging from react native')
     });
     //react client updates state to re-render components
   }
-  
+
+  //may need to change web view width to 100%
   render() {
     return (
       <View style={styles.slides}>
@@ -56,7 +57,7 @@ export default class ReactTest extends React.Component {
           ref='webview'
           automaticallyAdjustContentInsets={false}
           scrollEnabled={true}
-          scalesPageToFit={true}
+          scalesPageToFit={false}
           source={{html: this.state.html}}
           javaScriptEnabled={true}
           injectedJavaScript={this.state.js}
@@ -107,9 +108,11 @@ const js = `
     },
     
     componentDidMount: function() {
-      this.socket.on('orderDOM', (data) => {
+      var sockets = this.socket;
+      sockets.on('orderDOM', (data) => {
         this.setState({message: 'changed'})
       });
+      sockets.emit('order', 'data')
     },
 
     handleClick: function() {
