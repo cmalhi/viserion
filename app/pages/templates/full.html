@@ -325,6 +325,10 @@
       socket.emit('colorChange', 'change ID x!');
     });
 
+    socket.on('colorChange2', (color) => {
+      $header1.css('background-color', color);
+    })
+
   });
 </script>
 </body></html>
