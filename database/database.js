@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
-// mongoose.connect('mongodb://sweezed:mlab1968@ds141410.mlab.com:41410/project1db');
-mongoose.connect('mongodb://localhost/viserion');
+const config = require('../config/config');
+
+mongoose.connect(config.dbUrl);
 
 var db = mongoose.connection;
 
