@@ -17,7 +17,7 @@ export default class UserEdit extends React.Component {
       textModal: false,
       title: '',
       imageModal: false,
-      colorModal: false,
+      colorModal: true,
     }
   };
 
