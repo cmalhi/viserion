@@ -21,10 +21,6 @@ export default class LoginForm extends Component {
 
   async emailLogin(email, password) {
     try {
-      const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
-        config.facebook.APP_ID, // Replace with your own app id in standalone app
-        { permissions: ['public_profile', 'email'] }
-      );
       await firebase.auth().signInWithEmailAndPassword(email, password);
       const user = firebase.auth().currentUser;
       if (user) {
