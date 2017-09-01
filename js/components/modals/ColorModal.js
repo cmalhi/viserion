@@ -14,10 +14,10 @@ export default class ColorModal extends React.Component {
     this.state = {
       offset: new Animated.Value(deviceHeight),
       color: null,
-      currentColor: null,
     };
     this.closeModal = this.closeModal.bind(this);
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
+    this.setColor = this.setColor.bind(this);
   }
 
   componentDidMount() {
@@ -35,8 +35,13 @@ export default class ColorModal extends React.Component {
   }
 
   closeAndUpdate(){
+    const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
-    console.log('closing and update...')
+    socket.emit('colorChange2', this.state.color);
+  }
+
+  setColor(color) {
+    this.setState({ color });
   }
 
   render() {
@@ -48,8 +53,9 @@ export default class ColorModal extends React.Component {
             <Text style={styles.center}>Close menu</Text>
           </TouchableOpacity>
           <Text style={styles.bigText}>Choose a color</Text>
-          <ColorPalette />
+          <ColorPalette setColor={this.setColor} />
           <Text onPress={() => { navigate('ColorPicker')}}>Color picker</Text>
+          <Text>{this.state.color}</Text>
           <Button onPress={this.closeAndUpdate} title="Enter" />
         </View>
       </Animated.View>

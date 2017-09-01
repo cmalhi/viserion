@@ -26,6 +26,10 @@ var socketInstance = function(io) {
       io.sockets.emit('colorChange', data);
     });
 
+    socket.on('colorChange2', function(color) {
+      io.sockets.emit('colorChange2', color);
+    });
+
   });
 };
 
