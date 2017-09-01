@@ -5,12 +5,12 @@ import { AWSEC3 } from './config/config';
 
 
 global.AWSEC3 = {
-    keyPrefix: "uploads/",
-    bucket: "viserion-hr",
-    region: "us-east-1",
-    accessKey: AWSEC3.accessKey,
-    secretKey: AWSEC3.secretKey,
-    successActionStatus: 201
+  keyPrefix: 'uploads/',
+  bucket: 'viserion-hr',
+  region: 'us-east-1',
+  accessKey: AWSEC3.accessKey,
+  secretKey: AWSEC3.secretKey,
+  successActionStatus: 201,
 };
  
-global.HOST = 'http://66de2dec.ngrok.io'; // Ed's
+// global.HOST = 'http://66de2dec.ngrok.io'; // Ed's
