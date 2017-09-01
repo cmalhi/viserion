@@ -6,7 +6,9 @@ const fs = require('fs');
 Promise.promisifyAll(fs);
 // const Screenshot = require('url-to-screenshot');
 const User = require('../models/user');
+const Screenshot = require('url-to-screenshot');
 const File = require('../models/file');
+const Site = require('../models/site');
 const UserTemplate = require('../models/userTemplate');
 const fileController = require('./fileController');
 const userTemplateController = require('./userTemplateController');
@@ -41,7 +43,6 @@ var routerInstance = function(io) {
       res.status(200).send(result)
     });
   });
-
 
   /*
    * /POST /submitchoice
@@ -181,7 +182,28 @@ var routerInstance = function(io) {
     return combinations;
   };
 
+  /*
+   * /POST /site
+   * Adds selected site to sites
+   */
+
+  router.post('/site', function(req, res) {
+    const { userId, html, components, colors, text } = req.body;
+    // TODO: configure screenshots
+    const newSite = { userId, html, settings: { components, colors, text } };
+    Site.create(newSite)
+      .then((newSite) => {
+        User.findOneAndUpdate(userId)
+          
+        console.log(newSite._id);
+        res.send(newSite);
+      })
+      .catch(error => console.log('Error saving new site', error));
+  });
+
   return router;
 };
 
 module.exports = routerInstance;
+
+

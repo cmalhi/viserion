@@ -3,10 +3,15 @@ const findOrCreate = require('mongoose-findorcreate');
 
 const userSchema = mongoose.Schema({
   id: mongoose.Schema.Types.ObjectId,
+  // UserId authenticated from firebase
+  userId: String,
   password: String,
   email: String,
   name: String,
-  // preferences: { keywords: [String], colors: [String], title: String },
+  preferences: {
+    keywords: [String],
+    colors: [String],
+    title: String },
 });
 
 userSchema.plugin(findOrCreate);
