@@ -1,21 +1,35 @@
+import { AsyncStorage } from 'react-native';
+
 const defaultAuthState = {
-  isFetching: true,
+  isFetching: false,
   isLoggedIn: false,
   username: '',
   displayName: '',
   userId: '',
 };
 
+const getLoggedIn = () => {
+  AsyncStorage.muliGet()
+}
+
 export default function (state = defaultAuthState, action) {
   switch (action.type) {
     case 'LOGIN_REQUEST':
-      return state;
+      return Object.assign({}, state, {
+
+      });
     case 'LOGOUT_SUCCESS':
-      return state;
+      return Object.assign({}, state, {
+        
+      });
     case 'LOGIN_FAILURE':
-      return state;
+      return Object.assign({}, state, {
+        
+      });
     case 'LOGOUT_SUCCESS':
-      return state;
+      return Object.assign({}, state, {
+        
+      });
     default:
       return state;
   }
