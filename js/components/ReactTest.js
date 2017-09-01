@@ -85,12 +85,6 @@ const html = `
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.js"></script>
 <script src="/socket.io/socket.io.js"></script>
-<script>
-  var socket = io('http://localhost:8080', { transports: ['websockets']})
-  socket.on('ping', function (data) {
-    alert('the data coming back from the socket is ', data);
-  });
-</script>
 <body>
 <div id="container">
 </div>
@@ -98,12 +92,17 @@ const html = `
 `;
 
 const js = `
+  
   var MyComponent2 = React.createClass({
     displayName: 'MyComponent2',
+
+    socket: function() {
+      io('http://127.0.0.1:8080', { transports: ['websocket'] });
+    },
     
     componentDidMount: function() {
-      alert('socket goes here')
-      socket.on('ping', (data) => {
+      alert(this.socket)
+      this.socket.on('connect', (data) => {
         alert('you got da data')
       })
 

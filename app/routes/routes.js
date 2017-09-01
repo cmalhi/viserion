@@ -19,7 +19,8 @@ var routerInstance = function(io) {
     io.on('connection', (socket)=>{
       console.log('connected to sockets')
       socket.on('order', (data)=>{
-        console.log('ORDER DATA ',data)
+        console.log('ORDER DATA ', data)
+        socket.emit('orderDOM', data)
       })
     })
 
