@@ -4,46 +4,23 @@ import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
 export default class ColorPalette extends React.Component {
   constructor(props) {
     super(props);
-    this.selectColor = this.selectColor.bind(this);
-  }
-
-  selectColor() {
-    console.log('color selected');
   }
 
   render() {
+    const colors = ['#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC',
+      '#0693E3', '#ABB8C3', '#EB144C', '#F78DA7', '#9900EF'];
+
+    const squares = colors.map((c, index) => {
+      return(
+        <TouchableHighlight key={index} onPress={() => {this.props.setColor(c)}}>
+          <View style={[styles.item, {backgroundColor: c}]} />
+        </TouchableHighlight>
+      );
+    });
+
     return(
       <View style={styles.container}>
-        <TouchableHighlight onPress={this.selectColor}>
-          <View style={[styles.item, {backgroundColor: '#FF6900'}]} />
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this.selectColor}>
-          <View style={[styles.item, {backgroundColor: '#FCB900'}]} />
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this.selectColor}>
-          <View style={[styles.item, {backgroundColor: '#7BDCB5'}]} />
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this.selectColor}>
-          <View style={[styles.item, {backgroundColor: '#00D084'}]} />
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this.selectColor}>
-          <View style={[styles.item, {backgroundColor: '#8ED1FC'}]} />
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this.selectColor}>
-          <View style={[styles.item, {backgroundColor: '#0693E3'}]} />
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this.selectColor}>
-          <View style={[styles.item, {backgroundColor: '#ABB8C3'}]} />
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this.selectColor}>
-          <View style={[styles.item, {backgroundColor: '#EB144C'}]} />
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this.selectColor}>
-          <View style={[styles.item, {backgroundColor: '#F78DA7'}]} />
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this.selectColor}>
-          <View style={[styles.item, {backgroundColor: '#9900EF'}]} />
-        </TouchableHighlight>
+        {squares}
       </View>
     )
   }
