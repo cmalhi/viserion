@@ -1,6 +1,6 @@
 # Keys
-config/*
 global.js
+config/
 
 # React Native
 .expo/
