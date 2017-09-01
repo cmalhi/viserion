@@ -23,7 +23,7 @@ export default class LoginForm extends Component {
     try {
       const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
         config.facebook.APP_ID, // Replace with your own app id in standalone app
-        { permissions: ['public_profile'] }
+        { permissions: ['public_profile', 'email'] }
       );
       await firebase.auth().signInWithEmailAndPassword(email, password);
       const user = firebase.auth().currentUser;
@@ -39,8 +39,8 @@ export default class LoginForm extends Component {
 
         // Retrieve JWT token and set on AsyncStorage
         user.getIdToken()
-          .then((token) => {
-            AsyncStorage.multiSet([['username', user.email], ['token', token], ['userId', user.uid]]);
+          .then((tokenId) => {
+            AsyncStorage.multiSet([['username', user.email], ['token', tokenId], ['userId', user.uid]]);
           });
       } else {
         // No user is signed in.
@@ -85,8 +85,8 @@ export default class LoginForm extends Component {
             // Retrieve JWT token and set on AsyncStorage
             user.getIdToken()
               .then((IdToken) => {
-              AsyncStorage.multiSet([['username', user.displayName], ['token', IdToken], ['userId', user.uid]])
-            });
+                AsyncStorage.multiSet([['username', user.displayName], ['token', IdToken], ['userId', user.uid]])
+              });
           })
           .catch((error) => {
           console.log('Google Account Firebase Login error', error);
@@ -106,7 +106,7 @@ export default class LoginForm extends Component {
       this.setState({
         email: '',
         password: '',
-      })
+      });
       const { navigate } = this.props.navigation;
       navigate('Template');
 
