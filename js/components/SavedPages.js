@@ -22,9 +22,9 @@ export default class SavedPages extends React.Component {
       // Pull just the URLs
       images = this.state.templates.map((t) => {
         return (
-          <View>
+          <View key={t['_id']}>
             <Text>{t['_id']}</Text>
-            { t.screenshot && <Image key={t['_id']} style={{width:400, height: 200}} source={require('./example.png')} resizeMode="contain" /> }
+            { t.screenshot && <Image style={{width:400, height: 200}} source={require('./example.png')} resizeMode="contain" /> }
           </View>
         )
       })

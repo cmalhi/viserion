@@ -18,7 +18,7 @@ import AddPageComponent from './AddPageComponent';
 import PageScreen from './PageScreen';
 import Login from './Login';
 import SignUp from './SignUp';
-import ReactTest from './ReactTest';
+import UserEdit from './UserEdit';
 const io = require('socket.io-client');
 import axios from 'axios';
 
@@ -72,17 +72,16 @@ class HomeScreen extends React.Component {
         <Text onPress={() => { navigate('ConfirmSite')}} style={styles.defaultText}>Step 5: Confirm Selection</Text>
         <Text onPress={() => { navigate('ShareScreen')}} style={styles.defaultText}>Step 6: Share Link </Text>
         <Text onPress={() => { navigate('Page')}} style={styles.defaultText}>Final Page</Text>
-        <Text onPress={() => { navigate('Image')}} style={styles.defaultText}>(Optional) Add Image</Text>
-        <Text onPress={() => { navigate('Saved')}} style={styles.defaultText}>Saved Pages</Text>
-        <Text onPress={() => { navigate('AddPageComponent')}} style={styles.defaultText}>AddPageComponent Test</Text>
-        <Text onPress={() => { navigate('UserEditTest')}} style={styles.defaultText}>User Edit Test</Text>
+        <Text onPress={() => { navigate('Saved')}} style={styles.inDevelopment}>In development: Saved Pages</Text>
+        <Text onPress={() => { navigate('AddPageComponent')}} style={styles.inDevelopment}>In development: New Component</Text>
+        <Text onPress={() => { navigate('UserEditTest')}} style={styles.inDevelopment}>In development: User Editing</Text>
       </View>
     )
   }
 }
 
 const  AppNavigator = StackNavigator({
-  // Index: { screen: ReactTest },
+  // Index: { screen: UserEdit },
   Index: { screen: HomeScreen },
   Color: { screen: ChooseColor },
   Template: { screen: ChooseLayout },
@@ -95,7 +94,7 @@ const  AppNavigator = StackNavigator({
   Login: { screen: Login },
   SignUp: { screen: SignUp },
   AddPageComponent: { screen: AddPageComponent },
-  UserEditTest: { screen: ReactTest },
+  UserEditTest: { screen: UserEdit },
 });
 
 const styles = StyleSheet.create({
@@ -109,10 +108,10 @@ const styles = StyleSheet.create({
   },
   defaultText: {
     fontSize: 25,
-    backgroundColor: 'yellow',
   },
-  selectedText: {
+  inDevelopment: {
     fontSize: 25,
+    backgroundColor: 'yellow',
   }
 });
 
