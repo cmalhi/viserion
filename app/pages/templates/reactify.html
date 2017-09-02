@@ -11,19 +11,22 @@
   <script src="https://fb.me/react-15.0.0.js"></script>
   <script src="https://fb.me/react-dom-15.0.0.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
 
   <div id="hero"></div>
   <div id="pinterest-content"></div>
   <div id="footer"></div>
 
   <script type="text/babel">
+    const socket = io('http://127.0.0.1:8080');
+
     class Hero extends React.Component {
       render() {
         return (
           <div className="outer-wrap">
             <header className="hero header1">
               <div className="centered">
-                <span className="site-title">Hi</span>
+                <span className="site-title"><EditableShortText value="New page" /></span>
               </div>
             </header>
           </div>
@@ -31,13 +34,56 @@
       }
     }
 
+    class EditableShortText extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          value: this.props.value,
+        };
+        this.handleClick = this.handleClick.bind(this);
+      }
+
+      componentDidMount() {
+        socket.on('titleChange2', value => {
+          this.setState({ value })
+        })
+      }
+
+      handleClick(e) {
+        e.stopPropagation();
+        socket.emit('titleChange', this.state.value);
+      }
+
+      render() {
+        return(
+          <span onClick={this.handleClick}>{this.state.value}</span>
+        )
+      }
+    }
+
     class EditableImage extends React.Component {
       constructor(props) {
-        super(props)
+        super(props);
+        this.state = {
+          src: this.props.src,
+          key: null,
+        };
+        this.handleClick = this.handleClick.bind(this);
       }
+
+      componentDidMount() {
+        socket.on('imgChange2', (src) => {
+          this.setState({ src });
+        });
+      }
+
+      handleClick() {
+        socket.emit('imgChange', 'key');
+      }
+
       render() {
         return (
-          <img src={this.props.src} />
+          <img key={this.state.key} onClick={this.handleClick} src={this.state.src} />
         )
       }
     }
@@ -81,8 +127,8 @@
       }
     }
 
-    ReactDOM.render(<PinterestContent/>, document.getElementById('pinterest-content'));
     ReactDOM.render(<Hero/>, document.getElementById('hero'));
+    ReactDOM.render(<PinterestContent/>, document.getElementById('pinterest-content'));
     ReactDOM.render(<Footer/>, document.getElementById('footer'));
   </script>
 </body>

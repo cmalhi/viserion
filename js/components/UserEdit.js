@@ -40,7 +40,7 @@ export default class UserEdit extends React.Component {
   render() {
     return (
       <View style={styles.flexContainer}>
-        <WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/full.html`}} />
+        <WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/reactify.html`}} />
         {this.state.textModal ? <TextModal title={this.state.title} closeModal={() => this.setState({textModal: false}) } /> : null}
         {this.state.imageModal ? <ImageModal closeModal={() => this.setState({imageModal: false})} /> : null}
         {this.state.colorModal ? <ColorModal navigation={this.props.navigation} closeModal={() => this.setState({colorModal: false})} /> : null}

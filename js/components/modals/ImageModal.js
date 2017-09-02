@@ -46,8 +46,10 @@ export default class ImageModal extends React.Component {
       name: "image.png",
       type: "image/png"
     };
+    console.log(2, 'this.state.img', this.state.img)
 
     RNS3.put(file, global.AWSEC3).then(response => {
+      console.log(3)
       if (response.status !== 201)
         throw new Error("Failed to upload image to S3");
       const imageUrl = response.body.postResponse.location;

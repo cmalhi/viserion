@@ -297,44 +297,44 @@
 
 
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-<script src="/socket.io/socket.io.js"></script>
+<!--<script src="/socket.io/socket.io.js"></script>-->
 <script type="text/javascript">
 //  $(function() {
   $(document).ready(function() {
     // TODO make global variable and pull from global.HOST
-    var socket = io('http://127.0.0.1:8080');
-//    var socket = io('http://ec2-54-203-8-222.us-west-2.compute.amazonaws.com:8080');
-    $title = $('.site-title');
-    $img1 = $('.img1');
-    $header1 = $('.header1');
-
-    // Title
-    $title.click((e) => {
-      e.stopPropagation();
-      socket.emit('titleChange', $title.text());
-    });
-
-    socket.on('titleChange2', (title) => {
-      $title.text(title);
-    });
-
-    // Images
-    $img1.click(() => {
-      socket.emit('imgChange', 'change me change me!!!');
-    });
-
-    socket.on('imgChange2', (img) => {
-      $img1.attr('src', img);
-    });
-
-    // Colors
-    $header1.click(() => {
-      socket.emit('colorChange', 'change ID x!');
-    });
-
-    socket.on('colorChange2', (color) => {
-      $header1.css('background-color', color);
-    })
+//    var socket = io('http://127.0.0.1:8080');
+////    var socket = io('http://ec2-54-203-8-222.us-west-2.compute.amazonaws.com:8080');
+//    $title = $('.site-title');
+//    $img1 = $('.img1');
+//    $header1 = $('.header1');
+//
+//    // Title
+//    $title.click((e) => {
+//      e.stopPropagation();
+//      socket.emit('titleChange', $title.text());
+//    });
+//
+//    socket.on('titleChange2', (title) => {
+//      $title.text(title);
+//    });
+//
+//    // Images
+//    $img1.click(() => {
+//      socket.emit('imgChange', 'change me change me!!!');
+//    });
+//
+//    socket.on('imgChange2', (img) => {
+//      $img1.attr('src', img);
+//    });
+//
+//    // Colors
+//    $header1.click(() => {
+//      socket.emit('colorChange', 'change ID x!');
+//    });
+//
+//    socket.on('colorChange2', (color) => {
+//      $header1.css('background-color', color);
+//    })
 
   });
 </script>
