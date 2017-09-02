@@ -2,22 +2,22 @@ var socketInstance = function(io) {
   io.on('connection', function(socket) {
 
     // Title
-    socket.on('titleChange', function(title) {
-      io.sockets.emit('titleChange', title);
+    socket.on('changeTitle', function(title) {
+      io.sockets.emit('launchTitleModal', title);
       // TODO: .to(x) to SPECIFY SOCKET ID;
     });
 
-    socket.on('titleChange2', function(title) {
-      io.sockets.emit('titleChange2', title);
+    socket.on('changeTitleDom', function(title) {
+      io.sockets.emit('changeTitleDom', title);
     });
 
     // Image
-    socket.on('imgChange', function(img) {
-      io.sockets.emit('imgChange', 'ok changing');
+    socket.on('launchImageModal', function(id) {
+      io.sockets.emit('launchImageModal', id);
     });
 
-    socket.on('imgChange2', function(img) {
-      io.sockets.emit('imgChange2', img);
+    socket.on('changeImageDom', function(data) {
+      io.sockets.emit('changeImageDom', data);
     });
 
     // Header color

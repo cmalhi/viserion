@@ -4,13 +4,16 @@ const io = require('socket.io-client');
 import ImageModal from './modals/ImageModal';
 import TextModal from './modals/TextModal';
 import ColorModal from './modals/ColorModal';
+import OrderModal from './modals/OrderModal';
 import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 var {
   height: deviceHeight
 } = Dimensions.get('window');
 
-export default class UserEdit extends React.Component {
+class UserEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,18 +21,29 @@ export default class UserEdit extends React.Component {
       title: '',
       imageModal: false,
       colorModal: false,
-    }
+      imageId: null,
+
+      order: this.props.order,
+      orderModal: false,
+      html: '',
+      componentOrder: '',
+    };
+    this.handleRearrange = this.handleRearrange.bind(this);
   };
+
+  handleRearrange() {
+    this.setState({ orderModal: true });
+  }
 
   componentDidMount() {
     const socket = io(global.HOST, { transports: ['websocket'] });
 
-    socket.on('titleChange', (title) => {
+    socket.on('launchTitleModal', (title) => {
       this.setState({ title, textModal: true });
     });
 
-    socket.on('imgChange', (img) => {
-      this.setState({ imageModal: true });
+    socket.on('launchImageModal', (id) => {
+      this.setState({ imageModal: true, imageId: id });
     });
 
     socket.on('colorChange', (data) => {
@@ -41,10 +55,12 @@ export default class UserEdit extends React.Component {
   render() {
     return (
       <View style={styles.flexContainer}>
-        <WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/full.html`}} />
+        <WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/reactify.html`}} />
         {this.state.textModal ? <TextModal title={this.state.title} closeModal={() => this.setState({textModal: false}) } /> : null}
-        {this.state.imageModal ? <ImageModal closeModal={() => this.setState({imageModal: false})} /> : null}
-        {this.state.colorModal ? <ColorModal closeModal={() => this.setState({colorModal: false})} /> : null}
+        {this.state.imageModal ? <ImageModal imageId={this.state.imageId} closeModal={() => this.setState({imageModal: false})} /> : null}
+        {this.state.colorModal ? <ColorModal navigation={this.props.navigation} closeModal={() => this.setState({colorModal: false})} /> : null}
+        {this.state.orderModal ? <OrderModal closeModal={() => this.setState({orderModal: false})} /> : null}
+        <Button title="Rearrange (click this 2x)" onPress={this.handleRearrange} />
       </View>
     )
   };
@@ -85,3 +101,9 @@ export const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+
+function mapStateToProps({ order }) {
+  return { order };
+}
+
+export default connect(mapStateToProps, null)(UserEdit);

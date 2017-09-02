@@ -13,20 +13,75 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
 
-  <div id="hero"></div>
-  <div id="pinterest-content"></div>
-  <div id="footer"></div>
+  <div id="parent"></div>
+
 
   <script type="text/babel">
     const socket = io('http://127.0.0.1:8080');
 
+    // ID generation
+    let lastId = 0;
+    function newId(prefix='id') {
+      lastId++;
+      return `${prefix}${lastId}`;
+    }
+
+    class Parent extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          bgColor: null,
+          userPreferences: null,
+        }
+      }
+      componentWillMount() {
+        // request user preferences
+        // example user preferences
+        this.setState({ userPreferences: {
+          components: [<Hero />, <PinterestContent />, <Footer />],
+          componentAttributes: {
+            hero: {
+              bgColor: 'red',
+              title: 'Chetans Milk Shop',
+            },
+            pinterestContent: {
+              imageUrls: [],
+            },
+            Footer: {
+              text: 'I am a footer',
+            }
+          }
+        }
+        });
+      }
+
+      render() {
+        // Add props to component
+        // .addProps(userPreferences[componentAttributes][component])
+        return (
+          <div>
+            {this.state.userPreferences.components.map((component) => {
+              return component
+            })}
+          </div>
+        )
+      }
+    }
+
     class Hero extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          bgColor: 'red',
+          title: 'Chetan and milk',
+        }
+      }
       render() {
         return (
           <div className="outer-wrap">
-            <header className="hero header1">
+            <header className="hero header1" >
               <div className="centered">
-                <span className="site-title"><EditableShortText value="New page" /></span>
+                <span className="site-title"><EditableShortText value={this.state.title} /></span>
               </div>
             </header>
           </div>
@@ -44,14 +99,14 @@
       }
 
       componentDidMount() {
-        socket.on('titleChange2', value => {
-          this.setState({ value })
+        socket.on('changeTitleDom', value => {
+          this.setState({ value });
         })
       }
 
       handleClick(e) {
         e.stopPropagation();
-        socket.emit('titleChange', this.state.value);
+        socket.emit('changeTitle', this.state.value);
       }
 
       render() {
@@ -71,14 +126,18 @@
         this.handleClick = this.handleClick.bind(this);
       }
 
+      componentWillMount() {
+        this.setState({ key: newId() });
+      }
+
       componentDidMount() {
-        socket.on('imgChange2', (src) => {
-          this.setState({ src });
+        socket.on('changeImageDom', (data) => {
+          if (data.key === this.state.key) this.setState({ src: data.src });
         });
       }
 
       handleClick() {
-        socket.emit('imgChange', 'key');
+        socket.emit('launchImageModal', this.state.key);
       }
 
       render() {
@@ -126,10 +185,11 @@
         )
       }
     }
-
-    ReactDOM.render(<Hero/>, document.getElementById('hero'));
-    ReactDOM.render(<PinterestContent/>, document.getElementById('pinterest-content'));
-    ReactDOM.render(<Footer/>, document.getElementById('footer'));
+//
+//    ReactDOM.render(<Hero/>, document.getElementById('hero'));
+//    ReactDOM.render(<PinterestContent/>, document.getElementById('pinterest-content'));
+//    ReactDOM.render(<Footer/>, document.getElementById('footer'));
+    ReactDOM.render(<Parent/>, document.getElementById('parent'));
   </script>
 </body>
 </html>
