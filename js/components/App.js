@@ -125,4 +125,4 @@ export default () => (
   <Provider store={store}>
     <AppNavigator />
   </Provider>
-  );
+);
