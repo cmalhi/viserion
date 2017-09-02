@@ -74,7 +74,7 @@ class HomeScreen extends React.Component {
         <Text onPress={() => { navigate('ShareScreen')}} style={styles.defaultText}>Step 6: Share Link </Text>
         <Text onPress={() => { navigate('Page')}} style={styles.defaultText}>Final Page</Text>
         <Text onPress={() => { navigate('Saved')}} style={styles.inDevelopment}>In development: Saved Pages</Text>
-        <Text onPress={() => { navigate('UserEditTest')}} style={styles.inDevelopment}>In development: User Editing</Text>
+        <Text onPress={() => { navigate('UserEdit')}} style={styles.inDevelopment}>In development: User Editing</Text>
         <Text onPress={() => { navigate('Image')}} style={styles.defaultText,styles.selectedText}>(Optional) Add Image</Text>
         <Text onPress={() => { navigate('AddPageComponent')}} style={styles.defaultText}>AddPageComponent Test</Text>
         <Text onPress={() => { navigate('ImageSearch')}} style={styles.defaultText}>Image Search</Text>
@@ -84,8 +84,8 @@ class HomeScreen extends React.Component {
 }
 
 const AppNavigator = StackNavigator({
-  Index: { screen: UserEdit },
-  // Index: { screen: HomeScreen },
+  // Index: { screen: UserEdit },
+  Index: { screen: HomeScreen },
   Color: { screen: ChooseColor },
   Template: { screen: ChooseLayout },
   Title: { screen: ChooseTitle },
@@ -97,7 +97,7 @@ const AppNavigator = StackNavigator({
   Login: { screen: Login },
   SignUp: { screen: SignUp },
   AddPageComponent: { screen: AddPageComponent },
-  UserEditTest: { screen: UserEdit },
+  UserEdit: { screen: UserEdit },
   ImageSearch: { screen: ImageSearch },
   ColorPicker: { screen: ColorPicker },
   ColorModal: { screen: ColorModal },
