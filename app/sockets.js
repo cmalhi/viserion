@@ -1,11 +1,9 @@
-
 var socketInstance = function(io) {
   io.on('connection', function(socket) {
 
     // Title
     socket.on('titleChange', function(title) {
-      console.log('title change')
-      io.sockets.emit('titleChange2', title);
+      io.sockets.emit('titleChange', title);
       // TODO: .to(x) to SPECIFY SOCKET ID;
     });
 
@@ -23,14 +21,8 @@ var socketInstance = function(io) {
     });
 
     // Header color
-    socket.on('colorChangeDOM', function(data) {
-      console.log('color change dom')
+    socket.on('colorChange', function(data) {
       io.sockets.emit('colorChange', data);
-    });
-    socket.on('orderChanged', function(data) {
-      //send to dom 
-      console.log('changed order dom')
-      io.sockets.emit('orderChangedDOM', data);
     });
 
     socket.on('colorChange2', function(color) {
