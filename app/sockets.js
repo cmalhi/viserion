@@ -4,13 +4,14 @@ var socketInstance = function(io) {
 
     // Title
     socket.on('titleChange', function(title) {
-      io.sockets.emit('titleChange', title);
+      console.log('title change')
+      io.sockets.emit('titleChange2', title);
       // TODO: .to(x) to SPECIFY SOCKET ID;
     });
 
-    socket.on('titleChange2', function(title) {
-      io.sockets.emit('titleChange2', title);
-    });
+    // socket.on('titleChange2', function(title) {
+    //   io.sockets.emit('titleChange2', title);
+    // });
 
     // Image
     socket.on('imgChange', function(img) {
@@ -22,8 +23,14 @@ var socketInstance = function(io) {
     });
 
     // Header color
-    socket.on('colorChange', function(data) {
+    socket.on('colorChangeDOM', function(data) {
+      console.log('color change dom')
       io.sockets.emit('colorChange', data);
+    });
+    socket.on('orderChanged', function(data) {
+      //send to dom 
+      console.log('changed order dom')
+      io.sockets.emit('orderChangedDOM', data);
     });
 
     socket.on('colorChange2', function(color) {

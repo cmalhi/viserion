@@ -4,6 +4,7 @@ import colorReducer from "./colorReducer";
 import titleReducer from "./titleReducer";
 import siteReducer from "./siteReducer";
 import keywordReducer from "./keywordReducer";
+import orderReducer from "./orderReducer";
 
 const rootReducer = combineReducers({
   layouts: layoutReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   title: titleReducer,
   site: siteReducer,
   keywords: keywordReducer,
+  order: orderReducer,
 });
 
 export default rootReducer;
