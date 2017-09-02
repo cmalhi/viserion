@@ -1,14 +1,3 @@
-//plan
-//get order state
-//display images for each component in the order that the person chose
-//drag and drop order
-
-//grab original order from redux store (preferences)
-//set state
-//change order
-//set state
-
-
 import React from 'react';
 import { Animated, Dimensions, Image, Text, TouchableOpacity, View, Button, StyleSheet, TextInput } from 'react-native';
 import SortableListView from 'react-native-sortable-listview';
@@ -38,7 +27,7 @@ class OrderModal extends React.Component {
   }
 
   componentWillMount() {
-    //this line will change when adding preferences obj
+    //this line will change when preferences obj is set up
     this.props.changeOrder(order);
   }
 
@@ -59,9 +48,11 @@ class OrderModal extends React.Component {
   }
 
   closeAndUpdate(){
+    const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
     console.log('closing and update...', this.state.order)
     this.props.changeOrder(this.state.order)
+    socket.emit('orderChange', this.state.order)
   }
 
   render() {
@@ -143,16 +134,16 @@ export const styles = StyleSheet.create({
 
 
 let data = {
-  title: { 
-    text: "React.createElement(Title, null)",
+  "React.createElement(Title, null)": { 
+    text: "Title",
     img: "../../../images/orderListEntry/png/header.png"
   },
-  myComponent: { text: "React.createElement(MyComponent, null)" },
-  body: { text: "React.createElement(Body, null)" },
-  myComponent2: { text: "React.createElement(MyComponent2, null)" },
-  pricing: { text: "React.createElement(Pricing, null)" },
-  gallery: { text: "React.createElement(Gallery, null)" },
-  footer : { text: "React.createElement(Footer, null)" },
+  "React.createElement(MyComponent, null)": { text: "MyComponent" },
+  "React.createElement(Body, null)": { text: "Body" },
+  "React.createElement(MyComponent2, null)": { text: "MyComponent2" },
+  "React.createElement(Pricing, null)": { text: "Pricing" },
+  "React.createElement(Gallery, null)": { text: "Gallert" },
+  "React.createElement(Footer, null)" : { text: "Footer" },
 }
 
 let order = Object.keys(data) //Array of keys

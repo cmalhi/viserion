@@ -27,6 +27,11 @@ var socketInstance = function(io) {
       console.log('color change dom')
       io.sockets.emit('colorChange', data);
     });
+    socket.on('orderChanged', function(data) {
+      //send to dom 
+      console.log('changed order dom')
+      io.sockets.emit('orderChangedDOM', data);
+    });
 
   });
 };

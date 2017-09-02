@@ -45,7 +45,7 @@ export function changeOrder (order) {
 
 export function postPreferences(navigateToNext) {
   return (dispatch, getState) => {
-    const { layouts, colors, title, keywords } = getState();
+    const { layouts, colors, title, keywords, order } = getState();
 
     //  Collect layouts that from global state that are true
     const layoutsArr = _.reduce(layouts, (result, layoutStatus, layoutId) => {
@@ -59,6 +59,7 @@ export function postPreferences(navigateToNext) {
       colors: colors,
       title: title,
       keywords: keywords,
+      order: order,
     })
       .then(response => {
         console.log('axios posted to generate templates ', response.data);
@@ -72,6 +73,7 @@ export function postPreferences(navigateToNext) {
       colors: colors,
       title: title,
       keywords: keywords,
+      order: order,
     })
       .then(response => {
       dispatch({
