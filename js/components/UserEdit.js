@@ -33,7 +33,6 @@ export default class UserEdit extends React.Component {
     });
 
     socket.on('colorChange', (data) => {
-      console.log('colorChange data', data);
       this.setState({ colorModal: true });
     });
   }

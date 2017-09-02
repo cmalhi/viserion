@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1, maximum-scale=1" />
+  <link rel="stylesheet" href="./style.css">
+  <title>Simple</title>
+</head>
+<body>
+  <script src="https://fb.me/react-15.0.0.js"></script>
+  <script src="https://fb.me/react-dom-15.0.0.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+
+  <div id="hero"></div>
+  <div id="pinterest-content"></div>
+  <div id="footer"></div>
+
+  <script type="text/babel">
+    class Hero extends React.Component {
+      render() {
+        return (
+          <div className="outer-wrap">
+            <header className="hero header1">
+              <div className="centered">
+                <span className="site-title">Hi</span>
+              </div>
+            </header>
+          </div>
+        )
+      }
+    }
+
+    class EditableImage extends React.Component {
+      constructor(props) {
+        super(props)
+      }
+      render() {
+        return (
+          <img src={this.props.src} />
+        )
+      }
+    }
+
+    class PinterestContent extends React.Component {
+      render() {
+        const imageUrls = [
+          'https://68.media.tumblr.com/8c03ff7f9a45832be4a65783b5c39ecb/tumblr_ovebbfcc3S1s2tva9o1_1280.jpg',
+          'https://68.media.tumblr.com/3523f18b84d111ca2d39797c766d6ab8/tumblr_ov7e3t3Dg61s2tva9o1_1280.jpg',
+          'https://68.media.tumblr.com/dd9ef337da64596dad08baf332e7c91e/tumblr_ovebc0U7381s2tva9o1_1280.jpg',
+          'https://68.media.tumblr.com/bf224896567a05f502931d1f738cec85/tumblr_oubn37DsUk1s2tva9o1_1280.jpg',
+          'https://68.media.tumblr.com/c0f6f53319b37c3dd46158438739a5ae/tumblr_oubn9jascg1s2tva9o1_1280.jpg',
+          'https://68.media.tumblr.com/aac121c777631aa1ef756fd4164a004f/tumblr_oubn8iPPLG1s2tva9o1_1280.jpg',
+        ];
+        const images = imageUrls.map((item, i) => {
+          return (
+            <figure key={i}>
+              <EditableImage src={item}/>
+            </figure>
+          )
+        });
+        return (
+          <div className="content">
+            <main className="main-area">
+              <div id="columns">
+                {images}
+              </div>
+            </main>
+          </div>
+        )
+      }
+    }
+
+    class Footer extends React.Component {
+      render() {
+        return (
+          <footer className="footer-area">
+            <p>Footer</p>
+          </footer>
+        )
+      }
+    }
+
+    ReactDOM.render(<PinterestContent/>, document.getElementById('pinterest-content'));
+    ReactDOM.render(<Hero/>, document.getElementById('hero'));
+    ReactDOM.render(<Footer/>, document.getElementById('footer'));
+  </script>
+</body>
+</html>
