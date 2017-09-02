@@ -36,6 +36,13 @@ export function addKeywords(keywords) {
   }
 }
 
+export function changeOrder (order) {
+  return {
+    type: 'CHANGE_ORDER',
+    payload: order
+  }
+}
+
 export function postPreferences(navigateToNext) {
   return (dispatch, getState) => {
     const { layouts, colors, title, keywords } = getState();

@@ -3,11 +3,20 @@
 //display images for each component in the order that the person chose
 //drag and drop order
 
+//grab original order from redux store (preferences)
+//set state
+//change order
+//set state
 
 
 import React from 'react';
 import { Animated, Dimensions, Image, Text, TouchableOpacity, View, Button, StyleSheet, TextInput } from 'react-native';
-import { TriangleColorPicker } from 'react-native-color-picker';
+import SortableListView from 'react-native-sortable-listview';
+import RowComponent from './OrderListEntry';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { changeOrder } from '../../actions/index'
+
 const io = require('socket.io-client');
 
 
@@ -15,23 +24,31 @@ var {
   height: deviceHeight
 } = Dimensions.get('window');
 
-export default class ColorModal extends React.Component {
+class OrderModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       offset: new Animated.Value(deviceHeight),
-      color: null,
-      currentColor: null,
+      order: [],
+      currentOrder: null,
+      data: data,
     };
     this.closeModal = this.closeModal.bind(this);
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
   }
 
+  componentWillMount() {
+    //this line will change when adding preferences obj
+    this.props.changeOrder(order);
+  }
+
   componentDidMount() {
+    //TODO: Get original order from redux preferenecs storage
     Animated.timing(this.state.offset, {
       duration: 300,
       toValue: 0
     }).start();
+    this.setState({order: this.props.order})
   }
 
   closeModal() {
@@ -43,7 +60,8 @@ export default class ColorModal extends React.Component {
 
   closeAndUpdate(){
     this.closeModal();
-    console.log('closing and update...')
+    console.log('closing and update...', this.state.order)
+    this.props.changeOrder(this.state.order)
   }
 
   render() {
@@ -53,13 +71,36 @@ export default class ColorModal extends React.Component {
           <TouchableOpacity onPress={this.closeModal}>
             <Text style={styles.center}>Close menu</Text>
           </TouchableOpacity>
-          <Text style={styles.bigText}>Choose a color</Text>
+
+          <Text style={styles.bigText}>Change componenet order</Text>
+          <SortableListView
+            style={{ flex: 1 }}
+            data={this.state.data}
+            order={this.state.order}
+            onRowMoved={e => {
+              order.splice(e.to, 0, order.splice(e.from, 1)[0])
+              this.forceUpdate()
+            }}
+            renderRow={row => <RowComponent data={row} />}
+          />
+
           <Button onPress={this.closeAndUpdate} title="Enter" />
         </View>
       </Animated.View>
     )
   }
 }
+
+function mapStateToProps({ order }) {
+  return { order };
+}
+
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators({changeOrder}, dispatch)
+};
+
+export default connect(mapStateToProps, matchDispatchToProps)(OrderModal);
+
 
 export const styles = StyleSheet.create({
   form: {
@@ -97,3 +138,25 @@ export const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+
+
+
+
+let data = {
+  title: { 
+    text: "React.createElement(Title, null)",
+    img: "../../../images/orderListEntry/png/header.png"
+  },
+  myComponent: { text: "React.createElement(MyComponent, null)" },
+  body: { text: "React.createElement(Body, null)" },
+  myComponent2: { text: "React.createElement(MyComponent2, null)" },
+  pricing: { text: "React.createElement(Pricing, null)" },
+  gallery: { text: "React.createElement(Gallery, null)" },
+  footer : { text: "React.createElement(Footer, null)" },
+}
+
+let order = Object.keys(data) //Array of keys
+
+
+//comes in from db/preferences obj
+const order2 = ["React.createElement(Title, null)", "React.createElement(MyComponent, null)", "React.createElement(Body, null)", "React.createElement(MyComponent2, null)", "React.createElement(Gallery, null)", "React.createElement(Pricing, null)", "React.createElement(Footer, null)"];
