@@ -12,6 +12,8 @@ const User = require('../models/user');
 const UserTemplate = require('../models/userTemplate');
 const fileController = require('./fileController');
 const userTemplateController = require('./userTemplateController');
+const userController = require('./userController');
+const siteController = require('./siteController');
 
 var routerInstance = function(io) {
   /*
@@ -33,16 +35,24 @@ var routerInstance = function(io) {
   router.get('/usertemplates/:id', userTemplateController.retrieveOne);
 
   /*
+   * /POST /signup
+   * Adds a new user to mongoDB, using firebase userID
+   */
+
+  router.post('/signup', userController.addOne);
+
+  /*
    * /POST /preferences
    * Receives a JSON of shape { layout: [], color: [], title: '' }
    */
-  router.post('/preferences', function (req, res) {
-    var newUser = new User({preferences: req.body});
-    newUser.save(function (err, result) {
-      if (err) return console.err('Err saving user: ', err);
-      res.status(200).send(result)
-    });
-  });
+  router.post('/preferences/:userid', userController.updatePreferences);
+
+  /*
+   * /POST /site
+   * Adds selected site to user collection and sites collection
+   */
+
+  router.post('/site', siteController.addOne);
 
   /*
    * /POST /submitchoice
@@ -181,45 +191,6 @@ var routerInstance = function(io) {
     recur('', 0);
     return combinations;
   };
-
-  /*
-   * /POST /site
-   * Adds selected site to user collection and sites collection
-   */
-
-  router.post('/site', function(req, res) {
-    const { userId, html, components, colors, text } = req.body;
-    // TODO: configure screenshots
-    const newSite = { userId, html, settings: { components, colors, text } };
-    Site.create(newSite)
-      .then((newSite) => {
-        const siteId = newSite._id;
-        const update = { $push: { 'savedSites': siteId } }
-        User.findOneAndUpdate(userId, update, { new: true })
-          .then(user => res.send(`User ${user.userId} saved site ${siteId}`));
-      })
-      .catch(error => console.log('Error saving new site', error));
-  });
-
-
-  /*
-   * /POST /signup
-   * Adds a new user to mongoDB, using firebase userID
-   */
-
-  router.post('/signup', function(req, res) {
-    const { userId } = req.body;
-    console.log('post to signup', req.body, userId);
-    User.create({ userId })
-      .then((newUser) => {
-        res.status(200).send(`New User with ID ${newUser.userId} saved`);
-      })
-      .catch((err) => {
-        res.send(err.errmsg);
-      });
-  });
-
-
 
   return router;
 };
