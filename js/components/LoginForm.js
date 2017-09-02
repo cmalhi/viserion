@@ -3,9 +3,10 @@ import { Button, StyleSheet, View, TextInput, TouchableOpacity, Text, KeyboardAv
 import Expo from 'expo';
 import config from '../../config/config';
 import firebase from '../../database/firebase';
+import { connect } from 'react-redux';
+import { loginUser } from '../actions/authActions';
 
-
-export default class LoginForm extends Component {
+class LoginForm extends Component {
   constructor() {
     super();
     this.state = {
@@ -14,14 +15,21 @@ export default class LoginForm extends Component {
       errorMessage: null,
     };
 
+    this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
     this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
     this.handleEmailLogin = this.handleEmailLogin.bind(this);
     this.emailLogin = this.emailLogin.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { navigate } = this.props.navigation;
+    nextProps.auth.isLoggedIn && navigate('Template')
+  }
+
   async emailLogin(email, password) {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
+      // this.props.loginUser();
       const user = firebase.auth().currentUser;
       if (user) {
         this.setState({
@@ -186,3 +194,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 })
+
+function mapStateToProps({ auth }) {
+  return { auth };
+}
+
+export default connect(mapStateToProps, { loginUser })(LoginForm);
