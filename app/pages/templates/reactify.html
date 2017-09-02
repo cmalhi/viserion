@@ -56,7 +56,7 @@
       }
 
       render() {
-        // Add props to component
+        // TODO Add props to component
         // .addProps(userPreferences[componentAttributes][component])
         return (
           <div>
@@ -72,14 +72,30 @@
       constructor(props) {
         super(props);
         this.state = {
-          bgColor: 'red',
-          title: 'Chetan and milk',
-        }
+          bgColor: this.props.bgColor,
+          title: 'HI',
+        };
+        this.handleHeaderClick = this.handleHeaderClick.bind(this);
       }
+
+      componentDidMount() {
+        socket.on('colorChange2', (bgColor) => {
+          this.setState({ bgColor })
+        })
+      }
+
+      handleHeaderClick() {
+        socket.emit('colorChange', 'change ID x!');
+      }
+
       render() {
         return (
           <div className="outer-wrap">
-            <header className="hero header1" >
+            <header
+              className="hero header1"
+              onClick={this.handleHeaderClick}
+              style={{ backgroundColor: this.state.bgColor }}
+            >
               <div className="centered">
                 <span className="site-title"><EditableShortText value={this.state.title} /></span>
               </div>
