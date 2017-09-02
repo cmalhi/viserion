@@ -19,6 +19,7 @@ export default class UserEdit extends React.Component {
       imageModal: false,
       colorModal: false,
       html: html,
+      componentOrder: componentOrderPreference,
     }
   };
 
@@ -86,6 +87,8 @@ export const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+
+const componentOrderPreference = ["React.createElement(Title, null)", "React.createElement(MyComponent, null)", "React.createElement(Body, null)", "React.createElement(MyComponent2, null)", "React.createElement(Gallery, null)", "React.createElement(Pricing, null)", "React.createElement(Footer, null)"];
 
 const htmlz = `<!DOCTYPE html><html lang="en"><head>
   <meta charset="utf-8" />
@@ -751,7 +754,8 @@ const htmly = `
 </body></html>
 `
 
-const html = `<!DOCTYPE html><html lang="en"><head>
+const htmla = `
+<!DOCTYPE html><html lang="en"><head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1, maximum-scale=1" />
@@ -805,7 +809,157 @@ const html = `<!DOCTYPE html><html lang="en"><head>
       );
     }
   });
-  var compArr = [React.createElement(MyComponent, null), React.createElement(MyComponent2, null)];
+  var Components = React.createClass({
+    displayName: 'MyComponent',
+  
+    render: function render() {
+      return React.createElement(
+    "div",
+    null, 
+    ...compArr
+      );
+    }
+  });
+
+
+  ReactDOM.render(Components.render, document.getElementById('container'));
+</script>
+</html>
+`
+
+const html = `
+<!DOCTYPE html>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.js"></script>
+<script src="http://127.0.0.1:8080/socket.io/socket.io.js"></script>
+<script> var socket = io('http://127.0.0.1:8080');</script>
+</head>
+<title>
+  React
+</title>
+<body>
+<div id="container">
+<script>
+
+  var MyComponent2 = React.createClass({
+    displayName: 'MyComponent2',
+
+    getInitialState: function() {
+      return {message: 'hi'};
+    },
+    
+    componentDidMount: function() {
+    },
+
+    handleClick: function() {
+      var type = typeof socket;
+      this.setState({message: this.state.message + type})
+      socket.emit('order', 'OOOOO')
+    },  
+
+    render: function render() {
+      return React.createElement(
+        'div',
+        { fontSize: 60, fontWeight: 'bold', onClick: this.handleClick },
+        this.state.message,
+      );
+    }
+  });
+  var MyComponent = React.createClass({
+    displayName: 'MyComponent',
+  
+    render: function render() {
+      return React.createElement(
+        'div',
+        { fontSize: 60, fontWeight: 'bold' },
+        'This is a lame component'
+      );
+    }
+  });
+var Title = React.createClass({
+  displayName: 'Title',
+  
+  getInitialState: function() {
+    return {title: 'Click me Edit me :)'};
+  },
+
+  componentDidMount: function() {
+    socket.on('titleChange2', (data) => {
+      this.setState({title: data})
+    })
+  },
+
+  handleClick: function () {
+    socket.emit('titleChange', this.state.title)
+    this.setState({title: 'Editing'})
+  },
+
+  render: function render() {
+    return React.createElement(
+      'div',
+      { fontSize: 60, fontWeight: 'bold', onClick: this.handleClick },
+      this.state.title,
+    );
+  }
+});
+
+var Body = React.createClass({
+  displayName: 'Body',
+
+  getInitialState: function() {
+    return {text: 'This is the body! oooOOoOo (Click to edit)'};
+  },
+  handleClick: function () {
+    socket.emit('colorChangeDOM', '#FFFFFF')
+  },
+
+  render: function render() {
+    return React.createElement(
+      'div',
+      { fontSize: 30, fontWeight: 'bold', onClick: this.handleClick },
+      this.state.text,
+    );
+  }
+});
+
+
+var Pricing = React.createClass({
+  displayName: 'Pricing',
+
+  render: function render() {
+    return React.createElement(
+      'div',
+      { fontSize: 30, fontWeight: 'bold' },
+      'This is the Pricing Component! (Take my money)'
+    );
+  }
+});
+
+var Gallery = React.createClass({
+  displayName: 'Gallery',
+
+  render: function render() {
+    return React.createElement(
+      'div',
+      { fontSize: 30, fontWeight: 'bold' },
+      'This is the gallery Component! (Take my picture)'
+    );
+  }
+});
+
+var Footer = React.createClass({
+  displayName: 'Footer',
+
+  render: function render() {
+    return React.createElement(
+      'div',
+      { fontSize: 30, fontWeight: 'bold' },
+      'This is the Footer Component! (Take my foot)'
+    );
+  }
+});
+  var compArr = [React.createElement(Title, null), React.createElement(Title, null), React.createElement(Body, null), React.createElement(MyComponent2, null), React.createElement(Footer, null)];
   var components = React.createElement(
     "div",
     null, 
@@ -813,6 +967,13 @@ const html = `<!DOCTYPE html><html lang="en"><head>
   );
   ReactDOM.render(components, document.getElementById('container'));
 </script>
-</html>
-`
 
+<script>
+  var socket = io.connect('http://localhost/')(8080);
+  socket.on('connect', function (data) {
+    alert('signed TextInput');
+  });
+</script>
+</div>
+</body>
+`;
