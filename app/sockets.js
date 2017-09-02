@@ -9,9 +9,9 @@ var socketInstance = function(io) {
       // TODO: .to(x) to SPECIFY SOCKET ID;
     });
 
-    // socket.on('titleChange2', function(title) {
-    //   io.sockets.emit('titleChange2', title);
-    // });
+    socket.on('titleChange2', function(title) {
+      io.sockets.emit('titleChange2', title);
+    });
 
     // Image
     socket.on('imgChange', function(img) {
