@@ -33,7 +33,7 @@ class ShareScreen extends React.Component {
     .then((response) => {
       this.setState({site: response.data.id});
       }).catch(function(err) {
-        console.log('error');
+        console.log(err, 'error');
       });
   }
 

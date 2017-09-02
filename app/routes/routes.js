@@ -5,11 +5,15 @@ const Promise = require('bluebird');
 const fs = require('fs');
 Promise.promisifyAll(fs);
 // const Screenshot = require('url-to-screenshot');
-const User = require('../models/user');
+const Screenshot = require('url-to-screenshot');
 const File = require('../models/file');
+const Site = require('../models/site');
+const User = require('../models/user');
 const UserTemplate = require('../models/userTemplate');
 const fileController = require('./fileController');
 const userTemplateController = require('./userTemplateController');
+const userController = require('./userController');
+const siteController = require('./siteController');
 
 var routerInstance = function(io) {
   /*
@@ -31,17 +35,24 @@ var routerInstance = function(io) {
   router.get('/usertemplates/:id', userTemplateController.retrieveOne);
 
   /*
+   * /POST /signup
+   * Adds a new user to mongoDB, using firebase userID
+   */
+
+  router.post('/signup', userController.addOne);
+
+  /*
    * /POST /preferences
    * Receives a JSON of shape { layout: [], color: [], title: '' }
    */
-  router.post('/preferences', function (req, res) {
-    var newUser = new User({preferences: req.body});
-    newUser.save(function (err, result) {
-      if (err) return console.err('Err saving user: ', err);
-      res.status(200).send(result)
-    });
-  });
+  router.post('/preferences/:userid', userController.updatePreferences);
 
+  /*
+   * /POST /site
+   * Adds selected site to user collection and sites collection
+   */
+
+  router.post('/site', siteController.addOne);
 
   /*
    * /POST /submitchoice
@@ -185,3 +196,5 @@ var routerInstance = function(io) {
 };
 
 module.exports = routerInstance;
+
+
