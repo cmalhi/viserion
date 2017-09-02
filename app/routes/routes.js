@@ -201,6 +201,23 @@ var routerInstance = function(io) {
       .catch(error => console.log('Error saving new site', error));
   });
 
+
+  /*
+   * /POST /signup
+   * Adds a new user to mongoDB, using firebase userID
+   */
+
+  router.post('/signup', function(req, res) {
+    const { userId } = req.body;
+    console.log('post to signup', req.body, userId);
+    User.findOneAndUpdate( { userId } )
+      .then((newUser) => {
+        res.status(200).send(`New User with ID ${newUser.userId} saved`);
+      })
+  });
+
+
+
   return router;
 };
 

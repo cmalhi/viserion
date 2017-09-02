@@ -31,27 +31,27 @@ class LoginForm extends Component {
   async emailLogin(email, password) {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
-      this.props.loginUser();
-      // const user = firebase.auth().currentUser;
-      // if (user) {
-      //   this.setState({
-      //     email: '',
-      //     password: '',
-      //   });
+      // this.props.loginUser();
+      const user = firebase.auth().currentUser;
+      if (user) {
+        this.setState({
+          email: '',
+          password: '',
+        });
 
-      //   // Navigate to next page
-      //   const { navigate } = this.props.navigation;
-      //   navigate('Template');
+        // Navigate to next page
+        const { navigate } = this.props.navigation;
+        navigate('Template');
 
-      //   // Retrieve JWT token and set on AsyncStorage
-      //   user.getIdToken()
-      //     .then((tokenId) => {
-      //       AsyncStorage.multiSet([['username', user.email], ['token', tokenId], ['userId', user.uid]]);
-      //     });
-      // } else {
-      //   // No user is signed in.
-      //   console.log('No user signed in');
-      // }
+        // Retrieve JWT token and set on AsyncStorage
+        user.getIdToken()
+          .then((tokenId) => {
+            AsyncStorage.multiSet([['username', user.email], ['token', tokenId], ['userId', user.uid]]);
+          });
+      } else {
+        // No user is signed in.
+        console.log('No user signed in');
+      }
     } catch (error) {
       const errorMessage = error.toString();
       this.setState({ errorMessage });
