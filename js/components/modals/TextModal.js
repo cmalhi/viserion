@@ -34,7 +34,7 @@ export default class TextModal extends React.Component {
   closeAndUpdate() {
     const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
-    socket.emit('titleChange', this.state.title);
+    socket.emit('titleChange2', this.state.title);
     // TODO: Make database call to save title to user preferences
   }
 
