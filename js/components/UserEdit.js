@@ -25,7 +25,7 @@ export default class UserEdit extends React.Component {
   componentDidMount() {
     const socket = io(global.HOST, { transports: ['websocket'] });
 
-    socket.on('titleChange', (title) => {
+    socket.on('launchTitleModal', (title) => {
       this.setState({ title, textModal: true });
     });
 
