@@ -1,19 +1,27 @@
+//plan
+//get order state
+//display images for each component in the order that the person chose
+//drag and drop order
+
+
+
 import React from 'react';
 import { Animated, Dimensions, Image, Text, TouchableOpacity, View, Button, StyleSheet, TextInput } from 'react-native';
-import { ImagePicker } from 'expo';
+import { TriangleColorPicker } from 'react-native-color-picker';
 const io = require('socket.io-client');
-import { RNS3 } from 'react-native-aws3';
+
 
 var {
   height: deviceHeight
 } = Dimensions.get('window');
 
-export default class ImageModal extends React.Component {
+export default class ColorModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       offset: new Animated.Value(deviceHeight),
-      img: null,
+      color: null,
+      currentColor: null,
     };
     this.closeModal = this.closeModal.bind(this);
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
@@ -30,58 +38,26 @@ export default class ImageModal extends React.Component {
     Animated.timing(this.state.offset, {
       duration: 300,
       toValue: deviceHeight
-    }).start(this.props.closeModal);
+    }).start(this.props.closeModal)
   }
 
-  closeAndUpdate() {
-    const socket = io(global.HOST, { transports: ['websocket'] });
+  closeAndUpdate(){
     this.closeModal();
-
-    // TODO: Save image to user preferences
-
-    // Put image into AWS
-    let file = {
-      // `uri` can also be a file system path (i.e. file://)
-      uri: this.state.img,
-      name: "image.png",
-      type: "image/png"
-    };
-
-    RNS3.put(file, global.AWSEC3).then(response => {
-      if (response.status !== 201)
-        throw new Error("Failed to upload image to S3");
-      const imageUrl = response.body.postResponse.location;
-      socket.emit('imgChange2', imageUrl);
-    });
+    console.log('closing and update...')
   }
 
   render() {
-    let { img } = this.state;
-    return (
+    return(
       <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
         <View style={styles.innerModal}>
           <TouchableOpacity onPress={this.closeModal}>
-            <Text style={styles.center}>Close Menu</Text>
+            <Text style={styles.center}>Close menu</Text>
           </TouchableOpacity>
-          <Text style={styles.bigText}>Choose an image</Text>
-          <Button onPress={this._pickImage} title="Pick an image from the camera roll" />
-          {img && <Image source={{ uri: img }} style={{ width: 200, height: 200 }} />}
+          <Text style={styles.bigText}>Choose a color</Text>
           <Button onPress={this.closeAndUpdate} title="Enter" />
         </View>
       </Animated.View>
     )
-  }
-
-  _pickImage = async() => {
-    let result = await ImagePicker
-      .launchImageLibraryAsync({
-        allowsEditing: true,
-        aspect: [4,3],
-      });
-
-    if (!result.cancelled) {
-      this.setState({ img: result.uri });
-    }
   }
 }
 
@@ -114,7 +90,8 @@ export const styles = StyleSheet.create({
     padding: 10,
     position: 'relative',
     top: '5%',
-    borderRadius: 10
+    borderRadius: 10,
+    height: '90%',
   },
   bigText:{
     fontSize: 20,
