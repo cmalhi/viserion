@@ -1,4 +1,3 @@
-
 var socketInstance = function(io) {
   io.on('connection', function(socket) {
 
