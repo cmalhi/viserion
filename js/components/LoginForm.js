@@ -3,9 +3,12 @@ import { Button, StyleSheet, View, TextInput, TouchableOpacity, Text, KeyboardAv
 import Expo from 'expo';
 import config from '../../config/config';
 import firebase from '../../database/firebase';
+import { connect } from 'react-redux';
+import { loginUser } from '../actions/authActions';
 
 
-export default class LoginForm extends Component {
+
+class LoginForm extends Component {
   constructor() {
     super();
     this.state = {
@@ -14,34 +17,41 @@ export default class LoginForm extends Component {
       errorMessage: null,
     };
 
+    this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
     this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
     this.handleEmailLogin = this.handleEmailLogin.bind(this);
     this.emailLogin = this.emailLogin.bind(this);
   }
 
+  componentDidMount() {
+    const { navigate } = this.props.navigation;
+    this.props.auth.isLoggedIn && navigate('Template');
+  }
+
   async emailLogin(email, password) {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
-      const user = firebase.auth().currentUser;
-      if (user) {
-        this.setState({
-          email: '',
-          password: '',
-        });
+      this.props.loginUser();
+      // const user = firebase.auth().currentUser;
+      // if (user) {
+      //   this.setState({
+      //     email: '',
+      //     password: '',
+      //   });
 
-        // Navigate to next page
-        const { navigate } = this.props.navigation;
-        navigate('Template');
+      //   // Navigate to next page
+      //   const { navigate } = this.props.navigation;
+      //   navigate('Template');
 
-        // Retrieve JWT token and set on AsyncStorage
-        user.getIdToken()
-          .then((tokenId) => {
-            AsyncStorage.multiSet([['username', user.email], ['token', tokenId], ['userId', user.uid]]);
-          });
-      } else {
-        // No user is signed in.
-        console.log('No user signed in');
-      }
+      //   // Retrieve JWT token and set on AsyncStorage
+      //   user.getIdToken()
+      //     .then((tokenId) => {
+      //       AsyncStorage.multiSet([['username', user.email], ['token', tokenId], ['userId', user.uid]]);
+      //     });
+      // } else {
+      //   // No user is signed in.
+      //   console.log('No user signed in');
+      // }
     } catch (error) {
       const errorMessage = error.toString();
       this.setState({ errorMessage });
@@ -186,3 +196,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 })
+
+function mapStateToProps({ auth }) {
+  return { auth };
+}
+
+export default connect(mapStateToProps, { loginUser })(LoginForm);
