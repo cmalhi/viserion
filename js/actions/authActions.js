@@ -1,5 +1,7 @@
 import firebase from '../../database/firebase';
 import { AsyncStorage } from 'react-native';
+import axios from 'axios';
+import { HOST } from '../../global.js';
 
 function loginRequest() {
   return {
@@ -37,12 +39,16 @@ export function loginUser() {
     const user = firebase.auth().currentUser;
       if (user) {
         console.log('user found >>>>>>>', user);
+        axios.post('/signup', {
+          userId: user.uid
+        })
+        .then(success => console.log('Used created', sucess));
         // Retrieve JWT token and set on AsyncStorage
         user.getIdToken()
           .then((tokenId) => {
             AsyncStorage.multiSet([['username', user.email], ['token', tokenId], ['userId', user.uid]]);
           });
-        dispatch(loginSuccess(user))
+        dispatch(loginSuccess(user));
       } else {
         dispatch(loginError(err));
       }

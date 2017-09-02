@@ -6,8 +6,6 @@ import firebase from '../../database/firebase';
 import { connect } from 'react-redux';
 import { loginUser } from '../actions/authActions';
 
-
-
 class LoginForm extends Component {
   constructor() {
     super();
@@ -23,9 +21,9 @@ class LoginForm extends Component {
     this.emailLogin = this.emailLogin.bind(this);
   }
 
-  componentDidMount() {
+  componentWillReceiveProps(nextProps) {
     const { navigate } = this.props.navigation;
-    this.props.auth.isLoggedIn && navigate('Template');
+    nextProps.auth.isLoggedIn && navigate('Template')
   }
 
   async emailLogin(email, password) {

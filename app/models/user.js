@@ -4,7 +4,7 @@ const findOrCreate = require('mongoose-findorcreate');
 const userSchema = mongoose.Schema({
   id: mongoose.Schema.Types.ObjectId,
   // UserId authenticated from firebase
-  userId: String,
+  userId: { type: String, unique: true, required: true },
   savedSites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Site' }],
   password: String,
   email: String,

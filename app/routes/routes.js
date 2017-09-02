@@ -210,10 +210,13 @@ var routerInstance = function(io) {
   router.post('/signup', function(req, res) {
     const { userId } = req.body;
     console.log('post to signup', req.body, userId);
-    User.findOneAndUpdate( { userId } )
+    User.create({ userId })
       .then((newUser) => {
         res.status(200).send(`New User with ID ${newUser.userId} saved`);
       })
+      .catch((err) => {
+        res.send(err.errmsg);
+      });
   });
 
 
