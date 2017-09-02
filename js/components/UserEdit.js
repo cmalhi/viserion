@@ -42,7 +42,7 @@ class UserEdit extends React.Component {
       this.setState({ title, textModal: true });
     });
 
-    socket.on('imgChange', (id) => {
+    socket.on('launchImageModal', (id) => {
       this.setState({ imageModal: true, imageId: id });
     });
 

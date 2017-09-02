@@ -52,7 +52,7 @@ export default class ImageModal extends React.Component {
         throw new Error("Failed to upload image to S3");
       const imageUrl = response.body.postResponse.location;
 
-      socket.emit('imgChange2', {src: imageUrl, key: this.props.imageId});
+      socket.emit('changeImageDom', {src: imageUrl, key: this.props.imageId});
     });
   }
 
