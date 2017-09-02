@@ -20,6 +20,13 @@
   <script type="text/babel">
     const socket = io('http://127.0.0.1:8080');
 
+    // ID generation
+    let lastId = 0;
+    function newId(prefix='id') {
+      lastId++;
+      return `${prefix}${lastId}`;
+    }
+
     class Hero extends React.Component {
       render() {
         return (
@@ -71,14 +78,18 @@
         this.handleClick = this.handleClick.bind(this);
       }
 
+      componentWillMount() {
+        this.setState({ key: newId() });
+      }
+
       componentDidMount() {
-        socket.on('imgChange2', (src) => {
-          this.setState({ src });
+        socket.on('imgChange2', (data) => {
+          if (data.key === this.state.key) this.setState({ src: data.src });
         });
       }
 
       handleClick() {
-        socket.emit('imgChange', 'key');
+        socket.emit('imgChange', this.state.key);
       }
 
       render() {

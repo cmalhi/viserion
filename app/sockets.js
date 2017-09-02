@@ -12,12 +12,12 @@ var socketInstance = function(io) {
     });
 
     // Image
-    socket.on('imgChange', function(img) {
-      io.sockets.emit('imgChange', 'ok changing');
+    socket.on('imgChange', function(id) {
+      io.sockets.emit('imgChange', id);
     });
 
-    socket.on('imgChange2', function(img) {
-      io.sockets.emit('imgChange2', img);
+    socket.on('imgChange2', function(data) {
+      io.sockets.emit('imgChange2', data);
     });
 
     // Header color

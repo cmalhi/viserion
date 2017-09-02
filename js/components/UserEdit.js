@@ -18,6 +18,7 @@ export default class UserEdit extends React.Component {
       title: '',
       imageModal: false,
       colorModal: false,
+      imageId: null,
     }
   };
 
@@ -28,8 +29,8 @@ export default class UserEdit extends React.Component {
       this.setState({ title, textModal: true });
     });
 
-    socket.on('imgChange', (img) => {
-      this.setState({ imageModal: true });
+    socket.on('imgChange', (id) => {
+      this.setState({ imageModal: true, imageId: id });
     });
 
     socket.on('colorChange', (data) => {
@@ -43,8 +44,8 @@ export default class UserEdit extends React.Component {
       <View style={styles.flexContainer}>
         <WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/full.html`}} />
         {this.state.textModal ? <TextModal title={this.state.title} closeModal={() => this.setState({textModal: false}) } /> : null}
-        {this.state.imageModal ? <ImageModal closeModal={() => this.setState({imageModal: false})} /> : null}
-        {this.state.colorModal ? <ColorModal closeModal={() => this.setState({colorModal: false})} /> : null}
+        {this.state.imageModal ? <ImageModal imageId={this.state.imageId} closeModal={() => this.setState({imageModal: false})} /> : null}
+        {this.state.colorModal ? <ColorModal navigation={this.props.navigation} closeModal={() => this.setState({colorModal: false})} /> : null}
       </View>
     )
   };
