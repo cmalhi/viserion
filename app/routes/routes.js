@@ -5,7 +5,7 @@ const Promise = require('bluebird');
 const fs = require('fs');
 Promise.promisifyAll(fs);
 // const Screenshot = require('url-to-screenshot');
-const Screenshot = require('url-to-screenshot');
+// const Screenshot = require('url-to-screenshot');
 const File = require('../models/file');
 const Site = require('../models/site');
 const User = require('../models/user');
