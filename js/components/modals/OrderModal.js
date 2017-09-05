@@ -63,7 +63,7 @@ class OrderModal extends React.Component {
             <Text style={styles.center}>Close menu</Text>
           </TouchableOpacity>
 
-          <Text style={styles.bigText}>Change componenet order</Text>
+          <Text style={styles.bigText}>Rearrange Components</Text>
           <SortableListView
             style={{ flex: 1 }}
             data={this.state.data}
@@ -74,8 +74,10 @@ class OrderModal extends React.Component {
             }}
             renderRow={row => <RowComponent data={row} />}
           />
-
-          <Button onPress={this.closeAndUpdate} title="Enter" />
+          <View style={styles.options}>
+            <Button onPress={this.closeAndUpdate} title="Update" />
+            <Button onPress={this.closeAndUpdate} title="+" />
+          </View>
         </View>
       </Animated.View>
     )
@@ -128,15 +130,19 @@ export const styles = StyleSheet.create({
   bigText:{
     fontSize: 20,
   },
+  options:{
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
 });
 
 
 
 
 let data = {
-  "React.createElement(Title, null)": { 
+  "React.createElement(Title, null)": {
     text: "Title",
-    img: "../../../images/orderListEntry/png/header.png"
+    img: "../../../images/orderListEntry/png/header.png",
   },
   "React.createElement(MyComponent, null)": { text: "MyComponent" },
   "React.createElement(Body, null)": { text: "Body" },
