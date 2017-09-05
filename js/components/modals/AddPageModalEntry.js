@@ -1,13 +1,19 @@
 import React from 'react';
 import { Text, TouchableHighlight, Image, View, StyleSheet } from 'react-native';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { toggleComp } from '../../actions/index';
 
-class AddPageModalEntry extends React.Component {
+export default class AddPageModalEntry extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      toggledComps: [],
+      allComponents: [],
+    }
     this.toggleComponent = this.toggleComponent.bind(this);
+  }
+  //updating the allComponents variable should be accompinied 
+  //with directly manipulating the preferences object 
+  componentWillMount() {
+    this.setState({toggledComps: this.props.toggledComps})
   }
 
   toggleComponent(name) {
@@ -16,8 +22,10 @@ class AddPageModalEntry extends React.Component {
 
   render() {
     return (
-      <View onPress={this.toggleComponent.bind(this, this.props.component.name)}>
-        <Text style={styles.bigText}>Name: {this.props.component.name}</Text>
+      <View 
+        
+        onPress={this.toggleComponent.bind(this, this.props.component.name)}>
+        <Text style={styles.bigText}>{this.props.component.name}</Text>
         <Image
           style={{width: 194, height: 120}}
           source={this.props.component.img}
@@ -27,15 +35,6 @@ class AddPageModalEntry extends React.Component {
   }
 }
 
-function mapStateToProps({ toggledComps }) {
-  return { toggledComps };
-}
-
-const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({toggleComp}, dispatch)
-};
-
-export default connect(mapStateToProps, matchDispatchToProps)(AddPageModalEntry);
 
 const styles = StyleSheet.create({
   flexContainer: {
