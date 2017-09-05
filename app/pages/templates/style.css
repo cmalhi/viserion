@@ -4,7 +4,7 @@
 
 .hero {
     background: #ffd5c9;
-    margin: auto auto 50px auto;
+    margin: auto auto 0px auto;
 }
 
 .site-title {
@@ -62,7 +62,7 @@
 .content {
     width: 90%;
     max-width: 1100px;
-    margin: 50px auto;
+    margin: 90px auto;
 }
 
 /*---------------

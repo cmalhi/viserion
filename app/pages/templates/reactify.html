@@ -52,6 +52,10 @@
               }
             },
             {
+              name: <PinterestText />,
+              attr: {}
+            },
+            {
               name: <ImageCaption />,
               attr: {
                 imageUrl: 'http://assets.vogue.com/photos/59970fd951182c18907ac941/master/w_1320,c_limit/04-studio-harlem.jpg',
@@ -134,7 +138,7 @@
       constructor(props) {
         super(props);
         this.state = {
-
+          title: 'Why online marketing needs a new approach'
         }
       }
 
@@ -142,15 +146,16 @@
         return(
           <div className="content">
             <div className="row">
-              <div className="col-xs-12 col-sm-7">
+              <div className="col-xs-12 col-sm-6">
                 <div className="box">
-                  <img className="image-scalable-container" src="https://claralabs.com/static/img/tiffany.3faa6a523dc3d298.jpg" />
+                  <img className="image-scalable-container" src="https://www.webprofits.com.au/new-website/images/homepage-stats.gif" />
                 </div>
               </div>
-              <div className="col-xs-12 col-sm-5">
+              <div className="col-xs-12 col-sm-5 col-sm-offset-1">
                 <div className="box">
-                  Clara Labs has absolutely changed the way our business operates. Clara schedules so efficiently, and with such great communication — it has saved so much time, money and worry about balls being dropped. It frees my team to use their brains in other ways. We LOVE our assistant Clara.
-                  </div>
+                  <h1><EditableShortText value={this.state.title} /></h1>
+                  Online customers can take so many different paths to purchase, making it almost impossible to determine which is the most effective for marketers to follow to efficiently allocate marketing budgets. The customer engagement journey therefore needs to be agile, reacting rapidly to the unpredictability of online behaviour.
+                </div>
               </div>
             </div>
           </div>
@@ -190,6 +195,58 @@
       }
     }
 
+    class PinterestText extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          content: [
+            {
+              title: 'Who can attend?',
+              body: 'All undergraduate, graduate, and high school students are welcome. If you are under 18, we\'ll need a parental consent form.'
+            },
+            {
+              title: 'I don’t have a team. Can I still participate?',
+              body: 'Of course! It is not necessary to have a team prior to coming to Hack@Brown. We’ll have some fun team-forming sessions where you can find an awesome group of people to work with. You’re welcome to have up to four people on a team.'
+            },
+            {
+              title: 'Will there be a standby line the day-of the event?',
+              body: 'Yes, there will be a standby line if accepted attendees do not show up! The line will open when registration starts (9am) and students will be admitted off the standby line after registration ends (10:30am). We will admit all by order of first-come first-serve. Students admitted off the standby line will not get a travel reimbursement.'
+            },
+            {
+              title: 'How will you decide between applicants?',
+              body: 'Applicants will be chosen based on a random lottery. Everyone is welcome to apply!',
+            },
+            {
+              title: 'If admission is lottery based, why do you need my resume?',
+              body: 'Resumes are completely optional, and are passed on to sponsoring companies for recruitment only if you’re admitted. They\'re in no way linked to the hackathon acceptance process, which will remain a lottery.',
+            },
+            {
+              title: 'How do I get there?',
+              body: 'We’ll do our best to get travel reimbursements set up for you!',
+            }
+          ]
+        }
+      }
+
+      render() {
+        const items = this.state.content.map((item, i) => {
+          return (
+            <figure key={i}>
+              <h3><EditableShortText value={item.title} /></h3>
+              {item.body}
+            </figure>
+          )
+        });
+        return (
+          <div className="content">
+            <div className="columns">
+              {items}
+            </div>
+          </div>
+        )
+      }
+    }
+
     class EditableImage extends React.Component {
       constructor(props) {
         super(props);
@@ -216,7 +273,7 @@
 
       render() {
         return (
-          <img className="image-scalable" key={this.state.key} onClick={this.handleClick} src={this.state.src} />
+          <img className="image-scalable-container" key={this.state.key} onClick={this.handleClick} src={this.state.src} />
         )
       }
     }
