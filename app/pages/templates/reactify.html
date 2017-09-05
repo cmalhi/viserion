@@ -11,10 +11,9 @@
   <script src="https://fb.me/react-15.0.0.js"></script>
   <script src="https://fb.me/react-dom-15.0.0.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
+  <script src="http://127.0.0.1:8080/socket.io/socket.io.js"></script>
 
   <div id="parent"></div>
-
 
   <script type="text/babel">
     const socket = io('http://127.0.0.1:8080');
@@ -42,7 +41,7 @@
           componentAttributes: {
             hero: {
               bgColor: 'red',
-              title: 'Chetans Milk Shop',
+              title: 'New page',
             },
             pinterestContent: {
               imageUrls: [],
@@ -73,7 +72,7 @@
         super(props);
         this.state = {
           bgColor: this.props.bgColor,
-          title: 'HI',
+          title: 'New page',
         };
         this.handleHeaderClick = this.handleHeaderClick.bind(this);
       }
@@ -201,10 +200,7 @@
         )
       }
     }
-//
-//    ReactDOM.render(<Hero/>, document.getElementById('hero'));
-//    ReactDOM.render(<PinterestContent/>, document.getElementById('pinterest-content'));
-//    ReactDOM.render(<Footer/>, document.getElementById('footer'));
+
     ReactDOM.render(<Parent/>, document.getElementById('parent'));
   </script>
 </body>
