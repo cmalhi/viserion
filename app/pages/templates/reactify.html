@@ -34,39 +34,50 @@
         }
       }
       componentWillMount() {
-        // request user preferences
-        // example user preferences
+        // request site preferences
+        // example site preferences
         this.setState({ sitePreferences: {
-          components: {
-            0: {
+          components: [
+            {
               name: <Hero />,
               attr: {
-                bgColor: 'green',
-                title: 'New page',
+                bgColor: '#eee',
+                title: 'Custom title',
               }
             },
-            1: {
+            {
+              name: <ImageContent />,
+              attr: {
+                imageUrl: 'http://assets.vogue.com/photos/59970fd951182c18907ac941/master/w_1320,c_limit/04-studio-harlem.jpg',
+                caption: 'Lorna Simpson, Dividing Lines, 1989',
+              }
+            },
+            {
+              name: <TextContent />,
+              attr: {}
+            },
+            {
               name: <PinterestContent />,
               attr: {
                 imageUrls: [],
               }
             },
-            2: {
+            {
               name: <Footer />,
               attr: {
                 text: 'I am foot'
               }
             }
-          }
+          ]
         }});
       }
 
       render() {
         return (
           <div>
-            { Object.keys(this.state.sitePreferences.components).map((k) => {
-              const child = this.state.sitePreferences.components[k].name;
-              const props = this.state.sitePreferences.components[k].attr;
+            { this.state.sitePreferences.components.map((component) => {
+              const child = component.name;
+              const props = component.attr;
               return React.cloneElement(child, props);
             }) }
           </div>
@@ -188,11 +199,48 @@
         });
         return (
           <div className="content">
-            <main className="main-area">
-              <div id="columns">
-                {images}
+            <div className="columns">
+              {images}
+            </div>
+          </div>
+        )
+      }
+    }
+
+    class ImageContent extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          imageUrl: this.props.imageUrl,
+          caption: this.props.caption,
+        }
+      }
+      render() {
+        return (
+          <div className="content">
+            <div className="image-content-wrapper">
+              <div className="image-content-inner-wrapper">
+                <div className="figcaption">
+                  <img
+                    className="image-scalable"
+                    src={ this.state.imageUrl }
+                    alt=""
+                  />
+                </div>
+                <span><i>{ this.state.caption }</i></span>
               </div>
-            </main>
+            </div>
+          </div>
+        )
+      }
+    }
+
+    class TextContent extends React.Component {
+      render() {
+        return (
+          <div className="content">
+            <h1>With All Eyes on the South, the Most Important Art Show in America Is Underway in Pittsburgh</h1>
+            The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols. The jumping-off point is a 70-year-old painting by Horace Pippin—a self-taught WWI vet who captured scenes of postwar American life—which gives way to Jasper Johns’s flag painting, and a Louise Nevelson sculpture. Next, with “Working Thought,” the exhibition examines the history of forced labor in America, and progresses into the current prison-industrial complex, with works by Melvin Edwards.
           </div>
         )
       }

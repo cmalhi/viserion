@@ -4,6 +4,7 @@
 
 .hero {
     background: #ffd5c9;
+    margin: auto auto 50px auto;
 }
 
 .site-title {
@@ -50,17 +51,24 @@
     #Content
 ---------------*/
 
-.post-content {
-    padding: 0 1.4em 1.4em;
+.content {
+    width: 80%;
+    max-width: 1100px;
+    margin: 50px auto;
 }
 
-.image-component {
+/*---------------
+    #Image Content
+---------------*/
+
+.image-content-wrapper {
     display: flex;
     align-items: flex-start; /* align vertical */
     justify-content: center; /* align horizontal */
     height: auto;
 }
-.figure {
+
+.image-content-inner-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -68,11 +76,12 @@
     text-align: center;
     margin: 0 auto;
 }
+
 .figcaption {
     text-align: left;
     margin: 10px;
 }
-.pic {
+.image-scalable {
     max-width: 80vw;
     max-height: 80vh;
 }
@@ -82,15 +91,12 @@
   #Content-Grid
 ---------------*/
 
-#columns {
-    column-width: 320px;
-    column-gap: 15px;
-    width: 90%;
-    max-width: 1100px;
-    margin: 50px auto;
+.columns {
+    column-width: 280px;
+    column-gap: 10px;
 }
 
-div#columns figure {
+div.columns figure {
     background: #eee;
     margin: 0 2px 15px;
     padding: 15px;
@@ -99,17 +105,16 @@ div#columns figure {
     column-break-inside: avoid;
 }
 
-div#columns figure img {
+div.columns figure img {
     width: 100%;
     height: auto;
     padding-bottom: 15px;
     margin-bottom: 5px;
 }
 
-
 @media screen and (max-width: 750px) {
-    #columns { column-gap: 0px; }
-    #columns figure { width: 100%; }
+    .columns { column-gap: 0px; }
+    .columns figure { width: 100%; }
 }
 
 /*---------------
@@ -160,6 +165,8 @@ h4,
 h5,
 h6 {
     clear: both;
+    line-height: 1.3em;
+    margin-bottom: 0.5em;
 }
 
 p {
