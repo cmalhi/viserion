@@ -4,7 +4,7 @@ import SortableListView from 'react-native-sortable-listview';
 import RowComponent from './OrderListEntry';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { changeOrder } from '../../actions/index'
+import { changeOrder } from '../../actions/index';
 
 const io = require('socket.io-client');
 
@@ -24,6 +24,7 @@ class OrderModal extends React.Component {
     };
     this.closeModal = this.closeModal.bind(this);
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
+    this.openAddCloseOrder = this.openAddCloseOrder.bind(this);
   }
 
   componentWillMount() {
@@ -43,16 +44,21 @@ class OrderModal extends React.Component {
   closeModal() {
     Animated.timing(this.state.offset, {
       duration: 300,
-      toValue: deviceHeight
-    }).start(this.props.closeModal)
+      toValue: deviceHeight,
+    }).start(this.props.closeModal);
   }
 
-  closeAndUpdate(){
+  closeAndUpdate() {
     const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
     console.log('closing and update...', this.state.order)
     this.props.changeOrder(this.state.order)
-    socket.emit('orderChange', this.state.order)
+    socket.emit('orderChange', this.state.order);
+  }
+
+  openAddCloseOrder() {
+    this.closeModal();
+    this.props.openAddModal();
   }
 
   render() {
@@ -63,7 +69,7 @@ class OrderModal extends React.Component {
             <Text style={styles.center}>Close menu</Text>
           </TouchableOpacity>
 
-          <Text style={styles.bigText}>Change componenet order</Text>
+          <Text style={styles.bigText}>Rearrange Components</Text>
           <SortableListView
             style={{ flex: 1 }}
             data={this.state.data}
@@ -74,8 +80,10 @@ class OrderModal extends React.Component {
             }}
             renderRow={row => <RowComponent data={row} />}
           />
-
-          <Button onPress={this.closeAndUpdate} title="Enter" />
+          <View style={styles.options}>
+            <Button onPress={this.closeAndUpdate} title="Update" />
+            <Button onPress={this.openAddCloseOrder} title="+" />
+          </View>
         </View>
       </Animated.View>
     )
@@ -128,21 +136,25 @@ export const styles = StyleSheet.create({
   bigText:{
     fontSize: 20,
   },
+  options:{
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+  },
 });
 
 
 
 
 let data = {
-  "React.createElement(Title, null)": { 
+  "React.createElement(Title, null)": {
     text: "Title",
-    img: "../../../images/orderListEntry/png/header.png"
+    img: "../../../images/orderListEntry/png/header.png",
   },
   "React.createElement(MyComponent, null)": { text: "MyComponent" },
   "React.createElement(Body, null)": { text: "Body" },
   "React.createElement(MyComponent2, null)": { text: "MyComponent2" },
   "React.createElement(Pricing, null)": { text: "Pricing" },
-  "React.createElement(Gallery, null)": { text: "Gallert" },
+  "React.createElement(Gallery, null)": { text: "Gallery" },
   "React.createElement(Footer, null)" : { text: "Footer" },
 }
 
