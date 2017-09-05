@@ -3,6 +3,7 @@ import { Animated, Dimensions, Image, Text, TouchableOpacity, View, Button, Styl
 import { ImagePicker } from 'expo';
 const io = require('socket.io-client');
 import { RNS3 } from 'react-native-aws3';
+import ImageSearch from '../ImageSearch'
 
 var {
   height: deviceHeight
@@ -17,6 +18,7 @@ export default class ImageModal extends React.Component {
     };
     this.closeModal = this.closeModal.bind(this);
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
+    this.imageSearchCallback = this.imageSearchCallback.bind(this);
   }
 
   componentDidMount() {
@@ -51,7 +53,6 @@ export default class ImageModal extends React.Component {
       if (response.status !== 201)
         throw new Error("Failed to upload image to S3");
       const imageUrl = response.body.postResponse.location;
-
       socket.emit('changeImageDom', {src: imageUrl, key: this.props.imageId});
     });
   }
@@ -65,12 +66,20 @@ export default class ImageModal extends React.Component {
             <Text style={styles.center}>Close Menu</Text>
           </TouchableOpacity>
           <Text style={styles.bigText}>Choose an image</Text>
-          <Button onPress={this._pickImage} title="Pick an image from the camera roll" />
+          <ImageSearch onSelect={this.imageSearchCallback}/>
+          <Button onPress={this._pickImage} title="From The Camera Roll" />
           {img && <Image source={{ uri: img }} style={{ width: 200, height: 200 }} />}
           <Button onPress={this.closeAndUpdate} title="Enter" />
         </View>
       </Animated.View>
     )
+  }
+
+  imageSearchCallback(imgCB){
+    const socket = io(global.HOST, { transports: ['websocket'] });    
+    this.setState({img: imgCB});
+    socket.emit('changeImageDom', {src: imgCB, key: this.props.imageId});    
+    this.closeModal();
   }
 
   _pickImage = async() => {
@@ -118,6 +127,6 @@ export const styles = StyleSheet.create({
     borderRadius: 10
   },
   bigText:{
-    fontSize: 20,
+    fontSize: 30,
   },
 });
