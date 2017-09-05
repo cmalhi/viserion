@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1, maximum-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.css">
   <link rel="stylesheet" href="./style.css">
   <title>Simple</title>
 </head>
@@ -30,38 +31,63 @@
         super(props);
         this.state = {
           bgColor: null,
-          userPreferences: null,
+          sitePreferences: null,
         }
       }
       componentWillMount() {
-        // request user preferences
-        // example user preferences
-        this.setState({ userPreferences: {
-          components: [<Hero />, <PinterestContent />, <Footer />],
-          componentAttributes: {
-            hero: {
-              bgColor: 'red',
-              title: 'New page',
+        // request site preferences
+        // example site preferences
+        this.setState({ sitePreferences: {
+          components: [
+            {
+              name: <Hero />,
+              attr: {
+                bgColor: '#eee',
+                title: 'Custom title',
+              }
             },
-            pinterestContent: {
-              imageUrls: [],
+            {
+              name: <ImageContent />,
+              attr: {
+              }
             },
-            Footer: {
-              text: 'I am a footer',
+            {
+              name: <ImageCaption />,
+              attr: {
+                imageUrl: 'http://assets.vogue.com/photos/59970fd951182c18907ac941/master/w_1320,c_limit/04-studio-harlem.jpg',
+                caption: 'Lorna Simpson, Dividing Lines, 1989',
+              }
+            },
+            {
+              name: <TextContent />,
+              attr: {
+                title: 'With All Eyes on the South, the Most Important Art Show in America Is Underway in Pittsburgh',
+              }
+            },
+            {
+              name: <PinterestContent />,
+              attr: {
+                imageUrls: [],
+              }
+            },
+            {
+              name: <Footer />,
+              attr: {
+                text: 'I am foot'
+              }
             }
-          }
-        }
-        });
+          ]
+        }});
       }
 
       render() {
-        // TODO Add props to component
-        // .addProps(userPreferences[componentAttributes][component])
         return (
           <div>
-            {this.state.userPreferences.components.map((component) => {
-              return component
-            })}
+            { this.state.sitePreferences.components.map((component) => {
+              const child = component.name;
+              const props = component.attr;
+              return React.cloneElement(child, props);
+            }) }
           </div>
         )
       }
@@ -104,29 +130,62 @@
       }
     }
 
+    class ImageContent extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+
+        }
+      }
+
+      render() {
+        return(
+          <div className="content">
+            <div className="row">
+              <div className="col-xs-12 col-sm-7">
+                <div className="box">
+                  <img className="image-scalable-container" src="https://claralabs.com/static/img/tiffany.3faa6a523dc3d298.jpg" />
+                </div>
+              </div>
+              <div className="col-xs-12 col-sm-5">
+                <div className="box">
+                  Clara Labs has absolutely changed the way our business operates. Clara schedules so efficiently, and with such great communication — it has saved so much time, money and worry about balls being dropped. It frees my team to use their brains in other ways. We LOVE our assistant Clara.
+                  </div>
+              </div>
+            </div>
+          </div>
+        )
+      }
+    }
+
     class EditableShortText extends React.Component {
       constructor(props) {
         super(props);
         this.state = {
-          value: this.props.value,
+          textValue: this.props.value,
+          key: null,
         };
         this.handleClick = this.handleClick.bind(this);
       }
 
+      componentWillMount() {
+        this.setState({ key: newId() });
+      }
+
       componentDidMount() {
-        socket.on('changeTitleDom', value => {
-          this.setState({ value });
+        socket.on('changeTitleDom2', (data) => {
+          if (data.key === this.state.key) this.setState({ textValue: data.textValue });
         })
       }
 
       handleClick(e) {
         e.stopPropagation();
-        socket.emit('changeTitle', this.state.value);
+        socket.emit('launchTitleModal', {key: this.state.key, textValue: this.state.textValue});
       }
 
       render() {
         return(
-          <span onClick={this.handleClick}>{this.state.value}</span>
+          <span key={this.state.key} onClick={this.handleClick}>{this.state.textValue}</span>
         )
       }
     }
@@ -142,11 +201,11 @@
       }
 
       componentWillMount() {
-        this.setState({ key: newId() });
+        this.setState({ key: newId() }); //TODO maybe move
       }
 
       componentDidMount() {
-        socket.on('changeImageDom', (data) => {
+        socket.on('changeImageDom2', (data) => {
           if (data.key === this.state.key) this.setState({ src: data.src });
         });
       }
@@ -157,7 +216,7 @@
 
       render() {
         return (
-          <img key={this.state.key} onClick={this.handleClick} src={this.state.src} />
+          <img className="image-scalable" key={this.state.key} onClick={this.handleClick} src={this.state.src} />
         )
       }
     }
@@ -181,11 +240,50 @@
         });
         return (
           <div className="content">
-            <main className="main-area">
-              <div id="columns">
-                {images}
+            <div className="columns">
+              {images}
+            </div>
+          </div>
+        )
+      }
+    }
+
+    class ImageCaption extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          imageUrl: this.props.imageUrl,
+          caption: this.props.caption,
+        }
+      }
+      render() {
+        return (
+          <div className="content">
+            <div className="image-content-wrapper">
+              <div className="image-content-inner-wrapper">
+                <div className="figcaption">
+                  <EditableImage src={this.state.imageUrl} />
+                </div>
+                <i><EditableShortText value={this.state.caption} /></i>
               </div>
-            </main>
+            </div>
+          </div>
+        )
+      }
+    }
+
+    class TextContent extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          title: this.props.title,
+        }
+      }
+      render() {
+        return (
+          <div className="content">
+            <h1><EditableShortText value={this.state.title} /></h1>
+            The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols. The jumping-off point is a 70-year-old painting by Horace Pippin—a self-taught WWI vet who captured scenes of postwar American life—which gives way to Jasper Johns’s flag painting, and a Louise Nevelson sculpture. Next, with “Working Thought,” the exhibition examines the history of forced labor in America, and progresses into the current prison-industrial complex, with works by Melvin Edwards.
           </div>
         )
       }

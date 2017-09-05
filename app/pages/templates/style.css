@@ -4,6 +4,7 @@
 
 .hero {
     background: #ffd5c9;
+    margin: auto auto 50px auto;
 }
 
 .site-title {
@@ -50,17 +51,32 @@
     #Content
 ---------------*/
 
-.post-content {
-    padding: 0 1.4em 1.4em;
+/* If viewport is 480px or larger */
+@media screen and (min-width: 480px) {
+    .content {
+        width: 80%;
+    }
 }
 
-.image-component {
+/* Mobile */
+.content {
+    width: 90%;
+    max-width: 1100px;
+    margin: 50px auto;
+}
+
+/*---------------
+    #Image Caption
+---------------*/
+
+.image-content-wrapper {
     display: flex;
     align-items: flex-start; /* align vertical */
     justify-content: center; /* align horizontal */
     height: auto;
 }
-.figure {
+
+.image-content-inner-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -68,29 +84,51 @@
     text-align: center;
     margin: 0 auto;
 }
+
+.image-scalable {
+    max-width: 100vw;
+    max-height: 100vh;
+}
+
+.image-scalable-container {
+    max-width: 100%;
+}
+
 .figcaption {
     text-align: left;
     margin: 10px;
 }
-.pic {
-    max-width: 80vw;
-    max-height: 80vh;
-}
 
+/*---------------
+    #Image Caption
+---------------*/
+
+/*.row {*/
+    /*display: flex;*/
+    /*flex-direction: row;*/
+    /*flex-wrap: wrap;*/
+/*}*/
+
+/*.big-item {*/
+    /*!* This will be twice as big as the small item. *!*/
+    /*-webkit-flex: 4 0 0;*/
+    /*flex: 4 0 0;*/
+/*}*/
+/*.small-item {*/
+    /*-webkit-flex: 3 0 0;*/
+    /*flex: 3 0 0;*/
+/*}*/
 
 /*---------------
   #Content-Grid
 ---------------*/
 
-#columns {
-    column-width: 320px;
-    column-gap: 15px;
-    width: 90%;
-    max-width: 1100px;
-    margin: 50px auto;
+.columns {
+    column-width: 280px;
+    column-gap: 10px;
 }
 
-div#columns figure {
+div.columns figure {
     background: #eee;
     margin: 0 2px 15px;
     padding: 15px;
@@ -99,17 +137,16 @@ div#columns figure {
     column-break-inside: avoid;
 }
 
-div#columns figure img {
+div.columns figure img {
     width: 100%;
     height: auto;
     padding-bottom: 15px;
     margin-bottom: 5px;
 }
 
-
 @media screen and (max-width: 750px) {
-    #columns { column-gap: 0px; }
-    #columns figure { width: 100%; }
+    .columns { column-gap: 0px; }
+    .columns figure { width: 100%; }
 }
 
 /*---------------
@@ -160,6 +197,8 @@ h4,
 h5,
 h6 {
     clear: both;
+    line-height: 1.3em;
+    margin-bottom: 0.5em;
 }
 
 p {
