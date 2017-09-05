@@ -30,38 +30,45 @@
         super(props);
         this.state = {
           bgColor: null,
-          userPreferences: null,
+          sitePreferences: null,
         }
       }
       componentWillMount() {
         // request user preferences
         // example user preferences
-        this.setState({ userPreferences: {
-          components: [<Hero />, <PinterestContent />, <Footer />],
-          componentAttributes: {
-            hero: {
-              bgColor: 'red',
-              title: 'New page',
+        this.setState({ sitePreferences: {
+          components: {
+            0: {
+              name: <Hero />,
+              attr: {
+                bgColor: 'green',
+                title: 'New page',
+              }
             },
-            pinterestContent: {
-              imageUrls: [],
+            1: {
+              name: <PinterestContent />,
+              attr: {
+                imageUrls: [],
+              }
             },
-            Footer: {
-              text: 'I am a footer',
+            2: {
+              name: <Footer />,
+              attr: {
+                text: 'I am foot'
+              }
             }
           }
-        }
-        });
+        }});
       }
 
       render() {
-        // TODO Add props to component
-        // .addProps(userPreferences[componentAttributes][component])
         return (
           <div>
-            {this.state.userPreferences.components.map((component) => {
-              return component
-            })}
+            { Object.keys(this.state.sitePreferences.components).map((k) => {
+              const child = this.state.sitePreferences.components[k].name;
+              const props = this.state.sitePreferences.components[k].attr;
+              return React.cloneElement(child, props);
+            }) }
           </div>
         )
       }
