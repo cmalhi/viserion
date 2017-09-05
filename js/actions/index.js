@@ -43,6 +43,72 @@ export function changeOrder (order) {
   }
 }
 
+export const createPreferences = () => (dispatch, getState) => {
+  const { layouts, colors, title, keywords } = getState();
+
+  //  Collect layouts that from global state that are true
+  const layoutsArr = _.reduce(layouts, (result, layoutStatus, layoutId) => {
+    if (layoutStatus === true ) result.push(layoutId);
+    return result;
+  }, []);
+
+  const desires = {
+    layouts: layoutsArr,
+    keywords,
+    colors,
+    title,
+  };
+
+  var components = { 
+    hero: {
+      name: '<Hero />',
+      attributes: {
+        bgColor: 'defaultColor',
+        title: 'defaultTitle',
+      }
+    },
+    grid: {
+      name: '<Grid />',
+      attributes: {
+        text: 'defaultText',
+      }
+    },
+    pinterestContent: {
+      name: '<PinterestContent />',
+      attributes: {
+        text: 'defaultText',
+      }
+    },
+    footer: {   
+      name: '<Footer />',
+      attributes: {
+        bgColor: 'defaultColor',
+        text: 'defaultText',
+      },
+    }
+  };
+
+  let preferences = []
+  desires.layouts.forEach(layout => {
+    desires.colors.forEach(color => {
+
+      let heroColor = Object.assign({}, components['hero']);
+      heroColor.attributes.bgColor = color;
+      heroColor.attributes.title = desires.title;
+
+      let footerColor = Object.assign({}, components['footer']);
+      footerColor.attributes.bgColor = color;
+
+      let content = Object.assign({}, components[layout]);
+      preferences.push([heroColor, content, footerColor]);
+    })
+  })
+
+  return preferences;
+
+};
+
+
 export function postPreferences(navigateToNext) {
   return (dispatch, getState) => {
     const { layouts, colors, title, keywords, order } = getState();
