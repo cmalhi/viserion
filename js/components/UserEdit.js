@@ -67,8 +67,8 @@ class UserEdit extends React.Component {
         {this.state.shortTextModal ? <ShortTextModal id={this.state.textId} title={this.state.title} closeModal={() => this.setState({shortTextModal: false}) } /> : null}
         {this.state.imageModal ? <ImageModal id={this.state.imageId} closeModal={() => this.setState({imageModal: false})} /> : null}
         {this.state.colorModal ? <ColorModal navigation={this.props.navigation} closeModal={() => this.setState({colorModal: false})} /> : null}
-        {this.state.orderModal ? <OrderModal closeModal={() => this.setState({orderModal: false})} /> : null}
-        {this.state.addPageModal ? <AddPageModal closeModal={() => this.setState({addPageModal: false})} openAddModal={() => this.setState({addPageModal: true, orderModal: false})} /> : null}
+        {this.state.orderModal ? <OrderModal closeModal={() => this.setState({orderModal: false})} openAddModal={(() => this.setState({addPageModal: true}))} /> : null}
+        {this.state.addPageModal ? <AddPageModal closeModal={() => this.setState({addPageModal: false, orderModal: true})} /> : null}
         <Button title="Add/Rearrange (click this 2x)" onPress={this.handleAddOrRearrange} />
       </View>
     );

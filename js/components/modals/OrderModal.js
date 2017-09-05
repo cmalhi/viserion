@@ -24,6 +24,7 @@ class OrderModal extends React.Component {
     };
     this.closeModal = this.closeModal.bind(this);
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
+    this.openAddCloseOrder = this.openAddCloseOrder.bind(this);
   }
 
   componentWillMount() {
@@ -43,16 +44,21 @@ class OrderModal extends React.Component {
   closeModal() {
     Animated.timing(this.state.offset, {
       duration: 300,
-      toValue: deviceHeight
-    }).start(this.props.closeModal)
+      toValue: deviceHeight,
+    }).start(this.props.closeModal);
   }
 
-  closeAndUpdate(){
+  closeAndUpdate() {
     const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
     console.log('closing and update...', this.state.order)
     this.props.changeOrder(this.state.order)
-    socket.emit('orderChange', this.state.order)
+    socket.emit('orderChange', this.state.order);
+  }
+
+  openAddCloseOrder() {
+    this.closeModal();
+    this.props.openAddModal();
   }
 
   render() {
@@ -76,7 +82,7 @@ class OrderModal extends React.Component {
           />
           <View style={styles.options}>
             <Button onPress={this.closeAndUpdate} title="Update" />
-            <Button onPress={this.closeAndUpdate} title="+" />
+            <Button onPress={this.openAddCloseOrder} title="+" />
           </View>
         </View>
       </Animated.View>
@@ -131,7 +137,7 @@ export const styles = StyleSheet.create({
     fontSize: 20,
   },
   options:{
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     flexDirection: 'row',
   },
 });

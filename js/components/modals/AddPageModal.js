@@ -1,6 +1,10 @@
 import React from 'react';
 import { Animated, Button, Image, Text, TouchableOpacity, View, WebView, Dimensions, StyleSheet } from 'react-native';
 
+var {
+  height: deviceHeight
+} = Dimensions.get('window');
+
 class AddPageModal extends React.Component {
   constructor(props) {
     super(props);
@@ -32,12 +36,12 @@ class AddPageModal extends React.Component {
           </TouchableOpacity>
           <Text style={styles.bigText}>Pricing</Text>
           <Image
-            style={{width: 260, height: 170}}
+            style={{width: 194, height: 120}}
             source={require('../../../images/components/pricing.png')}
           />
           <Text style={styles.bigText}>Text and Image</Text>
           <Image
-            style={{width: 260, height: 120}}
+            style={{width: 194, height: 120}}
             source={require('../../../images/components/text_image.png')}
           />
         </View>
@@ -82,8 +86,7 @@ const styles = StyleSheet.create({
   },
 });
 
-
-
+export default AddPageModal;
 
 // click add/rearrange. done
 // click add (+) or swipe from right to left. in progress
