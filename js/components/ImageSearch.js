@@ -14,6 +14,10 @@ class ImageSearch extends React.Component {
     this.searchForImages = this.searchForImages.bind(this);
   }
 
+  handlePress(id, url) {
+    this.props.onSelect(url);
+  }
+
   searchForImages(){
     axios({
       method: 'get',
@@ -25,8 +29,12 @@ class ImageSearch extends React.Component {
     })
     .then((response) => {
       var urlData =response.data.value.map((obj,id)=> {
-        return <Image key={id} source={{uri: obj.contentUrl}}
-        style={styles.pic} />
+        return (
+          <TouchableHighlight key={id} onPress={this.handlePress.bind(this, id, obj.contentUrl)}>  
+            <Image source={{uri: obj.contentUrl}}
+            style={styles.pic} />
+          </TouchableHighlight>
+        )
       });
         this.setState({images: [...urlData]});
       }).catch(function(err) {
@@ -37,7 +45,7 @@ class ImageSearch extends React.Component {
   render() {
     return (
       <View>
-        <Text>Search For:</Text>
+        <Button title="From Bing Search" />
         <TextInput
           style={{height: 40}}
           placeholder="enter image/s to search for"
@@ -76,7 +84,7 @@ const styles = StyleSheet.create({
     margin: 10,
     width: 80,
     height: 80
-  }
+  },
 });
 
 export default ImageSearch;
