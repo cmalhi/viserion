@@ -6,7 +6,7 @@ var {
   height: deviceHeight
 } = Dimensions.get('window');
 
-export default class TextModal extends React.Component {
+export default class ShortTextModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,7 +34,7 @@ export default class TextModal extends React.Component {
   closeAndUpdate() {
     const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
-    socket.emit('changeTitleDom', this.state.title);
+    socket.emit('changeTitleDom', { key: this.props.id, textValue: this.state.title });
     // TODO: Make database call to save title to user preferences
   }
 

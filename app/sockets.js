@@ -2,13 +2,13 @@ var socketInstance = function(io) {
   io.on('connection', function(socket) {
 
     // Title
-    socket.on('changeTitle', function(title) {
-      io.sockets.emit('launchTitleModal', title);
+    socket.on('launchTitleModal', function(textData) {
+      io.sockets.emit('launchTitleModal', textData);
       // TODO: .to(x) to SPECIFY SOCKET ID;
     });
 
-    socket.on('changeTitleDom', function(title) {
-      io.sockets.emit('changeTitleDom', title);
+    socket.on('changeTitleDom', function(data) {
+      io.sockets.emit('changeTitleDom2', data);
     });
 
     // Image
@@ -17,7 +17,7 @@ var socketInstance = function(io) {
     });
 
     socket.on('changeImageDom', function(data) {
-      io.sockets.emit('changeImageDom', data);
+      io.sockets.emit('changeImageDom2', data);
     });
 
     // Header color

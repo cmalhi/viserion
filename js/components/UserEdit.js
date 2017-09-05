@@ -2,7 +2,7 @@ import React from 'react';
 import { Animated, Dimensions, Image, Text, TouchableOpacity, View, WebView, Button, StyleSheet, TextInput } from 'react-native';
 const io = require('socket.io-client');
 import ImageModal from './modals/ImageModal';
-import TextModal from './modals/TextModal';
+import ShortTextModal from './modals/ShortTextModal';
 import ColorModal from './modals/ColorModal';
 import OrderModal from './modals/OrderModal';
 import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker';
@@ -17,11 +17,12 @@ class UserEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      textModal: false,
+      shortTextModal: false,
       title: '',
       imageModal: false,
       colorModal: false,
       imageId: null,
+      textId: null,
 
       order: this.props.order,
       orderModal: false,
@@ -38,8 +39,8 @@ class UserEdit extends React.Component {
   componentDidMount() {
     const socket = io(global.HOST, { transports: ['websocket'] });
 
-    socket.on('launchTitleModal', (title) => {
-      this.setState({ title, textModal: true });
+    socket.on('launchTitleModal', (titleData) => {
+      this.setState({ shortTextModal: true, textId: titleData.key, title: titleData.textValue, });
     });
 
     socket.on('launchImageModal', (id) => {
@@ -56,8 +57,8 @@ class UserEdit extends React.Component {
     return (
       <View style={styles.flexContainer}>
         <WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/reactify.html`}} />
-        {this.state.textModal ? <TextModal title={this.state.title} closeModal={() => this.setState({textModal: false}) } /> : null}
-        {this.state.imageModal ? <ImageModal imageId={this.state.imageId} closeModal={() => this.setState({imageModal: false})} /> : null}
+        {this.state.shortTextModal ? <ShortTextModal id={this.state.textId} title={this.state.title} closeModal={() => this.setState({shortTextModal: false}) } /> : null}
+        {this.state.imageModal ? <ImageModal id={this.state.imageId} closeModal={() => this.setState({imageModal: false})} /> : null}
         {this.state.colorModal ? <ColorModal navigation={this.props.navigation} closeModal={() => this.setState({colorModal: false})} /> : null}
         {this.state.orderModal ? <OrderModal closeModal={() => this.setState({orderModal: false})} /> : null}
         <Button title="Rearrange (click this 2x)" onPress={this.handleRearrange} />
