@@ -13,11 +13,11 @@ class AddPageModal extends React.Component {
       components: [
         {
           name: 'the title',
-          img: 'pricing.png',
+          img: require('../../../images/components/pricing.png'),
         },
         {
           name: 'pinterest',
-          img: 'text_image.png',
+          img: require('../../../images/components/text_image.png'),
         },
       ],
     };
@@ -39,7 +39,6 @@ class AddPageModal extends React.Component {
   }
 
   render() {
-    const components = this.state.components.map((component) => { <AddPageModalEntry component={component} /> })
     return (
       <Animated.View
         style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
@@ -47,7 +46,9 @@ class AddPageModal extends React.Component {
           <TouchableOpacity onPress={this.closeModal}>
             <Text style={styles.center}>Close Menu</Text>
           </TouchableOpacity>
-          {this.state.components.map((component) => {<AddPageModalEntry component={component} />})}
+          <View>
+            {this.state.components.map((comp, index) =>  <AddPageModalEntry component={comp} key={index} /> )}
+          </View>
         </View>
       </Animated.View>
     )
