@@ -5,6 +5,7 @@ import ImageModal from './modals/ImageModal';
 import ShortTextModal from './modals/ShortTextModal';
 import ColorModal from './modals/ColorModal';
 import OrderModal from './modals/OrderModal';
+import AddPageModal from './modals/AddPageModal';
 import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -24,19 +25,21 @@ class UserEdit extends React.Component {
       imageId: null,
       textId: null,
 
-      order: this.props.order,
-      orderModal: false,
+      order: [],
       html: '',
       componentOrder: '',
-    };
-    this.handleRearrange = this.handleRearrange.bind(this);
-  };
 
-  handleRearrange() {
-    this.setState({ orderModal: true });
+      orderModal: false,
+      addPageModal: false,
+    };
+    this.handleAddOrRearrange = this.handleAddOrRearrange.bind(this);
   }
 
   componentDidMount() {
+    this.setState({order: this.props.order}, ()=>{
+      console.log('component did mount', this.props.order)
+    });
+
     const socket = io(global.HOST, { transports: ['websocket'] });
 
     socket.on('launchTitleModal', (titleData) => {
@@ -53,6 +56,10 @@ class UserEdit extends React.Component {
     });
   }
 
+  handleAddOrRearrange() {
+    this.setState({ orderModal: true });
+  }
+
   render() {
     return (
       <View style={styles.flexContainer}>
@@ -61,10 +68,11 @@ class UserEdit extends React.Component {
         {this.state.imageModal ? <ImageModal id={this.state.imageId} closeModal={() => this.setState({imageModal: false})} /> : null}
         {this.state.colorModal ? <ColorModal navigation={this.props.navigation} closeModal={() => this.setState({colorModal: false})} /> : null}
         {this.state.orderModal ? <OrderModal closeModal={() => this.setState({orderModal: false})} /> : null}
-        <Button title="Rearrange (click this 2x)" onPress={this.handleRearrange} />
+        {this.state.addPageModal ? <AddPageModal closeModal={() => this.setState({addPageModal: false})} openAddModal={() => this.setState({addPageModal: true, orderModal: false})} /> : null}
+        <Button title="Add/Rearrange (click this 2x)" onPress={this.handleAddOrRearrange} />
       </View>
-    )
-  };
+    );
+  }
 }
 
 export const styles = StyleSheet.create({
@@ -78,7 +86,7 @@ export const styles = StyleSheet.create({
   },
   webView: {
     padding: 10,
-    width: '100%'
+    width: '100%',
   },
   modal: {
     backgroundColor: 'rgba(0,0,0,.3)',
@@ -90,15 +98,15 @@ export const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
   },
-  innerModal:{
+  innerModal: {
     width: '80%',
     backgroundColor: '#fff',
     padding: 10,
     position: 'relative',
     top: '5%',
-    borderRadius: 10
+    borderRadius: 10,
   },
-  bigText:{
+  bigText: {
     fontSize: 20,
   },
 });
