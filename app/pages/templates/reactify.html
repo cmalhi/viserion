@@ -17,9 +17,9 @@
 
 
   <script type="text/babel">
-    const socket = io('http://127.0.0.1:8080');
+    const socket = io(global.Host);
 
-    // ID generation
+    // ID generationg
     let lastId = 0;
     function newId(prefix='id') {
       lastId++;
