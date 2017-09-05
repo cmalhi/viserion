@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1, maximum-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.css">
   <link rel="stylesheet" href="./style.css">
   <title>Simple</title>
 </head>
@@ -47,6 +48,11 @@
             },
             {
               name: <ImageContent />,
+              attr: {
+              }
+            },
+            {
+              name: <ImageCaption />,
               attr: {
                 imageUrl: 'http://assets.vogue.com/photos/59970fd951182c18907ac941/master/w_1320,c_limit/04-studio-harlem.jpg',
                 caption: 'Lorna Simpson, Dividing Lines, 1989',
@@ -119,6 +125,34 @@
                 <span className="site-title"><EditableShortText value={this.state.title} /></span>
               </div>
             </header>
+          </div>
+        )
+      }
+    }
+
+    class ImageContent extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+
+        }
+      }
+
+      render() {
+        return(
+          <div className="content">
+            <div className="row">
+              <div className="col-xs-12 col-sm-7">
+                <div className="box">
+                  <img className="image-scalable-container" src="https://claralabs.com/static/img/tiffany.3faa6a523dc3d298.jpg" />
+                </div>
+              </div>
+              <div className="col-xs-12 col-sm-5">
+                <div className="box">
+                  Clara Labs has absolutely changed the way our business operates. Clara schedules so efficiently, and with such great communication — it has saved so much time, money and worry about balls being dropped. It frees my team to use their brains in other ways. We LOVE our assistant Clara.
+                  </div>
+              </div>
+            </div>
           </div>
         )
       }
@@ -214,7 +248,7 @@
       }
     }
 
-    class ImageContent extends React.Component {
+    class ImageCaption extends React.Component {
       constructor(props) {
         super(props);
         this.state = {
