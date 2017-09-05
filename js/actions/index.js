@@ -36,7 +36,7 @@ export function addKeywords(keywords) {
   }
 }
 
-export function changeOrder (order) {
+export function changeOrder(order) {
   return {
     type: 'CHANGE_ORDER',
     payload: order
