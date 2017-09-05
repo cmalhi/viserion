@@ -14,7 +14,6 @@ import ConfirmSite from './ConfirmSite';
 import ImageUploader from './ImageUploader';
 import SavedPages from './SavedPages';
 import SharedScreen from './ShareScreen';
-import AddPageComponent from './AddPageComponent';
 import Login from './Login';
 import SignUp from './SignUp';
 import UserEdit from './UserEdit';
@@ -76,7 +75,6 @@ class HomeScreen extends React.Component {
         <Text onPress={() => { navigate('Saved')}} style={styles.inDevelopment}>In development: Saved Pages</Text>
         <Text onPress={() => { navigate('UserEdit')}} style={styles.inDevelopment}>In development: User Editing</Text>
         <Text onPress={() => { navigate('Image')}} style={styles.defaultText,styles.selectedText}>(Optional) Add Image</Text>
-        <Text onPress={() => { navigate('AddPageComponent')}} style={styles.defaultText}>AddPageComponent Test</Text>
         <Text onPress={() => { navigate('ImageSearch')}} style={styles.defaultText}>Image Search</Text>
       </View>
     )
@@ -84,8 +82,8 @@ class HomeScreen extends React.Component {
 }
 
 const AppNavigator = StackNavigator({
-  // Index: { screen: UserEdit },
-  Index: { screen: HomeScreen },
+  Index: { screen: UserEdit },
+  // Index: { screen: HomeScreen },
   Color: { screen: ChooseColor },
   Template: { screen: ChooseLayout },
   Title: { screen: ChooseTitle },
@@ -96,7 +94,6 @@ const AppNavigator = StackNavigator({
   Saved: { screen: SavedPages },
   Login: { screen: Login },
   SignUp: { screen: SignUp },
-  AddPageComponent: { screen: AddPageComponent },
   UserEdit: { screen: UserEdit },
   ImageSearch: { screen: ImageSearch },
   ColorPicker: { screen: ColorPicker },

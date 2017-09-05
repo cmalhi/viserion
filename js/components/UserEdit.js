@@ -2,9 +2,10 @@ import React from 'react';
 import { Animated, Dimensions, Image, Text, TouchableOpacity, View, WebView, Button, StyleSheet, TextInput } from 'react-native';
 const io = require('socket.io-client');
 import ImageModal from './modals/ImageModal';
-import TextModal from './modals/TextModal';
+import ShortTextModal from './modals/ShortTextModal';
 import ColorModal from './modals/ColorModal';
 import OrderModal from './modals/OrderModal';
+import AddPageModal from './modals/AddPageModal';
 import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -17,29 +18,32 @@ class UserEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      textModal: false,
+      shortTextModal: false,
       title: '',
       imageModal: false,
       colorModal: false,
       imageId: null,
+      textId: null,
 
-      order: this.props.order,
-      orderModal: false,
+      order: [],
       html: '',
       componentOrder: '',
-    };
-    this.handleRearrange = this.handleRearrange.bind(this);
-  };
 
-  handleRearrange() {
-    this.setState({ orderModal: true });
+      orderModal: false,
+      addPageModal: false,
+    };
+    this.handleAddOrRearrange = this.handleAddOrRearrange.bind(this);
   }
 
   componentDidMount() {
+    this.setState({order: this.props.order}, ()=>{
+      console.log('component did mount', this.props.order)
+    });
+
     const socket = io(global.HOST, { transports: ['websocket'] });
 
-    socket.on('launchTitleModal', (title) => {
-      this.setState({ title, textModal: true });
+    socket.on('launchTitleModal', (titleData) => {
+      this.setState({ shortTextModal: true, textId: titleData.key, title: titleData.textValue, });
     });
 
     socket.on('launchImageModal', (id) => {
@@ -52,18 +56,23 @@ class UserEdit extends React.Component {
     });
   }
 
+  handleAddOrRearrange() {
+    this.setState({ orderModal: true });
+  }
+
   render() {
     return (
       <View style={styles.flexContainer}>
         <WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/reactify.html`}} />
-        {this.state.textModal ? <TextModal title={this.state.title} closeModal={() => this.setState({textModal: false}) } /> : null}
-        {this.state.imageModal ? <ImageModal imageId={this.state.imageId} closeModal={() => this.setState({imageModal: false})} /> : null}
+        {this.state.shortTextModal ? <ShortTextModal id={this.state.textId} title={this.state.title} closeModal={() => this.setState({shortTextModal: false}) } /> : null}
+        {this.state.imageModal ? <ImageModal id={this.state.imageId} closeModal={() => this.setState({imageModal: false})} /> : null}
         {this.state.colorModal ? <ColorModal navigation={this.props.navigation} closeModal={() => this.setState({colorModal: false})} /> : null}
-        {this.state.orderModal ? <OrderModal closeModal={() => this.setState({orderModal: false})} /> : null}
-        <Button title="Rearrange (click this 2x)" onPress={this.handleRearrange} />
+        {this.state.orderModal ? <OrderModal closeModal={() => this.setState({orderModal: false})} openAddModal={(() => this.setState({addPageModal: true}))} /> : null}
+        {this.state.addPageModal ? <AddPageModal closeModal={() => this.setState({addPageModal: false, orderModal: true})} /> : null}
+        <Button title="Add/Rearrange (click this 2x)" onPress={this.handleAddOrRearrange} />
       </View>
-    )
-  };
+    );
+  }
 }
 
 export const styles = StyleSheet.create({
@@ -77,7 +86,7 @@ export const styles = StyleSheet.create({
   },
   webView: {
     padding: 10,
-    width: '100%'
+    width: '100%',
   },
   modal: {
     backgroundColor: 'rgba(0,0,0,.3)',
@@ -89,15 +98,15 @@ export const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
   },
-  innerModal:{
+  innerModal: {
     width: '80%',
     backgroundColor: '#fff',
     padding: 10,
     position: 'relative',
     top: '5%',
-    borderRadius: 10
+    borderRadius: 10,
   },
-  bigText:{
+  bigText: {
     fontSize: 20,
   },
 });

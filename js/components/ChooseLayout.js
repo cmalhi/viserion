@@ -30,8 +30,9 @@ class ChooseLayout extends React.Component {
         <TouchableHighlight key={index} style={this.props.layouts[layout.name] && styles.selected} onPress={this.props.toggleLayout.bind(this, layout.name)}>
           <Image
             style={styles.template}
-            source={layout.uri}/>
-        </TouchableHighlight > 
+            source={layout.uri}
+          />
+        </TouchableHighlight> 
       )
     })
   }
