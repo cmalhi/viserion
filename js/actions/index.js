@@ -1,5 +1,25 @@
 import _ from 'lodash';
 import axios from 'axios';
+import componentMap from '../componentMap';
+
+const combineDesires = (desires) => {
+  let preferences = [];
+  desires.layouts.forEach(layout => {
+    desires.colors.forEach(color => {
+
+      const heroColor = Object.assign({}, componentMap['hero']);
+      heroColor.attributes.bgColor = color;
+      heroColor.attributes.title = desires.title;
+
+      const footerColor = Object.assign({}, componentMap['footer']);
+      footerColor.attributes.bgColor = color;
+
+      const content = Object.assign({}, componentMap[layout]);
+      preferences.push([heroColor, content, footerColor]);
+    });
+  });
+  return preferences;
+};
 
 export function toggleLayout(layoutId) {
   return {
@@ -59,53 +79,8 @@ export const createPreferences = () => (dispatch, getState) => {
     title,
   };
 
-  var components = { 
-    hero: {
-      name: '<Hero />',
-      attributes: {
-        bgColor: 'defaultColor',
-        title: 'defaultTitle',
-      }
-    },
-    grid: {
-      name: '<Grid />',
-      attributes: {
-        text: 'defaultText',
-      }
-    },
-    pinterestContent: {
-      name: '<PinterestContent />',
-      attributes: {
-        text: 'defaultText',
-      }
-    },
-    footer: {   
-      name: '<Footer />',
-      attributes: {
-        bgColor: 'defaultColor',
-        text: 'defaultText',
-      },
-    }
-  };
-
-  let preferences = []
-  desires.layouts.forEach(layout => {
-    desires.colors.forEach(color => {
-
-      let heroColor = Object.assign({}, components['hero']);
-      heroColor.attributes.bgColor = color;
-      heroColor.attributes.title = desires.title;
-
-      let footerColor = Object.assign({}, components['footer']);
-      footerColor.attributes.bgColor = color;
-
-      let content = Object.assign({}, components[layout]);
-      preferences.push([heroColor, content, footerColor]);
-    })
-  })
-
-  return preferences;
-
+  const preferences = combineDesires(desires);
+  dispatch({ type: 'CREATE_PREFERENCES', payload: preferences });
 };
 
 
