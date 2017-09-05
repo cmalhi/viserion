@@ -4,7 +4,7 @@ import SortableListView from 'react-native-sortable-listview';
 import RowComponent from './OrderListEntry';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { changeOrder } from '../../actions/index'
+import { changeOrder } from '../../actions/index';
 
 const io = require('socket.io-client');
 
@@ -154,7 +154,7 @@ let data = {
   "React.createElement(Body, null)": { text: "Body" },
   "React.createElement(MyComponent2, null)": { text: "MyComponent2" },
   "React.createElement(Pricing, null)": { text: "Pricing" },
-  "React.createElement(Gallery, null)": { text: "Gallert" },
+  "React.createElement(Gallery, null)": { text: "Gallery" },
   "React.createElement(Footer, null)" : { text: "Footer" },
 }
 

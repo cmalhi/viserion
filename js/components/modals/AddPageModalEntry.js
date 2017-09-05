@@ -1,16 +1,22 @@
 import React from 'react';
 import { Text, TouchableHighlight, Image, View, StyleSheet } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { toggleComp } from '../../actions/index';
 
-export default class AddPageModalEntry extends React.Component {
+class AddPageModalEntry extends React.Component {
   constructor(props) {
     super(props);
+    this.toggleComponent = this.toggleComponent.bind(this);
+  }
+
+  toggleComponent(name) {
+    this.props.toggleComp(name);
   }
 
   render() {
-    const currentPic = `../../../images/components/${this.props.component.img}`
-    console.log('WE ARE IN THE ADD PAGE COMPONENT')
     return (
-      <View>
+      <View onPress={this.toggleComponent.bind(this, this.props.component.name)}>
         <Text style={styles.bigText}>Name: {this.props.component.name}</Text>
         <Image
           style={{width: 194, height: 120}}
@@ -21,12 +27,26 @@ export default class AddPageModalEntry extends React.Component {
   }
 }
 
+function mapStateToProps({ toggledComps }) {
+  return { toggledComps };
+}
+
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators({toggleComp}, dispatch)
+};
+
+export default connect(mapStateToProps, matchDispatchToProps)(AddPageModalEntry);
+
 const styles = StyleSheet.create({
   flexContainer: {
     flex: 1,
   },
   bigText: {
     fontSize: 20,
+  },
+    selected: {
+    opacity: 0.5,
+    backgroundColor: '#000'
   },
 });
 

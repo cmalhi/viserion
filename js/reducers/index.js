@@ -6,6 +6,7 @@ import siteReducer from "./siteReducer";
 import keywordReducer from "./keywordReducer";
 import orderReducer from "./orderReducer";
 import authReducer from "./authReducer";
+import addComponentReducer from "./addComponentReducer";
 
 const rootReducer = combineReducers({
   layouts: layoutReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   keywords: keywordReducer,
   order: orderReducer,
   auth: authReducer,
+  addComponentReducer: addComponentReducer,
 });
 
 export default rootReducer;
