@@ -43,13 +43,6 @@ export function changeOrder(order) {
   }
 }
 
-export function toggleComp(name) {
-  return {
-    type: 'TOGGLE_COMP',
-    payload: name
-  }
-}
-
 export function postPreferences(navigateToNext) {
   return (dispatch, getState) => {
     const { layouts, colors, title, keywords, order } = getState();

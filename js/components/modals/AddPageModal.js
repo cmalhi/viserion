@@ -49,6 +49,7 @@ class AddPageModal extends React.Component {
           <View>
             {this.state.components.map((comp, index) =>  <AddPageModalEntry component={comp} key={index} /> )}
           </View>
+          <Button title="Add Components"></Button>
         </View>
       </Animated.View>
     )
