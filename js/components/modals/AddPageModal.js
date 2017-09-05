@@ -1,6 +1,6 @@
 import React from 'react';
 import { Animated, Button, Image, Text, TouchableOpacity, View, WebView, Dimensions, StyleSheet } from 'react-native';
-
+import AddPageModalEntry from './AddPageModalEntry'
 var {
   height: deviceHeight
 } = Dimensions.get('window');
@@ -8,7 +8,19 @@ var {
 class AddPageModal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { offset: new Animated.Value(deviceHeight) };
+    this.state = { 
+      offset: new Animated.Value(deviceHeight),
+      components: [
+        {
+          name: 'the title',
+          img: 'pricing.png',
+        },
+        {
+          name: 'pinterest',
+          img: 'text_image.png',
+        },
+      ],
+    };
     this.closeModal = this.closeModal.bind(this);
   }
 
@@ -27,6 +39,7 @@ class AddPageModal extends React.Component {
   }
 
   render() {
+    const components = this.state.components.map((component) => { <AddPageModalEntry component={component} /> })
     return (
       <Animated.View
         style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
@@ -34,16 +47,7 @@ class AddPageModal extends React.Component {
           <TouchableOpacity onPress={this.closeModal}>
             <Text style={styles.center}>Close Menu</Text>
           </TouchableOpacity>
-          <Text style={styles.bigText}>Pricing</Text>
-          <Image
-            style={{width: 194, height: 120}}
-            source={require('../../../images/components/pricing.png')}
-          />
-          <Text style={styles.bigText}>Text and Image</Text>
-          <Image
-            style={{width: 194, height: 120}}
-            source={require('../../../images/components/text_image.png')}
-          />
+          {this.state.components.map((component) => {<AddPageModalEntry component={component} />})}
         </View>
       </Animated.View>
     )
