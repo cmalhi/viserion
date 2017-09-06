@@ -3,6 +3,7 @@ import { Button, StyleSheet, Text, View, Image, TouchableHighlight } from 'react
 import { connect } from 'react-redux';
 import { toggleLayout } from '../actions/index';
 import layoutsData from '../layoutsData';
+import { Container, Header, DeckSwiper, Card, CardItem, Thumbnail, Left, Body, Icon } from 'native-base';
 
 class ChooseLayout extends React.Component {
   constructor(props) {
@@ -13,19 +14,18 @@ class ChooseLayout extends React.Component {
       layoutsShown: [
         { name: 'grid',
           uri: require('../../images/templates/portfolio-template.jpg'),
+          layouts: ['grid'],
         },
         { name: 'basic',
           uri: require('../../images/templates/spotify-template.png'),
+          layouts: ['hero'],
         },
         { name: 'contact',
           uri: require('../../images/templates/contact-template.png'),
+          layouts: ['contact'],
         },
       ],
       chosenLayouts: {
-        grid: 0,
-        basic: 0,
-        contact: 0,
-        keywords: [],
         selectedLayouts: 0,
       },
     };
@@ -34,11 +34,18 @@ class ChooseLayout extends React.Component {
     this.renderLayoutChoices = this.renderLayoutChoices.bind(this);
   }
 
+
+
   handleLayoutPress(layout, index) {
-    this.props.toggleLayout(layout);
+    // Stores chosen layouts in redux state and toggle styles 
+    // this.props.toggleLayout(layout);
     let newLayouts = this.state.layoutsShown;
     let oldLayouts = this.state.layoutsHidden;
-    newLayouts[index] = oldLayouts.pop();
+    if (oldLayouts.length) {
+      newLayouts[index] = oldLayouts.pop();
+    } else {
+      newLayouts[index] = null;
+    }
     this.setState({ layoutsShown: newLayouts });
     this.setState({ layoutsHidden: oldLayouts });
   }
@@ -49,7 +56,13 @@ class ChooseLayout extends React.Component {
   }
 
   renderLayoutChoices() {
-    return this.state.layoutsShown.map((layout, index) => {
+    return this.state.layoutsShown.map((layout, index, layoutsShown) => {
+      if (index === 0 && layoutsShown[1] === null && layoutsShown[2] === null ) {
+        return (
+          <Text key={index}>That's all!</Text>
+        )
+      }
+      if (layout === null) return null;
       return (
         <TouchableHighlight
           key={index}
@@ -66,7 +79,7 @@ class ChooseLayout extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>        
+      <View style={styles.container}>     
         <Text>Choose some look and feels that you like</Text>
         { this.renderLayoutChoices() }
         <Button
