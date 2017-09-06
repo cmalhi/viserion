@@ -78,11 +78,11 @@ export default class ImageModal extends React.Component {
   imageSearchCallback(imgCB){
     const socket = io(global.HOST, { transports: ['websocket'] });    
     this.setState({img: imgCB});
-    socket.emit('changeImageDom', {src: imgCB, key: this.props.imageId});    
+    socket.emit('changeImageDom', {key: this.props.id, src: imgCB});    
     this.closeModal();
   }
 
-  _pickImage = async() => {
+  _pickImage = async() => {  
     let result = await ImagePicker
       .launchImageLibraryAsync({
         allowsEditing: true,
