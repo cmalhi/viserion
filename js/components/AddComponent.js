@@ -83,31 +83,6 @@ class AddComponent extends React.Component {
 }
 
 
-// const prefs = {
-//         sitePreferences: {
-//           components: [
-//             {
-//               name: <Hero1 />,
-//               attr: {
-//                 bgColor: '#eee',
-//                 title: 'Custom title',
-//               }
-//             },
-//             {
-//               name: <TextContent />,
-//               attr: {
-//                 title: 'With All Eyes on the South, the Most Important Art Show in America Is Underway in Pittsburgh',
-//                 body: 'The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols.'
-//               }
-//             },
-//             {
-//               name: <Footer />,
-//               attr: {
-//                 text: 'I am foot'
-//               }
-//             }
-//           }
-
 
 export const styles = StyleSheet.create({
   form: {
@@ -185,17 +160,7 @@ const html = `<!DOCTYPE html>
         super(props);
         this.state = {
           bgColor: null,
-          sitePreferences: null,
-        }
-      }
-      componentWillMount() {
-        // request site preferences
-        // example site preferences
-        socket.on('changePref', (newPrefs)=> {
-          console.log('changing preferences!!')
-          // this.setState({ sitePreferences: this.state.sitePreferences.push(newPrefs)) })
-        })
-        this.setState({ sitePreferences: {
+          sitePreferences: {
           components: [
             {
               name: <Hero1 />,
@@ -218,7 +183,21 @@ const html = `<!DOCTYPE html>
               }
             }
           ]
-        }});
+        },
+        }
+      }
+      componentDidMount() {
+        // request site preferences
+        socket.on('changePref', (sampleData) => {
+          // alert(JSON.stringify(sampleData));
+          var name = sampleData.components[0].name;
+
+          if (name === 'TextContent') {
+            sampleData.components[0].name = <TextContent />
+          }
+          
+          this.setState({ sitePreferences: sampleData })
+        })
       }
 
       render() {
@@ -234,8 +213,11 @@ const html = `<!DOCTYPE html>
       }
     }
 
-//    class Hero2 extends
-
+    // function toComponents(components) {
+    //   // Components is an array of objects {name: 'TextContent', attr: }
+    //   // Converts component to array of objects {name: <TextContent />, attr: }
+    // }
+   
     class Hero1 extends React.Component {
       constructor(props) {
         super(props);
