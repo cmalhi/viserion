@@ -5,26 +5,18 @@ export default class AddPageModalEntry extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      toggledComps: [],
-      allComponents: [],
+      add: false,
     }
-    this.toggleComponent = this.toggleComponent.bind(this);
   }
   //updating the allComponents variable should be accompinied 
   //with directly manipulating the preferences object 
   componentWillMount() {
-    this.setState({toggledComps: this.props.toggledComps})
-  }
-
-  toggleComponent(name) {
-    this.props.toggleComp(name);
+    this.setState({add: this.props.component.add})
   }
 
   render() {
     return (
-      <View 
-        
-        onPress={this.toggleComponent.bind(this, this.props.component.name)}>
+      <View>
         <Text style={styles.bigText}>{this.props.component.name}</Text>
         <Image
           style={{width: 194, height: 120}}

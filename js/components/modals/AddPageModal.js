@@ -10,6 +10,7 @@ class AddPageModal extends React.Component {
     super(props);
     this.state = { 
       offset: new Animated.Value(deviceHeight),
+      toggledComps: [],
       components: [
         {
           name: 'the title',
@@ -23,7 +24,7 @@ class AddPageModal extends React.Component {
     };
     this.closeModal = this.closeModal.bind(this);
   }
-
+  //components should be coming in from 
   componentDidMount() {
     Animated.timing(this.state.offset, {
       duration: 300,
@@ -38,6 +39,10 @@ class AddPageModal extends React.Component {
     }).start(this.props.closeModal);
   }
 
+  handlePress() {
+  }
+
+
   render() {
     return (
       <Animated.View
@@ -49,7 +54,7 @@ class AddPageModal extends React.Component {
           <View>
             {this.state.components.map((comp, index) =>  <AddPageModalEntry component={comp} key={index} /> )}
           </View>
-          <Button title="Add Components"></Button>
+          <Button title="Add Components" onPress={this.handlePress}></Button>
         </View>
       </Animated.View>
     )
