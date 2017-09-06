@@ -18,27 +18,27 @@ class OrderModal extends React.Component {
     super(props);
     this.state = {
       offset: new Animated.Value(deviceHeight),
-      order: [],
+      order: this.props.order,
       currentOrder: null,
       data: data,
     };
     this.closeModal = this.closeModal.bind(this);
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
     this.openAddCloseOrder = this.openAddCloseOrder.bind(this);
+    this.props.changeOrder(order);
   }
 
   componentWillMount() {
     //this line will change when preferences obj is set up
-    this.props.changeOrder(order);
+    // this.setState({order: this.props.order})
   }
 
   componentDidMount() {
     //TODO: Get original order from redux preferenecs storage
     Animated.timing(this.state.offset, {
       duration: 300,
-      toValue: 0
+      toValue: 0,
     }).start();
-    this.setState({order: this.props.order})
   }
 
   closeModal() {
@@ -59,6 +59,10 @@ class OrderModal extends React.Component {
   openAddCloseOrder() {
     this.closeModal();
     this.props.openAddModal();
+  }
+
+  handleModalShow() {
+
   }
 
   render() {

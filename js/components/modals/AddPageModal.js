@@ -3,10 +3,29 @@ import { Animated, Button, Image, Text, TouchableOpacity, View, ScrollView, WebV
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { appendOrder } from '../../actions/index';
+const io = require('socket.io-client');
 
 var {
   height: deviceHeight
 } = Dimensions.get('window');
+
+class TextContent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: this.props.title,
+      body: this.props.body,
+    }
+  }
+  render() {
+    return (
+      <div className="content">
+        <h1><EditableShortText value={this.state.title} /></h1>
+        <EditableLongText body={this.state.body} />
+      </div>
+    )
+  }
+}
 
 class AddPageModal extends React.Component {
   constructor(props) {
@@ -42,7 +61,13 @@ class AddPageModal extends React.Component {
       duration: 300,
       toValue: 0,
     }).start();
-    console.log('this.props', ...this.props.preferences)
+    console.log(this.props)
+    var listen = () => {
+      if (this.props.toggleOrder['the title']) {
+        console.log('order was toggled')
+      }
+    }
+    listen()
   }
 
   closeModal() {
@@ -54,7 +79,32 @@ class AddPageModal extends React.Component {
 
   handleEntryToggle(name) {
     console.log('you clicked on', name);
-    this.props.appendOrder(name);
+    // Close modal
+    this.closeModal()
+    // Populate Webview with 'name' component
+      const socket = io(global.HOST, { transports: ['websocket'] });
+      // Emit to a socket with 'name'
+
+      var sampleData = {
+        components: [
+          {
+            name: 'TextContent',
+            attr: {
+              title: 'hello',
+              body: 'goodbye',
+            }
+          },
+        ]
+      };
+
+
+      socket.emit('newPref', sampleData);
+      // TODO: Update sitePreferences object
+
+
+
+    // this.props.appendOrder(name);
+    // console.log('HELLOOOO', this.props.toggleOrder['the title'])
   }
 
   handleAdd() {
@@ -76,7 +126,7 @@ class AddPageModal extends React.Component {
           <ScrollView>
             {this.state.components.map((comp, index) =>        
               <View>
-                <Text 
+                <Text
                   onPress={this.handleEntryToggle.bind(this, comp.name)}
                   style={styles.bigText}>{comp.name}</Text>
                 <TouchableOpacity
@@ -130,10 +180,14 @@ const styles = StyleSheet.create({
   bigText: {
     fontSize: 20,
   },
+    selected: {
+    opacity: 0.5,
+    backgroundColor: '#FFF',
+  },
 });
 
-function mapStateToProps({ appendOrder, preferences }) {
-  return { appendOrder, preferences };
+function mapStateToProps({ toggleOrder, preferences }) {
+  return { toggleOrder, preferences };
 }
 
 const matchDispatchToProps = (dispatch) => {
@@ -151,3 +205,29 @@ export default connect(mapStateToProps, matchDispatchToProps)(AddPageModal);
 // it should automatically scroll to that spot (might need to change the sortable list view)
 // highlight the newly added list entry in the order modal 
 // click 
+
+
+// const prefs = {
+//   components: [
+//     {
+//       name: <Hero1 />,
+//       attr: {
+//         bgColor: '#eee',
+//         title: 'Custom title',
+//       }
+//     },
+//     {
+//       name: <TextContent />,
+//       attr: {
+//         title: 'With All Eyes on the South, the Most Important Art Show in America Is Underway in Pittsburgh',
+//         body: 'The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols.'
+//       }
+//     },
+//     {
+//       name: <Footer />,
+//       attr: {
+//         text: 'I am good foot'
+//       }
+//     }
+//   ]
+// }

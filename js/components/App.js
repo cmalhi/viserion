@@ -20,7 +20,9 @@ import UserEdit from './UserEdit';
 import ColorPicker from './modals/ColorPicker';
 import ColorModal from './modals/ColorModal';
 const io = require('socket.io-client');
-import ImageSearch from './ImageSearch';
+import axios from 'axios';
+import Testing from './Testing';
+import AddComponent from './AddComponent';
 
 const store = createStore(
   rootReducer,
@@ -74,16 +76,18 @@ class HomeScreen extends React.Component {
         <Text onPress={() => { navigate('Page')}} style={styles.defaultText}>Final Page</Text>
         <Text onPress={() => { navigate('Saved')}} style={styles.inDevelopment}>In development: Saved Pages</Text>
         <Text onPress={() => { navigate('UserEdit')}} style={styles.inDevelopment}>In development: User Editing</Text>
+        <Text onPress={() => { navigate('AddComponent')}} style={styles.inDevelopment}>In development: Add Component Testing</Text>
+
         <Text onPress={() => { navigate('Image')}} style={styles.defaultText,styles.selectedText}>(Optional) Add Image</Text>
-        <Text onPress={() => { navigate('ImageSearch')}} style={styles.defaultText}>Image Search</Text>
       </View>
     )
   }
 }
 
 const AppNavigator = StackNavigator({
-  Index: { screen: UserEdit },
-  // Index: { screen: HomeScreen },
+  // Index: { screen: UserEdit },
+  // Index: { screen: AddComponent },
+  Index: { screen: HomeScreen },
   Color: { screen: ChooseColor },
   Template: { screen: ChooseLayout },
   Title: { screen: ChooseTitle },
@@ -95,9 +99,9 @@ const AppNavigator = StackNavigator({
   Login: { screen: Login },
   SignUp: { screen: SignUp },
   UserEdit: { screen: UserEdit },
-  ImageSearch: { screen: ImageSearch },
   ColorPicker: { screen: ColorPicker },
   ColorModal: { screen: ColorModal },
+  AddComponent: { screen: AddComponent },
 });
 
 const styles = StyleSheet.create({

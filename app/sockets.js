@@ -18,7 +18,7 @@ var socketInstance = function(io) {
 
     socket.on('changeLongTextDom', function(data) {
       io.sockets.emit('changeLongTextDom2', data);
-    })
+    });
 
     // Image
     socket.on('launchImageModal', function(id) {
@@ -36,6 +36,12 @@ var socketInstance = function(io) {
 
     socket.on('colorChange2', function(color) {
       io.sockets.emit('colorChange2', color);
+    });
+
+    // Add new component
+    socket.on('newPref', function(sampleData){
+      // Display new component in webview
+      io.sockets.emit('changePref', sampleData)
     });
 
   });
