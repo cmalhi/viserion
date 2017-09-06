@@ -51,7 +51,7 @@
               attr: {
                 imageUrl: 'http://x-culture.org/wp-content/uploads/2017/02/160221hackathon.jpg',
                 title: 'A different kind of hackathon',
-                body: 'Hack@Brown is all about learning. Spend a weekend with us and 500 other students to take a step out of your comfort zone. Make Hack@Brown your event by experimenting with a new platform, API, or that idea that’s always been in the back of your mind!'
+                body: 'Hack@Brown is all about learning. Spend a weekend with us and 500 other students to take a step out of your comfort zone.'
               }
             },
             {
@@ -65,16 +65,16 @@
                   },
                   {
                     title: 'I don’t have a team. Can I still participate?',
-                    body: 'Of course! It is not necessary to have a team prior to coming to Hack@Brown. We’ll have some fun team-forming sessions where you can find an awesome group of people to work with. You’re welcome to have up to four people on a team.'
+                    body: 'Of course! It is not necessary to have a team prior to coming to Hack@Brown.'
                   },
                   {
                     title: 'Will there be a standby line the day-of the event?',
-                    body: 'Yes, there will be a standby line if accepted attendees do not show up! The line will open when registration starts (9am) and students will be admitted off the standby line after registration ends (10:30am). We will admit all by order of first-come first-serve. Students admitted off the standby line will not get a travel reimbursement.'
+                    body: 'Yes, there will be a standby line if accepted attendees do not show up! The line will open when registration starts (9am) and students will be admitted off the standby line after registration ends (10:30am).'
                   },
-                  {
-                    title: 'How will you decide between applicants?',
-                    body: 'Applicants will be chosen based on a random lottery. Everyone is welcome to apply!'
-                  },
+//                  {
+//                    title: 'How will you decide between applicants?',
+//                    body: 'Applicants will be chosen based on a random lottery. Everyone is welcome to apply!'
+//                  },
                 ]
               }
             },
@@ -89,7 +89,7 @@
               name: <TextContent />,
               attr: {
                 title: 'With All Eyes on the South, the Most Important Art Show in America Is Underway in Pittsburgh',
-                body: 'The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols. The jumping-off point is a 70-year-old painting by Horace Pippin—a self-taught WWI vet who captured scenes of postwar American life—which gives way to Jasper Johns’s flag painting, and a Louise Nevelson sculpture. Next, with “Working Thought,” the exhibition examines the history of forced labor in America, and progresses into the current prison-industrial complex, with works by Melvin Edwards.'
+                body: 'The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols.'
               }
             },
             {
@@ -263,8 +263,8 @@
           )
         });
         return (
-          <div className="content squished">
-            <div className="columns-b">
+          <div className="content content-60">
+            <div className="columns columns-text">
               {items}
             </div>
           </div>
@@ -318,7 +318,7 @@
         });
         return (
           <div className="content">
-            <div className="columns">
+            <div className="columns columns-image">
               {images}
             </div>
           </div>
@@ -372,7 +372,7 @@
       render() {
         return (
           <footer className="footer-area">
-            <p>Footer</p>
+            <p><EditableShortText value="Footer" /></p>
           </footer>
         )
       }

@@ -103,17 +103,23 @@
 ---------------*/
 
 .columns {
-    column-width: 280px;
     column-gap: 10px;
 }
 
+.columns.columns-image {
+    column-width: 280px;
+}
+
 div.columns figure {
-    background: #eee;
     margin: 0 2px 15px;
     padding: 15px;
     padding-bottom: 10px;
     display: inline-block;
     column-break-inside: avoid;
+}
+
+div.columns.columns-image figure {
+    background: #eee;
 }
 
 div.columns figure img {
@@ -134,34 +140,13 @@ div.columns figure img {
 
 /* If viewport is 480px or larger */
 @media screen and (min-width: 480px) {
-    .content.squished {
+    .content.content-60 {
         width: 60%;
     }
 }
 
-.columns-b {
+.columns.columns-text {
     column-width: 280px;
-    column-gap: 10px;
-}
-
-div.columns-b figure {
-    margin: 0 2px 15px;
-    padding: 15px;
-    padding-bottom: 10px;
-    display: inline-block;
-    column-break-inside: avoid;
-}
-
-div.columns-b figure img {
-    width: 100%;
-    height: auto;
-    padding-bottom: 15px;
-    margin-bottom: 5px;
-}
-
-@media screen and (max-width: 750px) {
-    .columns-b { column-gap: 0px; }
-    .columns-b figure { width: 100%; }
 }
 
 /*---------------
