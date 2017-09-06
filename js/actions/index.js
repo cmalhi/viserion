@@ -63,6 +63,13 @@ export function changeOrder(order) {
   }
 }
 
+export function appendOrder(itemsToAdd) {
+  return {
+    type: 'APPEND_ORDER',
+    payload: itemsToAdd
+  }
+}
+
 export const createPreferences = () => (dispatch, getState) => {
   // TODO: Use order to arrange components
   const { layouts, colors, title, keywords, order } = getState();
