@@ -3,6 +3,7 @@ import { Animated, Button, Image, Text, TouchableOpacity, View, ScrollView, WebV
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { appendOrder } from '../../actions/index';
+const io = require('socket.io-client');
 
 var {
   height: deviceHeight
@@ -42,7 +43,13 @@ class AddPageModal extends React.Component {
       duration: 300,
       toValue: 0,
     }).start();
-    console.log('this.props', ...this.props.preferences)
+    console.log(this.props)
+    var listen = () => {
+      if (this.props.toggleOrder['the title']) {
+        console.log('order was toggled')
+      }
+    }
+    listen()
   }
 
   closeModal() {
@@ -54,7 +61,17 @@ class AddPageModal extends React.Component {
 
   handleEntryToggle(name) {
     console.log('you clicked on', name);
-    this.props.appendOrder(name);
+    // Close modal
+    this.closeModal()
+    // Populate Webview with 'name' component
+      const socket = io(global.HOST, { transports: ['websocket'] });
+      // Emit to a socket with 'name'
+      socket.emit('newPref', name);
+      // TODO: Update sitePreferences object
+
+
+    // this.props.appendOrder(name);
+    // console.log('HELLOOOO', this.props.toggleOrder['the title'])
   }
 
   handleAdd() {
@@ -76,7 +93,7 @@ class AddPageModal extends React.Component {
           <ScrollView>
             {this.state.components.map((comp, index) =>        
               <View>
-                <Text 
+                <Text
                   onPress={this.handleEntryToggle.bind(this, comp.name)}
                   style={styles.bigText}>{comp.name}</Text>
                 <TouchableOpacity
@@ -130,10 +147,14 @@ const styles = StyleSheet.create({
   bigText: {
     fontSize: 20,
   },
+    selected: {
+    opacity: 0.5,
+    backgroundColor: '#FFF',
+  },
 });
 
-function mapStateToProps({ appendOrder, preferences }) {
-  return { appendOrder, preferences };
+function mapStateToProps({ toggleOrder, preferences }) {
+  return { toggleOrder, preferences };
 }
 
 const matchDispatchToProps = (dispatch) => {

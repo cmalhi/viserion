@@ -38,6 +38,13 @@ var socketInstance = function(io) {
       io.sockets.emit('colorChange2', color);
     });
 
+    // Add new component
+    socket.on('newPref', function(name){
+      // Display new component in webview
+      console.log('name', name)
+      // socket.emit('changePref')
+    });
+
   });
 };
 

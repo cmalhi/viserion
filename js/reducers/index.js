@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
   order: orderReducer,
   auth: authReducer,
   preferences: preferencesReducer,
-  appendOrder: appendOrderReducer,
+  toggleOrder: appendOrderReducer,
 });
 
 export default rootReducer;
