@@ -2,38 +2,23 @@ import React from 'react';
 import { Button, StyleSheet, Text, View, Image, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import { toggleLayout } from '../actions/index';
+import layoutsData from '../layoutsData';
 
 class ChooseLayout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       // Stub layout data
-      layoutsHidden: [
-        { name: 'grid',
-          uri: require('../../images/hero-template.png'),
-        },
-        { name: 'grid',
-          uri: require('../../images/hero-template.png'),
-        },
-        { name: 'grid',
-          uri: require('../../images/hero-template.png'),
-        },
-        { name: 'grid',
-          uri: require('../../images/hero-template.png'),
-        },
-        { name: 'grid',
-          uri: require('../../images/hero-template.png'),
-        },
-      ],
+      layoutsHidden: layoutsData,
       layoutsShown: [
         { name: 'grid',
-          uri: require('../../images/portfolio-template.jpg'),
+          uri: require('../../images/templates/portfolio-template.jpg'),
         },
         { name: 'basic',
-          uri: require('../../images/spotify-template.png'),
+          uri: require('../../images/templates/spotify-template.png'),
         },
         { name: 'contact',
-          uri: require('../../images/contact-template.png'),
+          uri: require('../../images/templates/contact-template.png'),
         },
       ],
       chosenLayouts: {
@@ -47,19 +32,6 @@ class ChooseLayout extends React.Component {
     this.handleLayoutPress = this.handleLayoutPress.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderLayoutChoices = this.renderLayoutChoices.bind(this);
-  }
-
-  renderLayoutChoices() {
-    return this.state.layouts.map((layout, index) => {
-      return ( 
-        <TouchableHighlight key={index} style={this.props.layouts[layout.name] && styles.selected} onPress={this.props.toggleLayout.bind(this, layout.name)}>
-          <Image
-            style={styles.template}
-            source={layout.uri}
-          />
-        </TouchableHighlight> 
-      )
-    })
   }
 
   handleLayoutPress(layout, index) {
@@ -81,7 +53,7 @@ class ChooseLayout extends React.Component {
       return (
         <TouchableHighlight
           key={index}
-          style={this.props.layouts[layout.name] && styles.selected}
+          // style={this.props.layouts[layout.name] && styles.selected}
           onPress={this.handleLayoutPress.bind(this, layout.name, index)}
         >
           <Image
