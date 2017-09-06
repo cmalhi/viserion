@@ -8,7 +8,18 @@ class ChooseLayout extends React.Component {
     super(props);
     this.state = {
       // Stub layout data
-      layouts: [
+      layoutsHidden: [
+        { name: 'grid',
+          uri: require('../../images/hero-template.png'),
+        },
+        { name: 'grid',
+          uri: require('../../images/hero-template.png'),
+        },
+        { name: 'grid',
+          uri: require('../../images/hero-template.png'),
+        },
+      ],
+      layoutsShown: [
         { name: 'grid',
           uri: require('../../images/portfolio-template.jpg'),
         },
@@ -19,7 +30,13 @@ class ChooseLayout extends React.Component {
           uri: require('../../images/contact-template.png'),
         },
       ],
-    }
+      chosenLayouts: {
+        grid: 0,
+        basic: 0,
+        contact: 0,
+      },
+    };
+    this.handleLayoutPress = this.handleLayoutPress.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderLayoutChoices = this.renderLayoutChoices.bind(this);
   }
@@ -37,9 +54,34 @@ class ChooseLayout extends React.Component {
     })
   }
 
+  handleLayoutPress(layout, index) {
+    this.props.toggleLayout(layout);
+    let newLayouts = this.state.layoutsShown;
+    let oldLayouts = this.state.layoutsHidden;
+    newLayouts[index] = oldLayouts.pop();
+    this.setState({ layoutsShown: newLayouts });
+    this.setState({ layoutsHidden: oldLayouts });
+  }
+
   handleSubmit() {
     const { navigate } = this.props.navigation;
     navigate('Color');
+  }
+
+  renderLayoutChoices() {
+    return this.state.layoutsShown.map((layout, index) => {
+      return (
+        <TouchableHighlight
+          key={index}
+          style={this.props.layouts[layout.name] && styles.selected}
+          onPress={this.handleLayoutPress.bind(this, layout.name, index)}
+        >
+          <Image
+            style={styles.template}
+            source={layout.uri}/>
+        </TouchableHighlight >
+      );
+    });
   }
 
   render() {
@@ -68,7 +110,7 @@ const styles = StyleSheet.create({
   },
   selected: {
     opacity: 0.5,
-    backgroundColor: '#000'
+    backgroundColor: '#000',
   },
   template: {
     width: 200,
@@ -81,5 +123,4 @@ function mapStateToProps({ layouts }) {
 }
 
 export default connect(mapStateToProps, { toggleLayout })(ChooseLayout);
-
 
