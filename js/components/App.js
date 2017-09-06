@@ -22,6 +22,8 @@ import ColorModal from './modals/ColorModal';
 const io = require('socket.io-client');
 import ImageSearch from './ImageSearch';
 import AddComponent from './AddComponent';
+import axios from 'axios';
+import Testing from './Testing';
 
 const store = createStore(
   rootReducer,
@@ -76,9 +78,12 @@ class HomeScreen extends React.Component {
         <Text onPress={() => { navigate('Saved')}} style={styles.inDevelopment}>In development: Saved Pages</Text>
         <Text onPress={() => { navigate('UserEdit')}} style={styles.inDevelopment}>In development: User Editing</Text>
         <Text onPress={() => { navigate('AddComponent')}} style={styles.inDevelopment}>In development: Add Component Testing</Text>
-
         <Text onPress={() => { navigate('Image')}} style={styles.defaultText,styles.selectedText}>(Optional) Add Image</Text>
         <Text onPress={() => { navigate('ImageSearch')}} style={styles.defaultText}>Image Search</Text>
+        <Text onPress={() => { navigate('Saved')}} style={styles.defaultText,styles.selectedText}>Saved Pages</Text>
+        <Text onPress={() => { navigate('AddPageComponent')}} style={styles.defaultText}>AddPageComponent Test</Text>
+        <Text onPress={() => { navigate('ReactTest')}} style={styles.defaultText}>React Testing</Text>
+        <Text onPress={() => { navigate('Testing')}} style={styles.defaultText,styles.selectedText}>JQuery Dev Environment</Text>
       </View>
     )
   }
