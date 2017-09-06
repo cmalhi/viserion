@@ -64,7 +64,8 @@ export function changeOrder(order) {
 }
 
 export const createPreferences = () => (dispatch, getState) => {
-  const { layouts, colors, title, keywords } = getState();
+  // TODO: Use order to arrange components
+  const { layouts, colors, title, keywords, order } = getState();
 
   //  Collect layouts that from global state that are true
   const layoutsArr = _.reduce(layouts, (result, layoutStatus, layoutId) => {
