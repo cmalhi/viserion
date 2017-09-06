@@ -40,7 +40,7 @@
         this.setState({ sitePreferences: {
           components: [
             {
-              name: <Hero />,
+              name: <Hero1 />,
               attr: {
                 bgColor: '#eee',
                 title: 'Custom title',
@@ -49,9 +49,14 @@
             {
               name: <ImageContent />,
               attr: {
-                imageUrl: 'http://x-culture.org/wp-content/uploads/2017/02/160221hackathon.jpg',
-                title: 'A different kind of hackathon',
-                body: 'Hack@Brown is all about learning. Spend a weekend with us and 500 other students to take a step out of your comfort zone.'
+                imageUrl: 'http://i.imgur.com/A1SGNax.png',
+                mainTitle: 'What\'s on Spotify?',
+                subtitle1: 'Music',
+                body1: 'There are millions of songs on Spotify. Play your favorites, discover new tracks, and build the perfect collection.',
+                subtitle2: 'Playlists',
+                body2: 'You’ll find readymade playlists to match your mood, put together by music fans and experts.',
+                subtitle3: 'New Releases',
+                body3: 'Hear this week’s latest singles and albums, and check out what’s hot in the Top 50.',
               }
             },
             {
@@ -121,7 +126,9 @@
       }
     }
 
-    class Hero extends React.Component {
+//    class Hero2 extends
+
+    class Hero1 extends React.Component {
       constructor(props) {
         super(props);
         this.state = {
@@ -163,24 +170,40 @@
         super(props);
         this.state = {
           imageUrl: this.props.imageUrl,
-          title: this.props.title,
-          body: this.props.body,
+          mainTitle: this.props.mainTitle,
+          subtitle1: this.props.subtitle1,
+          body1: this.props.body1,
+          subtitle2: this.props.subtitle2,
+          body2: this.props.body2,
+          subtitle3: this.props.subtitle3,
+          body3: this.props.body3,
         }
       }
 
       render() {
         return(
           <div className="content">
-            <div className="row">
-              <div className="col-xs-12 col-sm-6">
+            <div className="row middle-md">
+              <div className="col-xs-12 col-sm-7 col-md-5">
                 <div className="box">
-                  <EditableImage src={this.state.imageUrl} />
+                  <h1><EditableShortText value={this.state.mainTitle} /></h1>
+                  <p>
+                    <h3><EditableShortText value={this.state.subtitle1} /></h3>
+                    <EditableLongText body={this.state.body1} />
+                  </p>
+                  <p>
+                    <h3><EditableShortText value={this.state.subtitle2} /></h3>
+                    <EditableLongText body={this.state.body2} />
+                  </p>
+                  <p>
+                    <h3><EditableShortText value={this.state.subtitle3} /></h3>
+                    <EditableLongText body={this.state.body3} />
+                  </p>
                 </div>
               </div>
-              <div className="col-xs-12 col-sm-5 col-sm-offset-1">
+              <div className="col-xs-12 col-sm-4 col-sm-offset-1 col-md-6">
                 <div className="box">
-                  <h1><EditableShortText value={this.state.title} /></h1>
-                  <EditableLongText body={this.state.body} />
+                  <EditableImage src={this.state.imageUrl} />
                 </div>
               </div>
             </div>
