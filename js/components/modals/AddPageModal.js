@@ -1,6 +1,10 @@
 import React from 'react';
+import AddPageModalEntry from './AddPageModalEntry';
 import { Animated, Button, Image, Text, TouchableOpacity, View, WebView, Dimensions, StyleSheet } from 'react-native';
-import AddPageModalEntry from './AddPageModalEntry'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { appendOrder } from '../../actions/index';
+
 var {
   height: deviceHeight
 } = Dimensions.get('window');
@@ -8,7 +12,7 @@ var {
 class AddPageModal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       offset: new Animated.Value(deviceHeight),
       components: [
         {
@@ -22,12 +26,13 @@ class AddPageModal extends React.Component {
       ],
     };
     this.closeModal = this.closeModal.bind(this);
+    this.handleEntryToggle = this.handleEntryToggle.bind(this);
   }
 
   componentDidMount() {
     Animated.timing(this.state.offset, {
       duration: 300,
-      toValue: 0
+      toValue: 0,
     }).start();
   }
 
@@ -36,6 +41,11 @@ class AddPageModal extends React.Component {
       duration: 300,
       toValue: deviceHeight
     }).start(this.props.closeModal);
+  }
+
+  handleEntryToggle(name) {
+    console.log('you clicked on', name);
+    //this.props.appendOrder(name)
   }
 
   render() {
@@ -47,7 +57,18 @@ class AddPageModal extends React.Component {
             <Text style={styles.center}>Close Menu</Text>
           </TouchableOpacity>
           <View>
-            {this.state.components.map((comp, index) =>  <AddPageModalEntry component={comp} key={index} /> )}
+            {this.state.components.map((comp, index) =>        
+              <View>
+                <Text 
+                  onPress={this.handleEntryToggle}
+                  style={styles.bigText}>{this.props.component.name}</Text>
+                <Image
+                  style={{width: 194, height: 120}}
+                  source={this.props.component.img}
+                  onPress={this.handleEntryToggle}
+                />
+              </View> )
+            }
           </View>
           <Button title="Add Components"></Button>
         </View>
@@ -92,8 +113,15 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddPageModal;
+function mapStateToProps({ appendOrder }) {
+  return { appendOrder };
+}
 
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators({appendOrder}, dispatch)
+};
+
+export default connect(mapStateToProps, matchDispatchToProps)(AddPageModal);
 // click add/rearrange. done
 // click add (+) or swipe from right to left. in progress
   // if add page modal = true then make the order modal false, translate to the left and bring in add component modal from right 

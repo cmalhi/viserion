@@ -1,40 +1,43 @@
 import React from 'react';
 import { Text, TouchableHighlight, Image, View, StyleSheet } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { appendOrder } from '../../actions/index';
 
-export default class AddPageModalEntry extends React.Component {
+class AddPageModalEntry extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      toggledComps: [],
-      allComponents: [],
     }
-    this.toggleComponent = this.toggleComponent.bind(this);
-  }
-  //updating the allComponents variable should be accompinied 
-  //with directly manipulating the preferences object 
-  componentWillMount() {
-    this.setState({toggledComps: this.props.toggledComps})
+    this.handleEntryToggle = this.handleEntryToggle.bind(this);
   }
 
-  toggleComponent(name) {
-    this.props.toggleComp(name);
+  //updating the allComponents variable should be accompinied 
+  //with directly manipulating the preferences object 
+
+  componentWillMount() {
+  }
+
+  handleEntryToggle() {
+    console.log('you clicked on' );
+    //this.props.appendOrder(name)
   }
 
   render() {
     return (
-      <View 
-        
-        onPress={this.toggleComponent.bind(this, this.props.component.name)}>
-        <Text style={styles.bigText}>{this.props.component.name}</Text>
+      <View>
+        <Text 
+          onPress={this.handleEntryToggle}
+          style={styles.bigText}>{this.props.component.name}</Text>
         <Image
           style={{width: 194, height: 120}}
           source={this.props.component.img}
+          onPress={this.handleEntryToggle}
         />
       </View>
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   flexContainer: {
@@ -49,6 +52,15 @@ const styles = StyleSheet.create({
   },
 });
 
+function mapStateToProps({ appendOrder }) {
+  return { appendOrder };
+}
+
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators({appendOrder}, dispatch)
+};
+
+export default connect(mapStateToProps, matchDispatchToProps)(AddPageModalEntry);
 
 //props needed
 
