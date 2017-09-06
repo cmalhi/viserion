@@ -74,7 +74,7 @@ export const createPreferences = () => (dispatch, getState) => {
   }, []);
 
   const desires = {
-    layouts: layoutsArr,
+    layouts: [layoutsArr],
     keywords,
     colors,
     title,

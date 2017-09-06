@@ -1,25 +1,29 @@
 const componentMap = {
   hero: {
-    name: '<Hero />',
+    name: 'My Hero',
+    componentName: '<Hero />',
     attributes: {
       bgColor: 'defaultColor',
       title: 'defaultTitle',
     },
   },
   grid: {
-    name: '<Grid />',
+    name: 'My Grid',
+    componentName: '<Grid />',
     attributes: {
       text: 'defaultText',
     },
   },
   pinterestContent: {
-    name: '<PinterestContent />',
+    name: 'My PinterestContent',
+    componentName: '<PinterestContent />',
     attributes: {
       text: 'defaultText',
     },
   },
   footer: {
-    name: '<Footer />',
+    name: 'My Footer',
+    componentName: '<Footer />',
     attributes: {
       bgColor: 'defaultColor',
       text: 'defaultText',
@@ -28,4 +32,3 @@ const componentMap = {
 };
 
 export default componentMap;
-

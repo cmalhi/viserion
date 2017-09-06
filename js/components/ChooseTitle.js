@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppRegistry, Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import { postPreferences } from '../actions/index'
+import { postPreferences, createPreferences } from '../actions/index'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addTitle } from '../actions/index';
@@ -17,6 +17,9 @@ class ChooseTitle extends React.Component {
   handleSubmit() {
     const { navigate } = this.props.navigation; 
     this.props.addTitle(this.state.text);
+
+    // Create preferences in redux state
+    this.props.createPreferences();
 
     // Only navigate to ConfirmSite when all templates added
     this.props.postPreferences(() => navigate('ConfirmSite') );
@@ -56,7 +59,7 @@ const styles = StyleSheet.create({
 });
 
 const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({addTitle, postPreferences}, dispatch)
+  return bindActionCreators({addTitle, postPreferences, createPreferences}, dispatch)
 }
 
 export default connect(null, matchDispatchToProps)(ChooseTitle);
