@@ -49,11 +49,34 @@
             {
               name: <ImageContent />,
               attr: {
+                imageUrl: 'http://x-culture.org/wp-content/uploads/2017/02/160221hackathon.jpg',
+                title: 'A different kind of hackathon',
+                body: 'Hack@Brown is all about learning. Spend a weekend with us and 500 other students to take a step out of your comfort zone. Make Hack@Brown your event by experimenting with a new platform, API, or that idea that’s always been in the back of your mind!'
               }
             },
             {
               name: <PinterestText />,
-              attr: {}
+              attr: {
+                headerColor: '#d3654b',
+                content: [
+                  {
+                    title: 'Who can attend?',
+                    body: 'All undergraduate, graduate, and high school students are welcome. If you are under 18, we\'ll need a parental consent form.'
+                  },
+                  {
+                    title: 'I don’t have a team. Can I still participate?',
+                    body: 'Of course! It is not necessary to have a team prior to coming to Hack@Brown. We’ll have some fun team-forming sessions where you can find an awesome group of people to work with. You’re welcome to have up to four people on a team.'
+                  },
+                  {
+                    title: 'Will there be a standby line the day-of the event?',
+                    body: 'Yes, there will be a standby line if accepted attendees do not show up! The line will open when registration starts (9am) and students will be admitted off the standby line after registration ends (10:30am). We will admit all by order of first-come first-serve. Students admitted off the standby line will not get a travel reimbursement.'
+                  },
+                  {
+                    title: 'How will you decide between applicants?',
+                    body: 'Applicants will be chosen based on a random lottery. Everyone is welcome to apply!'
+                  },
+                ]
+              }
             },
             {
               name: <ImageCaption />,
@@ -87,10 +110,10 @@
       render() {
         return (
           <div>
-            { this.state.sitePreferences.components.map((component) => {
+            { this.state.sitePreferences.components.map((component, i) => {
               const child = component.name;
               const props = component.attr;
-              return React.cloneElement(child, props);
+              return React.cloneElement(child, Object.assign(props, { key: i }));
             }) }
           </div>
         )
@@ -138,7 +161,9 @@
       constructor(props) {
         super(props);
         this.state = {
-          title: 'Why online marketing needs a new approach'
+          imageUrl: this.props.imageUrl,
+          title: this.props.title,
+          body: this.props.body,
         }
       }
 
@@ -148,13 +173,13 @@
             <div className="row">
               <div className="col-xs-12 col-sm-6">
                 <div className="box">
-                  <img className="image-scalable-container" src="https://www.webprofits.com.au/new-website/images/homepage-stats.gif" />
+                  <EditableImage src={this.state.imageUrl} />
                 </div>
               </div>
               <div className="col-xs-12 col-sm-5 col-sm-offset-1">
                 <div className="box">
                   <h1><EditableShortText value={this.state.title} /></h1>
-                  Online customers can take so many different paths to purchase, making it almost impossible to determine which is the most effective for marketers to follow to efficiently allocate marketing budgets. The customer engagement journey therefore needs to be agile, reacting rapidly to the unpredictability of online behaviour.
+                  <EditableLongText body={this.state.body} />
                 </div>
               </div>
             </div>
@@ -163,18 +188,42 @@
       }
     }
 
-    class EditableShortText extends React.Component {
+    class EditableLongText extends React.Component {
       constructor(props) {
         super(props);
         this.state = {
-          textValue: this.props.value,
-          key: null,
+          body: this.props.body,
+          key: newId(),
         };
         this.handleClick = this.handleClick.bind(this);
       }
 
-      componentWillMount() {
-        this.setState({ key: newId() });
+      componentDidMount() {
+        socket.on('changeLongTextDom2', (data) => {
+          if (data.key === this.state.key) this.setState({ body: data.textValue })
+        })
+      }
+
+      handleClick(e) {
+        socket.emit('launchLongTextModal', {key: this.state.key, textValue: this.state.body});
+      }
+
+      render() {
+        return(
+          <span onClick={this.handleClick}>{this.state.body}</span>
+        )
+      }
+    }
+
+    class EditableShortText extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          color: this.props.color,
+          textValue: this.props.value,
+          key: newId(),
+        };
+        this.handleClick = this.handleClick.bind(this);
       }
 
       componentDidMount() {
@@ -190,7 +239,7 @@
 
       render() {
         return(
-          <span key={this.state.key} onClick={this.handleClick}>{this.state.textValue}</span>
+          <span style={{color: this.state.color}} key={this.state.key} onClick={this.handleClick}>{this.state.textValue}</span>
         )
       }
     }
@@ -199,32 +248,7 @@
       constructor(props) {
         super(props);
         this.state = {
-          content: [
-            {
-              title: 'Who can attend?',
-              body: 'All undergraduate, graduate, and high school students are welcome. If you are under 18, we\'ll need a parental consent form.'
-            },
-            {
-              title: 'I don’t have a team. Can I still participate?',
-              body: 'Of course! It is not necessary to have a team prior to coming to Hack@Brown. We’ll have some fun team-forming sessions where you can find an awesome group of people to work with. You’re welcome to have up to four people on a team.'
-            },
-            {
-              title: 'Will there be a standby line the day-of the event?',
-              body: 'Yes, there will be a standby line if accepted attendees do not show up! The line will open when registration starts (9am) and students will be admitted off the standby line after registration ends (10:30am). We will admit all by order of first-come first-serve. Students admitted off the standby line will not get a travel reimbursement.'
-            },
-            {
-              title: 'How will you decide between applicants?',
-              body: 'Applicants will be chosen based on a random lottery. Everyone is welcome to apply!',
-            },
-            {
-              title: 'If admission is lottery based, why do you need my resume?',
-              body: 'Resumes are completely optional, and are passed on to sponsoring companies for recruitment only if you’re admitted. They\'re in no way linked to the hackathon acceptance process, which will remain a lottery.',
-            },
-            {
-              title: 'How do I get there?',
-              body: 'We’ll do our best to get travel reimbursements set up for you!',
-            }
-          ]
+          content: this.props.content,
         }
       }
 
@@ -232,14 +256,14 @@
         const items = this.state.content.map((item, i) => {
           return (
             <figure key={i}>
-              <h3><EditableShortText value={item.title} /></h3>
+              <h2><EditableShortText color={this.props.headerColor} value={item.title} /></h2>
               {item.body}
             </figure>
           )
         });
         return (
-          <div className="content">
-            <div className="columns">
+          <div className="content squished">
+            <div className="columns-b">
               {items}
             </div>
           </div>
@@ -252,13 +276,9 @@
         super(props);
         this.state = {
           src: this.props.src,
-          key: null,
+          key: newId(),
         };
         this.handleClick = this.handleClick.bind(this);
-      }
-
-      componentWillMount() {
-        this.setState({ key: newId() }); //TODO maybe move
       }
 
       componentDidMount() {
