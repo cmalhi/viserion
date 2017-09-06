@@ -79,7 +79,6 @@ class HomeScreen extends React.Component {
         <Text onPress={() => { navigate('AddComponent')}} style={styles.inDevelopment}>In development: Add Component Testing</Text>
 
         <Text onPress={() => { navigate('Image')}} style={styles.defaultText,styles.selectedText}>(Optional) Add Image</Text>
-        <Text onPress={() => { navigate('ImageSearch')}} style={styles.defaultText}>Image Search</Text>
       </View>
     )
   }
@@ -87,8 +86,8 @@ class HomeScreen extends React.Component {
 
 const AppNavigator = StackNavigator({
   // Index: { screen: UserEdit },
-  Index: { screen: AddComponent },
-  // Index: { screen: HomeScreen },
+  // Index: { screen: AddComponent },
+  Index: { screen: HomeScreen },
   Color: { screen: ChooseColor },
   Template: { screen: ChooseLayout },
   Title: { screen: ChooseTitle },
@@ -100,7 +99,6 @@ const AppNavigator = StackNavigator({
   Login: { screen: Login },
   SignUp: { screen: SignUp },
   UserEdit: { screen: UserEdit },
-  ImageSearch: { screen: ImageSearch },
   ColorPicker: { screen: ColorPicker },
   ColorModal: { screen: ColorModal },
   AddComponent: { screen: AddComponent },
