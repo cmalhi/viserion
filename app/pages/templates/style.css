@@ -4,7 +4,6 @@
 
 .hero {
     background: #ffd5c9;
-    margin: auto auto 50px auto;
 }
 
 .site-title {
@@ -62,7 +61,7 @@
 .content {
     width: 90%;
     max-width: 1100px;
-    margin: 50px auto;
+    margin: 50px auto 50px auto;
 }
 
 /*---------------
@@ -100,27 +99,7 @@
 }
 
 /*---------------
-    #Image Caption
----------------*/
-
-/*.row {*/
-    /*display: flex;*/
-    /*flex-direction: row;*/
-    /*flex-wrap: wrap;*/
-/*}*/
-
-/*.big-item {*/
-    /*!* This will be twice as big as the small item. *!*/
-    /*-webkit-flex: 4 0 0;*/
-    /*flex: 4 0 0;*/
-/*}*/
-/*.small-item {*/
-    /*-webkit-flex: 3 0 0;*/
-    /*flex: 3 0 0;*/
-/*}*/
-
-/*---------------
-  #Content-Grid
+  #Pinterest Content
 ---------------*/
 
 .columns {
@@ -147,6 +126,42 @@ div.columns figure img {
 @media screen and (max-width: 750px) {
     .columns { column-gap: 0px; }
     .columns figure { width: 100%; }
+}
+
+/*---------------
+  #Pinterest Text
+---------------*/
+
+/* If viewport is 480px or larger */
+@media screen and (min-width: 480px) {
+    .content.squished {
+        width: 60%;
+    }
+}
+
+.columns-b {
+    column-width: 280px;
+    column-gap: 10px;
+}
+
+div.columns-b figure {
+    margin: 0 2px 15px;
+    padding: 15px;
+    padding-bottom: 10px;
+    display: inline-block;
+    column-break-inside: avoid;
+}
+
+div.columns-b figure img {
+    width: 100%;
+    height: auto;
+    padding-bottom: 15px;
+    margin-bottom: 5px;
+}
+
+@media screen and (max-width: 750px) {
+    .columns-b { column-gap: 0px; }
+    .columns-b figure { width: 100%; }
 }
 
 /*---------------

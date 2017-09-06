@@ -49,6 +49,33 @@
             {
               name: <ImageContent />,
               attr: {
+                imageUrl: 'http://x-culture.org/wp-content/uploads/2017/02/160221hackathon.jpg',
+                title: 'A different kind of hackathon',
+                body: 'Hack@Brown is all about learning. Spend a weekend with us and 500 other students to take a step out of your comfort zone. Make Hack@Brown your event by experimenting with a new platform, API, or that idea that’s always been in the back of your mind!'
+              }
+            },
+            {
+              name: <PinterestText />,
+              attr: {
+                headerColor: '#d3654b',
+                content: [
+                  {
+                    title: 'Who can attend?',
+                    body: 'All undergraduate, graduate, and high school students are welcome. If you are under 18, we\'ll need a parental consent form.'
+                  },
+                  {
+                    title: 'I don’t have a team. Can I still participate?',
+                    body: 'Of course! It is not necessary to have a team prior to coming to Hack@Brown. We’ll have some fun team-forming sessions where you can find an awesome group of people to work with. You’re welcome to have up to four people on a team.'
+                  },
+                  {
+                    title: 'Will there be a standby line the day-of the event?',
+                    body: 'Yes, there will be a standby line if accepted attendees do not show up! The line will open when registration starts (9am) and students will be admitted off the standby line after registration ends (10:30am). We will admit all by order of first-come first-serve. Students admitted off the standby line will not get a travel reimbursement.'
+                  },
+                  {
+                    title: 'How will you decide between applicants?',
+                    body: 'Applicants will be chosen based on a random lottery. Everyone is welcome to apply!'
+                  },
+                ]
               }
             },
             {
@@ -62,6 +89,7 @@
               name: <TextContent />,
               attr: {
                 title: 'With All Eyes on the South, the Most Important Art Show in America Is Underway in Pittsburgh',
+                body: 'The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols. The jumping-off point is a 70-year-old painting by Horace Pippin—a self-taught WWI vet who captured scenes of postwar American life—which gives way to Jasper Johns’s flag painting, and a Louise Nevelson sculpture. Next, with “Working Thought,” the exhibition examines the history of forced labor in America, and progresses into the current prison-industrial complex, with works by Melvin Edwards.'
               }
             },
             {
@@ -83,10 +111,10 @@
       render() {
         return (
           <div>
-            { this.state.sitePreferences.components.map((component) => {
+            { this.state.sitePreferences.components.map((component, i) => {
               const child = component.name;
               const props = component.attr;
-              return React.cloneElement(child, props);
+              return React.cloneElement(child, Object.assign(props, { key: i }));
             }) }
           </div>
         )
@@ -134,7 +162,9 @@
       constructor(props) {
         super(props);
         this.state = {
-
+          imageUrl: this.props.imageUrl,
+          title: this.props.title,
+          body: this.props.body,
         }
       }
 
@@ -142,18 +172,46 @@
         return(
           <div className="content">
             <div className="row">
-              <div className="col-xs-12 col-sm-7">
+              <div className="col-xs-12 col-sm-6">
                 <div className="box">
-                  <img className="image-scalable-container" src="https://claralabs.com/static/img/tiffany.3faa6a523dc3d298.jpg" />
+                  <EditableImage src={this.state.imageUrl} />
                 </div>
               </div>
-              <div className="col-xs-12 col-sm-5">
+              <div className="col-xs-12 col-sm-5 col-sm-offset-1">
                 <div className="box">
-                  Clara Labs has absolutely changed the way our business operates. Clara schedules so efficiently, and with such great communication — it has saved so much time, money and worry about balls being dropped. It frees my team to use their brains in other ways. We LOVE our assistant Clara.
-                  </div>
+                  <h1><EditableShortText value={this.state.title} /></h1>
+                  <EditableLongText body={this.state.body} />
+                </div>
               </div>
             </div>
           </div>
+        )
+      }
+    }
+
+    class EditableLongText extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          body: this.props.body,
+          key: newId(),
+        };
+        this.handleClick = this.handleClick.bind(this);
+      }
+
+      componentDidMount() {
+        socket.on('changeLongTextDom2', (data) => {
+          if (data.key === this.state.key) this.setState({ body: data.textValue })
+        })
+      }
+
+      handleClick(e) {
+        socket.emit('launchLongTextModal', {key: this.state.key, textValue: this.state.body});
+      }
+
+      render() {
+        return(
+          <span onClick={this.handleClick}>{this.state.body}</span>
         )
       }
     }
@@ -162,14 +220,11 @@
       constructor(props) {
         super(props);
         this.state = {
+          color: this.props.color,
           textValue: this.props.value,
-          key: null,
+          key: newId(),
         };
         this.handleClick = this.handleClick.bind(this);
-      }
-
-      componentWillMount() {
-        this.setState({ key: newId() });
       }
 
       componentDidMount() {
@@ -185,7 +240,34 @@
 
       render() {
         return(
-          <span key={this.state.key} onClick={this.handleClick}>{this.state.textValue}</span>
+          <span style={{color: this.state.color}} key={this.state.key} onClick={this.handleClick}>{this.state.textValue}</span>
+        )
+      }
+    }
+
+    class PinterestText extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          content: this.props.content,
+        }
+      }
+
+      render() {
+        const items = this.state.content.map((item, i) => {
+          return (
+            <figure key={i}>
+              <h2><EditableShortText color={this.props.headerColor} value={item.title} /></h2>
+              <EditableLongText body={item.body} />
+            </figure>
+          )
+        });
+        return (
+          <div className="content squished">
+            <div className="columns-b">
+              {items}
+            </div>
+          </div>
         )
       }
     }
@@ -195,13 +277,9 @@
         super(props);
         this.state = {
           src: this.props.src,
-          key: null,
+          key: newId(),
         };
         this.handleClick = this.handleClick.bind(this);
-      }
-
-      componentWillMount() {
-        this.setState({ key: newId() }); //TODO maybe move
       }
 
       componentDidMount() {
@@ -216,7 +294,7 @@
 
       render() {
         return (
-          <img className="image-scalable" key={this.state.key} onClick={this.handleClick} src={this.state.src} />
+          <img className="image-scalable-container" key={this.state.key} onClick={this.handleClick} src={this.state.src} />
         )
       }
     }
@@ -277,13 +355,14 @@
         super(props);
         this.state = {
           title: this.props.title,
+          body: this.props.body,
         }
       }
       render() {
         return (
           <div className="content">
             <h1><EditableShortText value={this.state.title} /></h1>
-            The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols. The jumping-off point is a 70-year-old painting by Horace Pippin—a self-taught WWI vet who captured scenes of postwar American life—which gives way to Jasper Johns’s flag painting, and a Louise Nevelson sculpture. Next, with “Working Thought,” the exhibition examines the history of forced labor in America, and progresses into the current prison-industrial complex, with works by Melvin Edwards.
+            <EditableLongText body={this.state.body} />
           </div>
         )
       }
