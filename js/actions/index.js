@@ -1,5 +1,25 @@
 import _ from 'lodash';
 import axios from 'axios';
+import componentMap from '../componentMap';
+
+const combineDesires = (desires) => {
+  let preferences = [];
+  desires.layouts.forEach(layout => {
+    desires.colors.forEach(color => {
+
+      const heroColor = Object.assign({}, componentMap['hero']);
+      heroColor.attributes.bgColor = color;
+      heroColor.attributes.title = desires.title;
+
+      const footerColor = Object.assign({}, componentMap['footer']);
+      footerColor.attributes.bgColor = color;
+
+      const content = Object.assign({}, componentMap[layout]);
+      preferences.push([heroColor, content, footerColor]);
+    });
+  });
+  return preferences;
+};
 
 export function toggleLayout(layoutId) {
   return {
@@ -42,6 +62,27 @@ export function changeOrder(order) {
     payload: order
   }
 }
+
+export const createPreferences = () => (dispatch, getState) => {
+  const { layouts, colors, title, keywords } = getState();
+
+  //  Collect layouts that from global state that are true
+  const layoutsArr = _.reduce(layouts, (result, layoutStatus, layoutId) => {
+    if (layoutStatus === true ) result.push(layoutId);
+    return result;
+  }, []);
+
+  const desires = {
+    layouts: layoutsArr,
+    keywords,
+    colors,
+    title,
+  };
+
+  const preferences = combineDesires(desires);
+  dispatch({ type: 'CREATE_PREFERENCES', payload: preferences });
+};
+
 
 export function postPreferences(navigateToNext) {
   return (dispatch, getState) => {
