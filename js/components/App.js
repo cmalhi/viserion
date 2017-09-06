@@ -20,12 +20,9 @@ import UserEdit from './UserEdit';
 import ColorPicker from './modals/ColorPicker';
 import ColorModal from './modals/ColorModal';
 const io = require('socket.io-client');
-<<<<<<< 4d70499bed2232c8da9d6316e71dfe5103dac982
-import ImageSearch from './ImageSearch';
-=======
 import axios from 'axios';
 import Testing from './Testing';
->>>>>>> added Testing env for jquery (from jqmanip branch), commented out screenshot from routes.js
+import AddComponent from './AddComponent';
 
 const store = createStore(
   rootReducer,
@@ -79,22 +76,18 @@ class HomeScreen extends React.Component {
         <Text onPress={() => { navigate('Page')}} style={styles.defaultText}>Final Page</Text>
         <Text onPress={() => { navigate('Saved')}} style={styles.inDevelopment}>In development: Saved Pages</Text>
         <Text onPress={() => { navigate('UserEdit')}} style={styles.inDevelopment}>In development: User Editing</Text>
+        <Text onPress={() => { navigate('AddComponent')}} style={styles.inDevelopment}>In development: Add Component Testing</Text>
+
         <Text onPress={() => { navigate('Image')}} style={styles.defaultText,styles.selectedText}>(Optional) Add Image</Text>
-<<<<<<< 4d70499bed2232c8da9d6316e71dfe5103dac982
         <Text onPress={() => { navigate('ImageSearch')}} style={styles.defaultText}>Image Search</Text>
-=======
-        <Text onPress={() => { navigate('Saved')}} style={styles.defaultText,styles.selectedText}>Saved Pages</Text>
-        <Text onPress={() => { navigate('AddPageComponent')}} style={styles.defaultText}>AddPageComponent Test</Text>
-        <Text onPress={() => { navigate('ReactTest')}} style={styles.defaultText}>React Testing</Text>
-        <Text onPress={() => { navigate('Testing')}} style={styles.defaultText,styles.selectedText}>Chetans patented dev env</Text>
->>>>>>> added Testing env for jquery (from jqmanip branch), commented out screenshot from routes.js
       </View>
     )
   }
 }
 
 const AppNavigator = StackNavigator({
-  Index: { screen: UserEdit },
+  // Index: { screen: UserEdit },
+  Index: { screen: AddComponent },
   // Index: { screen: HomeScreen },
   Color: { screen: ChooseColor },
   Template: { screen: ChooseLayout },
@@ -106,15 +99,11 @@ const AppNavigator = StackNavigator({
   Saved: { screen: SavedPages },
   Login: { screen: Login },
   SignUp: { screen: SignUp },
-<<<<<<< 4d70499bed2232c8da9d6316e71dfe5103dac982
   UserEdit: { screen: UserEdit },
   ImageSearch: { screen: ImageSearch },
   ColorPicker: { screen: ColorPicker },
   ColorModal: { screen: ColorModal },
-=======
-  AddPageComponent: { screen: AddPageComponent },
-  Testing: { screen: Testing },
->>>>>>> added Testing env for jquery (from jqmanip branch), commented out screenshot from routes.js
+  AddComponent: { screen: AddComponent },
 });
 
 const styles = StyleSheet.create({

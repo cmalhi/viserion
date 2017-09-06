@@ -49,9 +49,9 @@ class ChooseLayout extends React.Component {
             style={styles.template}
             source={layout.uri}
           />
-        </TouchableHighlight> 
-      )
-    })
+        </TouchableHighlight>
+      );
+    });
   }
 
   handleLayoutPress(layout, index) {
@@ -79,7 +79,7 @@ class ChooseLayout extends React.Component {
           <Image
             style={styles.template}
             source={layout.uri}/>
-        </TouchableHighlight >
+        </TouchableHighlight>
       );
     });
   }
