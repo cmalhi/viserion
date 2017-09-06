@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'center',
+    height: 250,
   },
   content: {
     paddingVertical: 20,
