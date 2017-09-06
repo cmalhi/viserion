@@ -9,6 +9,24 @@ var {
   height: deviceHeight
 } = Dimensions.get('window');
 
+class TextContent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: this.props.title,
+      body: this.props.body,
+    }
+  }
+  render() {
+    return (
+      <div className="content">
+        <h1><EditableShortText value={this.state.title} /></h1>
+        <EditableLongText body={this.state.body} />
+      </div>
+    )
+  }
+}
+
 class AddPageModal extends React.Component {
   constructor(props) {
     super(props);
@@ -66,8 +84,23 @@ class AddPageModal extends React.Component {
     // Populate Webview with 'name' component
       const socket = io(global.HOST, { transports: ['websocket'] });
       // Emit to a socket with 'name'
-      socket.emit('newPref', name);
+
+      var sampleData = {
+        components: [
+          {
+            name: 'TextContent',
+            attr: {
+              title: 'hello',
+              body: 'goodbye',
+            }
+          },
+        ]
+      };
+
+
+      socket.emit('newPref', sampleData);
       // TODO: Update sitePreferences object
+
 
 
     // this.props.appendOrder(name);
@@ -172,3 +205,29 @@ export default connect(mapStateToProps, matchDispatchToProps)(AddPageModal);
 // it should automatically scroll to that spot (might need to change the sortable list view)
 // highlight the newly added list entry in the order modal 
 // click 
+
+
+// const prefs = {
+//   components: [
+//     {
+//       name: <Hero1 />,
+//       attr: {
+//         bgColor: '#eee',
+//         title: 'Custom title',
+//       }
+//     },
+//     {
+//       name: <TextContent />,
+//       attr: {
+//         title: 'With All Eyes on the South, the Most Important Art Show in America Is Underway in Pittsburgh',
+//         body: 'The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols.'
+//       }
+//     },
+//     {
+//       name: <Footer />,
+//       attr: {
+//         text: 'I am good foot'
+//       }
+//     }
+//   ]
+// }
