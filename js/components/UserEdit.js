@@ -3,6 +3,7 @@ import { Animated, Dimensions, Image, Text, TouchableOpacity, View, WebView, But
 const io = require('socket.io-client');
 import ImageModal from './modals/ImageModal';
 import ShortTextModal from './modals/ShortTextModal';
+import LongTextModal from './modals/LongTextModal';
 import ColorModal from './modals/ColorModal';
 import OrderModal from './modals/OrderModal';
 import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker';
@@ -18,11 +19,13 @@ class UserEdit extends React.Component {
     super(props);
     this.state = {
       shortTextModal: false,
-      title: '',
+      shortTextValue: '',
       imageModal: false,
       colorModal: false,
       imageId: null,
-      textId: null,
+      shortTextId: null,
+      longTextId: null,
+      longTextValue: '',
 
       order: this.props.order,
       orderModal: false,
@@ -39,8 +42,12 @@ class UserEdit extends React.Component {
   componentDidMount() {
     const socket = io(global.HOST, { transports: ['websocket'] });
 
-    socket.on('launchTitleModal', (titleData) => {
-      this.setState({ shortTextModal: true, textId: titleData.key, title: titleData.textValue, });
+    socket.on('launchTitleModal', (data) => {
+      this.setState({ shortTextModal: true, shortTextId: data.key, shortTextValue: data.textValue, });
+    });
+
+    socket.on('launchLongTextModal', (data) => {
+      this.setState({ longTextModal: true, longTextId: data.key, longTextValue: data.textValue });
     });
 
     socket.on('launchImageModal', (id) => {
@@ -57,7 +64,8 @@ class UserEdit extends React.Component {
     return (
       <View style={styles.flexContainer}>
         <WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/reactify.html`}} />
-        {this.state.shortTextModal ? <ShortTextModal id={this.state.textId} title={this.state.title} closeModal={() => this.setState({shortTextModal: false}) } /> : null}
+        {this.state.shortTextModal ? <ShortTextModal id={this.state.shortTextId} title={this.state.shortTextValue} closeModal={() => this.setState({shortTextModal: false}) } /> : null}
+        {this.state.longTextModal ? <LongTextModal id={this.state.longTextId} body={this.state.longTextValue} closeModal={() => this.setState({longTextModal: false}) } /> : null}
         {this.state.imageModal ? <ImageModal id={this.state.imageId} closeModal={() => this.setState({imageModal: false})} /> : null}
         {this.state.colorModal ? <ColorModal navigation={this.props.navigation} closeModal={() => this.setState({colorModal: false})} /> : null}
         {this.state.orderModal ? <OrderModal closeModal={() => this.setState({orderModal: false})} /> : null}

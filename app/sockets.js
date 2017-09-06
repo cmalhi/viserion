@@ -11,6 +11,15 @@ var socketInstance = function(io) {
       io.sockets.emit('changeTitleDom2', data);
     });
 
+    // Long Text
+    socket.on('launchLongTextModal', function(id) {
+      io.sockets.emit('launchLongTextModal', id);
+    });
+
+    socket.on('changeLongTextDom', function(data) {
+      io.sockets.emit('changeLongTextDom2', data);
+    })
+
     // Image
     socket.on('launchImageModal', function(id) {
       io.sockets.emit('launchImageModal', id);
