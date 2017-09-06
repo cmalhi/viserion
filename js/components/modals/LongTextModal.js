@@ -11,7 +11,7 @@ export default class LongTextModal extends React.Component {
     super(props);
     this.state = {
       offset: new Animated.Value(deviceHeight),
-      body: '',
+      body: this.props.body,
     };
     this.closeModal = this.closeModal.bind(this);
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
@@ -46,7 +46,12 @@ export default class LongTextModal extends React.Component {
             <Text style={styles.center}>Close Menu</Text>
           </TouchableOpacity>
           <Text style={styles.bigText}>Edit Long Text</Text>
-          <TextInput style={styles.form} onChangeText={(body) => this.setState({body})} placeholder={this.props.body} value={this.state.body} />
+          <TextInput
+            multiline={true}
+            style={styles.form}
+            onChangeText={(body) => this.setState({body})}
+            value={this.state.body}
+          />
           <Button onPress={this.closeAndUpdate} title="Enter" />
         </View>
       </Animated.View>
@@ -59,6 +64,8 @@ export const styles = StyleSheet.create({
     padding: 10,
     borderColor: '#eee',
     borderWidth: 1,
+    height: 250,
+    fontSize: 20,
   },
   flexContainer: {
     flex: 1,
