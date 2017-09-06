@@ -89,6 +89,7 @@
               name: <TextContent />,
               attr: {
                 title: 'With All Eyes on the South, the Most Important Art Show in America Is Underway in Pittsburgh',
+                body: 'The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols. The jumping-off point is a 70-year-old painting by Horace Pippin—a self-taught WWI vet who captured scenes of postwar American life—which gives way to Jasper Johns’s flag painting, and a Louise Nevelson sculpture. Next, with “Working Thought,” the exhibition examines the history of forced labor in America, and progresses into the current prison-industrial complex, with works by Melvin Edwards.'
               }
             },
             {
@@ -257,7 +258,7 @@
           return (
             <figure key={i}>
               <h2><EditableShortText color={this.props.headerColor} value={item.title} /></h2>
-              {item.body}
+              <EditableLongText body={item.body} />
             </figure>
           )
         });
@@ -354,13 +355,14 @@
         super(props);
         this.state = {
           title: this.props.title,
+          body: this.props.body,
         }
       }
       render() {
         return (
           <div className="content">
             <h1><EditableShortText value={this.state.title} /></h1>
-            The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols. The jumping-off point is a 70-year-old painting by Horace Pippin—a self-taught WWI vet who captured scenes of postwar American life—which gives way to Jasper Johns’s flag painting, and a Louise Nevelson sculpture. Next, with “Working Thought,” the exhibition examines the history of forced labor in America, and progresses into the current prison-industrial complex, with works by Melvin Edwards.
+            <EditableLongText body={this.state.body} />
           </div>
         )
       }
