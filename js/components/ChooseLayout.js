@@ -18,6 +18,12 @@ class ChooseLayout extends React.Component {
         { name: 'grid',
           uri: require('../../images/hero-template.png'),
         },
+        { name: 'grid',
+          uri: require('../../images/hero-template.png'),
+        },
+        { name: 'grid',
+          uri: require('../../images/hero-template.png'),
+        },
       ],
       layoutsShown: [
         { name: 'grid',
@@ -34,6 +40,8 @@ class ChooseLayout extends React.Component {
         grid: 0,
         basic: 0,
         contact: 0,
+        keywords: [],
+        selectedLayouts: 0,
       },
     };
     this.handleLayoutPress = this.handleLayoutPress.bind(this);
