@@ -19,8 +19,8 @@ import SignUp from './SignUp';
 import UserEdit from './UserEdit';
 import ColorPicker from './modals/ColorPicker';
 import ColorModal from './modals/ColorModal';
-const io = require('socket.io-client');
 import ImageSearch from './ImageSearch';
+const io = require('socket.io-client');
 
 const store = createStore(
   rootReducer,
