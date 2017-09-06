@@ -1,6 +1,5 @@
 import React from 'react';
-import AddPageModalEntry from './AddPageModalEntry';
-import { Animated, Button, Image, Text, TouchableOpacity, View, WebView, Dimensions, StyleSheet } from 'react-native';
+import { Animated, Button, Image, Text, TouchableOpacity, View, ScrollView, WebView, Dimensions, StyleSheet } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { appendOrder } from '../../actions/index';
@@ -23,10 +22,19 @@ class AddPageModal extends React.Component {
           name: 'pinterest',
           img: require('../../../images/components/text_image.png'),
         },
+        {
+          name: 'pricing',
+          img: require('../../../images/components/pricing.png'),
+        },
+        {
+          name: 'text',
+          img: require('../../../images/components/text_image.png'),
+        },
       ],
     };
     this.closeModal = this.closeModal.bind(this);
     this.handleEntryToggle = this.handleEntryToggle.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +42,7 @@ class AddPageModal extends React.Component {
       duration: 300,
       toValue: 0,
     }).start();
+    console.log('this.props', ...this.props.preferences)
   }
 
   closeModal() {
@@ -45,7 +54,11 @@ class AddPageModal extends React.Component {
 
   handleEntryToggle(name) {
     console.log('you clicked on', name);
-    //this.props.appendOrder(name)
+    this.props.appendOrder(name);
+  }
+
+  handleAdd() {
+    
   }
 
   render() {
@@ -56,21 +69,27 @@ class AddPageModal extends React.Component {
           <TouchableOpacity onPress={this.closeModal}>
             <Text style={styles.center}>Close Menu</Text>
           </TouchableOpacity>
-          <View>
+          <Button 
+            title="Add Components"
+            onPress={this.handleAdd}
+          ></Button>
+          <ScrollView>
             {this.state.components.map((comp, index) =>        
               <View>
                 <Text 
-                  onPress={this.handleEntryToggle}
-                  style={styles.bigText}>{this.props.component.name}</Text>
-                <Image
-                  style={{width: 194, height: 120}}
-                  source={this.props.component.img}
-                  onPress={this.handleEntryToggle}
-                />
+                  onPress={this.handleEntryToggle.bind(this, comp.name)}
+                  style={styles.bigText}>{comp.name}</Text>
+                <TouchableOpacity
+                  onPress={this.handleEntryToggle.bind(this, comp.name)}
+                >
+                  <Image
+                   style={{width: 194, height: 120}}
+                   source={comp.img}
+                  />
+                </TouchableOpacity>  
               </View> )
             }
-          </View>
-          <Button title="Add Components"></Button>
+          </ScrollView>
         </View>
       </Animated.View>
     )
@@ -113,8 +132,8 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps({ appendOrder }) {
-  return { appendOrder };
+function mapStateToProps({ appendOrder, preferences }) {
+  return { appendOrder, preferences };
 }
 
 const matchDispatchToProps = (dispatch) => {
