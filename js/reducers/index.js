@@ -8,6 +8,8 @@ import orderReducer from "./orderReducer";
 import authReducer from "./authReducer";
 import preferencesReducer from "./preferencesReducer";
 import appendOrderReducer from "./appendOrderReducer";
+import appendPrefsReducer from "./appendOrderReducer";
+
 
 const rootReducer = combineReducers({
   layouts: layoutReducer,

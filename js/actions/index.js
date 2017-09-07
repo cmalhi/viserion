@@ -70,6 +70,13 @@ export function appendOrder(itemsToAdd) {
   }
 }
 
+export function appendPrefs(compToAdd) {
+  return {
+    type: 'APPEND_PREFS',
+    payload: compToAdd
+  }
+}
+
 export const createPreferences = () => (dispatch, getState) => {
   // TODO: Use order to arrange components
   const { layouts, colors, title, keywords, order } = getState();
