@@ -3,7 +3,7 @@ import { Alert, AppRegistry, Button, ListView, Text, TouchableHighlight, View, S
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addColors } from '../actions/index';
-import { ColorPicker, fromHsv } from 'react-native-color-picker';
+import { TriangleColorPicker, fromHsv } from 'react-native-color-picker';
 
 class ChooseColor extends React.Component {
   constructor(props) {
@@ -64,7 +64,7 @@ class ChooseColor extends React.Component {
   render() {
     return (
       <View style={{flex: 1, padding: 15, backgroundColor: '#FFFFFF'}}>
-        <ColorPicker
+        <TriangleColorPicker
           defaultColor={this.state.currentColor}
           onColorChange={this.onColorChange}
           style={{flex: 1}}
