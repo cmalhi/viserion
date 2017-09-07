@@ -90,7 +90,7 @@ class AddPageModal extends React.Component {
         {
           name: 'My Hero',
           componentName: 'hero',
-          attributes: {
+          attr: {
             bgColor: 'defaultColor',
             title: 'defaultTitle',
           },
@@ -98,7 +98,7 @@ class AddPageModal extends React.Component {
         {
           name: 'My ImageContent',
           componentName: 'imageContent',
-          attributes: {
+          attr: {
             imageUrl: 'http://i.imgur.com/A1SGNax.png',
             mainTitle: 'What\'s on Spotify?',
             subtitle1: 'Music',
@@ -112,7 +112,7 @@ class AddPageModal extends React.Component {
         {
           name: 'My PinterestContent',
           componentName: 'pinterestContent',
-          attributes: {
+          attr: {
             headerColor: '#d3654b',
             content: [
               {
