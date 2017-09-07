@@ -151,6 +151,7 @@ export const styles = StyleSheet.create({
 
 let data = {
   "React.createElement(Title, null)": {
+    //nickname
     text: "Title",
     img: "../../../images/orderListEntry/png/header.png",
   },

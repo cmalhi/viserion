@@ -31,41 +31,85 @@
       super(props);
       this.state = {
         bgColor: null,
+        textcontent: 'TextContent',
         sitePreferences: {
           components: [
             {
-              name: <Hero1 />,
-              attr: {
+              componentName: <Hero1 />,
+              attributes: {
                 bgColor: '#eee',
                 title: 'Custom title',
               }
             },
             {
-              name: <TextContent />,
-              attr: {
+              componentName: <TextContent />,
+              attributes: {
                 title: 'With All Eyes on the South, the Most Important Art Show in America Is Underway in Pittsburgh',
                 body: 'The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols.'
               }
             },
             {
-              name: <Footer />,
-              attr: {
+              componentName: <Footer />,
+              attributes: {
                 text: 'I am foot'
               }
             }
           ]
         },
       }
+      this.map = this.map.bind(this);
+      this.toComponents = this.toComponents.bind(this);
     }
+
+    map(name) {
+
+      const components = {
+        hero: {
+          componentName: <Hero1 />,
+        },
+        imageContent: {
+          componentName: <ImageContent />,
+        },
+        pinterestContent: {
+          componentName: <PinterestContent />,
+        },
+        imageCaption: {
+          componentName: <ImageCaption/>,
+        },
+        textContent: {
+          componentName: <TextContent />,
+        },
+        footer: {
+          componentName: <Footer />,
+        },
+      };
+      if (components[name]){
+        return components[name].componentName;
+      }
+    }
+
+    toComponents(raw) {
+      // Components is an array of objects {name: 'TextContent', attr: }
+      // Converts component to array of objects {name: <TextContent />, attr: }
+      var newObj = {components: []}
+      raw.components.forEach((comp) => {
+        comp.componentName = this.map(comp.componentName)
+        newObj.components.push(comp)
+      })
+      return newObj;
+    }
+
     componentDidMount() {
       // request site preferences
       socket.on('changePref', (sampleData) => {
-        var name = sampleData.components[0].name;
-        if (name === 'TextContent') {
-          sampleData.components[0].name = <TextContent />
-        }
+        // var newObj = {components: []}
+        // sampleData.components.forEach((comp) => {
+        //   comp.componentName = this.map(comp.componentName)
+        //   newObj.components.push(comp)
+        // })
+        let newSitePreferences = this.toComponents(sampleData);
 
-        this.setState({ sitePreferences: sampleData })
+        this.setState({ sitePreferences: newSitePreferences })
       })
     }
 
@@ -73,8 +117,8 @@
       return (
         <div>
           { this.state.sitePreferences.components.map((component, i) => {
-            const child = component.name;
-            const props = component.attr;
+            const child = component.componentName;
+            const props = component.attributes;
             return React.cloneElement(child, Object.assign(props, { key: i }));
           }) }
         </div>
@@ -82,10 +126,6 @@
     }
   }
 
-  // function toComponents(components) {
-  //   // Components is an array of objects {name: 'TextContent', attr: }
-  //   // Converts component to array of objects {name: <TextContent />, attr: }
-  // }
 
   class Hero1 extends React.Component {
     constructor(props) {
