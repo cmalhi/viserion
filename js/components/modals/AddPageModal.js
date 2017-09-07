@@ -90,18 +90,14 @@ class AddPageModal extends React.Component {
   }
 
   handleEntryToggle(attr) {
-    console.log('you clicked on', attr);
-    // Close modal
-    this.closeModal()
-    // Populate Webview with 'name' component
+    this.closeModal();
     const socket = io(global.HOST, { transports: ['websocket'] });
-    // Emit to a socket with 'name'
-      this.props.appendPrefs(attr);
-      console.log("The PREFERENCES OBJ", {components: [...this.props.preferences]}, "The SAMPLE DATA OBJ", sampleData)
-      this.setState({sendCurrentAsync: {components: [...this.props.preferences]}}, () => {
-        socket.emit('newPref', this.state.sendCurrentAsync);
-      })
-
+    
+    // Update sitePreferences in redux and emit to socket to update WebView
+    this.props.appendPrefs(attr);
+    this.setState({sendCurrentAsync: {components: [...this.props.preferences]}}, () => {
+      socket.emit('newPref', this.state.sendCurrentAsync);
+    });
     // TODO: Update sitePreferences object
   }
 
