@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 import rootReducer from '../reducers/index';
 import ChooseColor from './ChooseColor';
 import ChooseTitle from './ChooseTitle';
-import ChooseLayout from './ChooseLayout';
+import ChooseLayout from './ChooseLayout/index';
 import ChooseKeywords from './ChooseKeywords';
 import ConfirmSite from './ConfirmSite';
 import ImageUploader from './ImageUploader';
@@ -83,8 +83,8 @@ class HomeScreen extends React.Component {
 
 const AppNavigator = StackNavigator({
   // Index: { screen: UserEdit },
-  Index: { screen: HomeScreen },
-  // Index: { screen: ChooseLayout },
+  // Index: { screen: HomeScreen },
+  Index: { screen: ChooseLayout },
   Color: { screen: ChooseColor },
   Template: { screen: ChooseLayout },
   Title: { screen: ChooseTitle },

@@ -5,8 +5,7 @@ const LayoutItem = (props) => {
   return (
     <TouchableHighlight
       style={styles.templateContainer}
-      key={props.index}
-    >
+      onPressIn={layout => props.handleLayoutPress(props.layout)}>
       <Image
         style={styles.template}
         source={props.layout.uri}/>
@@ -23,5 +22,6 @@ const styles = StyleSheet.create({
   template: {
     width: 270,
     height: 400,
+    borderRadius: 5,
   },
 });

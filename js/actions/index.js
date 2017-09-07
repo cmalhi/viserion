@@ -21,10 +21,10 @@ const combineDesires = (desires) => {
   return preferences;
 };
 
-export function toggleLayout(layoutId) {
+export function addLayouts(layouts) {
   return {
-    type: 'TOGGLE_LAYOUT',
-    payload: layoutId
+    type: 'ADD_LAYOUTS',
+    payload: layouts
   }
 }
 
@@ -68,13 +68,13 @@ export const createPreferences = () => (dispatch, getState) => {
   const { layouts, colors, title, keywords, order } = getState();
 
   //  Collect layouts that from global state that are true
-  const layoutsArr = _.reduce(layouts, (result, layoutStatus, layoutId) => {
-    if (layoutStatus === true ) result.push(layoutId);
-    return result;
-  }, []);
+  // const layoutsArr = _.reduce(layouts, (result, layoutStatus, layoutId) => {
+  //   if (layoutStatus === true ) result.push(layoutId);
+  //   return result;
+  // }, []);
 
   const desires = {
-    layouts: [layoutsArr],
+    layouts,
     keywords,
     colors,
     title,
