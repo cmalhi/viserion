@@ -67,7 +67,7 @@ export default class ImageModal extends React.Component {
           </TouchableOpacity>
           <Text style={styles.bigText}>Choose an image</Text>
           <ImageSearch onSelect={this.imageSearchCallback}/>
-          <Button onPress={this._pickImage} title="From The Camera Roll" />
+          <Button onPress={this._pickImage} title="Select From Camera Roll" />
           {img && <Image source={{ uri: img }} style={{ width: 200, height: 200 }} />}
           <Button onPress={this.closeAndUpdate} title="Enter" />
         </View>
