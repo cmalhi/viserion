@@ -1,7 +1,7 @@
 const componentMap = {
   hero: {
     nickName: 'My Hero',
-    componentName: '<Hero1 />',
+    componentName: 'hero',
     attr: {
       bgColor: 'defaultColor',
       title: 'defaultTitle',
@@ -9,7 +9,7 @@ const componentMap = {
   },
   imageContent: {
     nickName: 'My ImageContent',
-    componentName: '<ImageContent />',
+    componentName: 'imageContent',
     attr: {
       imageUrl: 'http://i.imgur.com/A1SGNax.png',
       mainTitle: 'What\'s on Spotify?',
@@ -23,7 +23,7 @@ const componentMap = {
   },
   pinterestContent: {
     nickName: 'My PinterestContent',
-    componentName: '<PinterestContent />',
+    componentName: 'pinterestContent',
     attr: {
       headerColor: '#d3654b',
       content: [
@@ -44,7 +44,7 @@ const componentMap = {
   },
   imageCaption: {
     nickName: 'My ImageCaption',
-    componentName: '<ImageCaption />',
+    componentName: 'imageCaption',
     attr: {
       imageUrl: 'http://assets.vogue.com/photos/59970fd951182c18907ac941/master/w_1320,c_limit/04-studio-harlem.jpg',
       caption: 'Lorna Simpson, Dividing Lines, 1989',
@@ -52,7 +52,7 @@ const componentMap = {
   },
   textContent: {
     nickName: 'My TextContent',
-    componentName: '<TextContent />',
+    componentName: 'textContent',
     attr: {
       title: 'With All Eyes on the South, the Most Important Art Show in America Is Underway in Pittsburgh',
       body: 'The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols.',
@@ -60,7 +60,7 @@ const componentMap = {
   },
   footer: {
     nickName: 'My Footer',
-    componentName: '<Footer />',
+    componentName: 'footer',
     attr: {
       bgColor: 'defaultColor',
       text: 'defaultText',
