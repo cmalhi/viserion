@@ -95,7 +95,6 @@
     }
     componentDidMount() {
       socket.on('changePref', (sampleData) => {
-        console.log('changePref', sampleData)
         let newSitePreferences = this.toComponents(sampleData);
         this.setState({ sitePreferences: newSitePreferences })
     })
@@ -104,7 +103,6 @@
       return (
         <div>
           { this.state.sitePreferences.components.map((component, i) => {
-            console.log('component in add.html', component);
             const child = component.componentName;
             const props = component.attr;
             return React.cloneElement(child, Object.assign(props, { key: i }));

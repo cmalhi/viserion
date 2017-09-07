@@ -4,9 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { changeOrder } from '../../actions/index';
 import SequencedList from '../utils/SequencedList';
-
 const io = require('socket.io-client');
-
 
 var {
   height: deviceHeight
@@ -26,9 +24,17 @@ class OrderModal extends React.Component {
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
     this.openAddCloseOrder = this.openAddCloseOrder.bind(this);
     this.onChangeOrder = this.onChangeOrder.bind(this);
-
   }
 
+  /*
+   * getObj()
+   * Input:
+   *  - objArr [ {1: 'hi', 2: 'bye}, {1: 'hello} ]
+   *  - key: 1
+   *  - value: 'hi'
+   * Output:
+   *  - {1: 'hi', 2: 'bye'}
+   */
   getObj = (objArr, key, value) => {
     for (var i = 0; i < objArr.length; i++) {
       if (objArr[i][key] && objArr[i][key] === value) {
@@ -39,10 +45,11 @@ class OrderModal extends React.Component {
   };
 
   onChangeOrder(orderData) {
-    console.log('changing order!', orderData);
     const socket = io(global.HOST, { transports: ['websocket'] });
+    this.setState({ currentOrder: orderData });
 
-    this.setState({ currentOrder: orderData }); // MAY NOT NEED
+    // Example
+
     // orderData: ["TextContent", "Hero", "Footer"]
 
     // sitePreferences = {
@@ -62,30 +69,16 @@ class OrderModal extends React.Component {
     // ]
     // }
 
-    /*
-     * Input:
-     *  - objArr [ {1: 'hi', 2: 'bye}, {1: 'hello} ]
-     *  - key: 1
-     *  - value: 'hi'
-     * Output:
-     *  - {1: 'hi', 2: 'bye'}
-     */
-
-
     var sitePref = { components: [] };
     orderData.forEach((name) => {
       var objArr = this.state.sitePreferences['components'];
       sitePref.components.push(this.getObj(objArr, 'componentName', name))
     });
-
-    console.log('sitePref', sitePref);
     this.setState({sitePreferences : sitePref});
   }
 
   componentWillMount() {
-    //this line will change when preferences obj is set up
-    // this.setState({order: this.props.order})
-    // this.props.changeOrder(order);
+    // TODO: make a GET request to sitePreferences
 
     // assume sitePreferences of shape
     /*
@@ -95,8 +88,6 @@ class OrderModal extends React.Component {
      *  ]
      * }
      */
-
-    // TODO: make a GET request to sitePreferences
     const exampleSitePreferences = {
       components: [
         {
@@ -113,41 +104,19 @@ class OrderModal extends React.Component {
         },
       ]
     };
-
     this.setState({ sitePreferences: exampleSitePreferences });
 
     /*
+     * SortableList requires data of this shape :
      * {
      *  componentName1: { componentName: 'TextContent' },
      *  componentName2: { componentName: 'Footer' }
      * }
      */
     let newObj = {};
-    let componentData = exampleSitePreferences.components.map((c) => {
+    exampleSitePreferences.components.map((c) => {
       newObj[c.componentName] = { componentName: c.componentName }
     });
-
-    console.log('newObj', newObj);
-
-    // const data = {
-    //   TextContent: {
-    //     text: 'Chloe',
-    //     image: 'https://placekitten.com/200/240',
-    //   },
-    //   Jasper: {
-    //     text: 'Jasper',
-    //     image: 'https://placekitten.com/200/201',
-    //   },
-    //   Pepper: {
-    //     text: 'Pepper',
-    //     image: 'https://placekitten.com/200/202',
-    //   },
-    //   Oscar: {
-    //     text: 'Oscar',
-    //     image: 'https://placekitten.com/200/203',
-    //   },
-    // };
-
     this.setState({ data: newObj });
   }
 
@@ -169,19 +138,12 @@ class OrderModal extends React.Component {
   closeAndUpdate() {
     const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
-    // this.props.changeOrder(this.state.order);
-    // socket.emit('orderChange', this.state.order);
 
     socket.emit('newPref', this.state.sitePreferences);
   }
 
   openAddCloseOrder() {
     this.closeModal();
-    // this.props.openAddModal();
-  }
-
-  _renderRow = ({data, active}) => {
-    return <Row data={data} active={active} />
   }
 
   render() {
@@ -211,7 +173,6 @@ const matchDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(OrderModal);
-
 
 export const styles = StyleSheet.create({
   form: {
@@ -253,5 +214,3 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 });
-
-
