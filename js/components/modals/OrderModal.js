@@ -17,20 +17,138 @@ class OrderModal extends React.Component {
     super(props);
     this.state = {
       offset: new Animated.Value(deviceHeight),
-      order: this.props.order,
+      // order: this.props.order,
       currentOrder: null,
-      data: data,
+      data: null,
+      sitePreferences: null,
     };
     this.closeModal = this.closeModal.bind(this);
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
     this.openAddCloseOrder = this.openAddCloseOrder.bind(this);
+    this.onChangeOrder = this.onChangeOrder.bind(this);
 
+  }
+
+  getObj = (objArr, key, value) => {
+    for (var i = 0; i < objArr.length; i++) {
+      if (objArr[i][key] && objArr[i][key] === value) {
+        return objArr[i]
+      }
+    }
+    return false;
+  };
+
+  onChangeOrder(orderData) {
+    console.log('changing order!', orderData);
+    const socket = io(global.HOST, { transports: ['websocket'] });
+
+    this.setState({ currentOrder: orderData }); // MAY NOT NEED
+    // orderData: ["TextContent", "Hero", "Footer"]
+
+    // sitePreferences = {
+    // components: [
+    //   {
+    //     componentName: 'Hero',
+    //     attr: { title: 'Hello' },
+    //   },
+    //   {
+    //     componentName: 'TextContent',
+    //     attr: { title: 'title', body: 'goodbye' },
+    //   },
+    //   {
+    //     componentName: 'Footer',
+    //     attr: { title: 'Hello' },
+    //   },
+    // ]
+    // }
+
+    /*
+     * Input:
+     *  - objArr [ {1: 'hi', 2: 'bye}, {1: 'hello} ]
+     *  - key: 1
+     *  - value: 'hi'
+     * Output:
+     *  - {1: 'hi', 2: 'bye'}
+     */
+
+
+    var sitePref = { components: [] };
+    orderData.forEach((name) => {
+      var objArr = this.state.sitePreferences['components'];
+      sitePref.components.push(this.getObj(objArr, 'componentName', name))
+    });
+
+    console.log('sitePref', sitePref);
+    this.setState({sitePreferences : sitePref});
   }
 
   componentWillMount() {
     //this line will change when preferences obj is set up
     // this.setState({order: this.props.order})
-    this.props.changeOrder(order);
+    // this.props.changeOrder(order);
+
+    // assume sitePreferences of shape
+    /*
+     * sitePreferences = {
+     *  components: [
+     *    { nickName: '', componentName: '', attr: {} }
+     *  ]
+     * }
+     */
+
+    // TODO: make a GET request to sitePreferences
+    const exampleSitePreferences = {
+      components: [
+        {
+          componentName: 'Hero',
+          attr: { title: 'Hello' },
+        },
+        {
+          componentName: 'TextContent',
+          attr: { title: 'title', body: 'goodbye' },
+        },
+        {
+          componentName: 'Footer',
+          attr: { title: 'Hello' },
+        },
+      ]
+    };
+
+    this.setState({ sitePreferences: exampleSitePreferences });
+
+    /*
+     * {
+     *  componentName1: { componentName: 'TextContent' },
+     *  componentName2: { componentName: 'Footer' }
+     * }
+     */
+    let newObj = {};
+    let componentData = exampleSitePreferences.components.map((c) => {
+      newObj[c.componentName] = { componentName: c.componentName }
+    });
+
+    console.log('newObj', newObj);
+
+    // const data = {
+    //   TextContent: {
+    //     text: 'Chloe',
+    //     image: 'https://placekitten.com/200/240',
+    //   },
+    //   Jasper: {
+    //     text: 'Jasper',
+    //     image: 'https://placekitten.com/200/201',
+    //   },
+    //   Pepper: {
+    //     text: 'Pepper',
+    //     image: 'https://placekitten.com/200/202',
+    //   },
+    //   Oscar: {
+    //     text: 'Oscar',
+    //     image: 'https://placekitten.com/200/203',
+    //   },
+    // };
+
+    this.setState({ data: newObj });
   }
 
   componentDidMount() {
@@ -51,13 +169,15 @@ class OrderModal extends React.Component {
   closeAndUpdate() {
     const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
-    this.props.changeOrder(this.state.order);
-    socket.emit('orderChange', this.state.order);
+    // this.props.changeOrder(this.state.order);
+    // socket.emit('orderChange', this.state.order);
+
+    socket.emit('newPref', this.state.sitePreferences);
   }
 
   openAddCloseOrder() {
     this.closeModal();
-    this.props.openAddModal();
+    // this.props.openAddModal();
   }
 
   _renderRow = ({data, active}) => {
@@ -72,7 +192,7 @@ class OrderModal extends React.Component {
             <Text style={styles.center}>Close menu</Text>
           </TouchableOpacity>
           <Text style={styles.bigText}>Rearrange Components</Text>
-          <SequencedList data={data} />
+          <SequencedList data={this.state.data} onChangeOrder={this.onChangeOrder} />
           <View style={styles.options}>
             <Button onPress={this.closeAndUpdate} title="Update" />
           </View>
@@ -135,44 +255,3 @@ export const styles = StyleSheet.create({
 });
 
 
-
-
-// let data = {
-//   "React.createElement(Title, null)": {
-//     //nickname
-//     text: "Title",
-//     img: "../../../images/orderListEntry/png/header.png",
-//   },
-//   "React.createElement(MyComponent, null)": { text: "MyComponent" },
-//   "React.createElement(Body, null)": { text: "Body" },
-//   "React.createElement(MyComponent2, null)": { text: "MyComponent2" },
-//   "React.createElement(Pricing, null)": { text: "Pricing" },
-//   "React.createElement(Gallery, null)": { text: "Gallery" },
-//   "React.createElement(Footer, null)" : { text: "Footer" },
-// };
-
-const data = {
-  0: {
-    image: 'https://placekitten.com/200/240',
-    text: 'Chloe',
-  },
-  1: {
-    image: 'https://placekitten.com/200/201',
-    text: 'Jasper',
-  },
-  2: {
-    image: 'https://placekitten.com/200/202',
-    text: 'Pepper',
-  },
-  3: {
-    image: 'https://placekitten.com/200/203',
-    text: 'Oscar',
-  },
-};
-
-let order = Object.keys(data);
-//Array of keys
-
-
-//comes in from db/preferences obj
-const order2 = ["React.createElement(Title, null)", "React.createElement(MyComponent, null)", "React.createElement(Body, null)", "React.createElement(MyComponent2, null)", "React.createElement(Gallery, null)", "React.createElement(Pricing, null)", "React.createElement(Footer, null)"];

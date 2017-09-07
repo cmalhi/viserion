@@ -41,6 +41,7 @@ var socketInstance = function(io) {
     // Add new component
     socket.on('newPref', function(sampleData){
       // Display new component in webview
+      console.log('sampleData', sampleData);
       io.sockets.emit('changePref', sampleData)
     });
 

@@ -102,13 +102,8 @@
     componentDidMount() {
       // request site preferences
       socket.on('changePref', (sampleData) => {
-        // var newObj = {components: []}
-        // sampleData.components.forEach((comp) => {
-        //   comp.componentName = this.map(comp.componentName)
-        //   newObj.components.push(comp)
-        // })
+        console.log('sampleData in change.html', sampleData);
         let newSitePreferences = this.toComponents(sampleData);
-
         this.setState({ sitePreferences: newSitePreferences })
       })
     }

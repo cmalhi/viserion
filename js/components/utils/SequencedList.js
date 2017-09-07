@@ -15,13 +15,16 @@ import SortableList from 'react-native-sortable-list';
 const window = Dimensions.get('window');
 
 export default class SequencedList extends Component {
+
   render() {
     return (
       <SortableList
         style={styles.list}
         contentContainerStyle={styles.contentContainer}
         data={this.props.data}
-        renderRow={this._renderRow} />
+        renderRow={this._renderRow}
+        onChangeOrder={this.props.onChangeOrder}
+      />
     );
   }
 
@@ -80,14 +83,13 @@ class Row extends Component {
 
   render() {
     const {data, active} = this.props;
-
     return (
       <Animated.View style={[
         styles.row,
         this._style,
       ]}>
-        <Image source={{uri: data.image}} style={styles.image} />
-        <Text style={styles.text}>{data.text}</Text>
+        {/*<Image source={{uri: data.image}} style={styles.image} />*/}
+        <Text style={styles.text}>{data.componentName}</Text>
       </Animated.View>
     );
   }

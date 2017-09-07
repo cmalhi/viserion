@@ -18,14 +18,12 @@
 
 <script type="text/babel">
   const socket = io('http://127.0.0.1:8080');
-
   // ID generation
   let lastId = 0;
   function newId(prefix='id') {
     lastId++;
     return (prefix + lastId).toString();
   }
-
   class Parent extends React.Component {
     constructor(props) {
       super(props);
@@ -60,26 +58,24 @@
       this.map = this.map.bind(this);
       this.toComponents = this.toComponents.bind(this);
     }
-
     map(name) {
-
       const components = {
-        hero: {
+        Hero: {
           componentName: <Hero1 />,
         },
-        imageContent: {
+        ImageContent: {
           componentName: <ImageContent />,
         },
-        pinterestContent: {
+        PinterestContent: {
           componentName: <PinterestContent />,
         },
-        imageCaption: {
+        ImageCaption: {
           componentName: <ImageCaption/>,
         },
-        textContent: {
+        TextContent: {
           componentName: <TextContent />,
         },
-        footer: {
+        Footer: {
           componentName: <Footer />,
         },
       };
@@ -87,7 +83,6 @@
         return components[name].componentName;
       }
     }
-
     toComponents(raw) {
       // Components is an array of objects {name: 'TextContent', attr: }
       // Converts component to array of objects {name: <TextContent />, attr: }
@@ -98,25 +93,19 @@
       })
       return newObj;
     }
-
     componentDidMount() {
-      // request site preferences
       socket.on('changePref', (sampleData) => {
-        // var newObj = {components: []}
-        // sampleData.components.forEach((comp) => {
-        //   comp.componentName = this.map(comp.componentName)
-        //   newObj.components.push(comp)
-        // })
+        console.log('changePref', sampleData)
         let newSitePreferences = this.toComponents(sampleData);
-
+        console.log('newSitePreferences', newSitePreferences)
         this.setState({ sitePreferences: newSitePreferences })
-      })
+    })
     }
-
     render() {
       return (
         <div>
           { this.state.sitePreferences.components.map((component, i) => {
+            console.log('component in add.html', component);
             const child = component.componentName;
             const props = component.attr;
             return React.cloneElement(child, Object.assign(props, { key: i }));
@@ -125,8 +114,6 @@
       )
     }
   }
-
-
   class Hero1 extends React.Component {
     constructor(props) {
       super(props);
@@ -136,17 +123,14 @@
       };
       this.handleHeaderClick = this.handleHeaderClick.bind(this);
     }
-
     componentDidMount() {
       socket.on('colorChange2', (bgColor) => {
         this.setState({ bgColor })
       })
     }
-
     handleHeaderClick() {
       socket.emit('colorChange', 'change ID x!');
     }
-
     render() {
       return (
         <div className="outer-wrap">
@@ -163,7 +147,6 @@
       )
     }
   }
-
   class ImageContent extends React.Component {
     constructor(props) {
       super(props);
@@ -178,7 +161,6 @@
         body3: this.props.body3,
       }
     }
-
     render() {
       return(
         <div className="content">
@@ -210,7 +192,6 @@
       )
     }
   }
-
   class EditableLongText extends React.Component {
     constructor(props) {
       super(props);
@@ -220,24 +201,20 @@
       };
       this.handleClick = this.handleClick.bind(this);
     }
-
     componentDidMount() {
       socket.on('changeLongTextDom2', (data) => {
         if (data.key === this.state.key) this.setState({ body: data.textValue })
       })
     }
-
     handleClick(e) {
       socket.emit('launchLongTextModal', {key: this.state.key, textValue: this.state.body});
     }
-
     render() {
       return(
         <span onClick={this.handleClick}>{this.state.body}</span>
       )
     }
   }
-
   class EditableShortText extends React.Component {
     constructor(props) {
       super(props);
@@ -248,25 +225,21 @@
       };
       this.handleClick = this.handleClick.bind(this);
     }
-
     componentDidMount() {
       socket.on('changeTitleDom2', (data) => {
         if (data.key === this.state.key) this.setState({ textValue: data.textValue });
       })
     }
-
     handleClick(e) {
       e.stopPropagation();
       socket.emit('launchTitleModal', {key: this.state.key, textValue: this.state.textValue});
     }
-
     render() {
       return(
         <span style={{color: this.state.color}} key={this.state.key} onClick={this.handleClick}>{this.state.textValue}</span>
       )
     }
   }
-
   class PinterestText extends React.Component {
     constructor(props) {
       super(props);
@@ -274,7 +247,6 @@
         content: this.props.content,
       }
     }
-
     render() {
       const items = this.state.content.map((item, i) => {
         return (
@@ -293,7 +265,6 @@
       )
     }
   }
-
   class EditableImage extends React.Component {
     constructor(props) {
       super(props);
@@ -303,24 +274,20 @@
       };
       this.handleClick = this.handleClick.bind(this);
     }
-
     componentDidMount() {
       socket.on('changeImageDom2', (data) => {
         if (data.key === this.state.key) this.setState({ src: data.src });
       });
     }
-
     handleClick() {
       socket.emit('launchImageModal', this.state.key);
     }
-
     render() {
       return (
         <img className="image-scalable-container" key={this.state.key} onClick={this.handleClick} src={this.state.src} />
       )
     }
   }
-
   class PinterestContent extends React.Component {
     render() {
       const imageUrls = [
@@ -347,7 +314,6 @@
       )
     }
   }
-
   class ImageCaption extends React.Component {
     constructor(props) {
       super(props);
@@ -371,7 +337,6 @@
       )
     }
   }
-
   class TextContent extends React.Component {
     constructor(props) {
       super(props);
@@ -389,7 +354,6 @@
       )
     }
   }
-
   class Footer extends React.Component {
     render() {
       return (
@@ -399,7 +363,6 @@
       )
     }
   }
-
   ReactDOM.render(<Parent/>, document.getElementById('parent'));
 </script>
 </body>
