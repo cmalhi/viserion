@@ -87,8 +87,8 @@ class HomeScreen extends React.Component {
 }
 
 const AppNavigator = StackNavigator({
-  // Index: { screen: UserEdit },
-  Index: { screen: AddComponent },
+  Index: { screen: UserEdit },
+  // Index: { screen: AddComponent },
   // Index: { screen: ChangeComponent },
   // Index: { screen: HomeScreen },
   Color: { screen: ChooseColor },
