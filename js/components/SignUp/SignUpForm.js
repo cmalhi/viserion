@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, TouchableOpacity, Text, KeyboardAvoidingView, AsyncStorage } from 'react-native';
 import Expo from 'expo';
-import firebase from '../../database/firebase';
+import firebase from '../../../database/firebase';
 
 export default class SignUpForm extends Component {
   constructor() {

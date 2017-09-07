@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Button, StyleSheet, View, TextInput, TouchableOpacity, Text, KeyboardAvoidingView, AsyncStorage } from 'react-native';
 import Expo from 'expo';
-import config from '../../config/config';
-import firebase from '../../database/firebase';
+import config from '../../../config/config';
+import firebase from '../../../database/firebase';
 import { connect } from 'react-redux';
-import { loginUser } from '../actions/authActions';
+import { loginUser } from '../../actions/authActions';
 
 class LoginForm extends Component {
   constructor() {

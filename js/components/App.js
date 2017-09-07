@@ -14,8 +14,8 @@ import ConfirmSite from './ConfirmSite';
 import ImageUploader from './ImageUploader';
 import SavedPages from './SavedPages';
 import SharedScreen from './ShareScreen';
-import Login from './Login';
-import SignUp from './SignUp';
+import Login from './Login/index';
+import SignUp from './SignUp/index';
 import UserEdit from './UserEdit';
 import ColorPicker from './modals/ColorPicker';
 import ColorModal from './modals/ColorModal';
@@ -83,7 +83,8 @@ class HomeScreen extends React.Component {
 
 const AppNavigator = StackNavigator({
   // Index: { screen: UserEdit },
-  Index: { screen: HomeScreen },
+  // Index: { screen: HomeScreen },
+  Index: { screen: ChooseLayout },
   Color: { screen: ChooseColor },
   Template: { screen: ChooseLayout },
   Title: { screen: ChooseTitle },
