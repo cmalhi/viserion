@@ -23,6 +23,7 @@ const io = require('socket.io-client');
 import axios from 'axios';
 import Testing from './Testing';
 import AddComponent from './AddComponent';
+import ChangeComponent from './ChangeComponent';
 
 const store = createStore(
   rootReducer,
@@ -77,6 +78,7 @@ class HomeScreen extends React.Component {
         <Text onPress={() => { navigate('Saved')}} style={styles.inDevelopment}>In development: Saved Pages</Text>
         <Text onPress={() => { navigate('UserEdit')}} style={styles.inDevelopment}>In development: User Editing</Text>
         <Text onPress={() => { navigate('AddComponent')}} style={styles.inDevelopment}>In development: Add Component Testing</Text>
+        <Text onPress={() => { navigate('ChangeComponent')}} style={styles.inDevelopment}>ChangeComponent Testing</Text>
 
         <Text onPress={() => { navigate('Image')}} style={styles.defaultText,styles.selectedText}>(Optional) Add Image</Text>
       </View>
@@ -102,6 +104,7 @@ const AppNavigator = StackNavigator({
   ColorPicker: { screen: ColorPicker },
   ColorModal: { screen: ColorModal },
   AddComponent: { screen: AddComponent },
+  ChangeComponent: { screen: ChangeComponent },
 });
 
 const styles = StyleSheet.create({

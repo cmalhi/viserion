@@ -158,10 +158,10 @@ class AddPageModal extends React.Component {
           <Button 
             title="Add Components"
             onPress={this.handleAdd}
-          ></Button>
+          />
           <ScrollView>
             {this.state.components.map((comp, index) =>        
-              <View>
+              <View key={index}>
                 <Text
                   onPress={this.handleEntryToggle.bind(this, comp.name)}
                   style={styles.bigText}>{comp.name}</Text>
