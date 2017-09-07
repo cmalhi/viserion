@@ -1,7 +1,7 @@
 // TODO: Create default preferences state
 const defaultPreferences = [{
   name: 'My Hero',
-  componentName: 'hero',
+  componentName: 'Hero',
   attr: {
     bgColor: 'defaultColor',
     title: 'defaultTitle',
@@ -9,7 +9,7 @@ const defaultPreferences = [{
 },
 {
   name: 'My Footer',
-  componentName: 'footer',
+  componentName: 'Footer',
   attr: {
     bgColor: 'defaultColor',
     text: 'defaultText',
