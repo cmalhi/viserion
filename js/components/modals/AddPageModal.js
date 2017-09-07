@@ -34,7 +34,7 @@ class AddPageModal extends React.Component {
       duration: 300,
       toValue: 0,
     }).start();
-    console.log(componentMap);
+    console.log('COMPONENT MAPPPPP', componentMap.hero);
   }
 
   mapEach() {
@@ -42,7 +42,7 @@ class AddPageModal extends React.Component {
     for (var key in componentMap) {
       let mapped = this.componentListMap(componentMap[key].componentName);
       //push the image url in here too
-      result.push({ displayName: mapped, img: tempURL });
+      result.push({ attr: componentMap[key], displayName: mapped, img: tempURL });
     }
     this.setState({compList: result})
   }
@@ -85,16 +85,16 @@ class AddPageModal extends React.Component {
       duration: 300,
       toValue: deviceHeight
     }).start(this.props.closeModal);
-    console.log('the component map ', componentMap)
   }
 
-  handleEntryToggle(name) {
-    console.log('you clicked on', name);
+  handleEntryToggle(attr) {
+    console.log('you clicked on', attr);
     // Close modal
     this.closeModal()
     // Populate Webview with 'name' component
     const socket = io(global.HOST, { transports: ['websocket'] });
     // Emit to a socket with 'name'
+    sampleData.components.push(attr);
     socket.emit('newPref', sampleData);
     // TODO: Update sitePreferences object
 
@@ -114,10 +114,10 @@ class AddPageModal extends React.Component {
             {this.state.compList.map((comp, index) =>        
               <View>
                 <Text
-                  onPress={this.handleEntryToggle.bind(this, comp.displayName)}
+                  onPress={this.handleEntryToggle.bind(this, comp.attr)}
                   style={styles.bigText}>{comp.displayName}</Text>
                 <TouchableOpacity
-                  onPress={this.handleEntryToggle.bind(this, comp.displayName)}
+                  onPress={this.handleEntryToggle.bind(this, comp.attr)}
                 >
                   <Image
                    style={{width: 194, height: 120}}
