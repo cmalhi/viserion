@@ -75,12 +75,8 @@ class HomeScreen extends React.Component {
         <Text onPress={() => { navigate('ConfirmSite')}} style={styles.defaultText}>Step 5: Confirm Selection</Text>
         <Text onPress={() => { navigate('ShareScreen')}} style={styles.defaultText}>Step 6: Share Link </Text>
         <Text onPress={() => { navigate('Page')}} style={styles.defaultText}>Final Page</Text>
-        <Text onPress={() => { navigate('Saved')}} style={styles.inDevelopment}>In development: Saved Pages</Text>
         <Text onPress={() => { navigate('UserEdit')}} style={styles.inDevelopment}>In development: User Editing</Text>
-        <Text onPress={() => { navigate('AddComponent')}} style={styles.inDevelopment}>In development: Add Component Testing</Text>
-        <Text onPress={() => { navigate('ChangeComponent')}} style={styles.inDevelopment}>ChangeComponent Testing</Text>
-
-        <Text onPress={() => { navigate('Image')}} style={styles.defaultText,styles.selectedText}>(Optional) Add Image</Text>
+        <Text onPress={() => { navigate('Saved')}} style={styles.inDevelopment}>In development: Saved Pages</Text>
       </View>
     )
   }

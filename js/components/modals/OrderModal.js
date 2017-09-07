@@ -204,7 +204,7 @@ export const styles = StyleSheet.create({
     position: 'relative',
     top: '5%',
     borderRadius: 10,
-    height: '90%',
+    height: '80%',
   },
   bigText:{
     fontSize: 20,
