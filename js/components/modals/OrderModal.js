@@ -17,9 +17,9 @@ class OrderModal extends React.Component {
     super(props);
     this.state = {
       offset: new Animated.Value(deviceHeight),
-      order: this.props.order,
+      // order: this.props.order,
       currentOrder: null,
-      data: data,
+      data: null,
     };
     this.closeModal = this.closeModal.bind(this);
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
@@ -30,7 +30,62 @@ class OrderModal extends React.Component {
   componentWillMount() {
     //this line will change when preferences obj is set up
     // this.setState({order: this.props.order})
-    this.props.changeOrder(order);
+    // this.props.changeOrder(order);
+
+    // assume sitePreferences of shape
+    /*
+     * sitePreferences = {
+     *  components: [
+     *    { nickName: '', componentName: '', attr: {} }
+     *  ]
+     * }
+     */
+
+    // TODO: make a GET request to sitePreferences
+    const exampleSitePreferences = {
+      components: [
+        {
+          componentName: 'Hero',
+          attr: { title: 'Hello' },
+        },
+        {
+          componentName: 'TextContent',
+          attr: { title: 'title', body: 'goodbye' },
+        },
+        {
+          componentName: 'Footer',
+          attr: { title: 'Hello' },
+        },
+      ]
+    };
+
+    let newObj = {};
+    let componentData = exampleSitePreferences.components.map((c) => {
+      newObj[c.componentName] = { componentName: c.componentName }
+    });
+
+    console.log('newObj', newObj);
+
+    // const data = {
+    //   TextContent: {
+    //     text: 'Chloe',
+    //     image: 'https://placekitten.com/200/240',
+    //   },
+    //   Jasper: {
+    //     text: 'Jasper',
+    //     image: 'https://placekitten.com/200/201',
+    //   },
+    //   Pepper: {
+    //     text: 'Pepper',
+    //     image: 'https://placekitten.com/200/202',
+    //   },
+    //   Oscar: {
+    //     text: 'Oscar',
+    //     image: 'https://placekitten.com/200/203',
+    //   },
+    // };
+
+    this.setState({ data: newObj });
   }
 
   componentDidMount() {
@@ -57,7 +112,7 @@ class OrderModal extends React.Component {
 
   openAddCloseOrder() {
     this.closeModal();
-    this.props.openAddModal();
+    // this.props.openAddModal();
   }
 
   _renderRow = ({data, active}) => {
@@ -72,7 +127,7 @@ class OrderModal extends React.Component {
             <Text style={styles.center}>Close menu</Text>
           </TouchableOpacity>
           <Text style={styles.bigText}>Rearrange Components</Text>
-          <SequencedList data={data} />
+          <SequencedList data={this.state.data} />
           <View style={styles.options}>
             <Button onPress={this.closeAndUpdate} title="Update" />
           </View>
@@ -135,44 +190,3 @@ export const styles = StyleSheet.create({
 });
 
 
-
-
-// let data = {
-//   "React.createElement(Title, null)": {
-//     //nickname
-//     text: "Title",
-//     img: "../../../images/orderListEntry/png/header.png",
-//   },
-//   "React.createElement(MyComponent, null)": { text: "MyComponent" },
-//   "React.createElement(Body, null)": { text: "Body" },
-//   "React.createElement(MyComponent2, null)": { text: "MyComponent2" },
-//   "React.createElement(Pricing, null)": { text: "Pricing" },
-//   "React.createElement(Gallery, null)": { text: "Gallery" },
-//   "React.createElement(Footer, null)" : { text: "Footer" },
-// };
-
-const data = {
-  0: {
-    image: 'https://placekitten.com/200/240',
-    text: 'Chloe',
-  },
-  1: {
-    image: 'https://placekitten.com/200/201',
-    text: 'Jasper',
-  },
-  2: {
-    image: 'https://placekitten.com/200/202',
-    text: 'Pepper',
-  },
-  3: {
-    image: 'https://placekitten.com/200/203',
-    text: 'Oscar',
-  },
-};
-
-let order = Object.keys(data);
-//Array of keys
-
-
-//comes in from db/preferences obj
-const order2 = ["React.createElement(Title, null)", "React.createElement(MyComponent, null)", "React.createElement(Body, null)", "React.createElement(MyComponent2, null)", "React.createElement(Gallery, null)", "React.createElement(Pricing, null)", "React.createElement(Footer, null)"];
