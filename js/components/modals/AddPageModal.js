@@ -110,13 +110,9 @@ class AddPageModal extends React.Component {
           <TouchableOpacity onPress={this.closeModal}>
             <Text style={styles.center}>Close Menu</Text>
           </TouchableOpacity>
-          <Button 
-            title="Add Components"
-            onPress={this.handleAdd}
-          />
           <ScrollView>
-            {this.state.components.map((comp, index) =>        
-              <View key={index}>
+            {this.state.compList.map((comp, index) =>        
+              <View>
                 <Text
                   onPress={this.handleEntryToggle.bind(this, comp.attr)}
                   style={styles.bigText}>{comp.displayName}</Text>
