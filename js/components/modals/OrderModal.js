@@ -20,11 +20,66 @@ class OrderModal extends React.Component {
       // order: this.props.order,
       currentOrder: null,
       data: null,
+      sitePreferences: null,
     };
     this.closeModal = this.closeModal.bind(this);
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
     this.openAddCloseOrder = this.openAddCloseOrder.bind(this);
+    this.onChangeOrder = this.onChangeOrder.bind(this);
 
+  }
+
+  getObj = (objArr, key, value) => {
+    for (var i = 0; i < objArr.length; i++) {
+      if (objArr[i][key] && objArr[i][key] === value) {
+        return objArr[i]
+      }
+    }
+    return false;
+  };
+
+  onChangeOrder(orderData) {
+    console.log('changing order!', orderData);
+    const socket = io(global.HOST, { transports: ['websocket'] });
+
+    this.setState({ currentOrder: orderData }); // MAY NOT NEED
+    // orderData: ["TextContent", "Hero", "Footer"]
+
+    // sitePreferences = {
+    // components: [
+    //   {
+    //     componentName: 'Hero',
+    //     attr: { title: 'Hello' },
+    //   },
+    //   {
+    //     componentName: 'TextContent',
+    //     attr: { title: 'title', body: 'goodbye' },
+    //   },
+    //   {
+    //     componentName: 'Footer',
+    //     attr: { title: 'Hello' },
+    //   },
+    // ]
+    // }
+
+    /*
+     * Input:
+     *  - objArr [ {1: 'hi', 2: 'bye}, {1: 'hello} ]
+     *  - key: 1
+     *  - value: 'hi'
+     * Output:
+     *  - {1: 'hi', 2: 'bye'}
+     */
+
+
+    var sitePref = { components: [] };
+    orderData.forEach((name) => {
+      var objArr = this.state.sitePreferences['components'];
+      sitePref.components.push(this.getObj(objArr, 'componentName', name))
+    });
+
+    console.log('sitePref', sitePref);
+    this.setState({sitePreferences : sitePref});
   }
 
   componentWillMount() {
@@ -59,6 +114,14 @@ class OrderModal extends React.Component {
       ]
     };
 
+    this.setState({ sitePreferences: exampleSitePreferences });
+
+    /*
+     * {
+     *  componentName1: { componentName: 'TextContent' },
+     *  componentName2: { componentName: 'Footer' }
+     * }
+     */
     let newObj = {};
     let componentData = exampleSitePreferences.components.map((c) => {
       newObj[c.componentName] = { componentName: c.componentName }
@@ -106,8 +169,10 @@ class OrderModal extends React.Component {
   closeAndUpdate() {
     const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
-    this.props.changeOrder(this.state.order);
-    socket.emit('orderChange', this.state.order);
+    // this.props.changeOrder(this.state.order);
+    // socket.emit('orderChange', this.state.order);
+
+    socket.emit('newPref', this.state.sitePreferences);
   }
 
   openAddCloseOrder() {
@@ -127,7 +192,7 @@ class OrderModal extends React.Component {
             <Text style={styles.center}>Close menu</Text>
           </TouchableOpacity>
           <Text style={styles.bigText}>Rearrange Components</Text>
-          <SequencedList data={this.state.data} />
+          <SequencedList data={this.state.data} onChangeOrder={this.onChangeOrder} />
           <View style={styles.options}>
             <Button onPress={this.closeAndUpdate} title="Update" />
           </View>

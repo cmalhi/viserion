@@ -15,9 +15,6 @@ import SortableList from 'react-native-sortable-list';
 const window = Dimensions.get('window');
 
 export default class SequencedList extends Component {
-  handleChange(data){
-    console.log('handleChange row', data)
-  }
 
   render() {
     return (
@@ -26,7 +23,7 @@ export default class SequencedList extends Component {
         contentContainerStyle={styles.contentContainer}
         data={this.props.data}
         renderRow={this._renderRow}
-        onChangeOrder={this.handleChange}
+        onChangeOrder={this.props.onChangeOrder}
       />
     );
   }
@@ -86,7 +83,6 @@ class Row extends Component {
 
   render() {
     const {data, active} = this.props;
-    console.log('sequencedlist data', data)
     return (
       <Animated.View style={[
         styles.row,
