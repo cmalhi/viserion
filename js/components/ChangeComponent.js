@@ -77,7 +77,7 @@ class ChangeComponent extends React.Component {
         {this.state.colorModal ? <ColorModal navigation={this.props.navigation} closeModal={() => this.setState({colorModal: false})} /> : null}
         {this.state.addPageModal ? <AddPageModal closeModal={() => this.setState({addPageModal: false, orderModal: true})} /> : null}
         {this.state.orderModal ? <OrderModal closeModal={() => this.setState({orderModal: false})} /> : null}
-        <Button title="Add/Rearrange (click this 2x)" onPress={this.handleAddOrRearrange} />
+        <Button title="Change Sequence" onPress={this.handleAddOrRearrange} />
       </View>
     );
   }
