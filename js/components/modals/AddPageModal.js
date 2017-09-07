@@ -115,7 +115,7 @@ class AddPageModal extends React.Component {
           </TouchableOpacity>
           <ScrollView>
             {this.state.compList.map((comp, index) =>        
-              <View>
+              <View key={index}>
                 <Text
                   onPress={this.handleEntryToggle.bind(this, comp.attr)}
                   style={styles.bigText}>{comp.displayName}</Text>
