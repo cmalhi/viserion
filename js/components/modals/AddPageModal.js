@@ -2,7 +2,7 @@ import React from 'react';
 import { Animated, Button, Image, Text, TouchableOpacity, View, ScrollView, WebView, Dimensions, StyleSheet } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { appendOrder } from '../../actions/index';
+import { appendPrefs } from '../../actions/index';
 import componentMap from '../../componentMap';
 const io = require('socket.io-client');
 
@@ -18,6 +18,7 @@ class AddPageModal extends React.Component {
     this.state = {
       offset: new Animated.Value(deviceHeight),
       compList: [],
+      sendCurrentAsync: {components: []},
     };
     this.closeModal = this.closeModal.bind(this);
     this.handleEntryToggle = this.handleEntryToggle.bind(this);
@@ -35,6 +36,7 @@ class AddPageModal extends React.Component {
       toValue: 0,
     }).start();
     console.log('COMPONENT MAPPPPP', componentMap.hero);
+    console.log('PREFERENCES PROPPPP', ...this.props.preferences)
   }
 
   mapEach() {
@@ -94,12 +96,13 @@ class AddPageModal extends React.Component {
     // Populate Webview with 'name' component
     const socket = io(global.HOST, { transports: ['websocket'] });
     // Emit to a socket with 'name'
-    sampleData.components.push(attr);
-    socket.emit('newPref', sampleData);
-    // TODO: Update sitePreferences object
+      this.props.appendPrefs(attr);
+      console.log("The PREFERENCES OBJ", {components: [...this.props.preferences]}, "The SAMPLE DATA OBJ", sampleData)
+      this.setState({sendCurrentAsync: {components: [...this.props.preferences]}}, () => {
+        socket.emit('newPref', this.state.sendCurrentAsync);
+      })
 
-    // this.props.appendOrder(name);
-    // console.log('HELLOOOO', this.props.toggleOrder['the title'])
+    // TODO: Update sitePreferences object
   }
 
   render() {
@@ -178,7 +181,7 @@ function mapStateToProps({ toggleOrder, preferences }) {
 }
 
 const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({appendOrder}, dispatch)
+  return bindActionCreators({appendPrefs}, dispatch)
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(AddPageModal);

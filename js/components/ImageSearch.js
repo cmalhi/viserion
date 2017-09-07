@@ -45,17 +45,18 @@ class ImageSearch extends React.Component {
   render() {
     return (
       <View>
-        <Button title="From Bing Search" />
+        <Text>Find Imgaes on Bing</Text>
         <TextInput
           style={{height: 40}}
-          placeholder="enter image/s to search for"
+          placeholder="search"
           onChangeText={ (text) => this.setState({text}) }
           clearButtonMode={'unless-editing'}
           keyboardType={"default"}
+          autoFocus
         />
         <Button
           onPress={this.searchForImages}
-          title="Submit"
+          title="Search"
           color="#000000"
         />
         <ScrollView>

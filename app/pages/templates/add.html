@@ -97,7 +97,6 @@
       socket.on('changePref', (sampleData) => {
         console.log('changePref', sampleData)
         let newSitePreferences = this.toComponents(sampleData);
-        console.log('newSitePreferences', newSitePreferences)
         this.setState({ sitePreferences: newSitePreferences })
     })
     }

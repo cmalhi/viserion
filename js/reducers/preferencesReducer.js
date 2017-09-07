@@ -1,16 +1,16 @@
 // TODO: Create default preferences state
 const defaultPreferences = [{
   name: 'My Hero',
-  componentName: '<Hero />',
-  attributes: {
+  componentName: 'hero',
+  attr: {
     bgColor: 'defaultColor',
     title: 'defaultTitle',
   },
 },
 {
   name: 'My Footer',
-  componentName: '<Footer />',
-  attributes: {
+  componentName: 'footer',
+  attr: {
     bgColor: 'defaultColor',
     text: 'defaultText',
   },
@@ -21,6 +21,10 @@ export default function (state = defaultPreferences, action) {
     case 'CREATE_PREFERENCES':
       const preferences = action.payload;
       return preferences;
+    case 'APPEND_PREFS':
+      var newComp = action.payload;
+      state = [...state, newComp];
+      return state
     default:
       return state;
   }
