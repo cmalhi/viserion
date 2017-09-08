@@ -8,7 +8,7 @@ const io = require('socket.io-client');
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { appendPrefs } from '../actions/index';
+import { appendPrefs, updatePrefs } from '../actions/index';
 
 import ConfirmSite from './ConfirmSite';
 import Login from './Login';
@@ -31,17 +31,13 @@ class HomeScreen extends React.Component {
       this.setState({ isConnected: true });
     });
 
-    socket.on('ping', (data) => {
-      console.log('pinging');
-      this.setState({data: data});
+    socket.on('addPrefDomStore', (addition) => {
+      this.props.appendPrefs(addition)
     });
 
-    console.log('this.props.preferences1 ', this.props.preferences)
-    socket.on('addPrefDomStore', (addition) => {
-      console.log('addPref dom store home')
-      this.props.appendPrefs(addition)
-      console.log('this.props.preferences 2', this.props.preferences)
-    })
+    socket.on('updatePrefDomStore', (newPrefs) => {
+      this.props.updatePrefs(newPrefs)
+    });
 
   }
 
@@ -50,10 +46,6 @@ class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text>socket connected: {this.state.isConnected ? 'true' : 'false'}</Text>
-        {this.state.data &&
-        <Text>
-          ping response: {this.state.data}
-        </Text>}
         <Text style={styles.title}>Create a page</Text>
         <Text onPress={() => { navigate('SignUp')}} style={styles.defaultText}>Step 0: Sign Up</Text>
         <Text onPress={() => { navigate('Login')}} style={styles.defaultText}>Step 0.5: Log In</Text>
@@ -94,7 +86,7 @@ function mapStateToProps({ preferences }) {
 }
 
 const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({appendPrefs}, dispatch)
+  return bindActionCreators({ appendPrefs, updatePrefs }, dispatch)
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(HomeScreen);

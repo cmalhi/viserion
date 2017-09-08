@@ -77,9 +77,9 @@ export function appendPrefs(newComponent) {
   }
 }
 
-export function setPrefs(newPrefs) {
+export function updatePrefs(newPrefs) {
   return {
-    type: 'SET_PREFS',
+    type: 'UPDATE_PREFS',
     payload: newPrefs,
   }
 }

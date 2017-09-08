@@ -48,6 +48,11 @@ var socketInstance = function(io) {
       io.sockets.emit('addPrefDomStore', addition)
     });
 
+    socket.on('updatePref', function(newPref) {
+      console.log('newPref', newPref);
+      io.sockets.emit('updatePrefDomStore', newPref)
+    })
+
   });
 };
 
