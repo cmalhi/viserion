@@ -6,7 +6,7 @@ var socketInstance = function(io) {
       io.sockets.emit('launchTitleModal', textData);
       // TODO: .to(x) to SPECIFY SOCKET ID;
     });
-
+    // Editable Short Text
     socket.on('changeTitleDom', function(data) {
       io.sockets.emit('changeTitleDom2', data);
     });

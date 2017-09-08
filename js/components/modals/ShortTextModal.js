@@ -36,6 +36,7 @@ export default class ShortTextModal extends React.Component {
     this.closeModal();
     socket.emit('changeTitleDom', { key: this.props.id, textValue: this.state.title });
     // TODO: Make database call to save title to user preferences
+    // send preference, id and 
   }
 
   render() {

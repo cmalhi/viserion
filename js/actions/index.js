@@ -8,11 +8,11 @@ const combineDesires = (desires) => {
     desires.colors.forEach(color => {
 
       const heroColor = Object.assign({}, componentMap['hero']);
-      heroColor.attributes.bgColor = color;
-      heroColor.attributes.title = desires.title;
+      heroColor.attr.bgColor = color;
+      heroColor.attr.title = desires.title;
 
       const footerColor = Object.assign({}, componentMap['footer']);
-      footerColor.attributes.bgColor = color;
+      footerColor.attr.bgColor = color;
 
       const content = Object.assign({}, componentMap[layout]);
       preferences.push([heroColor, content, footerColor]);
@@ -24,35 +24,35 @@ const combineDesires = (desires) => {
 export function addLayouts(layouts) {
   return {
     type: 'ADD_LAYOUTS',
-    payload: layouts
+    payload: layouts,
   }
 }
 
 export function addTitle(title) {
   return {
     type: 'ADD_TITLE',
-    payload: title
+    payload: title,
   }
 }
 
 export function addSite(site) {
   return {
     type: 'ADD_SITE',
-    payload: site
-  }  
+    payload: site,
+  }
 }
 
 export function addColors(color) {
   return {
     type: 'ADD_COLORS',
-    payload: color
+    payload: color,
   }
 }
 
 export function addKeywords(keywords) {
   return {
     type: 'ADD_KEYWORDS',
-    payload: keywords
+    payload: keywords,
   }
 }
 
@@ -81,6 +81,14 @@ export function updatePrefs(newPrefs) {
   return {
     type: 'UPDATE_PREFS',
     payload: newPrefs,
+  }
+}
+
+export function changePrefs(changeAndPath) {
+  return {
+    type: 'CHANGE_PREFS',
+    payload: changeAndPath,
+
   }
 }
 
