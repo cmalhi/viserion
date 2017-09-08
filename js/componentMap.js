@@ -1,3 +1,5 @@
+// AddPageModal uses this to generate default addable components
+
 const componentMap = {
   Hero: {
     nickName: 'My Hero',
