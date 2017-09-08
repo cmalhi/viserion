@@ -28,30 +28,28 @@
     constructor(props) {
       super(props);
       this.state = {
-        sitePreferences: {
-          components: [
-            {
-              componentName: <Hero1 />,
-              attr: {
-                bgColor: '#eee',
-                title: 'Custom title',
-              }
-            },
-            {
-              componentName: <TextContent />,
-              attr: {
-                title: 'With All Eyes on the South, the Most Important Art Show in America Is Underway in Pittsburgh',
-                body: 'The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols.'
-              }
-            },
-            {
-              componentName: <Footer />,
-              attr: {
-                text: 'I am foot'
-              }
+        sitePreferences: [
+          {
+            componentName: <Hero1 />,
+            attr: {
+              bgColor: '#eee',
+              title: 'Custom title',
             }
-          ]
-        },
+          },
+          {
+            componentName: <TextContent />,
+            attr: {
+              title: 'With All Eyes on the South, the Most Important Art Show in America Is Underway in Pittsburgh',
+              body: 'The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols.'
+            }
+          },
+          {
+            componentName: <Footer />,
+            attr: {
+              text: 'I am foot'
+            }
+          }
+        ]
       };
       this.map = this.map.bind(this);
       this.toComponents = this.toComponents.bind(this);
@@ -110,19 +108,19 @@
     componentDidMount() {
       // Web client listens to 'addPrefDomStore' event emitted when the user hits 'Submit'
       socket.on('addPrefDomStore', (addition) => {
-        let newPref = { ...this.state.sitePreferences }; // Copy old site preferences
-        newPref['components'] = [...newPref.components, this.toComponent(addition)];
+        let newPref = this.state.sitePreferences; // Copy old site preferences
+        newPref = [...newPref, this.toComponent(addition)];
         this.setState({ sitePreferences: newPref });
       });
 
       socket.on('updatePrefDomStore', (newPref) => {
-        this.setState({ sitePreferences: { components: this.toComponents(newPref) } });
+        this.setState({ sitePreferences: this.toComponents(newPref) });
       });
     }
     render() {
       return (
         <div>
-          { this.state.sitePreferences.components.map((component, i) => {
+          { this.state.sitePreferences.map((component, i) => {
             const child = component.componentName;
             const props = component.attr;
             return React.cloneElement(child, Object.assign(props, { key: i }));

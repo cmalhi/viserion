@@ -38,7 +38,6 @@ class HomeScreen extends React.Component {
     socket.on('updatePrefDomStore', (newPrefs) => {
       this.props.updatePrefs(newPrefs)
     });
-
   }
 
   render() {
