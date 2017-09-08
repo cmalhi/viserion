@@ -12,7 +12,30 @@ import { addSite, selectPreferences } from '../actions/index';
 import axios from 'axios';
 import htmlTemplate from '../htmlTemplate';
 
-var source =  [{uri: 'http://google.com'},{uri: 'http://nfl.com'},{uri: 'http://cnn.com'}];
+const rawPreferences = [{ 
+  attr: {
+    bgColor: "defaultColor",
+    title: "defaultTitle",
+    },
+  componentName: "Hero",
+  name: "My Hero",
+  },
+  { 
+  attr: {
+    bgColor: "defaultColor",
+    title: "defaultTitle",
+    },
+  componentName: "Hero",
+  name: "My Hero",
+  },
+  {
+  attr: {
+    bgColor: "defaultColor",
+    text: "defaultText",
+  },
+  componentName: "Hero",
+    name: "My Footer",
+}]
 
 class ConfirmSite extends React.Component {
   constructor(props){
@@ -25,9 +48,7 @@ class ConfirmSite extends React.Component {
   }
 
   componentDidMount(){
-    // this.getURIs()
-    console.log(htmlTemplate);
-    console.log(this.props.preferences);
+    
   }
 
  // getURIs(){
@@ -47,7 +68,7 @@ class ConfirmSite extends React.Component {
 
   handlePress(index){
     const { navigate } = this.props.navigation; 
-    this.props.addSite(this.state.uris[index].uri);
+    this.props.selectPreferences(index);
     navigate('ShareScreen');   
   }
 
@@ -69,16 +90,15 @@ class ConfirmSite extends React.Component {
             bgColor: "defaultColor",
             title: "defaultTitle",
             },
-          componentName: "TextContent",
+          componentName: "Hero",
           name: "My Hero",
           },
-
           {
           attr: {
             bgColor: "defaultColor",
             text: "defaultText",
           },
-          componentName: "Footer",
+          componentName: "Hero",
             name: "My Footer",
         }])
         console.log('html .>>>>>>', html);
