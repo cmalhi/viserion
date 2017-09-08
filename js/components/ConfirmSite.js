@@ -1,33 +1,33 @@
-import React from 'react'
+import React from 'react';
 import {
   Text,
   View,
   WebView,
-  Button
-} from 'react-native'
-import Swiper from 'react-native-swiper'
+  Button,
+} from 'react-native';
+import Swiper from 'react-native-swiper';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addSite } from '../actions/index';
 import axios from 'axios';
 
-var source =  [{uri: 'http://google.com'},{uri: 'http://nfl.com'},{uri: 'http://cnn.com'}];
+var source = [{ uri: 'http://google.com' }, { uri: 'http://nfl.com' }, { uri: 'http://cnn.com' }];
 
 class ConfirmSite extends React.Component {
-  constructor(props){
+  constructor(props) {
       super(props);
       this.state = {
           uris: [],
-      }
+      };
       this.handlePress = this.handlePress.bind(this);
       this.getURIs = this.getURIs.bind(this);
   }
 
-  componentDidMount(){
-    this.getURIs()
+  componentDidMount() {
+    this.getURIs();
   }
 
- getURIs(){
+ getURIs() {
     axios.get(`${global.HOST}/usertemplates/list`)
     .then((response) => {
       var result = response.data.map(function(val){
@@ -35,17 +35,17 @@ class ConfirmSite extends React.Component {
         return {uri: site}
       });
       console.log("result", result)
-      this.setState({uris: [...result]}, console.log('results from getURIs ', this.state.uris))
+      this.setState({ uris: [...result] }, console.log('results from getURIs ', this.state.uris))
       //cb(source)
-    }).catch(function(err){
-      console.log('There was an error(msg):',err);
+    }).catch(function(err) {
+      console.log('There was an error(msg):', err);
     })  
   }
 
-  handlePress(index){
+  handlePress(index) {
     const { navigate } = this.props.navigation; 
     this.props.addSite(this.state.uris[index].uri);
-    navigate('ShareScreen');   
+    navigate('ShareScreen');
   }
 
   render() {
