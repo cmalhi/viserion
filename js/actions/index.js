@@ -24,56 +24,63 @@ const combineDesires = (desires) => {
 export function addLayouts(layouts) {
   return {
     type: 'ADD_LAYOUTS',
-    payload: layouts
+    payload: layouts,
   }
 }
 
 export function addTitle(title) {
   return {
     type: 'ADD_TITLE',
-    payload: title
+    payload: title,
   }
 }
 
 export function addSite(site) {
   return {
     type: 'ADD_SITE',
-    payload: site
+    payload: site,
   }  
 }
 
 export function addColors(color) {
   return {
     type: 'ADD_COLORS',
-    payload: color
+    payload: color,
   }
 }
 
 export function addKeywords(keywords) {
   return {
     type: 'ADD_KEYWORDS',
-    payload: keywords
+    payload: keywords,
   }
 }
 
 export function changeOrder(order) {
   return {
     type: 'CHANGE_ORDER',
-    payload: order
+    payload: order,
   }
 }
 
 export function appendOrder(itemsToAdd) {
   return {
     type: 'APPEND_ORDER',
-    payload: itemsToAdd
+    payload: itemsToAdd,
   }
 }
 
 export function appendPrefs(compToAdd) {
   return {
     type: 'APPEND_PREFS',
-    payload: compToAdd
+    payload: compToAdd,
+  }
+}
+
+export function changePrefs(changeAndPath) {
+  return {
+    type: 'CHANGE_PREFS',
+    payload: changeAndPath,
   }
 }
 

@@ -3,6 +3,7 @@ const defaultPreferences = [{
   name: 'My Hero',
   componentName: 'Hero',
   attr: {
+    id: 'hero',
     bgColor: 'defaultColor',
     title: 'defaultTitle',
   },
@@ -11,6 +12,7 @@ const defaultPreferences = [{
   name: 'My Footer',
   componentName: 'Footer',
   attr: {
+    id: 'footer',
     bgColor: 'defaultColor',
     text: 'defaultText',
   },
@@ -24,6 +26,17 @@ export default function (state = defaultPreferences, action) {
     case 'APPEND_PREFS':
       var newComp = action.payload;
       state = [...state, newComp];
+      return state;
+    case 'CHANGE_PREFS':
+      //action.payload is a change and a path
+      // {
+      //   id: 12
+      //   path: components[index].attr.body1
+      //   change: 'Im the new text sent in from the modal',
+      //   
+      // }
+      // find index from current preferences state
+      // components[index][attr][thing][possible nested step]
       return state;
     default:
       return state;

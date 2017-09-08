@@ -12,6 +12,8 @@ var {
   height: deviceHeight
 } = Dimensions.get('window');
 
+var id = 0;
+
 class AddPageModal extends React.Component {
   constructor(props) {
     super(props);
@@ -24,6 +26,7 @@ class AddPageModal extends React.Component {
     this.handleEntryToggle = this.handleEntryToggle.bind(this);
     this.componentListMap = this.componentListMap.bind(this);
     this.mapEach = this.mapEach.bind(this);
+    this.newId = this.newId.bind(this);
   }
 
   componentWillMount() {
@@ -35,6 +38,11 @@ class AddPageModal extends React.Component {
       duration: 300,
       toValue: 0,
     }).start();
+  }
+
+  newId(prefix='id') {
+    id += 2;
+    return prefix + id;
   }
 
   mapEach() {
@@ -50,22 +58,22 @@ class AddPageModal extends React.Component {
   componentListMap(name) {
     // add image urls in here
     const components = {
-      hero: {
+      Hero: {
         listName: 'Hero',
       },
-      imageContent: {
+      ImageContent: {
         listName: 'Image Content',
       },
-      pinterestContent: {
-        listName: 'PinterestContent',
+      PinterestContent: {
+        listName: 'Pinterest Content',
       },
-      imageCaption: {
+      ImageCaption: {
         listName: 'Image Caption',
       },
-      textContent: {
+      TextContent: {
         listName: 'Text Content',
       },
-      footer: {
+      Footer: {
         listName: 'Footer',
       },
     };
@@ -89,6 +97,9 @@ class AddPageModal extends React.Component {
     const socket = io(global.HOST, { transports: ['websocket'] });
     // Emit to a socket with 'name'
 
+    // set the components id to output newId
+    attr.attr.id = this.newId();
+    console.log(this.newId());
     this.props.appendPrefs(attr);
 
     this.setState({ sendCurrentAsync: { components: [...this.props.preferences] } }, () => {
