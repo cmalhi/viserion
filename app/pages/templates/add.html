@@ -56,6 +56,7 @@
       this.map = this.map.bind(this);
       this.toComponents = this.toComponents.bind(this);
     }
+
     map(name) {
       const components = {
         Hero: {
@@ -81,21 +82,42 @@
         return components[name].componentName;
       }
     }
+
+    /*
+     * toComponent(raw) takes in an object and converts the object to a React-friendly version
+     * Input: obj of shape { componentName: 'TextContent', attr: {} }
+     * Output: obj { component: <TextContent />, attr: {} }
+     */
+    toComponent(raw) {
+      console.log('raw', raw)
+      var res = {...raw};
+      res.componentName = this.map(res.componentName)
+      console.log('res', res)
+      return res;
+    }
+
+    /* Input: Raw is an array of objects {componentName: 'TextContent', attr: }
+     * Output: Converts component to array of objects {componentName: <TextContent />, attr: }
+     */
     toComponents(raw) {
-      // Components is an array of objects {name: 'TextContent', attr: }
-      // Converts component to array of objects {name: <TextContent />, attr: }
-      var newObj = {components: []}
+      var newObj = { components: [] };
       raw.components.forEach((comp) => {
-        comp.componentName = this.map(comp.componentName)
-        newObj.components.push(comp)
-      })
+//        comp.componentName = this.map(comp.componentName)
+        var newComp = this.toComponent(comp)
+        newObj.components.push(newComp)
+      });
       return newObj;
     }
+
     componentDidMount() {
-      socket.on('changePref', (sampleData) => {
-        let newSitePreferences = this.toComponents(sampleData);
-        this.setState({ sitePreferences: newSitePreferences })
-    })
+
+      // Listen to addPrefDomStore from the client when the user hits 'Submit'
+      socket.on('addPrefDomStore', (addition) => {
+        let newPref = { ...this.state.sitePreferences }; // Copy old site preferences
+        newPref['components'] = [...newPref.components, this.toComponent(addition)];
+        this.setState({ sitePreferences: newPref });
+      });
+
     }
     render() {
       return (
