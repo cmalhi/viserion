@@ -11,7 +11,7 @@ const tempURL = require('../../../images/components/text_image.png');
 
 var {
   height: deviceHeight
-} = Dimensions.get('window');
+} = Dimensions.get('wiandow');
 
 class AddPageModal extends React.Component {
   constructor(props) {
@@ -46,33 +46,6 @@ class AddPageModal extends React.Component {
     this.setState({ compList: result });
   }
 
-  componentListMap(name) {
-    // add image urls in here
-    const components = {
-      hero: {
-        listName: 'Hero',
-      },
-      imageContent: {
-        listName: 'Image Content',
-      },
-      pinterestContent: {
-        listName: 'PinterestContent',
-      },
-      imageCaption: {
-        listName: 'Image Caption',
-      },
-      textContent: {
-        listName: 'Text Content',
-      },
-      footer: {
-        listName: 'Footer',
-      },
-    };
-    if (components[name]) {
-      return components[name].listName;
-    }
-  }
-
   closeModal() {
     Animated.timing(this.state.offset, {
       duration: 300,
@@ -80,19 +53,32 @@ class AddPageModal extends React.Component {
     }).start(this.props.closeModal);
   }
 
-  handleEntryToggle(attr) {
-    console.log('you clicked on', attr);
-    // Close modal
+  handleAdd(newComponent) {
     this.closeModal();
-    // Populate Webview with 'name' component
     const socket = io(global.HOST, { transports: ['websocket'] });
-    // Emit to a socket with 'name'
+    socket.emit('addPref', newComponent );
+    // socket.emit('updatePreferences', {components: this.props.preferences });
 
-    this.props.appendPrefs(attr);
+    // Update sitePreferences in Redux
 
-    this.setState({ sendCurrentAsync: { components: [...this.props.preferences] } }, () => {
-      socket.emit('newPref', this.state.sendCurrentAsync);
-    });
+    // this.props.appendPrefs(newComponent);
+      // .then(() => {
+      // this.setState({sendCurrentAsync: {components: this.props.preferences}}, () => {
+    // setInterval(2000);
+
+
+      // });
+    // });
+
+    // var prom = Promise.promisify(this.props.appendPrefs);
+    // prom(attr).then((data) => {
+    //   console.log('data', data)
+    //   this.setState({sendCurrentAsync: {components: this.props.preferences}}, () => {
+    //     socket.emit('newPref', this.state.sendCurrentAsync);
+    //   });
+    // });
+
+    // Emit to socket to update WebView
   }
 
   render() {
@@ -105,7 +91,7 @@ class AddPageModal extends React.Component {
             <Text style={styles.center}>Close Menu</Text>
           </TouchableOpacity>
           <ScrollView>
-            {this.state.compList.map((comp, index) =>        
+            {this.state.compList.map((comp, index) =>
               <View key={index}>
                 <Text
                   onPress={this.handleAdd.bind(this, comp.attr)}
@@ -176,4 +162,3 @@ const matchDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(AddPageModal);
-
