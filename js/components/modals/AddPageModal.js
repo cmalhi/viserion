@@ -57,28 +57,6 @@ class AddPageModal extends React.Component {
     this.closeModal();
     const socket = io(global.HOST, { transports: ['websocket'] });
     socket.emit('addPref', newComponent );
-    // socket.emit('updatePreferences', {components: this.props.preferences });
-
-    // Update sitePreferences in Redux
-
-    // this.props.appendPrefs(newComponent);
-      // .then(() => {
-      // this.setState({sendCurrentAsync: {components: this.props.preferences}}, () => {
-    // setInterval(2000);
-
-
-      // });
-    // });
-
-    // var prom = Promise.promisify(this.props.appendPrefs);
-    // prom(attr).then((data) => {
-    //   console.log('data', data)
-    //   this.setState({sendCurrentAsync: {components: this.props.preferences}}, () => {
-    //     socket.emit('newPref', this.state.sendCurrentAsync);
-    //   });
-    // });
-
-    // Emit to socket to update WebView
   }
 
   render() {
