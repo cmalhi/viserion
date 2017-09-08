@@ -11,6 +11,8 @@ var {
   height: deviceHeight
 } = Dimensions.get('window');
 
+var id = 0;
+
 class AddPageModal extends React.Component {
   constructor(props) {
     super(props);
@@ -21,6 +23,7 @@ class AddPageModal extends React.Component {
     this.closeModal = this.closeModal.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.mapEach = this.mapEach.bind(this);
+    this.newId = this.newId.bind(this);
   }
 
   componentWillMount() {
@@ -32,6 +35,11 @@ class AddPageModal extends React.Component {
       duration: 300,
       toValue: 0,
     }).start();
+  }
+
+  newId(prefix='id') {
+    id += 2;
+    return prefix + id;
   }
 
   mapEach() {
@@ -54,6 +62,7 @@ class AddPageModal extends React.Component {
   handleAdd(newComponent) {
     this.closeModal();
     const socket = io(global.HOST, { transports: ['websocket'] });
+    newComponent.attr.id = this.newId();
     socket.emit('addPref', newComponent );
   }
 
