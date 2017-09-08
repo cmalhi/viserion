@@ -31,9 +31,8 @@ class HomeScreen extends React.Component {
       this.setState({ isConnected: true });
     });
 
-    socket.on('ping', (data) => {
-      console.log('pinging');
-      this.setState({data: data});
+    socket.on('addPrefDomStore', (addition) => {
+      this.props.appendPrefs(addition)
     });
 
   }
