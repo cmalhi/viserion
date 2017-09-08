@@ -59,14 +59,6 @@ class ChooseLayout extends React.Component {
   }
 
   render() {
-    // return (
-    //   <View style={styles.container}>     
-    //     <Text>Choose some look and feels that you like</Text>
-    //     { this.renderLayoutChoices() }
-    //     
-    //   </View>
-    // );
-
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Choose some looks and feels that you like</Text>

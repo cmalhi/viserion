@@ -48,7 +48,6 @@ var socketInstance = function(io) {
       io.sockets.emit('addPrefDomStore', addition)
     });
 
-
   });
 };
 
