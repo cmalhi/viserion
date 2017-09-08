@@ -39,9 +39,13 @@ var socketInstance = function(io) {
     });
 
     // Add new component
-    socket.on('newPref', function(sampleData){
-      // Display new component in webview
-      io.sockets.emit('changePref', sampleData)
+    // socket.on('updatePref', function(sampleData){
+    //   // Display new component in webview
+    //   io.sockets.emit('changePref', sampleData)
+    // });
+
+    socket.on('addPref', function(addition) {
+      io.sockets.emit('addPrefDomStore', addition)
     });
 
   });

@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { appendPrefs } from '../../actions/index';
 import componentMap from '../../componentMap';
 const io = require('socket.io-client');
-
 const tempURL = require('../../../images/components/text_image.png');
 
 var {
@@ -18,11 +17,9 @@ class AddPageModal extends React.Component {
     this.state = {
       offset: new Animated.Value(deviceHeight),
       compList: [],
-      sendCurrentAsync: {components: []},
     };
     this.closeModal = this.closeModal.bind(this);
-    this.handleEntryToggle = this.handleEntryToggle.bind(this);
-    this.componentListMap = this.componentListMap.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
     this.mapEach = this.mapEach.bind(this);
   }
 
@@ -40,38 +37,11 @@ class AddPageModal extends React.Component {
   mapEach() {
     var result = [];
     for (var key in componentMap) {
-      let mapped = this.componentListMap(componentMap[key].componentName);
+      let mapped = key.split(/(?=[A-Z])/).join(" ");
       //push the image url in here too
       result.push({ attr: componentMap[key], displayName: mapped, img: tempURL });
     }
     this.setState({ compList: result });
-  }
-
-  componentListMap(name) {
-    // add image urls in here
-    const components = {
-      hero: {
-        listName: 'Hero',
-      },
-      imageContent: {
-        listName: 'Image Content',
-      },
-      pinterestContent: {
-        listName: 'PinterestContent',
-      },
-      imageCaption: {
-        listName: 'Image Caption',
-      },
-      textContent: {
-        listName: 'Text Content',
-      },
-      footer: {
-        listName: 'Footer',
-      },
-    };
-    if (components[name]) {
-      return components[name].listName;
-    }
   }
 
   closeModal() {
@@ -81,19 +51,10 @@ class AddPageModal extends React.Component {
     }).start(this.props.closeModal);
   }
 
-  handleEntryToggle(attr) {
-    console.log('you clicked on', attr);
-    // Close modal
+  handleAdd(newComponent) {
     this.closeModal();
-    // Populate Webview with 'name' component
     const socket = io(global.HOST, { transports: ['websocket'] });
-    // Emit to a socket with 'name'
-
-    this.props.appendPrefs(attr);
-
-    this.setState({ sendCurrentAsync: { components: [...this.props.preferences] } }, () => {
-      socket.emit('newPref', this.state.sendCurrentAsync);
-    });
+    socket.emit('addPref', newComponent );
   }
 
   render() {
@@ -106,13 +67,13 @@ class AddPageModal extends React.Component {
             <Text style={styles.center}>Close Menu</Text>
           </TouchableOpacity>
           <ScrollView>
-            {this.state.compList.map((comp, index) =>        
+            {this.state.compList.map((comp, index) =>
               <View key={index}>
                 <Text
-                  onPress={this.handleEntryToggle.bind(this, comp.attr)}
+                  onPress={this.handleAdd.bind(this, comp.attr)}
                   style={styles.bigText}>{comp.displayName}</Text>
                 <TouchableOpacity
-                  onPress={this.handleEntryToggle.bind(this, comp.attr)}
+                  onPress={this.handleAdd.bind(this, comp.attr)}
                 >
                   <Image
                     style={{ width: 194, height: 120 }}
@@ -168,8 +129,8 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps({ toggleOrder, preferences }) {
-  return { toggleOrder, preferences };
+function mapStateToProps({ preferences }) {
+  return { preferences };
 }
 
 const matchDispatchToProps = (dispatch) => {
@@ -177,4 +138,3 @@ const matchDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(AddPageModal);
-

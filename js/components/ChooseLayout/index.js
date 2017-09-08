@@ -51,22 +51,11 @@ class ChooseLayout extends React.Component {
   handleSubmit() {
     const { navigate } = this.props.navigation;
     navigate('Color');
-
     const layouts = this.calculatePreferredLayouts();
-    console.log('these are layouts >>>>>', layouts);
     this.props.addLayouts(layouts);
-
   }
 
   render() {
-    // return (
-    //   <View style={styles.container}>     
-    //     <Text>Choose some look and feels that you like</Text>
-    //     { this.renderLayoutChoices() }
-    //     
-    //   </View>
-    // );
-
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Choose some looks and feels that you like</Text>

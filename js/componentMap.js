@@ -1,5 +1,5 @@
 const componentMap = {
-  hero: {
+  Hero: {
     nickName: 'My Hero',
     componentName: 'Hero',
     attr: {
@@ -7,7 +7,7 @@ const componentMap = {
       title: 'defaultTitle',
     },
   },
-  imageContent: {
+  ImageContent: {
     nickName: 'My ImageContent',
     componentName: 'ImageContent',
     attr: {
@@ -21,7 +21,7 @@ const componentMap = {
       body3: 'Hear this week’s latest singles and albums, and check out what’s hot in the Top 50.',
     },
   },
-  pinterestContent: {
+  PinterestContent: {
     nickName: 'My PinterestContent',
     componentName: 'PinterestContent',
     attr: {
@@ -42,7 +42,7 @@ const componentMap = {
       ],
     },
   },
-  imageCaption: {
+  ImageCaption: {
     nickName: 'My ImageCaption',
     componentName: 'ImageCaption',
     attr: {
@@ -50,7 +50,7 @@ const componentMap = {
       caption: 'Lorna Simpson, Dividing Lines, 1989',
     },
   },
-  textContent: {
+  TextContent: {
     nickName: 'My TextContent',
     componentName: 'TextContent',
     attr: {
@@ -58,7 +58,7 @@ const componentMap = {
       body: 'The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols.',
     },
   },
-  footer: {
+  Footer: {
     nickName: 'My Footer',
     componentName: 'Footer',
     attr: {

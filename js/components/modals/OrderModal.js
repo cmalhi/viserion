@@ -1,9 +1,9 @@
 import React from 'react';
 import { Animated, Dimensions, Image, Text, TouchableOpacity, View, Button, StyleSheet, TextInput, Platform, Easing } from 'react-native';
+import SequencedList from '../utils/SequencedList';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { changeOrder } from '../../actions/index';
-import SequencedList from '../utils/SequencedList';
+import { setPrefs } from '../../actions/index';
 const io = require('socket.io-client');
 
 var {
@@ -22,7 +22,6 @@ class OrderModal extends React.Component {
     };
     this.closeModal = this.closeModal.bind(this);
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
-    this.openAddCloseOrder = this.openAddCloseOrder.bind(this);
     this.onChangeOrder = this.onChangeOrder.bind(this);
   }
 
@@ -88,23 +87,26 @@ class OrderModal extends React.Component {
      *  ]
      * }
      */
-    const exampleSitePreferences = {
-      components: [
-        {
-          componentName: 'Hero',
-          attr: { title: 'Hello' },
-        },
-        {
-          componentName: 'TextContent',
-          attr: { title: 'title', body: 'goodbye' },
-        },
-        {
-          componentName: 'Footer',
-          attr: { title: 'Hello' },
-        },
-      ]
-    };
+    // const exampleSitePreferences = {
+    //   components: [
+    //     {
+    //       componentName: 'Hero',
+    //       attr: { title: 'Hello' },
+    //     },
+    //     {
+    //       componentName: 'TextContent',
+    //       attr: { title: 'title', body: 'goodbye' },
+    //     },
+    //     {
+    //       componentName: 'Footer',
+    //       attr: { title: 'Hello' },
+    //     },
+    //   ]
+    // };
+    console.log('this.props.preferences >> ', this.props.preferences);
+    let exampleSitePreferences = { components: this.props.preferences };
     this.setState({ sitePreferences: exampleSitePreferences });
+    // console.log('this.props.preferences order modal >> ', this.props.preferences);
 
     /*
      * SortableList requires data of this shape :
@@ -138,12 +140,9 @@ class OrderModal extends React.Component {
   closeAndUpdate() {
     const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
+    console.log('orderModal this.props.appendPrefs > >', this.props.setPrefs(this.state.sitePreferences.components));
 
     socket.emit('newPref', this.state.sitePreferences);
-  }
-
-  openAddCloseOrder() {
-    this.closeModal();
   }
 
   render() {
@@ -163,16 +162,6 @@ class OrderModal extends React.Component {
     )
   }
 }
-
-function mapStateToProps({ order }) {
-  return { order };
-}
-
-const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({changeOrder}, dispatch)
-};
-
-export default connect(mapStateToProps, matchDispatchToProps)(OrderModal);
 
 export const styles = StyleSheet.create({
   form: {
@@ -214,3 +203,13 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 });
+
+function mapStateToProps({ preferences }) {
+  return { preferences };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ setPrefs }, dispatch)
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderModal);
