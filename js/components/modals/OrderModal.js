@@ -10,18 +10,23 @@ var {
   height: deviceHeight
 } = Dimensions.get('window');
 
+/*
+ * Notes:
+ *  - OrderModal is special because unlike other components, it needs to keep
+ *  track of the current sitePreferences.
+ */
+
 class OrderModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       offset: new Animated.Value(deviceHeight),
-      // order: this.props.order,
-      currentOrder: null,
-      data: null,
-      sitePreferences: null,
+      // currentOrder: null,
+      sequencedData: null,
+      sitePreferences: this.props.preferences,
     };
     this.closeModal = this.closeModal.bind(this);
-    this.closeAndUpdate = this.closeAndUpdate.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
     this.onChangeOrder = this.onChangeOrder.bind(this);
   }
 
@@ -45,7 +50,7 @@ class OrderModal extends React.Component {
 
   onChangeOrder(orderData) {
     const socket = io(global.HOST, { transports: ['websocket'] });
-    this.setState({ currentOrder: orderData });
+    // this.setState({ currentOrder: orderData });
 
     // Example
 
@@ -68,62 +73,35 @@ class OrderModal extends React.Component {
     // ]
     // }
 
-    var sitePref = { components: [] };
+    /* Rearrange the order of our sitePreferences */
+    var sitePref = [];
     orderData.forEach((name) => {
-      var objArr = this.state.sitePreferences['components'];
-      sitePref.components.push(this.getObj(objArr, 'componentName', name))
+      var objArr = this.state.sitePreferences;
+      sitePref.push(this.getObj(objArr, 'componentName', name))
     });
-    this.setState({sitePreferences : sitePref});
+    this.setState({ sitePreferences : sitePref });
   }
 
   componentWillMount() {
     // TODO: make a GET request to sitePreferences
-
-    // assume sitePreferences of shape
     /*
-     * sitePreferences = {
-     *  components: [
-     *    { nickName: '', componentName: '', attr: {} }
-     *  ]
-     * }
-     */
-    // const exampleSitePreferences = {
-    //   components: [
-    //     {
-    //       componentName: 'Hero',
-    //       attr: { title: 'Hello' },
-    //     },
-    //     {
-    //       componentName: 'TextContent',
-    //       attr: { title: 'title', body: 'goodbye' },
-    //     },
-    //     {
-    //       componentName: 'Footer',
-    //       attr: { title: 'Hello' },
-    //     },
-    //   ]
-    // };
-    console.log('this.props.preferences >> ', this.props.preferences);
-    let exampleSitePreferences = { components: this.props.preferences };
-    this.setState({ sitePreferences: exampleSitePreferences });
-    // console.log('this.props.preferences order modal >> ', this.props.preferences);
-
-    /*
+     * This section puts the preferences in a format that SortableListView can accept
+     *
      * SortableList requires data of this shape :
      * {
      *  componentName1: { componentName: 'TextContent' },
      *  componentName2: { componentName: 'Footer' }
      * }
      */
-    let newObj = {};
-    exampleSitePreferences.components.map((c) => {
-      newObj[c.componentName] = { componentName: c.componentName }
+    let components = this.props.preferences;
+    let sequencedData = {};
+    components.map((c) => {
+      sequencedData[c.componentName] = { componentName: c.componentName }
     });
-    this.setState({ data: newObj });
+    this.setState({ sequencedData });
   }
 
   componentDidMount() {
-    //TODO: Get original order from redux preferenecs storage
     Animated.timing(this.state.offset, {
       duration: 300,
       toValue: 0,
@@ -137,12 +115,10 @@ class OrderModal extends React.Component {
     }).start(this.props.closeModal);
   }
 
-  closeAndUpdate() {
+  handleUpdate() {
     const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
-    console.log('orderModal this.props.appendPrefs > >', this.props.setPrefs(this.state.sitePreferences.components));
-
-    socket.emit('newPref', this.state.sitePreferences);
+    socket.emit('updatePref', this.state.sitePreferences);
   }
 
   render() {
@@ -153,9 +129,9 @@ class OrderModal extends React.Component {
             <Text style={styles.center}>Close menu</Text>
           </TouchableOpacity>
           <Text style={styles.bigText}>Rearrange Components</Text>
-          <SequencedList data={this.state.data} onChangeOrder={this.onChangeOrder} />
+          <SequencedList data={this.state.sequencedData} onChangeOrder={this.onChangeOrder} />
           <View style={styles.options}>
-            <Button onPress={this.closeAndUpdate} title="Update" />
+            <Button onPress={this.handleUpdate} title="Update" />
           </View>
         </View>
       </Animated.View>

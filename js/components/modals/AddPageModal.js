@@ -72,14 +72,14 @@ class AddPageModal extends React.Component {
                 <Text
                   onPress={this.handleAdd.bind(this, comp.attr)}
                   style={styles.bigText}>{comp.displayName}</Text>
-                <TouchableOpacity
-                  onPress={this.handleAdd.bind(this, comp.attr)}
-                >
-                  <Image
-                    style={{ width: 194, height: 120 }}
-                    source={comp.img}
-                  />
-                </TouchableOpacity>
+                {/*<TouchableOpacity*/}
+                  {/*onPress={this.handleAdd.bind(this, comp.attr)}*/}
+                {/*>*/}
+                  {/*<Image*/}
+                    {/*style={{ width: 194, height: 120 }}*/}
+                    {/*source={comp.img}*/}
+                  {/*/>*/}
+                {/*</TouchableOpacity>*/}
               </View>)
             }
           </ScrollView>

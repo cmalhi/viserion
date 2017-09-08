@@ -52,7 +52,7 @@
             }
           ]
         },
-      }
+      };
       this.map = this.map.bind(this);
       this.toComponents = this.toComponents.bind(this);
     }
@@ -90,21 +90,21 @@
      */
     toComponent(raw) {
       var res = {...raw};
-      res.componentName = this.map(res.componentName)
+      res.componentName = this.map(res.componentName);
       return res;
     }
 
-    /* Input: Raw is an array of objects {componentName: 'TextContent', attr: }
+    /* Input: Raw is an array of objects [{componentName: 'TextContent', attr: }]
      * Output: Converts component to array of objects {componentName: <TextContent />, attr: }
      */
     toComponents(raw) {
-      var newObj = { components: [] };
-      raw.components.forEach((comp) => {
+      var res = [];
+      raw.forEach((comp) => {
 //        comp.componentName = this.map(comp.componentName)
         var newComp = this.toComponent(comp)
-        newObj.components.push(newComp)
+        res.push(newComp)
       });
-      return newObj;
+      return res;
     }
 
     componentDidMount() {
@@ -113,6 +113,10 @@
         let newPref = { ...this.state.sitePreferences }; // Copy old site preferences
         newPref['components'] = [...newPref.components, this.toComponent(addition)];
         this.setState({ sitePreferences: newPref });
+      });
+
+      socket.on('updatePrefDomStore', (newPref) => {
+        this.setState({ sitePreferences: { components: this.toComponents(newPref) } });
       });
     }
     render() {

@@ -25,7 +25,7 @@ export default function (state = defaultPreferences, action) {
       var newComp = action.payload;
       state = [...state, newComp];
       return state;
-    case 'SET_PREFS':
+    case 'UPDATE_PREFS':
       state = action.payload;
       return state;
     default:
