@@ -6,6 +6,7 @@ import siteReducer from "./siteReducer";
 import keywordReducer from "./keywordReducer";
 import authReducer from "./authReducer";
 import preferencesReducer from "./preferencesReducer";
+import preferencesAllReducer from "./preferencesReducer";
 
 const rootReducer = combineReducers({
   layouts: layoutReducer,
@@ -15,6 +16,8 @@ const rootReducer = combineReducers({
   keywords: keywordReducer,
   auth: authReducer,
   preferences: preferencesReducer,
+  preferencesAll: preferencesAllReducer,
+
 });
 
 export default rootReducer;

@@ -84,6 +84,11 @@ export function updatePrefs(newPrefs) {
   }
 }
 
+export const selectPreferences = (selectedIndex) => (dispatch, getState) => {
+  const { preferencesAll } = getState();
+  dispatch({ type: 'SELECT_PREFERENCES', payload: preferencesAll[selectedIndex] });
+}
+
 export const createPreferences = () => (dispatch, getState) => {
   const { layouts, colors, title, keywords } = getState();
 
