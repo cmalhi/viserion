@@ -13,7 +13,7 @@ var {
 /*
  * Notes:
  *  - OrderModal is special because unlike other components, it needs to keep
- *  track of the current sitePreferences.
+ *  track of the current sitePreferences of shape [{component1}, {component2}].
  */
 
 class OrderModal extends React.Component {
