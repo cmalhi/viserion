@@ -11,7 +11,7 @@ const tempURL = require('../../../images/components/text_image.png');
 
 var {
   height: deviceHeight
-} = Dimensions.get('wiandow');
+} = Dimensions.get('window');
 
 class AddPageModal extends React.Component {
   constructor(props) {
