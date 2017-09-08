@@ -25,7 +25,7 @@ import Testing from './Testing';
 import AddComponent from './AddComponent';
 import ChangeComponent from './ChangeComponent';
 
-const store = createStore(
+export const store = createStore(
   rootReducer,
   applyMiddleware(
     thunk,

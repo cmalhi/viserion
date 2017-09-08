@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { appendPrefs } from '../../actions/index';
 import componentMap from '../../componentMap';
 const io = require('socket.io-client');
-import Promise from 'bluebird';
+// import { store } from '../App.js'
 
 const tempURL = require('../../../images/components/text_image.png');
 
@@ -19,10 +19,9 @@ class AddPageModal extends React.Component {
     this.state = {
       offset: new Animated.Value(deviceHeight),
       compList: [],
-      sendCurrentAsync: {components: []},
     };
     this.closeModal = this.closeModal.bind(this);
-    this.handleEntryToggle = this.handleEntryToggle.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
     this.mapEach = this.mapEach.bind(this);
   }
 
@@ -109,10 +108,10 @@ class AddPageModal extends React.Component {
             {this.state.compList.map((comp, index) =>        
               <View key={index}>
                 <Text
-                  onPress={this.handleEntryToggle.bind(this, comp.attr)}
+                  onPress={this.handleAdd.bind(this, comp.attr)}
                   style={styles.bigText}>{comp.displayName}</Text>
                 <TouchableOpacity
-                  onPress={this.handleEntryToggle.bind(this, comp.attr)}
+                  onPress={this.handleAdd.bind(this, comp.attr)}
                 >
                   <Image
                     style={{ width: 194, height: 120 }}
