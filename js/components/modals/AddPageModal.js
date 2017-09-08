@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import { appendPrefs } from '../../actions/index';
 import componentMap from '../../componentMap';
 const io = require('socket.io-client');
-// import { store } from '../App.js'
-
 const tempURL = require('../../../images/components/text_image.png');
 
 var {
