@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { appendPrefs } from '../../actions/index';
 import componentMap from '../../componentMap';
 const io = require('socket.io-client');
+import Promise from 'bluebird';
 
 const tempURL = require('../../../images/components/text_image.png');
 
@@ -22,7 +23,6 @@ class AddPageModal extends React.Component {
     };
     this.closeModal = this.closeModal.bind(this);
     this.handleEntryToggle = this.handleEntryToggle.bind(this);
-    this.componentListMap = this.componentListMap.bind(this);
     this.mapEach = this.mapEach.bind(this);
   }
 
@@ -40,7 +40,7 @@ class AddPageModal extends React.Component {
   mapEach() {
     var result = [];
     for (var key in componentMap) {
-      let mapped = this.componentListMap(componentMap[key].componentName);
+      let mapped = key.split(/(?=[A-Z])/).join(" ");
       //push the image url in here too
       result.push({ attr: componentMap[key], displayName: mapped, img: tempURL });
     }
@@ -168,8 +168,8 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps({ toggleOrder, preferences }) {
-  return { toggleOrder, preferences };
+function mapStateToProps({ preferences }) {
+  return { preferences };
 }
 
 const matchDispatchToProps = (dispatch) => {
