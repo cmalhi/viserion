@@ -11,7 +11,7 @@ class ChooseColor extends React.Component {
     this.state = {
       color: '#FF0000',
       count: 0,
-      chosenColors: ['#FF0000', '#00FF00','#0000FF'],
+      chosenColors: ['#FF0000', '#00FF00', '#0000FF'],
       color1: '#FF0000',
       color2: '#00FF00',
       color3: '#0000FF',
@@ -26,7 +26,7 @@ class ChooseColor extends React.Component {
 
   handleClick(color, tab) {
     this.setState({currentColor: color});
-    this.setState({currentTab: tab})
+    this.setState({currentTab: tab});
   }
  
   onColorChange(color) {
@@ -63,9 +63,9 @@ class ChooseColor extends React.Component {
 
   render() {
     return (
-      <View style={{flex: 1, padding: 15, backgroundColor: '#262626'}}>
+      <View style={{flex: 1, padding: 15, backgroundColor: '#FFFFFF'}}>
         <Text
-          style={{color: '#FFFFFF', fontSize: 32}}
+          style={{color: '#000000', fontSize: 32}}
         >Pick a color</Text>
         <ColorPicker
           defaultColor={this.state.currentColor}
@@ -87,12 +87,12 @@ class ChooseColor extends React.Component {
             <View
               style={{backgroundColor: this.state.color3, height: 25, width: 90, marginTop: 10}}
             ><Button onPress={this.handleClick.bind(this, this.state.color3, 3)} title="" /></View>
-            </TouchableHighlight>
+          </TouchableHighlight>
         </View>
         <Button
           onPress={this.submitColor}
           title="Submit Colors"
-          color='#FFFFFF'
+          color="#000000"
           style={{fontSize: 32}}
          >HELLO</Button>
       </View>
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#262626',
+    backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
     maxHeight: 20,
