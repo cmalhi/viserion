@@ -89,10 +89,8 @@
      * Output: obj { component: <TextContent />, attr: {} }
      */
     toComponent(raw) {
-      console.log('raw', raw)
       var res = {...raw};
       res.componentName = this.map(res.componentName)
-      console.log('res', res)
       return res;
     }
 
