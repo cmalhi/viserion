@@ -63,7 +63,10 @@ class ChooseColor extends React.Component {
 
   render() {
     return (
-      <View style={{flex: 1, padding: 15, backgroundColor: '#FFFFFF'}}>
+      <View style={{flex: 1, padding: 15, backgroundColor: '#262626'}}>
+        <Text
+          style={{color: '#FFFFFF', fontSize: 32}}
+        >Pick a color</Text>
         <ColorPicker
           defaultColor={this.state.currentColor}
           onColorChange={this.onColorChange}
@@ -88,9 +91,10 @@ class ChooseColor extends React.Component {
         </View>
         <Button
           onPress={this.submitColor}
-          title="Submit These Colors"
-          color='#000'
-         />
+          title="Submit Colors"
+          color='#FFFFFF'
+          style={{fontSize: 32}}
+         >HELLO</Button>
       </View>
     );
   }
@@ -100,7 +104,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#FFF',
+    backgroundColor: '#262626',
     alignItems: 'center',
     justifyContent: 'center',
     maxHeight: 20,

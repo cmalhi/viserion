@@ -24,7 +24,7 @@ export default function (state = defaultPreferences, action) {
     case 'APPEND_PREFS':
       var newComp = action.payload;
       state = [...state, newComp];
-      return state
+      return state;
     default:
       return state;
   }

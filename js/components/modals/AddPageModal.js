@@ -36,7 +36,7 @@ class AddPageModal extends React.Component {
       toValue: 0,
     }).start();
     console.log('COMPONENT MAPPPPP', componentMap.hero);
-    console.log('PREFERENCES PROPPPP', ...this.props.preferences)
+    console.log('PREFERENCES PROPPPP', ...this.props.preferences);
   }
 
   mapEach() {
@@ -46,75 +46,75 @@ class AddPageModal extends React.Component {
       //push the image url in here too
       result.push({ attr: componentMap[key], displayName: mapped, img: tempURL });
     }
-    this.setState({compList: result})
+    this.setState({ compList: result });
   }
 
   componentListMap(name) {
     // map to look like this
-      // {
-      //   name: 'NAME',
-      //   pic: 'URL',
-      // }
+    // {
+    //   name: 'NAME',
+    //   pic: 'URL',
+    // }
 
-      //add image urls in here
-      const components = {
-        hero: {
-          listName: 'Hero',
-        },
-        imageContent: {
-          listName: 'Image Content',
-        },
-        pinterestContent: {
-          listName: 'PinterestContent',
-        },
-        imageCaption: {
-          listName: 'Image Caption',
-        },
-        textContent: {
-          listName: 'Text Content',
-        },
-        footer: {
-          listName: 'Footer',
-        },
-      };
-      if (components[name]){
-        return components[name].listName;
-      }
+    // add image urls in here
+    const components = {
+      hero: {
+        listName: 'Hero',
+      },
+      imageContent: {
+        listName: 'Image Content',
+      },
+      pinterestContent: {
+        listName: 'PinterestContent',
+      },
+      imageCaption: {
+        listName: 'Image Caption',
+      },
+      textContent: {
+        listName: 'Text Content',
+      },
+      footer: {
+        listName: 'Footer',
+      },
+    };
+    if (components[name]) {
+      return components[name].listName;
+    }
   }
 
   closeModal() {
     Animated.timing(this.state.offset, {
       duration: 300,
-      toValue: deviceHeight
+      toValue: deviceHeight,
     }).start(this.props.closeModal);
   }
 
   handleEntryToggle(attr) {
     console.log('you clicked on', attr);
     // Close modal
-    this.closeModal()
+    this.closeModal();
     // Populate Webview with 'name' component
     const socket = io(global.HOST, { transports: ['websocket'] });
     // Emit to a socket with 'name'
-      this.props.appendPrefs(attr);
-      console.log("The PREFERENCES OBJ", {components: [...this.props.preferences]}, "The SAMPLE DATA OBJ", sampleData)
-      this.setState({sendCurrentAsync: {components: [...this.props.preferences]}}, () => {
-        socket.emit('newPref', this.state.sendCurrentAsync);
-      })
 
-    // TODO: Update sitePreferences object
+    this.props.appendPrefs(attr);
+
+    this.setState({ sendCurrentAsync: { components: [...this.props.preferences] } }, () => {
+      socket.emit('newPref', this.state.sendCurrentAsync);
+    });
   }
 
   render() {
     return (
       <Animated.View
-        style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
+        style={[styles.modal, { transform: [{ translateY: this.state.offset }] }]}
+      >
         <View style={styles.innerModal}>
           <TouchableOpacity onPress={this.closeModal}>
             <Text style={styles.center}>Close Menu</Text>
           </TouchableOpacity>
           <ScrollView>
-            {this.state.compList.map((comp, index) =>        
+            {this.state.compList.map((comp, index) =>
               <View>
                 <Text
                   onPress={this.handleEntryToggle.bind(this, comp.attr)}
@@ -123,11 +123,11 @@ class AddPageModal extends React.Component {
                   onPress={this.handleEntryToggle.bind(this, comp.attr)}
                 >
                   <Image
-                   style={{width: 194, height: 120}}
-                   source={comp.img}
+                    style={{ width: 194, height: 120 }}
+                    source={comp.img}
                   />
-                </TouchableOpacity>  
-              </View> )
+                </TouchableOpacity>
+              </View>)
             }
           </ScrollView>
         </View>
