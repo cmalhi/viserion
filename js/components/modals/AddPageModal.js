@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { appendPrefs } from '../../actions/index';
 import componentMap from '../../componentMap';
 const io = require('socket.io-client');
+import Promise from 'bluebird';
 
 const tempURL = require('../../../images/components/text_image.png');
 
@@ -22,7 +23,6 @@ class AddPageModal extends React.Component {
     };
     this.closeModal = this.closeModal.bind(this);
     this.handleEntryToggle = this.handleEntryToggle.bind(this);
-    this.componentListMap = this.componentListMap.bind(this);
     this.mapEach = this.mapEach.bind(this);
   }
 
@@ -35,51 +35,16 @@ class AddPageModal extends React.Component {
       duration: 300,
       toValue: 0,
     }).start();
-    console.log('COMPONENT MAPPPPP', componentMap.hero);
-    console.log('PREFERENCES PROPPPP', ...this.props.preferences)
   }
 
   mapEach() {
     var result = [];
     for (var key in componentMap) {
-      let mapped = this.componentListMap(componentMap[key].componentName);
+      let mapped = key.split(/(?=[A-Z])/).join(" ");
       //push the image url in here too
       result.push({ attr: componentMap[key], displayName: mapped, img: tempURL });
     }
     this.setState({compList: result})
-  }
-
-  componentListMap(name) {
-    // map to look like this
-      // {
-      //   name: 'NAME',
-      //   pic: 'URL',
-      // }
-
-      //add image urls in here
-      const components = {
-        hero: {
-          listName: 'Hero',
-        },
-        imageContent: {
-          listName: 'Image Content',
-        },
-        pinterestContent: {
-          listName: 'PinterestContent',
-        },
-        imageCaption: {
-          listName: 'Image Caption',
-        },
-        textContent: {
-          listName: 'Text Content',
-        },
-        footer: {
-          listName: 'Footer',
-        },
-      };
-      if (components[name]){
-        return components[name].listName;
-      }
   }
 
   closeModal() {
@@ -92,13 +57,15 @@ class AddPageModal extends React.Component {
   handleEntryToggle(attr) {
     this.closeModal();
     const socket = io(global.HOST, { transports: ['websocket'] });
-    
-    // Update sitePreferences in redux and emit to socket to update WebView
+
+    // Update sitePreferences in Redux
+
     this.props.appendPrefs(attr);
-    this.setState({sendCurrentAsync: {components: [...this.props.preferences]}}, () => {
+    this.setState({sendCurrentAsync: {components: this.props.preferences}}, () => {
       socket.emit('newPref', this.state.sendCurrentAsync);
     });
-    // TODO: Update sitePreferences object
+
+    // Emit to socket to update WebView
   }
 
   render() {
@@ -172,8 +139,8 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps({ toggleOrder, preferences }) {
-  return { toggleOrder, preferences };
+function mapStateToProps({ preferences }) {
+  return { preferences };
 }
 
 const matchDispatchToProps = (dispatch) => {

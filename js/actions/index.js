@@ -56,19 +56,19 @@ export function addKeywords(keywords) {
   }
 }
 
-export function changeOrder(order) {
-  return {
-    type: 'CHANGE_ORDER',
-    payload: order
-  }
-}
-
-export function appendOrder(itemsToAdd) {
-  return {
-    type: 'APPEND_ORDER',
-    payload: itemsToAdd
-  }
-}
+// export function changeOrder(order) {
+//   return {
+//     type: 'CHANGE_ORDER',
+//     payload: order
+//   }
+// }
+//
+// export function appendOrder(itemsToAdd) {
+//   return {
+//     type: 'APPEND_ORDER',
+//     payload: itemsToAdd
+//   }
+// }
 
 export function appendPrefs(compToAdd) {
   return {
@@ -77,9 +77,15 @@ export function appendPrefs(compToAdd) {
   }
 }
 
+export function setPrefs(newPrefs) {
+  return {
+    type: 'SET_PREFS',
+    payload: newPrefs,
+  }
+}
+
 export const createPreferences = () => (dispatch, getState) => {
-  // TODO: Use order to arrange components
-  const { layouts, colors, title, keywords, order } = getState();
+  const { layouts, colors, title, keywords } = getState();
 
   //  Collect layouts that from global state that are true
   const layoutsArr = _.reduce(layouts, (result, layoutStatus, layoutId) => {
@@ -115,7 +121,6 @@ export function postPreferences(navigateToNext) {
       colors: colors,
       title: title,
       keywords: keywords,
-      order: order,
     })
       .then(response => {
         console.log('axios posted to generate templates ', response.data);
@@ -129,7 +134,6 @@ export function postPreferences(navigateToNext) {
       colors: colors,
       title: title,
       keywords: keywords,
-      order: order,
     })
       .then(response => {
       dispatch({
