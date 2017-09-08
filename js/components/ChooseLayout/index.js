@@ -51,11 +51,8 @@ class ChooseLayout extends React.Component {
   handleSubmit() {
     const { navigate } = this.props.navigation;
     navigate('Color');
-
     const layouts = this.calculatePreferredLayouts();
-    console.log('these are layouts >>>>>', layouts);
     this.props.addLayouts(layouts);
-
   }
 
   render() {
