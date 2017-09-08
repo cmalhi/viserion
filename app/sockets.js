@@ -44,11 +44,9 @@ var socketInstance = function(io) {
     //   io.sockets.emit('changePref', sampleData)
     // });
 
-
     socket.on('addPref', function(addition) {
-      console.log('addition', addition);
       io.sockets.emit('addPrefDomStore', addition)
-    })
+    });
 
 
   });

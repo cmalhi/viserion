@@ -110,14 +110,12 @@
     }
 
     componentDidMount() {
-
-      // Listen to addPrefDomStore from the client when the user hits 'Submit'
+      // Web client listens to 'addPrefDomStore' event emitted when the user hits 'Submit'
       socket.on('addPrefDomStore', (addition) => {
         let newPref = { ...this.state.sitePreferences }; // Copy old site preferences
         newPref['components'] = [...newPref.components, this.toComponent(addition)];
         this.setState({ sitePreferences: newPref });
       });
-
     }
     render() {
       return (
