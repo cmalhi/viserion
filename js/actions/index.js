@@ -70,10 +70,10 @@ export function addKeywords(keywords) {
 //   }
 // }
 
-export function appendPrefs(compToAdd) {
+export function appendPrefs(newComponent) {
   return {
     type: 'APPEND_PREFS',
-    payload: compToAdd
+    payload: newComponent
   }
 }
 

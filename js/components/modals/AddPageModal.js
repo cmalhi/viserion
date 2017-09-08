@@ -61,7 +61,7 @@ class AddPageModal extends React.Component {
 
     // Update sitePreferences in Redux
 
-    // this.props.appendPrefs(attr);
+    // this.props.appendPrefs(newComponent);
       // .then(() => {
       // this.setState({sendCurrentAsync: {components: this.props.preferences}}, () => {
     // setInterval(2000);
