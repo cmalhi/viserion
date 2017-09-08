@@ -336,30 +336,31 @@ bigger {
         bgColor: null,
         textcontent: 'TextContent',
         // UNIQUE TO CONFIRM SITE TEMPLATE
-        rawPreferences: [{ 
-          attr: {
-            bgColor: "defaultColor",
-            title: "defaultTitle",
-            },
-          componentName: "Hero",
-          name: "My Hero",
-          },
-          { 
-          attr: {
-            bgColor: "defaultColor",
-            title: "defaultTitle",
-            },
-          componentName: "Hero",
-          name: "My Hero",
-          },
-          {
-          attr: {
-            bgColor: "defaultColor",
-            text: "defaultText",
-          },
-          componentName: "Hero",
-            name: "My Footer",
-        }],
+        // rawPreferences: [{ 
+        //   attr: {
+        //     bgColor: "defaultColor",
+        //     title: "defaultTitle",
+        //     },
+        //   componentName: "Hero",
+        //   name: "My Hero",
+        //   },
+        //   { 
+        //   attr: {
+        //     bgColor: "defaultColor",
+        //     title: "defaultTitle",
+        //     },
+        //   componentName: "Hero",
+        //   name: "My Hero",
+        //   },
+
+        //   {
+        //   attr: {
+        //     bgColor: "defaultColor",
+        //     text: "defaultText",
+        //   },
+        //   componentName: "Hero",
+        //     name: "My Footer",
+        // }],
         sitePreferences: [
             {
               componentName: <Hero1 />,
@@ -422,12 +423,7 @@ bigger {
       return newPreferences;
     }
     componentDidMount() {
-
-      // UNIQUE TO CONFIRM SITE TEMPLATE
-      let newSitePreferences = this.toComponents(this.state.rawPreferences);
-      this.setState( {sitePreferences: newSitePreferences })
-      console.log('NEW SITE PREFERENCES', newSitePreferences);
-      
+      console.log('mounted');
       socket.on('changePref', (sampleData) => {
         let newSitePreferences = this.toComponents(sampleData);
         this.setState({ sitePreferences: newSitePreferences })

@@ -48,7 +48,7 @@ class ConfirmSite extends React.Component {
   }
 
   componentDidMount(){
-    
+    // emit the preference with the index
   }
 
  // getURIs(){
@@ -77,38 +77,19 @@ class ConfirmSite extends React.Component {
       var slides = [];
       for(var u = 0; u < this.props.preferencesAll.length; u +=1) {
 
-        const html = this.state.uris[0].replace('#{rawPreferences}', [{ 
-          attr: {
-            bgColor: "defaultColor",
-            title: "defaultTitle",
-            },
-          componentName: "Hero",
-          name: "My Hero",
-          },
-          { 
-          attr: {
-            bgColor: "defaultColor",
-            title: "defaultTitle",
-            },
-          componentName: "Hero",
-          name: "My Hero",
-          },
-          {
-          attr: {
-            bgColor: "defaultColor",
-            text: "defaultText",
-          },
-          componentName: "Hero",
-            name: "My Footer",
-        }])
-        console.log('html .>>>>>>', html);
+        // for each type of preference
+        // string replace this.state. webWebView Index
+
+        // in webview, if index matches, change state
+
+
         slides.push(
           <View key={u} style={styles.slides}>
             <WebView style={{padding: 10, width:350 }}
               automaticallyAdjustContentInsets={false}
               scrollEnabled={true}
               scalesPageToFit={true}
-              source={{html:html}}>
+              source={{html:htmlTemplate}}>
             </WebView>
             <Button title={'Submit'} onPress={this.handlePress.bind(this, u)} />
           </View>
