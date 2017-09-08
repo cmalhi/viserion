@@ -24,52 +24,8 @@ export default function (state = defaultPreferences, action) {
     case 'APPEND_PREFS':
       var newComp = action.payload;
       state = [...state, newComp];
-      return state
+      return state;
     default:
       return state;
   }
 }
-
-// Preferences has the shape of :
-// [
-//   {
-//     "name": "<Hero />",
-//     "attributes": {
-//       "bgColor": "blue",
-//       "title": "defaultTitle"
-//     }
-//   },
-//   {
-//     "name": "C1",
-//     "attributes": {
-//       "text": "defaultText"
-//     }
-//   },
-//   {
-//     "name": "<Footer />",
-//     "attributes": {
-//       "bgColor": "blue",
-//       "text": "defaultText"
-//     }
-//   },
-//   {
-//     "name": "<Hero />",
-//     "attributes": {
-//       "bgColor": "blue",
-//       "title": "defaultTitle"
-//     }
-//   },
-//   {
-//     "name": "C1",
-//     "attributes": {
-//       "text": "defaultText"
-//     }
-//   },
-//   {
-//     "name": "<Footer />",
-//     "attributes": {
-//       "bgColor": "blue",
-//       "text": "defaultText"
-//     }
-//   }
-// ]
