@@ -10,7 +10,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addSite, selectPreferences } from '../actions/index';
 import axios from 'axios';
-import renderHtmlTemplate from '../htmlTemplate';
+import prefToHtml from '../utils/prefToHtml';
 
 
 class ConfirmSite extends React.Component {
@@ -30,7 +30,7 @@ class ConfirmSite extends React.Component {
 
   renderViews() {
     return this.props.preferencesAll.map((preference, index) => {
-      const html = renderHtmlTemplate(preference);
+      const html = prefToHtml(preference);
       return (
         <View key={index} style={styles.slides}>
           <WebView style={{padding: 10, width:350 }}

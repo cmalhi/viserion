@@ -2,6 +2,7 @@ import _ from 'lodash';
 import axios from 'axios';
 import componentMap from '../componentMap';
 import { AsyncStorage } from 'react-native';
+import prefToHtml from '../utils/prefToHtml';
 
 const combineDesires = (desires) => {
   console.log('combineDesires called');
@@ -108,21 +109,34 @@ export const createPreferences = () => (dispatch, getState) => {
 export const selectPreferences = (selectedIndex) => (dispatch, getState) => {
   const { preferencesAll } = getState();
   const selectedPreferences = preferencesAll[selectedIndex];
-  console.log('>>>>>>>>>>>>', selectedPreferences);
-  AsyncStorage.setItem('preferences', JSON.stringify(selectedPreferences))
-    .then(() => {
-      AsyncStorage.getItem('preferences')
-        .then(preferences => console.log('>>>>>', preferences));
-    });
+  AsyncStorage.setItem('preferences', JSON.stringify(selectedPreferences));
   dispatch({ type: 'SELECT_PREFERENCES', payload: selectPreferences });
 }
 
 export const savePreferences = () => (dispatch, getState) => {
   const { preferences } = getState();
+  const html = prefToHtml(preferences);
+  AsyncStorage.getItem('userId')
+    .then((userId) => {
+      axios.post(`${global.HOST}/sites`, {
+        userId,
+        preferences,
+        html
+      })
+    })
+  dispatch({ type:'SAVE_PREFERENCES', payload: preferences })
+}
 
-
-
-  dispatch(type: 'SAVE_PREFERENCES', payload: preferences )
+// Loads cached pereferences from AsyncStorage if found
+export const loadPreferences = () => (dispatch) => {
+  AsyncStorage.getItem('preferences')
+    .then(preferencesStr => {
+      const preferences = JSON.parse(preferencesStr);
+      dispatch({type:'LOAD_PREFERENCES', found: true, payload: preferences});
+    })
+    .catch(error => {
+      dispatch({type:'LOAD_PREFERENCES', found: false, payload: null});
+    })
 }
 
 

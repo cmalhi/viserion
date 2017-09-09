@@ -51,7 +51,7 @@ var routerInstance = function(io) {
    * Adds selected site to user collection and sites collection
    */
 
-  router.post('/site', siteController.addOne);
+  router.post('/sites', siteController.addOne);
 
   /*
    * /POST /submitchoice
