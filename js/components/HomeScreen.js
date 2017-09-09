@@ -17,10 +17,6 @@ import UserEdit from './UserEdit';
 
 class HomeScreen extends React.Component {
 
-  static navigationOptions = {
-    tabBarLabel: 'Home',
-  }
-
   constructor(props) {
     super(props);
     this.state = {
@@ -49,13 +45,14 @@ class HomeScreen extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
-        <View style={styles.navBar}>
+        {/*<View style={styles.navBar}>*/}
           {/*<Text style={styles.navBarButton}>Back</Text>*/}
-          <Text style={styles.navBarHeader}>WebExpress</Text>
+          {/*<Text style={styles.navBarHeader}>WebExpress</Text>*/}
           {/*<Text style={styles.navBarButton}>More</Text>*/}
-        </View>
+        {/*</View>*/}
         <View style={styles.content}>
           <Text>socket connected: {this.state.isConnected ? 'true' : 'false'}</Text>
+          <Text onPress={() => { navigate('MainApp')}} style={styles.text}>MainApp</Text>
           <Text onPress={() => { navigate('SignUp')}} style={styles.text}>Step 0: Sign Up</Text>
           <Text onPress={() => { navigate('Login')}} style={styles.text}>Step 0.5: Log In</Text>
           <Text onPress={() => { navigate('Template')}} style={styles.text}>Step 1: Template</Text>

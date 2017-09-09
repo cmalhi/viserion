@@ -27,47 +27,52 @@ import { Ionicons } from '@expo/vector-icons';
 import MainTabNavigator from './MainTabNavigator';
 const io = require('socket.io-client');
 
-import PresetPalettes from './PresetPalettes';
-
-export const store = createStore(
-  rootReducer,
-  applyMiddleware(
-    thunk,
-    createLogger()
-  )
-);
-
-const Root = StackNavigator(
+export default TabNavigator(
   {
-    Index: { screen: MyPages },
-    // Index: { screen: HomeScreen },
-    MainApp: { screen: MainTabNavigator },
-    PresetPalettes: { screen: PresetPalettes },
-    ThreeColorPicker: { screen: ThreeColorPicker },
-    Template: { screen: ChooseLayout },
-    Title: { screen: ChooseTitle },
-    ConfirmSite: { screen: ConfirmSite },
-    ShareScreen: { screen: SharedScreen },
-    Keywords: { screen: ChooseKeywords },
-    Image: { screen: ImageUploader },
-    Saved: { screen: SavedPages },
-    Login: { screen: Login },
-    SignUp: { screen: SignUp },
-    UserEdit: { screen: UserEdit },
-    ColorPicker: { screen: ColorPicker },
-    ColorModal: { screen: ColorModal },
-    AddComponent: { screen: AddComponent },
-    ChangeComponent: { screen: ChangeComponent },
+    // 'Index': { screen: Stack },
+    'Feed': { screen: SavedPages },
+    'My Sites': { screen: MyPages },
   },
   {
-    navigationOptions: {
-      title: 'WebExpress',
+    navigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused }) => {
+        const { routeName } = navigation.state;
+        let iconName;
+        switch (routeName) {
+          case 'Index':
+            iconName = Platform.OS === 'ios' ? `ios-home${focused ? '' : '-outline'}` : 'md-home';
+            break;
+          case 'Feed':
+            iconName = Platform.OS === 'ios' ? `ios-contacts${focused ? '' : '-outline'}` : 'md-contacts';
+            break;
+          case 'My Sites':
+            iconName = Platform.OS === 'ios' ? `ios-browsers${focused ? '' : '-outline'}` : 'md-browsers';
+            break;
+        }
+        return (
+          <Ionicons
+            name={iconName}
+            size={20}
+          />
+        )
+      }
+    }),
+    tabBarPosition: 'bottom',
+    animationEnabled: true,
+    tabBarOptions: {
+      // activeTintColor: '#e91e63',
+      style: {
+        height: 30,
+      },
     },
+    // tabBarComponent: props => {
+    //   const backgroundColor = 'red';
+    //   return (
+    //     <TabView.TabBarTop
+    //       {...props}
+    //       style={{ backgroundColor }}
+    //     />
+    //   )
+    // },
   }
-);
-
-export default () => (
-  <Provider store={store}>
-    <Root />
-  </Provider>
 );
