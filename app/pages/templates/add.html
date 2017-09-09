@@ -257,7 +257,7 @@
     handleClick(e) {
       e.stopPropagation();
       console.log('you clicked short text', this.props.id)
-      socket.emit('launchTitleModal', {key: this.state.key, textValue: this.state.textValue, id: this.props.id, path: ['attr', 'caption']});
+      socket.emit('launchTitleModal', {key: this.state.key, textValue: this.state.textValue, id: this.props.id, path: this.props.path});
     }
     render() {
       return(
@@ -346,6 +346,8 @@
         imageUrl: this.props.imageUrl,
         caption: this.props.caption,
         id: this.props.id,
+        path1: ['attr', 'imageUrl'],
+        path2: ['attr', 'caption'],
       }
     }
     render() {
@@ -354,9 +356,9 @@
           <div className="image-content-wrapper">
             <div className="image-content-inner-wrapper">
               <div className="figcaption">
-                <EditableImage src={this.state.imageUrl} />
+                <EditableImage src={this.state.imageUrl} id={this.state.id} path={this.state.path1}/>
               </div>
-              <i><EditableShortText value={this.state.caption} id={this.state.id}/></i>
+              <i><EditableShortText value={this.state.caption} id={this.state.id} path={this.state.path2}/></i>
             </div>
           </div>
         </div>
@@ -381,10 +383,33 @@
     }
   }
   class Footer extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        text: this.props.text,
+        bgColor: this.props.bgColor,
+        path1: ['attr', 'text'],
+        path2: ['attr', 'bgColor'],
+      }
+      this.handleFooterClick = this.handleFooterClick.bind(this);
+    }
+    componentDidMount() {
+      socket.on('colorChange2', (bgColor) => {
+        this.setState({ bgColor })
+      })
+    }
+    handleFooterClick() {
+      // TODO: send the path and id here too
+      socket.emit('colorChange', 'change ID x!');
+    }
     render() {
       return (
-        <footer className="footer-area">
-          <p><EditableShortText value="Footer" /></p>
+        <footer 
+          className="footer-area"
+          style={{ backgroundColor: this.state.bgColor }}
+          onClick={this.handleFooterClick}
+        >
+          <p><EditableShortText value={this.state.text} id={this.state.id} path={this.state.path1}/></p>
         </footer>
       )
     }

@@ -1,6 +1,5 @@
 export default function(action, state) {
     // state is the obj that we are changing: state[0].attr.id
-  console.log('PREFERENCE REDUCER ==== ', action);
   var findIndex = function(id) {
     var index = 'NOT FOUND';
     for (var i = 0; i < state.length; i++) {
@@ -19,7 +18,7 @@ export default function(action, state) {
     // sample input path: ['attr', 'texts', 1, 'text'];
     // after the dins index function it should look like this: ['2', attr', 'texts', 1, 'text'];
 
-    var newPrefs = Object.create(obj)
+    var newPrefs = [...obj]
     var head = newPrefs;
     for (var i = 0; i < path.length - 1; i++) {
       head = head[path[i]];
@@ -33,12 +32,10 @@ export default function(action, state) {
   console.log(action.path)
   
   var insertIndexInPath = function(path, index) {
-    var newPath = Array.from(path);
+    var newPath = [...path];
     newPath.unshift(index);
     return newPath;
   }
-  
-  console.log()
   
   var path = insertIndexInPath(action.path, index)
   
@@ -53,7 +50,5 @@ export default function(action, state) {
   // }
   // find index from current preferences state
   // components[index][attr][thing][possible nested step]
-  console.log('>>>>>>>', updatedPrefs[2])
-  state = updatedPrefs;
-  return state;
+  return updatedPrefs;
 }
