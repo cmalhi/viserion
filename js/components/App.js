@@ -34,8 +34,8 @@ export const store = createStore(
 
 const AppNavigator = StackNavigator({
   // Index: { screen: UserEdit },
-  // Index: { screen: HomeScreen },
-  Index: { screen: ConfirmSite },
+  Index: { screen: HomeScreen },
+  // Index: { screen: ConfirmSite },
   Color: { screen: ChooseColor },
   Template: { screen: ChooseLayout },
   Title: { screen: ChooseTitle },
