@@ -54,7 +54,6 @@
       this.map = this.map.bind(this);
       this.toComponents = this.toComponents.bind(this);
     }
-
     map(name) {
       const components = {
         Hero: {
@@ -80,7 +79,6 @@
         return components[name].componentName;
       }
     }
-
     /*
      * toComponent(raw) takes in an object and converts the object to a React-friendly version
      * Input: obj of shape { componentName: 'TextContent', attr: {} }
@@ -91,7 +89,6 @@
       res.componentName = this.map(res.componentName);
       return res;
     }
-
     /* Input: Raw is an array of objects [{componentName: 'TextContent', attr: }]
      * Output: Converts component to array of objects {componentName: <TextContent />, attr: }
      */
@@ -104,7 +101,6 @@
       });
       return res;
     }
-
     componentDidMount() {
       // Web client listens to 'addPrefDomStore' event emitted when the user hits 'Submit'
       socket.on('addPrefDomStore', (addition) => {
@@ -112,7 +108,6 @@
         newPref = [...newPref, this.toComponent(addition)];
         this.setState({ sitePreferences: newPref });
       });
-
       socket.on('updatePrefDomStore', (newPref) => {
         this.setState({ sitePreferences: this.toComponents(newPref) });
       });
@@ -248,7 +243,7 @@
     handleClick(e) {
       e.stopPropagation();
       console.log('you clicked short text', this.props.id)
-      socket.emit('launchTitleModal', {key: this.state.key, textValue: this.state.textValue, id: this.props.id, path: this.props.path});
+      socket.emit('launchTitleModal', {key: this.state.key, textValue: this.state.textValue});
     }
     render() {
       return(
@@ -347,7 +342,7 @@
               <div className="figcaption">
                 <EditableImage src={this.state.imageUrl} />
               </div>
-              <i><EditableShortText value={this.state.caption} id={this.state.id} path={['attr', 'caption']}/></i>
+              <i><EditableShortText value={this.state.caption} id={this.state.id}/></i>
             </div>
           </div>
         </div>
