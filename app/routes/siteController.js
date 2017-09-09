@@ -16,19 +16,31 @@ exports.addOne = function(req, res) {
 };
 
 exports.retrieveAll = function(req, res) {
-  const userId = req.params.userId;
+  const userId = req.params.userid;
   Site.find({userId})
     .exec()
     .then((sites) => res.send(sites))
     .catch(err => res.status(500).send({ success: false, error: 'Error retrieving sites ' + err}));
 };
 
+
 exports.retrieveOne = function(req, res) {
-  const fileId = req.params.id;
+  const fileId = req.params.siteid;
   Site.findOne( { _id: fileId }, 'body', function(err, file) {
     if (err || !file) return res.status(500).send({ success: false, error: 'Error retrieving site with id ' + req.params.id });
-    res.send(file['body']);
+    res.send(file['preferences']);
   })
+};
+
+exports.retrieveList = function(req, res) {
+  const userId = req.params.userid;
+  Site.find({userId})
+    .exec()
+    .then(sites => {
+      const siteIds = sites.map((site) => 'sites/' + site._id);
+      res.send(siteIds);
+    })
+    .catch(err => res.status(500).send({ success: false, error: 'Error retrieving site URLs ' + err}));
 };
 
 exports.upsert = function(query, updated) {

@@ -117,7 +117,7 @@ export const savePreferences = () => (dispatch, getState) => {
   const { preferences } = getState();
   const html = prefToHtml(preferences);
   AsyncStorage.getItem('userId')
-    .then((userId) => {
+    .then((userId = '66') => {
       axios.post(`${global.HOST}/sites`, {
         userId,
         preferences,
