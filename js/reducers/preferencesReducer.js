@@ -1,18 +1,18 @@
 // default preferences state
 const defaultPreferences = [{
+  id: 'hero',
   nickName: 'My Hero',
   componentName: 'Hero',
   attr: {
-    id: 'hero',
     bgColor: 'defaultColor',
     title: 'defaultTitle',
   },
 },
 {
+  id: 'footer',
   nickName: 'My Footer',
   componentName: 'Footer',
   attr: {
-    id: 'footer',
     bgColor: 'defaultColor',
     text: 'defaultText',
   },

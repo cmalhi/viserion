@@ -3,6 +3,7 @@ import { Animated, Dimensions, Image, Text, TouchableOpacity, View, WebView, But
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { updatePrefs } from '../../actions/index';
+const changePrefs = require('../utils/changePref');
 const io = require('socket.io-client');
 
 var {
@@ -39,8 +40,9 @@ class ShortTextModal extends React.Component {
     this.closeModal();
     // socket.emit('changeTitleDom', { key: this.props.id, textValue: this.state.title, data: this.props.data });
     this.props.data.newValue = this.state.title;
-    var newPreferences = changePrefs(this.props.data, this.props.preferences);
-    this.props.updatePrefs(newPreferences);
+    // var newPreferences = changePrefs(this.props.data, this.props.preferences);
+    // this.props.updatePrefs(newPreferences);
+    console.log('change Prefs is ', changePrefs)
 
     // send preference
     // get rid of changeTitleDom socket emit
