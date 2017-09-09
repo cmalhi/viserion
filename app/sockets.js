@@ -49,7 +49,6 @@ var socketInstance = function(io) {
     });
 
     socket.on('updatePref', function(newPref) {
-      console.log('newPref', newPref);
       io.sockets.emit('updatePrefDomStore', newPref)
     })
 
