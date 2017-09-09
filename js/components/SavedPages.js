@@ -9,11 +9,11 @@ export default class SavedPages extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`${global.HOST}/usertemplates/all`)
+    axios.get(`${global.HOST}/sites/list/test`)
       .then((res) => {
         this.setState({ templates: res.data });
       })
-      .catch((err) => console.log('Err getting /usertemplates/all: ', err));
+      .catch((err) => console.log('Err getting /sites/list: ', err));
   }
 
   render() {

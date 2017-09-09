@@ -7,6 +7,7 @@ exports.addOne = function(req, res) {
   const newSite = { userId, html, preferences };
   Site.create(newSite)
     .then((site) => {
+      console.log(site);
       const siteId = site._id;
       const update = { $push: { 'savedSites': siteId } }
       User.findOneAndUpdate(userId, update, { new: true })

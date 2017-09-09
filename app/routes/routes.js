@@ -55,11 +55,13 @@ var routerInstance = function(io) {
 
   router.get('/sites/list/:userid', siteController.retrieveList);
 
-  router.get('/sites/all', siteController.retrieveAll)
+  router.get('/sites/all', siteController.retrieveAll);
+  
+  router.get('/sites/all/:userid', siteController.retrieveUserAll);
   
   router.get('/sites/:siteid', siteController.retrieveOne);
 
-  router.get('/sites/:userid', siteController.retrieveUserAll);
+  
 
   
 
