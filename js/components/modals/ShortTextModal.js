@@ -2,7 +2,7 @@ import React from 'react';
 import { Animated, Dimensions, Image, Text, TouchableOpacity, View, WebView, Button, StyleSheet, TextInput } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { changePrefs } from '../../actions/index';
+import { updatePrefs } from '../../actions/index';
 const io = require('socket.io-client');
 
 var {
@@ -39,7 +39,8 @@ class ShortTextModal extends React.Component {
     this.closeModal();
     // socket.emit('changeTitleDom', { key: this.props.id, textValue: this.state.title, data: this.props.data });
     this.props.data.newValue = this.state.title;
-    this.props.changePrefs(this.props.data);
+    var newPreferences = changePrefs(this.props.data, this.props.preferences);
+    this.props.updatePrefs(newPreferences);
 
     // send preference
     // get rid of changeTitleDom socket emit
@@ -102,7 +103,7 @@ function mapStateToProps({ preferences }) {
 }
 
 const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({changePrefs}, dispatch)
+  return bindActionCreators({updatePrefs}, dispatch)
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(ShortTextModal);
