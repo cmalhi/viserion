@@ -10,6 +10,14 @@ const componentMap = {
       title: 'defaultTitle',
     },
   },
+  PricingList: {
+    nickName: 'My Pricing',
+    componentName: 'PricingListModal',
+    attr: {
+      details:['Milk..........$4.79','Bread......$1.39','Eggs.......$2.39'],
+      color: 'green',
+    },
+  },
   ImageContent: {
     nickName: 'My ImageContent',
     componentName: 'ImageContent',
