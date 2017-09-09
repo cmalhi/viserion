@@ -30,7 +30,7 @@ const io = require('socket.io-client');
 export default TabNavigator(
   {
     // 'Index': { screen: Stack },
-    'Feed': { screen: SavedPages },
+    'Gallery': { screen: MyPages },
     'My Sites': { screen: MyPages },
   },
   {
@@ -42,8 +42,8 @@ export default TabNavigator(
           case 'Index':
             iconName = Platform.OS === 'ios' ? `ios-home${focused ? '' : '-outline'}` : 'md-home';
             break;
-          case 'Feed':
-            iconName = Platform.OS === 'ios' ? `ios-contacts${focused ? '' : '-outline'}` : 'md-contacts';
+          case 'Gallery':
+            iconName = Platform.OS === 'ios' ? `ios-search${focused ? '' : '-outline'}` : 'md-search';
             break;
           case 'My Sites':
             iconName = Platform.OS === 'ios' ? `ios-browsers${focused ? '' : '-outline'}` : 'md-browsers';
@@ -62,17 +62,9 @@ export default TabNavigator(
     tabBarOptions: {
       // activeTintColor: '#e91e63',
       style: {
-        height: 30,
+        height: 35,
+        backgroundColor: 'white',
       },
     },
-    // tabBarComponent: props => {
-    //   const backgroundColor = 'red';
-    //   return (
-    //     <TabView.TabBarTop
-    //       {...props}
-    //       style={{ backgroundColor }}
-    //     />
-    //   )
-    // },
   }
 );

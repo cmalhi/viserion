@@ -39,8 +39,8 @@ export const store = createStore(
 
 const Root = StackNavigator(
   {
-    Index: { screen: MyPages },
-    // Index: { screen: HomeScreen },
+    // Index: { screen: MainTabNavigator },
+    Index: { screen: HomeScreen },
     MainApp: { screen: MainTabNavigator },
     PresetPalettes: { screen: PresetPalettes },
     ThreeColorPicker: { screen: ThreeColorPicker },
@@ -61,7 +61,7 @@ const Root = StackNavigator(
   },
   {
     navigationOptions: {
-      title: 'WebExpress',
+      title: 'PiggyPages',
     },
   }
 );

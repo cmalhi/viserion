@@ -5,6 +5,7 @@ import { Entypo } from '@expo/vector-icons';
 export default class MyPages extends React.Component {
 
   render() {
+    const { navigate } = this.props.navigation;
     return(
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.content}>
@@ -24,7 +25,7 @@ export default class MyPages extends React.Component {
           <TouchableHighlight
             style={styles.addButton}
             underlayColor='#ff7043'
-            onPress={()=>{console.log('pressed')}}
+            onPress={()=>{ navigate('Template') }}
           >
             <Entypo name="plus" size={25} color="white" />
           </TouchableHighlight>
