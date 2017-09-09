@@ -1,12 +1,11 @@
 import React from 'react';
 import { StyleSheet, Button, Text, View, ScrollView } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import { TabNavigator, StackNavigator, TabView } from 'react-navigation';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducers/index';
-const io = require('socket.io-client');
 import ThreeColorPicker from './ThreeColorPicker';
 import ChooseTitle from './ChooseTitle';
 import ChooseLayout from './ChooseLayout/index';
@@ -23,6 +22,7 @@ import ColorModal from './modals/ColorModal';
 import AddComponent from './AddComponent_deprecated';
 import ChangeComponent from './ChangeComponent';
 import HomeScreen from './HomeScreen';
+const io = require('socket.io-client');
 
 import PresetPalettes from './PresetPalettes';
 
@@ -34,26 +34,52 @@ export const store = createStore(
   )
 );
 
-const AppNavigator = StackNavigator({
-  // Index: { screen: PresetPalettes },
-  Index: { screen: HomeScreen },
-  PresetPalettes: { screen: PresetPalettes },
-  ThreeColorPicker: { screen: ThreeColorPicker },
-  Template: { screen: ChooseLayout },
-  Title: { screen: ChooseTitle },
-  ConfirmSite: { screen: ConfirmSite },
-  ShareScreen: { screen: SharedScreen },
-  Keywords: { screen: ChooseKeywords },
-  Image: { screen: ImageUploader },
-  Saved: { screen: SavedPages },
-  Login: { screen: Login },
-  SignUp: { screen: SignUp },
-  UserEdit: { screen: UserEdit },
-  ColorPicker: { screen: ColorPicker },
-  ColorModal: { screen: ColorModal },
-  AddComponent: { screen: AddComponent },
-  ChangeComponent: { screen: ChangeComponent },
-});
+const Stack = StackNavigator(
+  {
+    // Index: { screen: PresetPalettes },
+    Index: { screen: HomeScreen },
+    PresetPalettes: { screen: PresetPalettes },
+    ThreeColorPicker: { screen: ThreeColorPicker },
+    Template: { screen: ChooseLayout },
+    Title: { screen: ChooseTitle },
+    ConfirmSite: { screen: ConfirmSite },
+    ShareScreen: { screen: SharedScreen },
+    Keywords: { screen: ChooseKeywords },
+    Image: { screen: ImageUploader },
+    Saved: { screen: SavedPages },
+    Login: { screen: Login },
+    SignUp: { screen: SignUp },
+    UserEdit: { screen: UserEdit },
+    ColorPicker: { screen: ColorPicker },
+    ColorModal: { screen: ColorModal },
+    AddComponent: { screen: AddComponent },
+    ChangeComponent: { screen: ChangeComponent },
+  }
+);
+
+const AppNavigator = TabNavigator(
+  {
+    'Index': { screen: Stack },
+    'Feed': { screen: SavedPages },
+    'My Sites': { screen: SavedPages },
+  },
+  {
+    tabBarPosition: 'bottom',
+    animationEnabled: true,
+    tabBarOptions: {
+      activeTintColor: '#e91e63',
+    },
+    // tabBarComponent: props => {
+    //   const backgroundColor = 'red';
+    //   return (
+    //     <TabView.TabBarTop
+    //       {...props}
+    //       style={{ backgroundColor }}
+    //     />
+    //   )
+    // },
+  }
+);
 
 export default () => (
   <Provider store={store}>
