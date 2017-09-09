@@ -30,6 +30,7 @@
       this.state = {
         sitePreferences: [
           {
+            id: 'defaultheader',
             componentName: <Hero1 />,
             attr: {
               bgColor: '#eee',
@@ -37,6 +38,7 @@
             }
           },
           {
+            id: 'defaulttextcontent',
             componentName: <PricingListModal />,
             attr: {
               details:['Milk..........$4.79','Bread......$1.39','Eggs.......$2.39'],
@@ -51,6 +53,7 @@
             }
           },
           {
+            id: 'defaultfooter',
             componentName: <Footer />,
             attr: {
               text: 'I am foot'
@@ -128,7 +131,8 @@
           { this.state.sitePreferences.map((component, i) => {
             const child = component.componentName;
             const props = component.attr;
-            return React.cloneElement(child, Object.assign(props, { key: i }));
+            const id = component.id;
+            return React.cloneElement(child, Object.assign(props, { key: i, id }));
           }) }
         </div>
       )
