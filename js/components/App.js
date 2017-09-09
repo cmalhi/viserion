@@ -20,7 +20,7 @@ import SignUp from './SignUp/index';
 import UserEdit from './UserEdit';
 import ColorPicker from './modals/ColorPicker';
 import ColorModal from './modals/ColorModal';
-import AddComponent from './AddComponent';
+import AddComponent from './AddComponent_deprecated';
 import ChangeComponent from './ChangeComponent';
 import HomeScreen from './HomeScreen';
 

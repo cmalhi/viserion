@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { setPrefs } from '../../actions/index';
 const io = require('socket.io-client');
+import { getObj, removeByValue } from '../../utils'
 
 var {
   height: deviceHeight
@@ -28,58 +29,7 @@ class OrderModal extends React.Component {
     this.closeModal = this.closeModal.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
     this.onChangeOrder = this.onChangeOrder.bind(this);
-  }
-
-  /*
-   * getObj()
-   * Input:
-   *  - objArr [ {1: 'hi', 2: 'bye}, {1: 'hello} ]
-   *  - key: 1
-   *  - value: 'hi'
-   * Output:
-   *  - {1: 'hi', 2: 'bye'}
-   */
-  getObj = (objArr, key, value) => {
-    for (var i = 0; i < objArr.length; i++) {
-      if (objArr[i][key] && objArr[i][key] === value) {
-        return objArr[i]
-      }
-    }
-    return false;
-  };
-
-  onChangeOrder(orderData) {
-    const socket = io(global.HOST, { transports: ['websocket'] });
-    // this.setState({ currentOrder: orderData });
-
-    // Example
-
-    // orderData: ["TextContent", "Hero", "Footer"]
-
-    // sitePreferences = {
-    // components: [
-    //   {
-    //     componentName: 'Hero',
-    //     attr: { title: 'Hello' },
-    //   },
-    //   {
-    //     componentName: 'TextContent',
-    //     attr: { title: 'title', body: 'goodbye' },
-    //   },
-    //   {
-    //     componentName: 'Footer',
-    //     attr: { title: 'Hello' },
-    //   },
-    // ]
-    // }
-
-    /* Rearrange the order of our sitePreferences */
-    var sitePref = [];
-    orderData.forEach((name) => {
-      var objArr = this.state.sitePreferences;
-      sitePref.push(this.getObj(objArr, 'componentName', name))
-    });
-    this.setState({ sitePreferences : sitePref });
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentWillMount() {
@@ -96,7 +46,7 @@ class OrderModal extends React.Component {
     let components = this.props.preferences;
     let sequencedData = {};
     components.map((c) => {
-      sequencedData[c.componentName] = { componentName: c.componentName }
+      sequencedData[c.id] = { id: c.id, componentName: c.componentName };
     });
     this.setState({ sequencedData });
   }
@@ -106,6 +56,40 @@ class OrderModal extends React.Component {
       duration: 300,
       toValue: 0,
     }).start();
+  }
+
+  /**
+   * onChangeOrder - changes sitePreferences according to the order
+   * @param {Array} orderData [ componentId, ..., componentId]
+   *
+   * sitePreferences = {
+      components: [
+        {
+          componentName: 'Hero',
+          attr: { title: 'Hello' },
+        },
+        {
+          componentName: 'TextContent',
+          attr: { title: 'title', body: 'goodbye' },
+        },
+        {
+          componentName: 'Footer',
+          attr: { title: 'Hello' },
+        },
+      ]
+      }
+   *
+   */
+  onChangeOrder(orderData) {
+    const socket = io(global.HOST, { transports: ['websocket'] });
+    var sitePref = [];
+
+    orderData.forEach((id) => {
+      var objArr = this.state.sitePreferences;
+      var targetObj = getObj(objArr, 'id', id);
+      sitePref.push(targetObj)
+    });
+    this.setState({ sitePreferences : sitePref });
   }
 
   closeModal() {
@@ -121,6 +105,17 @@ class OrderModal extends React.Component {
     socket.emit('updatePref', this.state.sitePreferences);
   }
 
+  handleDelete(id) {
+    const socket = io(global.HOST, { transports: ['websocket'] });
+    console.log('handleDelete id', id);
+    console.log('ok i wil delete yo');
+    // emit socket
+    var componentToDelete = getObj(this.state.sitePreferences, 'id', id);
+    var newSitePreferences = removeByValue(this.state.sitePreferences.slice(), componentToDelete);
+    // this.setState({sitePreferences: newSitePreferences})
+    // socket.emit('updatePref', newSitePreferences);
+  }
+
   render() {
     return(
       <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
@@ -129,7 +124,7 @@ class OrderModal extends React.Component {
             <Text style={styles.center}>Close menu</Text>
           </TouchableOpacity>
           <Text style={styles.bigText}>Rearrange Components</Text>
-          <SequencedList data={this.state.sequencedData} onChangeOrder={this.onChangeOrder} />
+          <SequencedList data={this.state.sequencedData} onChangeOrder={this.onChangeOrder} handleDelete={this.handleDelete} />
           <View style={styles.options}>
             <Button onPress={this.handleUpdate} title="Update" />
           </View>
