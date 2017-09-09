@@ -18,7 +18,7 @@ export default function(action, state) {
     // sample input path: ['attr', 'texts', 1, 'text'];
     // after the dins index function it should look like this: ['2', attr', 'texts', 1, 'text'];
 
-    var newPrefs = [...obj]
+    var newPrefs = Object.create(obj)
     var head = newPrefs;
     for (var i = 0; i < path.length - 1; i++) {
       head = head[path[i]];
@@ -28,11 +28,11 @@ export default function(action, state) {
   }
 
   var index = findIndex(action.id);
-  
+  console.log('THE INDEX IS ', index)
   console.log(action.path)
   
   var insertIndexInPath = function(path, index) {
-    var newPath = [...path];
+    var newPath = Array.from(path);
     newPath.unshift(index);
     return newPath;
   }
@@ -50,5 +50,5 @@ export default function(action, state) {
   // }
   // find index from current preferences state
   // components[index][attr][thing][possible nested step]
-  return updatedPrefs;
+  return [...updatedPrefs];
 }

@@ -84,13 +84,6 @@ export function updatePrefs(newPrefs) {
   }
 }
 
-export function changePrefs(changeAndPath) {
-  return {
-    type: 'CHANGE_PREFS',
-    payload: changeAndPath,
-  }
-}
-
 export const selectPreferences = (selectedIndex) => (dispatch, getState) => {
   const { preferencesAll } = getState();
   dispatch({ type: 'SELECT_PREFERENCES', payload: preferencesAll[selectedIndex] });
