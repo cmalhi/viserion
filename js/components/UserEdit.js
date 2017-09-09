@@ -95,7 +95,7 @@ class UserEdit extends React.Component {
 
   handleSubmit() {
     // TODO: Send these preferences to DB along with HTML TEMPLATE
-    
+
   }
 
   render() {

@@ -64,8 +64,8 @@ const Root = StackNavigator(
 
 const AppNavigator = StackNavigator({
   // Index: { screen: PresetPalettes },
-  // Index: { screen: HomeScreen },
-  Index: { screen: UserEdit },
+  Index: { screen: HomeScreen },
+  // Index: { screen: UserEdit },
   PresetPalettes: { screen: PresetPalettes },
   ThreeColorPicker: { screen: ThreeColorPicker },
   Template: { screen: ChooseLayout },

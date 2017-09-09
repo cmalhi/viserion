@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import axios from 'axios';
 import componentMap from '../componentMap';
+import { AsyncStorage } from 'react-native';
 
 const combineDesires = (desires) => {
   console.log('combineDesires called');
@@ -84,11 +85,6 @@ export function updatePrefs(newPrefs) {
   }
 }
 
-export const selectPreferences = (selectedIndex) => (dispatch, getState) => {
-  const { preferencesAll } = getState();
-  dispatch({ type: 'SELECT_PREFERENCES', payload: preferencesAll[selectedIndex] });
-}
-
 export const createPreferences = () => (dispatch, getState) => {
   const { layouts, colors, title, keywords } = getState();
 
@@ -108,6 +104,22 @@ export const createPreferences = () => (dispatch, getState) => {
   const preferences = combineDesires(desires);
   dispatch({ type: 'CREATE_PREFERENCES', payload: preferences });
 };
+
+export const selectPreferences = (selectedIndex) => (dispatch, getState) => {
+  const { preferencesAll } = getState();
+  const selectedPreferences = preferencesAll[selectedIndex];
+  console.log('>>>>>>>>>>>>', selectedPreferences);
+  AsyncStorage.setItem('preferences', JSON.stringify(selectedPreferences));
+  dispatch({ type: 'SELECT_PREFERENCES', payload: selectPreferences });
+}
+
+export const savePreferences = () => (dispatch, getState) => {
+  const { preferences } = getState();
+
+
+
+  dispatch(type: 'SAVE_PREFERENCES', payload: preferences )
+}
 
 
 export function postPreferences(navigateToNext) {
