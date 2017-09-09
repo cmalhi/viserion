@@ -1,4 +1,6 @@
-export default `<!DOCTYPE html>
+export default (rawPreferencesObj) => {
+  var rawPreferences = JSON.stringify(rawPreferencesObj)
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -333,36 +335,15 @@ bigger {
     constructor(props) {
       super(props);
       this.state = {
-        bgColor: null,
-        textcontent: 'TextContent',
-        // UNIQUE TO CONFIRM SITE TEMPLATE
-        // rawPreferences: #{rawPreferences},
+        rawPreferences: ${rawPreferences},
         sitePreferences: [
-            {
-              componentName: <Hero1 />,
-              attr: {
-                bgColor: '#eee',
-                title: 'Custom title',
-              }
-            },
-            {
-              componentName: <TextContent />,
-              attr: {
-                title: 'With All Eyes on the South, the Most Important Art Show in America Is Underway in Pittsburgh',
-                body: 'The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols.'
-              }
-            },
-            {
-              componentName: <Footer />,
-              attr: {
-                text: 'I am foot'
-              }
-            }
-          ],
-      }
+          
+        ]
+      };
       this.map = this.map.bind(this);
       this.toComponents = this.toComponents.bind(this);
     }
+
     map(name) {
       const components = {
         Hero: {
@@ -388,27 +369,48 @@ bigger {
         return components[name].componentName;
       }
     }
-    toComponents(raw) {
-      // Components is an array of objects {name: 'TextContent', attr: }
-      // Converts component to array of objects {name: <TextContent />, attr: }
-      var newPreferences = [];
-      raw.forEach((comp) => {
-        comp.componentName = this.map(comp.componentName)
-        newPreferences.push(comp)
-      })
-      return newPreferences;
-    }
-    componentDidMount() {
 
-      // UNIQUE TO CONFIRM SITE TEMPLATE
-      let newSitePreferences = this.toComponents(this.state.rawPreferences);
-      this.setState( {sitePreferences: newSitePreferences })
-      console.log('NEW SITE PREFERENCES', newSitePreferences);
+    /*
+     * toComponent(raw) takes in an object and converts the object to a React-friendly version
+     * Input: obj of shape { componentName: 'TextContent', attr: {} }
+     * Output: obj { component: <TextContent />, attr: {} }
+     */
+    toComponent(raw) {
+      var res = {...raw};
+      res.componentName = this.map(res.componentName);
+      return res;
+    }
+
+    /* Input: Raw is an array of objects [{componentName: 'TextContent', attr: }]
+     * Output: Converts component to array of objects {componentName: <TextContent />, attr: }
+     */
+    toComponents(raw) {
+      var res = [];
+      raw.forEach((comp) => {
+//        comp.componentName = this.map(comp.componentName)
+        var newComp = this.toComponent(comp)
+        res.push(newComp)
+      });
+      return res;
+    }
+
+    componentDidMount() {
       
-      socket.on('changePref', (sampleData) => {
-        let newSitePreferences = this.toComponents(sampleData);
-        this.setState({ sitePreferences: newSitePreferences })
-    })
+      let newPref = this.toComponents(this.state.rawPreferences);
+      this.setState({ sitePreferences: newPref})
+    
+      // this.setState({ sitePreferences: [{componentName: <Hero />, attr: {title: 'hi'}}] });
+
+      // Web client listens to 'addPrefDomStore' event emitted when the user hits 'Submit'
+      socket.on('addPrefDomStore', (addition) => {
+        let newPref = this.state.sitePreferences; // Copy old site preferences
+        newPref = [...newPref, this.toComponent(addition)];
+        this.setState({ sitePreferences: newPref });
+      });
+
+      socket.on('updatePrefDomStore', (newPref) => {
+        this.setState({ sitePreferences: this.toComponents(newPref) });
+      });
     }
     render() {
       return (
@@ -427,7 +429,7 @@ bigger {
       super(props);
       this.state = {
         bgColor: this.props.bgColor,
-        title: 'New page',
+        title: this.props.title,
       };
       this.handleHeaderClick = this.handleHeaderClick.bind(this);
     }
@@ -666,7 +668,7 @@ bigger {
     render() {
       return (
         <footer className="footer-area">
-          <p><EditableShortText value="Footer" /></p>
+          <p><EditableShortText value={this.props.text} /></p>
         </footer>
       )
     }
@@ -675,3 +677,4 @@ bigger {
 </script>
 </body>
 </html>`
+}

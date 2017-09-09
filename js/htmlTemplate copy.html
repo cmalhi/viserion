@@ -333,60 +333,57 @@ bigger {
     constructor(props) {
       super(props);
       this.state = {
-        bgColor: null,
-        textcontent: 'TextContent',
-        // UNIQUE TO CONFIRM SITE TEMPLATE
-        // rawPreferences: [{ 
-        //   attr: {
-        //     bgColor: "defaultColor",
-        //     title: "defaultTitle",
-        //     },
-        //   componentName: "Hero",
-        //   name: "My Hero",
-        //   },
-        //   { 
-        //   attr: {
-        //     bgColor: "defaultColor",
-        //     title: "defaultTitle",
-        //     },
-        //   componentName: "Hero",
-        //   name: "My Hero",
-        //   },
-
-        //   {
-        //   attr: {
-        //     bgColor: "defaultColor",
-        //     text: "defaultText",
-        //   },
-        //   componentName: "Hero",
-        //     name: "My Footer",
-        // }],
+        rawPreferences: [{ 
+  attr: {
+    bgColor: "#ECEA00",
+    title: "defaultTitle",
+    },
+  componentName: "Hero",
+  name: "My Hero",
+  },
+  { 
+  attr: {
+    bgColor: "#BCF200",
+    title: "defaultTitle",
+    },
+  componentName: "Hero",
+  name: "My Hero",
+  },
+  {
+  attr: {
+    bgColor: "#ECEA00",
+    text: "defaultText",
+  },
+  componentName: "Hero",
+    name: "My Footer",
+}],
         sitePreferences: [
-            {
-              componentName: <Hero1 />,
-              attr: {
-                bgColor: '#eee',
-                title: 'Custom title',
-              }
-            },
-            {
-              componentName: <TextContent />,
-              attr: {
-                title: 'With All Eyes on the South, the Most Important Art Show in America Is Underway in Pittsburgh',
-                body: 'The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols.'
-              }
-            },
-            {
-              componentName: <Footer />,
-              attr: {
-                text: 'I am foot'
-              }
+          {
+            componentName: <Hero1 />,
+            attr: {
+              bgColor: '#eee',
+              title: 'Custom title',
             }
-          ],
-      }
+          },
+          {
+            componentName: <TextContent />,
+            attr: {
+              title: 'With All Eyes on the South, the Most Important Art Show in America Is Underway in Pittsburgh',
+              body: 'The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols.'
+            }
+          },
+          {
+            componentName: <Footer />,
+            attr: {
+              text: 'I am foot'
+            }
+          }
+        ]
+      };
       this.map = this.map.bind(this);
       this.toComponents = this.toComponents.bind(this);
     }
+
     map(name) {
       const components = {
         Hero: {
@@ -412,22 +409,46 @@ bigger {
         return components[name].componentName;
       }
     }
-    toComponents(raw) {
-      // Components is an array of objects {name: 'TextContent', attr: }
-      // Converts component to array of objects {name: <TextContent />, attr: }
-      var newPreferences = [];
-      raw.forEach((comp) => {
-        comp.componentName = this.map(comp.componentName)
-        newPreferences.push(comp)
-      })
-      return newPreferences;
+
+    /*
+     * toComponent(raw) takes in an object and converts the object to a React-friendly version
+     * Input: obj of shape { componentName: 'TextContent', attr: {} }
+     * Output: obj { component: <TextContent />, attr: {} }
+     */
+    toComponent(raw) {
+      var res = {...raw};
+      res.componentName = this.map(res.componentName);
+      return res;
     }
+
+    /* Input: Raw is an array of objects [{componentName: 'TextContent', attr: }]
+     * Output: Converts component to array of objects {componentName: <TextContent />, attr: }
+     */
+    toComponents(raw) {
+      var res = [];
+      raw.forEach((comp) => {
+//        comp.componentName = this.map(comp.componentName)
+        var newComp = this.toComponent(comp)
+        res.push(newComp)
+      });
+      return res;
+    }
+
     componentDidMount() {
-      console.log('mounted');
-      socket.on('changePref', (sampleData) => {
-        let newSitePreferences = this.toComponents(sampleData);
-        this.setState({ sitePreferences: newSitePreferences })
-    })
+      
+      let newPref = this.toComponents(this.state.rawPreferences);
+      this.setState({ sitePreferences: newPref})
+
+      // Web client listens to 'addPrefDomStore' event emitted when the user hits 'Submit'
+      socket.on('addPrefDomStore', (addition) => {
+        let newPref = this.state.sitePreferences; // Copy old site preferences
+        newPref = [...newPref, this.toComponent(addition)];
+        this.setState({ sitePreferences: newPref });
+      });
+
+      socket.on('updatePrefDomStore', (newPref) => {
+        this.setState({ sitePreferences: this.toComponents(newPref) });
+      });
     }
     render() {
       return (

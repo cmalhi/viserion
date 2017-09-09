@@ -2,7 +2,7 @@ const defaultPreferencesAll = [[{
   name: 'My Hero',
   componentName: 'Hero',
   attr: {
-    bgColor: 'defaultColor',
+    bgColor: '#FB5B45',
     title: 'defaultTitle',
   },
 },
@@ -10,7 +10,23 @@ const defaultPreferencesAll = [[{
   name: 'My Footer',
   componentName: 'Footer',
   attr: {
-    bgColor: 'defaultColor',
+    bgColor: '#009AF2',
+    text: 'defaultText',
+  },
+}], 
+[{
+  name: 'My Hero',
+  componentName: 'Hero',
+  attr: {
+    bgColor: '#009AF2',
+    title: 'defaultTitle',
+  },
+},
+{
+  name: 'My Footer',
+  componentName: 'Footer',
+  attr: {
+    bgColor: '#009AF2',
     text: 'defaultText',
   },
 }]];

@@ -10,45 +10,40 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addSite, selectPreferences } from '../actions/index';
 import axios from 'axios';
-import htmlTemplate from '../htmlTemplate';
+import renderHtmlTemplate from '../htmlTemplate';
+const io = require('socket.io-client');
 
-const rawPreferences = [{ 
+const rawPreferences = `[{
+  name: 'My Hero',
+  componentName: 'Hero',
   attr: {
-    bgColor: "defaultColor",
-    title: "defaultTitle",
-    },
-  componentName: "Hero",
-  name: "My Hero",
+    bgColor: 'green',
+    title: 'defaultTitle',
   },
-  { 
+},
+{
+  name: 'My Footer',
+  componentName: 'Footer',
   attr: {
-    bgColor: "defaultColor",
-    title: "defaultTitle",
-    },
-  componentName: "Hero",
-  name: "My Hero",
+    bgColor: '#009AF2',
+    text: 'defaultText',
   },
-  {
-  attr: {
-    bgColor: "defaultColor",
-    text: "defaultText",
-  },
-  componentName: "Hero",
-    name: "My Footer",
-}]
+}]`
 
 class ConfirmSite extends React.Component {
   constructor(props){
       super(props);
       this.state = {
-          uris: [htmlTemplate],
+        preferencesAll: this.props.preferencesAll,
       }
       this.handlePress = this.handlePress.bind(this);
       // this.getURIs = this.getURIs.bind(this);
   }
 
   componentDidMount(){
-    // emit the preference with the index
+    // const html = renderHtmlTemplate(JSON.stringify(rawPreferences));
+    // const html2 = renderHtmlTemplate(JSON.stringify(this.props.preferencesAll[0]));
+
   }
 
  // getURIs(){
@@ -76,20 +71,15 @@ class ConfirmSite extends React.Component {
     if(this.props.preferencesAll.length){
       var slides = [];
       for(var u = 0; u < this.props.preferencesAll.length; u +=1) {
-
-        // for each type of preference
-        // string replace this.state. webWebView Index
-
-        // in webview, if index matches, change state
-
-
+        const html = renderHtmlTemplate(this.props.preferencesAll[u]);
+        // console.log('html >>>>>>>>', html);
         slides.push(
           <View key={u} style={styles.slides}>
             <WebView style={{padding: 10, width:350 }}
               automaticallyAdjustContentInsets={false}
               scrollEnabled={true}
               scalesPageToFit={true}
-              source={{html:htmlTemplate}}>
+              source={{html: html}}>
             </WebView>
             <Button title={'Submit'} onPress={this.handlePress.bind(this, u)} />
           </View>
@@ -125,3 +115,4 @@ const mapStateToProps = ({preferencesAll}) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConfirmSite);
+
