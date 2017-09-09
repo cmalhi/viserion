@@ -12,7 +12,7 @@ class ChooseLayout extends React.Component {
     this.state = {
       // Stub layout data
       layoutsData: layoutsData,
-      currentLayout: '',
+      currentLayout: {'layouts':[]},
       chosenLayouts: {
       },
       selectedLayouts: 0,
@@ -36,7 +36,7 @@ class ChooseLayout extends React.Component {
     const newChosenLayouts = Object.assign({}, this.state.chosenLayouts);
     currentLayout.layouts.forEach(layoutType => {
       // Keep track of desired layout styles with shape chosenLayouts: {grid: 1, hero: 3}
-      if (newChosenLayouts[layoutType]) {
+      if (!!layoutType && newChosenLayouts[layoutType]) {
         newChosenLayouts[layoutType]++;
       } else {
         newChosenLayouts[layoutType] = 1;
