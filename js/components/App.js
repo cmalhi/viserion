@@ -7,7 +7,7 @@ import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducers/index';
 const io = require('socket.io-client');
-import ChooseColor from './ChooseColor';
+import ThreeColorPicker from './ThreeColorPicker';
 import ChooseTitle from './ChooseTitle';
 import ChooseLayout from './ChooseLayout/index';
 import ChooseKeywords from './ChooseKeywords';
@@ -24,6 +24,8 @@ import AddComponent from './AddComponent';
 import ChangeComponent from './ChangeComponent';
 import HomeScreen from './HomeScreen';
 
+import PresetPalettes from './PresetPalettes';
+
 export const store = createStore(
   rootReducer,
   applyMiddleware(
@@ -33,9 +35,10 @@ export const store = createStore(
 );
 
 const AppNavigator = StackNavigator({
-  // Index: { screen: UserEdit },
+  // Index: { screen: PresetPalettes },
   Index: { screen: HomeScreen },
-  Color: { screen: ChooseColor },
+  PresetPalettes: { screen: PresetPalettes },
+  ThreeColorPicker: { screen: ThreeColorPicker },
   Template: { screen: ChooseLayout },
   Title: { screen: ChooseTitle },
   ConfirmSite: { screen: ConfirmSite },

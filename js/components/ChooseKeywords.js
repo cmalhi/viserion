@@ -19,7 +19,7 @@ class ChooseKeywords extends React.Component {
   handleKeywordPress(keyword) {
     const selected = this.state.selectedKeywords[keyword] ? false : true;
     const newSelectedKeywords = Object.assign({}, this.state.selectedKeywords, {[keyword]: selected});
-    this.setState({selectedKeywords: newSelectedKeywords }, () => console.log('keyword has been pressed', this.state.selectedKeywords) );
+    this.setState({ selectedKeywords: newSelectedKeywords });
   }
 
   handleSubmit() {

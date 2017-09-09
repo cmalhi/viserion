@@ -49,7 +49,7 @@ class HomeScreen extends React.Component {
         <Text onPress={() => { navigate('SignUp')}} style={styles.defaultText}>Step 0: Sign Up</Text>
         <Text onPress={() => { navigate('Login')}} style={styles.defaultText}>Step 0.5: Log In</Text>
         <Text onPress={() => { navigate('Template')}} style={styles.defaultText}>Step 1: Template</Text>
-        <Text onPress={() => { navigate('Color')}} style={styles.defaultText}>Step 2: Color</Text>
+        <Text onPress={() => { navigate('PresetPalettes')}} style={styles.defaultText}>Step 2: Color</Text>
         <Text onPress={() => { navigate('Keywords')}} style={styles.defaultText}>Step 3: Keywords</Text>
         <Text onPress={() => { navigate('Title')}} style={styles.defaultText}>Step 4: Title</Text>
         <Text onPress={() => { navigate('ConfirmSite')}} style={styles.defaultText}>Step 5: Confirm Selection</Text>
