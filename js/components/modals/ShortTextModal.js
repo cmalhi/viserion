@@ -39,6 +39,7 @@ class ShortTextModal extends React.Component {
     this.closeModal();
     // socket.emit('changeTitleDom', { key: this.props.id, textValue: this.state.title, data: this.props.data });
     this.props.data.newValue = this.state.title;
+    console.log('this.props.data is  ====== ',this.props.data)
     this.props.changePrefs(this.props.data);
 
     // send preference
