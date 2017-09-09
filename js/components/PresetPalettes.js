@@ -24,14 +24,13 @@ class PresetPalettes extends React.Component {
 
   submitColor() {
     const { navigate } = this.props.navigation;
-    // TODO refactor later
+    // TODO refactor/clean up later
     let chosenColors = [];
     for (color in this.state.selectedColors) {
       if (this.state.selectedColors[color] === true) {
         chosenColors.push(color)
       }
     }
-    console.log('chosenColors', chosenColors)
     this.props.addColors(chosenColors);
     navigate('Keywords')
   }

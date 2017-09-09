@@ -29,7 +29,7 @@ export default class SequencedList extends Component {
   }
 
   _renderRow = ({data, active}) => {
-    return <Row data={data} active={active} />
+    return <Row data={data} active={active} handleDelete={this.props.handleDelete} />
   }
 }
 
@@ -90,6 +90,7 @@ class Row extends Component {
       ]}>
         {/*<Image source={{uri: data.image}} style={styles.image} />*/}
         <Text style={styles.text}>{data.componentName}</Text>
+        <Text onPress={() => this.props.handleDelete(data.id)}>Delete</Text>
       </Animated.View>
     );
   }
