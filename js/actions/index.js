@@ -90,6 +90,10 @@ export function changePrefs(changeAndPath) {
     payload: changeAndPath,
 
   }
+
+export const selectPreferences = (selectedIndex) => (dispatch, getState) => {
+  const { preferencesAll } = getState();
+  dispatch({ type: 'SELECT_PREFERENCES', payload: preferencesAll[selectedIndex] });
 }
 
 export const createPreferences = () => (dispatch, getState) => {

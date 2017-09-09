@@ -78,6 +78,11 @@ var routerInstance = function(io) {
     //   });
   });
 
+
+  // Post to render react pages for web swiper views
+  // Receives array of preferences with each object
+  // Sends them to swiper to render pages
+
   /*
    * /POST /generate
    * 1) Uses user preferences to pull relevant file components

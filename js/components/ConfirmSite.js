@@ -8,15 +8,20 @@ import {
 import Swiper from 'react-native-swiper';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { addSite } from '../actions/index';
+import { addSite, selectPreferences } from '../actions/index';
 import axios from 'axios';
+<<<<<<< HEAD
 
 var source = [{ uri: 'http://google.com' }, { uri: 'http://nfl.com' }, { uri: 'http://cnn.com' }];
+=======
+import renderHtmlTemplate from '../htmlTemplate';
+>>>>>>> siteselect
 
 class ConfirmSite extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
+<<<<<<< HEAD
           uris: [],
       };
       this.handlePress = this.handlePress.bind(this);
@@ -40,33 +45,46 @@ class ConfirmSite extends React.Component {
     }).catch(function(err) {
       console.log('There was an error(msg):', err);
     })  
+=======
+        preferencesAll: this.props.preferencesAll,
+      }
+      this.handlePress = this.handlePress.bind(this);
+>>>>>>> siteselect
   }
 
   handlePress(index) {
     const { navigate } = this.props.navigation; 
+<<<<<<< HEAD
     this.props.addSite(this.state.uris[index].uri);
     navigate('ShareScreen');
+=======
+    this.props.selectPreferences(index);
+    navigate('ShareScreen');   
+>>>>>>> siteselect
+  }
+
+  renderViews() {
+    return this.props.preferencesAll.map((preference, index) => {
+      const html = renderHtmlTemplate(preference);
+      return (
+        <View key={index} style={styles.slides}>
+          <WebView style={{padding: 10, width:350 }}
+            automaticallyAdjustContentInsets={false}
+            scrollEnabled={true}
+            scalesPageToFit={true}
+            source={{html: html}}>
+          </WebView>
+          <Button title={'Submit'} onPress={this.handlePress.bind(this, index)} />
+        </View>
+      )
+    })
   }
 
   render() {
-    if(this.state.uris.length){
-      var slides = [];
-      for(var u = 0; u < this.state.uris.length; u +=1) {
-        slides.push(
-          <View key={u} style={styles.slides}>
-            <WebView style={{padding: 10, width:370 }}
-              automaticallyAdjustContentInsets={false}
-              scrollEnabled={true}
-              scalesPageToFit={true}
-              source={this.state.uris[u]}>
-            </WebView>
-            <Button title={'Submit'} onPress={this.handlePress.bind(this, u)} />
-          </View>
-        )
-      }
+    if(!!this.props.preferencesAll){
       return (
         <Swiper style={styles.wrapper} showsButtons>
-          {slides} 
+          {this.renderViews()}
         </Swiper>
       ) 
     } else {
@@ -85,8 +103,13 @@ const styles = {
   }
 };
 
-const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({addSite}, dispatch)
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({addSite, selectPreferences}, dispatch)
 };
 
-export default connect(null, matchDispatchToProps)(ConfirmSite);
+const mapStateToProps = ({preferencesAll}) => {
+  return {preferencesAll};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ConfirmSite);
+
