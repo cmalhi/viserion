@@ -3,6 +3,7 @@ var socketInstance = function(io) {
 
     // Title
     socket.on('launchTitleModal', function(textData) {
+      console.log('the data coming in is ', textData)
       io.sockets.emit('launchTitleModal', textData);
       // TODO: .to(x) to SPECIFY SOCKET ID;
     });
