@@ -30,6 +30,7 @@
       this.state = {
         sitePreferences: [
           {
+            id: 'defaultheader',
             componentName: <Hero1 />,
             attr: {
               bgColor: '#eee',
@@ -37,6 +38,7 @@
             }
           },
           {
+            id: 'defaulttextcontent',
             componentName: <TextContent />,
             attr: {
               title: 'With All Eyes on the South, the Most Important Art Show in America Is Underway in Pittsburgh',
@@ -44,6 +46,7 @@
             }
           },
           {
+            id: 'defaultfooter',
             componentName: <Footer />,
             attr: {
               text: 'I am foot'
@@ -123,7 +126,8 @@
           { this.state.sitePreferences.map((component, i) => {
             const child = component.componentName;
             const props = component.attr;
-            return React.cloneElement(child, Object.assign(props, { key: i }));
+            const id = component.id;
+            return React.cloneElement(child, Object.assign(props, { key: i, id }));
           }) }
         </div>
       )

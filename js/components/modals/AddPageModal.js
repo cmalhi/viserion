@@ -62,7 +62,7 @@ class AddPageModal extends React.Component {
   handleAdd(newComponent) {
     this.closeModal();
     const socket = io(global.HOST, { transports: ['websocket'] });
-    newComponent.attr.id = this.newId();
+    newComponent.id = this.newId();
     socket.emit('addPref', newComponent );
   }
 
