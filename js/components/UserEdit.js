@@ -7,6 +7,7 @@ import LongTextModal from './modals/LongTextModal';
 import ColorModal from './modals/ColorModal';
 import OrderModal from './modals/OrderModal';
 import AddPageModal from './modals/AddPageModal';
+import PricingListModal from './modals/PricingListModal';
 import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -27,6 +28,9 @@ class UserEdit extends React.Component {
       shortTextId: null,
       longTextId: null,
       longTextValue: '',
+      pricingListModal: false,
+      pricingDetails: [],
+      pricingListId: '',
 
       order: [],
       html: '',
@@ -62,6 +66,10 @@ class UserEdit extends React.Component {
       console.log('colorChange data', data);
       this.setState({ colorModal: true });
     });
+
+    socket.on('launchPricingModal2', (list) => {
+      this.setState({ pricingListModal: true, pricingDetails: list.details, pricingListId: list.key });
+    });
   }
 
   handleRearrange() {
@@ -83,6 +91,7 @@ class UserEdit extends React.Component {
         {this.state.colorModal ? <ColorModal navigation={this.props.navigation} closeModal={() => this.setState({colorModal: false})} /> : null}
         {this.state.orderModal ? <OrderModal closeModal={() => this.setState({orderModal: false})} openAddModal={(() => this.setState({addPageModal: true}))} /> : null}
         {this.state.addPageModal ? <AddPageModal closeModal={() => this.setState({addPageModal: false})} /> : null}
+        {this.state.pricingListModal ? <PricingListModal details={this.state.pricingDetails} Id={this.state.pricingListId} closeModal={() =>this.setState({pricingListModal: false})} /> : null }  
         <Button title="Add New Component" onPress={this.handleAdd} />
         <Button title="Rearrange Components" onPress={this.handleRearrange} />
       </View>

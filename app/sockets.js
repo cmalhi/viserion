@@ -38,6 +38,15 @@ var socketInstance = function(io) {
       io.sockets.emit('colorChange2', color);
     });
 
+    //Pricing component
+    socket.on('launchPricingModal', function(list) {
+      io.sockets.emit('launchPricingModal2', list);
+    });
+
+    socket.on('updatePricingList', function(list) {
+      io.sockets.emit('updatePricingList2', list);
+    });
+
     // Add new component
     // socket.on('updatePref', function(sampleData){
     //   // Display new component in webview

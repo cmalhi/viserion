@@ -37,6 +37,13 @@
             }
           },
           {
+            componentName: <PricingListModal />,
+            attr: {
+              details:['Milk..........$4.79','Bread......$1.39','Eggs.......$2.39'],
+              color: 'green'
+            }
+          },
+          {
             componentName: <TextContent />,
             attr: {
               title: 'With All Eyes on the South, the Most Important Art Show in America Is Underway in Pittsburgh',
@@ -64,6 +71,9 @@
         },
         PinterestContent: {
           componentName: <PinterestContent />,
+        },
+        PricingListModal: {
+          componentName: <PricingListModal />,
         },
         ImageCaption: {
           componentName: <ImageCaption/>,
@@ -375,6 +385,71 @@
       )
     }
   }
+
+  class PricingListModal extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          borderColors: this.props.color,
+          title: 'Items On Sale This Week',
+          details: this.props.details,
+          total: '$8.57',
+          key: newId()
+        };
+        this.handleClick = this.handleClick.bind(this);
+        this.styles = {
+          parent: {
+            maxWidth: '420px',
+            border: 'solid 2px',
+            borderColor: this.state.borderColors
+          },
+          title: {
+            border: 'solid 2px',
+            borderColor: this.state.borderColors,
+            textAlign: 'center'
+          },
+          list: {
+            textAlign: 'center',
+            color: this.state.borderColors
+          },
+          total: {
+            width: '80px',
+            margin: '0 auto',
+            border: 'solid 2px',
+            textAlign: 'center',
+            borderColor: this.state.borderColors
+          }
+        }
+      }
+
+      componentDidMount() {
+        socket.on('updatePricingList2', (data) => {
+          if (data.key === this.state.key) this.setState({ details: data.details});
+        });
+      } 
+
+      handleClick() {
+        socket.emit('launchPricingModal', {key: this.state.key, details: this.state.details});
+      }
+
+      render() {
+        var list = this.state.details.map( (item) => {
+         return <div><EditableShortText value={item} color={this.styles.list.color} /></div>
+        })   
+        return (
+          <div className='Parent' style={this.styles.parent} onClick={this.handleClick} >
+            <div id='title' style={this.styles.title}>
+              <EditableShortText value={this.state.title} />
+            </div> 
+            <div id='list' style={this.styles.list}>
+              {list}
+            </div>
+            <div id='total' style={this.styles.total} ><EditableShortText value={this.state.total} /></div>
+          </div> 
+        );
+      }
+    }
+
   ReactDOM.render(<Parent/>, document.getElementById('parent'));
 </script>
 </body>
