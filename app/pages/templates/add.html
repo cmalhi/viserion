@@ -28,38 +28,24 @@
     constructor(props) {
       super(props);
       this.state = {
-        sitePreferences: [
-          {
-            id: 'defaultheader',
-            componentName: <Hero1 />,
-            attr: {
-              bgColor: '#eee',
-              title: 'Custom title',
-            }
+        sitePreferences: [{
+          id: 'hero',
+          nickName: 'My Hero',
+          componentName: <Hero1 />,
+          attr: {
+            bgColor: 'defaultColor',
+            title: 'defaultTitle',
           },
-          {
-            id: 'defaulttextcontent',
-            componentName: <PricingListModal />,
-            attr: {
-              details:['Milk..........$4.79','Bread......$1.39','Eggs.......$2.39'],
-              color: 'green'
-            }
+        },
+        {
+          id: 'footer',
+          nickName: 'My Footer',
+          componentName: <Footer />,
+          attr: {
+            bgColor: 'defaultColor',
+            text: 'defaultText',
           },
-          {
-            componentName: <TextContent />,
-            attr: {
-              title: 'With All Eyes on the South, the Most Important Art Show in America Is Underway in Pittsburgh',
-              body: 'The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols.'
-            }
-          },
-          {
-            id: 'defaultfooter',
-            componentName: <Footer />,
-            attr: {
-              text: 'I am foot'
-            }
-          }
-        ]
+        }]
       };
       this.map = this.map.bind(this);
       this.toComponents = this.toComponents.bind(this);
@@ -121,8 +107,12 @@
         newPref = [...newPref, this.toComponent(addition)];
         this.setState({ sitePreferences: newPref });
       });
-      socket.on('updatePrefDomStore', (newPref) => {
-        this.setState({ sitePreferences: this.toComponents(newPref) });
+      socket.on('updatePrefDomStore', (newPrefs) => {
+        console.log('the newpref coming in ', newPrefs)
+        let newPrefsComp = this.toComponents(newPrefs)
+        console.log('the newpref coming in ', newPrefsComp)
+        console.log('the old preferences ', this.state.sitePreferences)
+        this.setState({ sitePreferences: newPrefsComp });
       });
     }
     render() {
