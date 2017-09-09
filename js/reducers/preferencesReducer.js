@@ -31,35 +31,49 @@ export default function (state = defaultPreferences, action) {
       state = action.payload;
     case 'CHANGE_PREFS':
     // state is the obj that we are changing: state[0].attr.id
-      var findIndex = function(id) {
+     var findIndex = function(id) {
         var index = 'NOT FOUND';
-        for (var i = 0; i < defaultPreferences.length; i++) {
-          if (defaultPreferences[i].attr.id === id) {
+        for (var i = 0; i < state.length; i++) {
+          if (state[i].attr.id === id) {
             index = i;
           }
         }
         return index;
       }
 
-      Object.byString = function(o, s, newpref) {
-        s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
-        s = s.replace(/^\./, '');           // strip a leading dot
-        var a = s.split('.');
-        for (var i = 0, n = a.length; i < n; ++i) {
-          var k = a[i];
-          if (k in o) {
-            o = o[k];
-          } else {
-            return;
-          }
+      var changeValue = function(path, newValue, obj) {
+        // takes in path
+        // checks every arguments [] properties
+        // TODO: if path doesnt exist send error message (path does not exist)
+
+        // sample input path: ['attr', 'texts', 1, 'text'];
+        // after the dins index function it should look like this: ['2', attr', 'texts', 1, 'text'];
+
+        var newPrefs = Object.create(obj)
+        var head = newPrefs;
+        for (var i = 0; i < path.length - 1; i++) {
+          head = head[path[i]];
         }
-        o = newpref
-        return o;
+        head[path[path.length - 1]] = newValue;
+        return newPrefs;
       }
 
       var index = findIndex(action.payload.id);
+      
+      console.log(action.payload.path)
+      
+      var insertIndexInPath = function(path, index) {
+        var newPath = Array.from(path);
+        newPath.unshift(index);
+        return newPath;
+      }
+      
+      console.log()
+      
+      var path = insertIndexInPath(action.payload.path, index)
+      
+      var updatedPrefs = changeValue(path, action.payload.newValue, state);
 
-      Object.byString(defaultPreferences, '[' + index + '].attr.title', 'replaceddddd');
       //action.payload is a change and a path
       // {
       //   id: 12
@@ -69,6 +83,7 @@ export default function (state = defaultPreferences, action) {
       // }
       // find index from current preferences state
       // components[index][attr][thing][possible nested step]
+      state = updatedPrefs;
       return state;
     default:
       return state;

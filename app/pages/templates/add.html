@@ -248,7 +248,7 @@
     handleClick(e) {
       e.stopPropagation();
       console.log('you clicked short text', this.props.id)
-      socket.emit('launchTitleModal', {key: this.state.key, textValue: this.state.textValue});
+      socket.emit('launchTitleModal', {key: this.state.key, textValue: this.state.textValue, id: this.props.id, path: this.props.path});
     }
     render() {
       return(
@@ -347,7 +347,7 @@
               <div className="figcaption">
                 <EditableImage src={this.state.imageUrl} />
               </div>
-              <i><EditableShortText value={this.state.caption} id={this.state.id}/></i>
+              <i><EditableShortText value={this.state.caption} id={this.state.id} path={['attr', 'caption']}/></i>
             </div>
           </div>
         </div>
