@@ -6,12 +6,12 @@ const combineDesires = (desires) => {
   console.log('combineDesires called');
   let preferences = [];
   desires.layouts.forEach(layout => {
-    desires.colors.forEach(color => {
-      let heroColor = Object.assign({}, componentMap['Hero']);
-      heroColor.attr.bgColor = color;
+    desires.colors.forEach((color, index) => {
+      let heroColor = Object.assign({}, componentMap['Hero'], {attr: { ...componentMap['Hero'].attr } });
       heroColor.attr.title = desires.title;
+      heroColor.attr.bgColor = color;
 
-      let footerColor = Object.assign({}, componentMap['Footer']);
+      let footerColor = Object.assign({}, componentMap['Footer'], {attr: { ...componentMap['Footer'].attr, bgColor: color}});
       footerColor.attr.bgColor = color;
 
       let content = Object.assign({}, componentMap[layout]);

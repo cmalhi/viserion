@@ -1,5 +1,5 @@
 const defaultPreferencesAll = [[{
-  name: 'My Hero',
+  nickName: 'My Hero',
   componentName: 'Hero',
   attr: {
     bgColor: '#FB5B45',
@@ -22,7 +22,7 @@ const defaultPreferencesAll = [[{
   },
 },
 {
-  name: 'My Footer',
+  nickName: 'My Footer',
   componentName: 'Footer',
   attr: {
     bgColor: '#009AF2',
@@ -30,7 +30,7 @@ const defaultPreferencesAll = [[{
   },
 }],
 [{
-  name: 'My Hero',
+  nickName: 'My Hero',
   componentName: 'Hero',
   attr: {
     bgColor: '#009AF2',
@@ -38,7 +38,29 @@ const defaultPreferencesAll = [[{
   },
 },
 {
-  name: 'My Footer',
+  nickName: 'My PinterestContent',
+  componentName: 'PinterestContent',
+  attr: {
+    id: 'notSet',
+    headerColor: '#d3654b',
+    content: [
+      {
+        title: 'Who can attend?',
+        body: 'All undergraduate, graduate, and high school students are welcome. If you are under 18, we\'ll need a parental consent form.',
+      },
+      {
+        title: 'I don’t have a team. Can I still participate?',
+        body: 'Of course! It is not necessary to have a team prior to coming to Hack@Brown.',
+      },
+      {
+        title: 'Will there be a standby line the day-of the event?',
+        body: 'Yes, there will be a standby line if accepted attendees do not show up! The line will open when registration starts (9am) and students will be admitted off the standby line after registration ends (10:30am).',
+      },
+    ],
+  },
+},
+{
+  nickName: 'My Footer',
   componentName: 'Footer',
   attr: {
     bgColor: '#009AF2',
