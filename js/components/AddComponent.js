@@ -34,6 +34,7 @@ class AddComponent extends React.Component {
 
       // orderModal: false,
       addPageModal: false,
+
     };
     this.handleAddOrRearrange = this.handleAddOrRearrange.bind(this);
   }
@@ -46,7 +47,7 @@ class AddComponent extends React.Component {
     const socket = io(global.HOST, { transports: ['websocket'] });
 
     socket.on('launchTitleModal', (data) => {
-      this.setState({ shortTextModal: true, shortTextId: data.key, shortTextValue: data.textValue, });
+      this.setState({ shortTextModal: true, shortTextId: data.key, shortTextValue: data.textValue, shortTextData: data, });
     });
 
     socket.on('launchLongTextModal', (data) => {
@@ -71,7 +72,7 @@ class AddComponent extends React.Component {
     return (
       <View style={styles.flexContainer}>
         <WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/add.html`}} />
-        {this.state.shortTextModal ? <ShortTextModal id={this.state.shortTextId} title={this.state.shortTextValue} closeModal={() => this.setState({shortTextModal: false}) } /> : null}
+        {this.state.shortTextModal ? <ShortTextModal id={this.state.shortTextId} title={this.state.shortTextValue} data={this.state.shortTextData} closeModal={() => this.setState({shortTextModal: false}) } /> : null}
         {this.state.longTextModal ? <LongTextModal id={this.state.longTextId} body={this.state.longTextValue} closeModal={() => this.setState({longTextModal: false}) } /> : null}
         {this.state.imageModal ? <ImageModal id={this.state.imageId} closeModal={() => this.setState({imageModal: false})} /> : null}
         {this.state.colorModal ? <ColorModal navigation={this.props.navigation} closeModal={() => this.setState({colorModal: false})} /> : null}

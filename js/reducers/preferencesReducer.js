@@ -31,6 +31,7 @@ export default function (state = defaultPreferences, action) {
       state = action.payload;
     case 'CHANGE_PREFS':
     // state is the obj that we are changing: state[0].attr.id
+    console.log('PREFERENCE REDUCER ==== ', action.payload);
      var findIndex = function(id) {
         var index = 'NOT FOUND';
         for (var i = 0; i < state.length; i++) {
@@ -83,6 +84,7 @@ export default function (state = defaultPreferences, action) {
       // }
       // find index from current preferences state
       // components[index][attr][thing][possible nested step]
+      console.log('>>>>>>>', updatedPrefs[2])
       state = updatedPrefs;
       return state;
     default:

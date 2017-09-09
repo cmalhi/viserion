@@ -1,12 +1,15 @@
 import React from 'react';
 import { Animated, Dimensions, Image, Text, TouchableOpacity, View, WebView, Button, StyleSheet, TextInput } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { changePrefs } from '../../actions/index';
 const io = require('socket.io-client');
 
 var {
   height: deviceHeight
 } = Dimensions.get('window');
 
-export default class ShortTextModal extends React.Component {
+class ShortTextModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,8 +37,9 @@ export default class ShortTextModal extends React.Component {
   closeAndUpdate() {
     const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
-    socket.emit('changeTitleDom', { key: this.props.id, textValue: this.state.title });
-
+    // socket.emit('changeTitleDom', { key: this.props.id, textValue: this.state.title, data: this.props.data });
+    this.props.data.newValue = this.state.title;
+    this.props.changePrefs(this.props.data);
 
     // send preference
     // get rid of changeTitleDom socket emit
@@ -57,7 +61,7 @@ export default class ShortTextModal extends React.Component {
   }
 }
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   form: {
     padding: 10,
     borderColor: '#eee',
@@ -92,3 +96,14 @@ export const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+
+function mapStateToProps({ preferences }) {
+  return { preferences };
+}
+
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators({changePrefs}, dispatch)
+};
+
+export default connect(mapStateToProps, matchDispatchToProps)(ShortTextModal);
+
