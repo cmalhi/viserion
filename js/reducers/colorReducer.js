@@ -1,4 +1,4 @@
-const defaultColors = ['#A6EEDA', '#8565F3'];
+const defaultColors = ['#8565F3', '#A6EEDA'];
 
 export default function (state = defaultColors, action) {
   switch (action.type) {
