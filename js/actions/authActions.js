@@ -34,7 +34,6 @@ function loginError(error) {
 
 export function loginUser() {
   return dispatch => {
-    // We dispatch requestLogin to kickoff the call to the API
     dispatch(loginRequest())
     const user = firebase.auth().currentUser;
       if (user) {
