@@ -3,6 +3,7 @@ import axios from 'axios';
 import componentMap from '../componentMap';
 
 const combineDesires = (desires) => {
+  console.log('combineDesires called');
   let preferences = [];
   desires.layouts.forEach(layout => {
     desires.colors.forEach(color => {
