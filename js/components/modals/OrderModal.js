@@ -23,7 +23,7 @@ class OrderModal extends React.Component {
     this.state = {
       offset: new Animated.Value(deviceHeight),
       // currentOrder: null,
-      sequencedData: null,
+      sequencedData: this.toSequencedData(this.props.preferences),
       sitePreferences: this.props.preferences,
     };
     this.closeModal = this.closeModal.bind(this);
@@ -32,23 +32,29 @@ class OrderModal extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
 
-  componentWillMount() {
-    // TODO: make a GET request to sitePreferences
-    /*
-     * This section puts the preferences in a format that SortableListView can accept
-     *
-     * SortableList requires data of this shape :
-     * {
-     *  componentName1: { componentName: 'TextContent' },
-     *  componentName2: { componentName: 'Footer' }
-     * }
-     */
-    let components = this.props.preferences;
+  /*
+   * toSequencedData: puts the preferences in a format that SortableListView can accept
+   * @param {Array}
+   * @output {Object}
+   * {
+   *  componentName1: { componentName: 'TextContent' },
+   *  componentName2: { componentName: 'Footer' }
+   * }
+   */
+  toSequencedData(components) {
     let sequencedData = {};
     components.map((c) => {
       sequencedData[c.id] = { id: c.id, componentName: c.componentName };
     });
-    this.setState({ sequencedData });
+    return sequencedData;
+  }
+
+  componentWillMount() {
+    // TODO: make a GET request to sitePreferences
+
+    // let components = this.props.preferences;
+    // const sequencedData = toSequencedData(components);
+    // this.setState({ sequencedData });
   }
 
   componentDidMount() {
@@ -107,13 +113,12 @@ class OrderModal extends React.Component {
 
   handleDelete(id) {
     const socket = io(global.HOST, { transports: ['websocket'] });
-    console.log('handleDelete id', id);
-    console.log('ok i wil delete yo');
     // emit socket
     var componentToDelete = getObj(this.state.sitePreferences, 'id', id);
     var newSitePreferences = removeByValue(this.state.sitePreferences.slice(), componentToDelete);
-    // this.setState({sitePreferences: newSitePreferences})
-    // socket.emit('updatePref', newSitePreferences);
+
+    this.setState({ sitePreferences: newSitePreferences, sequencedData: this.toSequencedData(newSitePreferences) });
+    socket.emit('updatePref', newSitePreferences);
   }
 
   render() {
