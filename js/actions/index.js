@@ -109,7 +109,11 @@ export const selectPreferences = (selectedIndex) => (dispatch, getState) => {
   const { preferencesAll } = getState();
   const selectedPreferences = preferencesAll[selectedIndex];
   console.log('>>>>>>>>>>>>', selectedPreferences);
-  AsyncStorage.setItem('preferences', JSON.stringify(selectedPreferences));
+  AsyncStorage.setItem('preferences', JSON.stringify(selectedPreferences))
+    .then(() => {
+      AsyncStorage.getItem('preferences')
+        .then(preferences => console.log('>>>>>', preferences));
+    });
   dispatch({ type: 'SELECT_PREFERENCES', payload: selectPreferences });
 }
 
