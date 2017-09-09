@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+mongoose.Promise = Promise;
 const findOrCreate = require('mongoose-findorcreate');
 
 const userSchema = mongoose.Schema({
