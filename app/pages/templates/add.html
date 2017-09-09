@@ -257,7 +257,7 @@
     handleClick(e) {
       e.stopPropagation();
       console.log('you clicked short text', this.props.id)
-      socket.emit('launchTitleModal', {key: this.state.key, textValue: this.state.textValue});
+      socket.emit('launchTitleModal', {key: this.state.key, textValue: this.state.textValue, id: this.props.id, path: ['attr', 'caption']});
     }
     render() {
       return(
