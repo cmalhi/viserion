@@ -20,7 +20,7 @@ const defaultPreferences = [{
 
 export default function (state = defaultPreferences, action) {
   switch (action.type) {
-    case 'CREATE_PREFERENCES':
+    case 'SELECT_PREFERENCES':
       const preferences = action.payload;
       return preferences;
     case 'APPEND_PREFS':
