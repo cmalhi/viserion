@@ -1,44 +1,121 @@
 import _ from 'lodash';
 import axios from 'axios';
+import componentMap from '../componentMap';
 
-export function toggleLayout(layoutId) {
+const combineDesires = (desires) => {
+  let preferences = [];
+  desires.layouts.forEach(layout => {
+    desires.colors.forEach(color => {
+
+      const heroColor = Object.assign({}, componentMap['hero']);
+      heroColor.attr.bgColor = color;
+      heroColor.attr.title = desires.title;
+
+      const footerColor = Object.assign({}, componentMap['footer']);
+      footerColor.attr.bgColor = color;
+
+      const content = Object.assign({}, componentMap[layout]);
+      preferences.push([heroColor, content, footerColor]);
+    });
+  });
+  return preferences;
+};
+
+export function addLayouts(layouts) {
   return {
-    type: 'TOGGLE_LAYOUT',
-    payload: layoutId
+    type: 'ADD_LAYOUTS',
+    payload: layouts,
   }
 }
 
 export function addTitle(title) {
   return {
     type: 'ADD_TITLE',
-    payload: title
+    payload: title,
   }
 }
 
 export function addSite(site) {
   return {
     type: 'ADD_SITE',
-    payload: site
-  }  
+    payload: site,
+  }
 }
 
 export function addColors(color) {
   return {
     type: 'ADD_COLORS',
-    payload: color
+    payload: color,
   }
 }
 
 export function addKeywords(keywords) {
   return {
     type: 'ADD_KEYWORDS',
-    payload: keywords
+    payload: keywords,
   }
 }
 
+// export function changeOrder(order) {
+//   return {
+//     type: 'CHANGE_ORDER',
+//     payload: order
+//   }
+// }
+//
+// export function appendOrder(itemsToAdd) {
+//   return {
+//     type: 'APPEND_ORDER',
+//     payload: itemsToAdd
+//   }
+// }
+
+export function appendPrefs(newComponent) {
+  return {
+    type: 'APPEND_PREFS',
+    payload: newComponent
+  }
+}
+
+export function updatePrefs(newPrefs) {
+  return {
+    type: 'UPDATE_PREFS',
+    payload: newPrefs,
+  }
+}
+
+export function changePrefs(changeAndPath) {
+  return {
+    type: 'CHANGE_PREFS',
+    payload: changeAndPath,
+
+  }
+}
+
+export const createPreferences = () => (dispatch, getState) => {
+  const { layouts, colors, title, keywords } = getState();
+
+  //  Collect layouts that from global state that are true
+  // const layoutsArr = _.reduce(layouts, (result, layoutStatus, layoutId) => {
+  //   if (layoutStatus === true ) result.push(layoutId);
+  //   return result;
+  // }, []);
+
+  const desires = {
+    layouts,
+    keywords,
+    colors,
+    title,
+  };
+
+  const preferences = combineDesires(desires);
+  dispatch({ type: 'CREATE_PREFERENCES', payload: preferences });
+};
+
+
 export function postPreferences(navigateToNext) {
   return (dispatch, getState) => {
-    const { layouts, colors, title, keywords } = getState();
+    const { layouts, colors, title, keywords, order } = getState();
 
     //  Collect layouts that from global state that are true
     const layoutsArr = _.reduce(layouts, (result, layoutStatus, layoutId) => {

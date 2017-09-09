@@ -58,7 +58,9 @@
       this.map = this.map.bind(this);
       this.toComponents = this.toComponents.bind(this);
     }
+
     map(name) {
+
       const components = {
         hero: {
           componentName: <Hero1 />,
@@ -113,6 +115,8 @@
       )
     }
   }
+
+
   class Hero1 extends React.Component {
     constructor(props) {
       super(props);
@@ -127,9 +131,11 @@
         this.setState({ bgColor })
       })
     }
+
     handleHeaderClick() {
       socket.emit('colorChange', 'change ID x!');
     }
+
     render() {
       return (
         <div className="outer-wrap">
@@ -205,9 +211,11 @@
         if (data.key === this.state.key) this.setState({ body: data.textValue })
       })
     }
+
     handleClick(e) {
       socket.emit('launchLongTextModal', {key: this.state.key, textValue: this.state.body});
     }
+
     render() {
       return(
         <span onClick={this.handleClick}>{this.state.body}</span>
@@ -278,9 +286,11 @@
         if (data.key === this.state.key) this.setState({ src: data.src });
       });
     }
+
     handleClick() {
       socket.emit('launchImageModal', this.state.key);
     }
+
     render() {
       return (
         <img className="image-scalable-container" key={this.state.key} onClick={this.handleClick} src={this.state.src} />

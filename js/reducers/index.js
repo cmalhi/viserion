@@ -4,6 +4,8 @@ import colorReducer from "./colorReducer";
 import titleReducer from "./titleReducer";
 import siteReducer from "./siteReducer";
 import keywordReducer from "./keywordReducer";
+import authReducer from "./authReducer";
+import preferencesReducer from "./preferencesReducer";
 
 const rootReducer = combineReducers({
   layouts: layoutReducer,
@@ -11,6 +13,8 @@ const rootReducer = combineReducers({
   title: titleReducer,
   site: siteReducer,
   keywords: keywordReducer,
+  auth: authReducer,
+  preferences: preferencesReducer,
 });
 
 export default rootReducer;

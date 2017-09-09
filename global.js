@@ -1,3 +1,16 @@
-//global.HOST = 'http://127.0.0.1:8080';
+import { AWSEC3 } from './config/config';
+
+global.HOST = 'http://127.0.0.1:8080';
 // global.HOST = 'http://ec2-54-203-8-222.us-west-2.compute.amazonaws.com:8080';
-global.HOST = 'http://70efe46f.ngrok.io'; // Ed's
+
+
+global.AWSEC3 = {
+  keyPrefix: 'uploads/',
+  bucket: 'viserion-hr',
+  region: 'us-east-1',
+  accessKey: AWSEC3.accessKey,
+  secretKey: AWSEC3.secretKey,
+  successActionStatus: 201,
+};
+
+//global.HOST = 'http://15611571.ngrok.io'; // Ngrok
