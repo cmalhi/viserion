@@ -15,13 +15,21 @@ exports.addOne = function(req, res) {
     .catch(error => res.send(`Error saving new site: ${error}`));
 };
 
-exports.retrieveAll = function(req, res) {
+exports.retrieveUserAll = function(req, res) {
   const userId = req.params.userid;
   Site.find({userId})
     .exec()
     .then((sites) => res.send(sites))
     .catch(err => res.status(500).send({ success: false, error: 'Error retrieving sites ' + err}));
 };
+
+exports.retrieveAll = function(req, res) {
+  Site.find({})
+    .exec()
+    .then((sites) => res.send(sites))
+    .catch(err => res.status(500).send({ success: false, error: 'Error retrieving sites ' + err}));
+};
+
 
 
 exports.retrieveOne = function(req, res) {
