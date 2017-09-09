@@ -5,17 +5,17 @@ import { connect } from 'react-redux';
 import { addColors } from '../actions/index';
 import { TriangleColorPicker, fromHsv } from 'react-native-color-picker';
 
-class ChooseColor extends React.Component {
+class ThreeColorPicker extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      color: '#FF0000',
+      color: '#9ad3de',
       count: 0,
-      chosenColors: ['#FF0000', '#00FF00', '#0000FF'],
-      color1: '#FF0000',
-      color2: '#00FF00',
-      color3: '#0000FF',
-      currentColor: '#F00',
+      chosenColors: ['#9ad3de', '#e3e3e3', '#89bdd3'],
+      color1: '#9ad3de',
+      color2: '#e3e3e3',
+      color3: '#89bdd3',
+      currentColor: '#9ad3de',
       currentTab: 1,
     };
     this.onColorChange = this.onColorChange.bind(this);
@@ -64,9 +64,7 @@ class ChooseColor extends React.Component {
   render() {
     return (
       <View style={{flex: 1, padding: 15, backgroundColor: '#FFFFFF'}}>
-        <Text
-          style={{color: '#000000', fontSize: 32}}
-        >Pick a color</Text>
+        <Text style={{color: '#000000', fontSize: 32}}>Pick a color</Text>
         <TriangleColorPicker
           defaultColor={this.state.currentColor}
           onColorChange={this.onColorChange}
@@ -76,17 +74,23 @@ class ChooseColor extends React.Component {
           <TouchableHighlight>
             <View
               style={{backgroundColor: this.state.color1, height: 25, width: 90, marginTop: 10}}
-            ><Button onPress={this.handleClick.bind(this, this.state.color1, 1)} title="" /></View>
+            >
+              <Button onPress={this.handleClick.bind(this, this.state.color1, 1)} title="" />
+            </View>
           </TouchableHighlight>
           <TouchableHighlight>
             <View
               style={{backgroundColor: this.state.color2, height: 25, width: 90, marginTop: 10}}
-            ><Button onPress={this.handleClick.bind(this, this.state.color2, 2)} title="" /></View>
+            >
+              <Button onPress={this.handleClick.bind(this, this.state.color2, 2)} title="" />
+            </View>
           </TouchableHighlight>
           <TouchableHighlight>
             <View
               style={{backgroundColor: this.state.color3, height: 25, width: 90, marginTop: 10}}
-            ><Button onPress={this.handleClick.bind(this, this.state.color3, 3)} title="" /></View>
+            >
+              <Button onPress={this.handleClick.bind(this, this.state.color3, 3)} title="" />
+            </View>
           </TouchableHighlight>
         </View>
         <Button
@@ -94,7 +98,7 @@ class ChooseColor extends React.Component {
           title="Submit Colors"
           color="#000000"
           style={{fontSize: 32}}
-         >HELLO</Button>
+          />
       </View>
     );
   }
@@ -119,4 +123,4 @@ const matchDispatchToProps = (dispatch) => {
   return bindActionCreators({addColors}, dispatch)
 };
 
-export default connect(mapStateToProps, matchDispatchToProps)(ChooseColor);
+export default connect(mapStateToProps, matchDispatchToProps)(ThreeColorPicker);
