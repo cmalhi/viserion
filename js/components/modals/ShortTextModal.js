@@ -39,13 +39,16 @@ class ShortTextModal extends React.Component {
     const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
     // socket.emit('changeTitleDom', { key: this.props.id, textValue: this.state.title, data: this.props.data });
-    this.props.data.newValue = this.state.title;
-    console.log('this.props.data is  ====== ',this.props.data)
+    if (this.state.title === '') {
+      this.props.data.newValue = 'Enter text';
+    } else { this.props.data.newValue = this.state.title; }
+    // console.log('this.props.data is  ====== ',this.props.data)
     // this.props.changePrefs(this.props.data);
     var newPreferences = changePrefs(this.props.data, this.props.preferences);
-    this.props.updatePrefs(newPreferences);
-    console.log('change Prefs is ', changePrefs)
-
+    socket.emit('updatePref', newPreferences);
+    // this.props.updatePrefs(newPreferences);
+    // console.log('change Prefs is ', changePrefs)
+    // console.log('newPreferences', Array.isArray(newPreferences))
     // send preference
     // get rid of changeTitleDom socket emit
   }
