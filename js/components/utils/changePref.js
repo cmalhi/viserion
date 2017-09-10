@@ -1,10 +1,9 @@
 export default function(action, state) {
     // state is the obj that we are changing: state[0].attr.id
-  console.log('PREFERENCE REDUCER ==== ', action.payload);
   var findIndex = function(id) {
     var index = 'NOT FOUND';
     for (var i = 0; i < state.length; i++) {
-      if (state[i].attr.id === id) {
+      if (state[i].id === id) {
         index = i;
       }
     }
@@ -28,9 +27,9 @@ export default function(action, state) {
     return newPrefs;
   }
 
-  var index = findIndex(action.payload.id);
-  
-  console.log(action.payload.path)
+  var index = findIndex(action.id);
+  console.log('THE INDEX IS ', index)
+  console.log(action.path)
   
   var insertIndexInPath = function(path, index) {
     var newPath = Array.from(path);
@@ -38,13 +37,11 @@ export default function(action, state) {
     return newPath;
   }
   
-  console.log()
+  var path = insertIndexInPath(action.path, index)
   
-  var path = insertIndexInPath(action.payload.path, index)
-  
-  var updatedPrefs = changeValue(path, action.payload.newValue, state);
+  var updatedPrefs = changeValue(path, action.newValue, state);
 
-  //action.payload is a change and a path
+  //action is a change and a path
   // {
   //   id: 12
   //   path: [index].attr.body1
@@ -53,7 +50,5 @@ export default function(action, state) {
   // }
   // find index from current preferences state
   // components[index][attr][thing][possible nested step]
-  console.log('>>>>>>>', updatedPrefs[2])
-  state = updatedPrefs;
-  return state;
+  return [...updatedPrefs];
 }

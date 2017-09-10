@@ -28,38 +28,24 @@
     constructor(props) {
       super(props);
       this.state = {
-        sitePreferences: [
-          {
-            id: 'defaultheader',
-            componentName: <Hero1 />,
-            attr: {
-              bgColor: '#eee',
-              title: 'Custom title',
-            }
+        sitePreferences: [{
+          id: 'hero',
+          nickName: 'My Hero',
+          componentName: <Hero1 />,
+          attr: {
+            bgColor: 'defaultColor',
+            title: 'defaultTitle',
           },
-          {
-            id: 'defaulttextcontent',
-            componentName: <PricingListModal />,
-            attr: {
-              details:['Milk..........$4.79','Bread......$1.39','Eggs.......$2.39'],
-              color: 'green'
-            }
+        },
+        {
+          id: 'footer',
+          nickName: 'My Footer',
+          componentName: <Footer />,
+          attr: {
+            bgColor: 'defaultColor',
+            text: 'defaultText',
           },
-          {
-            componentName: <TextContent />,
-            attr: {
-              title: 'With All Eyes on the South, the Most Important Art Show in America Is Underway in Pittsburgh',
-              body: 'The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols.'
-            }
-          },
-          {
-            id: 'defaultfooter',
-            componentName: <Footer />,
-            attr: {
-              text: 'I am foot'
-            }
-          }
-        ]
+        }]
       };
       this.map = this.map.bind(this);
       this.toComponents = this.toComponents.bind(this);
@@ -114,15 +100,23 @@
       });
       return res;
     }
-    componentDidMount() {
+    shouldComponentUpdate(){
+      return true;
+    }
+    componentWillMount() {
       // Web client listens to 'addPrefDomStore' event emitted when the user hits 'Submit'
       socket.on('addPrefDomStore', (addition) => {
         let newPref = this.state.sitePreferences; // Copy old site preferences
         newPref = [...newPref, this.toComponent(addition)];
         this.setState({ sitePreferences: newPref });
       });
-      socket.on('updatePrefDomStore', (newPref) => {
-        this.setState({ sitePreferences: this.toComponents(newPref) });
+      socket.on('updatePrefDomStore', (newPrefs) => {
+        console.log('on updatePrefDomStore newPrefs>> ', newPrefs);
+        let newPrefsComp = this.toComponents(newPrefs);
+
+        // TODO: refactor
+        this.setState({ sitePreferences: newPrefsComp.reverse() });
+        this.setState({ sitePreferences: newPrefsComp.reverse() });
       });
     }
     render() {
@@ -257,7 +251,7 @@
     handleClick(e) {
       e.stopPropagation();
       console.log('you clicked short text', this.props.id)
-      socket.emit('launchTitleModal', {key: this.state.key, textValue: this.state.textValue});
+      socket.emit('launchTitleModal', {key: this.state.key, textValue: this.state.textValue, id: this.props.id, path: this.props.path});
     }
     render() {
       return(
@@ -346,6 +340,8 @@
         imageUrl: this.props.imageUrl,
         caption: this.props.caption,
         id: this.props.id,
+        path1: ['attr', 'imageUrl'],
+        path2: ['attr', 'caption'],
       }
     }
     render() {
@@ -354,9 +350,9 @@
           <div className="image-content-wrapper">
             <div className="image-content-inner-wrapper">
               <div className="figcaption">
-                <EditableImage src={this.state.imageUrl} />
+                <EditableImage src={this.state.imageUrl} id={this.state.id} path={this.state.path1}/>
               </div>
-              <i><EditableShortText value={this.state.caption} id={this.state.id}/></i>
+              <i><EditableShortText value={this.state.caption} id={this.state.id} path={this.state.path2}/></i>
             </div>
           </div>
         </div>
@@ -381,10 +377,33 @@
     }
   }
   class Footer extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        text: this.props.text,
+        bgColor: this.props.bgColor,
+        path1: ['attr', 'text'],
+        path2: ['attr', 'bgColor'],
+      }
+      this.handleFooterClick = this.handleFooterClick.bind(this);
+    }
+    componentDidMount() {
+      socket.on('colorChange2', (bgColor) => {
+        this.setState({ bgColor })
+      })
+    }
+    handleFooterClick() {
+      // TODO: send the path and id here too
+      socket.emit('colorChange', 'change ID x!');
+    }
     render() {
       return (
-        <footer className="footer-area">
-          <p><EditableShortText value="Footer" /></p>
+        <footer 
+          className="footer-area"
+          style={{ backgroundColor: this.state.bgColor }}
+          onClick={this.handleFooterClick}
+        >
+          <p><EditableShortText value={this.state.text} id={this.state.id} path={this.state.path1}/></p>
         </footer>
       )
     }
