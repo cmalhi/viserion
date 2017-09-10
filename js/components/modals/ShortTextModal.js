@@ -43,7 +43,6 @@ class ShortTextModal extends React.Component {
     var value = this.state.title;
     var { id, path } = this.props.data;
     var newPref = updateComponent(this.props.preferences, id, path, value);
-    // var newPref = changePrefs(this.props.data, this.props.preferences);
     socket.emit('updatePref', newPref);
   }
 

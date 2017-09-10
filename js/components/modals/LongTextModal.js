@@ -1,12 +1,16 @@
 import React from 'react';
 import { Animated, Dimensions, Image, Text, TouchableOpacity, View, WebView, Button, StyleSheet, TextInput } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { updatePrefs } from '../../actions/index';
 const io = require('socket.io-client');
+import { updateComponent } from '../../utils.js'
 
 var {
   height: deviceHeight
 } = Dimensions.get('window');
 
-export default class LongTextModal extends React.Component {
+class LongTextModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,8 +38,16 @@ export default class LongTextModal extends React.Component {
   closeAndUpdate() {
     const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
-    socket.emit('changeLongTextDom', { key: this.props.id, textValue: this.state.body });
+    // socket.emit('changeLongTextDom', { key: this.props.id, textValue: this.state.body });
     // TODO: Make database call to save body to user preferences
+    var value = this.state.body;
+    var { id, path } = this.props.data;
+    console.log('closeandupdate path >>', path);
+    console.log('closeandupdate id >>', id);
+    console.log('closeandupdate value >>', value);
+    console.log('closeandupdate preferences >>', this.props.preferences);
+    var newPref = updateComponent(this.props.preferences, id, path, value);
+    socket.emit('updatePref', newPref);
   }
 
   render() {
@@ -96,3 +108,13 @@ export const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+
+function mapStateToProps({ preferences }) {
+  return { preferences };
+}
+
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators({ updatePrefs }, dispatch)
+};
+
+export default connect(mapStateToProps, matchDispatchToProps)(LongTextModal);
