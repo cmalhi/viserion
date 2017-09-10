@@ -144,6 +144,13 @@
       };
       this.handleHeaderClick = this.handleHeaderClick.bind(this);
     }
+    componentWillReceiveProps(nextProps) {
+      this.setState({
+        bgColor: nextProps.bgColor,
+        title: nextProps.title,
+        id: nextProps.id,
+      });
+    }
     componentDidMount() {
 //      socket.on('colorChange2', (bgColor) => {
 //        this.setState({ bgColor })
@@ -251,6 +258,12 @@
         key: newId(),
       };
       this.handleClick = this.handleClick.bind(this);
+    }
+    componentWillReceiveProps(nextProps) {
+      this.setState({
+        color: nextProps.color,
+        textValue: nextProps.value,
+      })
     }
     componentDidMount() {
       socket.on('changeTitleDom2', (data) => {
