@@ -29,7 +29,7 @@
       super(props);
       this.state = {
         sitePreferences: [{
-          id: 'hero',
+          id: 'hero24',
           nickName: 'My Hero',
           componentName: <Hero1 />,
           attr: {
@@ -37,15 +37,15 @@
             title: 'defaultTitle',
           },
         },
-        {
-          id: 'footer',
-          nickName: 'My Footer',
-          componentName: <Footer />,
-          attr: {
-            bgColor: 'defaultColor',
-            text: 'defaultText',
-          },
-        }]
+          {
+            id: 'footer12',
+            nickName: 'My Footer',
+            componentName: <Footer />,
+            attr: {
+              bgColor: 'defaultColor',
+              text: 'defaultText',
+            },
+          }],
       };
       this.map = this.map.bind(this);
       this.toComponents = this.toComponents.bind(this);
@@ -137,7 +137,7 @@
       super(props);
       this.state = {
         bgColor: this.props.bgColor,
-        title: 'New page',
+        title: this.props.title,
         id: this.props.id,
         path1: ['attr', 'bgColor'],
         path2: ['attr', 'title'],
