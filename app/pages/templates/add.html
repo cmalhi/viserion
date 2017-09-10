@@ -138,6 +138,9 @@
       this.state = {
         bgColor: this.props.bgColor,
         title: 'New page',
+        id: this.props.id,
+        path1: ['attr', 'bgColor'],
+        path2: ['attr', 'title'],
       };
       this.handleHeaderClick = this.handleHeaderClick.bind(this);
     }
@@ -147,7 +150,7 @@
 //      })
     }
     handleHeaderClick() {
-      socket.emit('colorChange', { id: this.props.id, path: ['attr', 'bgColor'] });
+      socket.emit('colorChange', { id: this.state.id, path: this.state.path1 });
     }
     render() {
       return (
@@ -161,8 +164,8 @@
               <span className="site-title">
                 <EditableShortText
                   value={this.state.title}
-                  id={this.props.id}
-                  path={['attr', 'title']}
+                  id={this.state.id}
+                  path={this.state.path2}
                 />
               </span>
             </div>
