@@ -45,7 +45,7 @@ class ImageSearch extends React.Component {
   render() {
     return (
       <View>
-        <Text>Find Imgaes on Bing</Text>
+        <Text>Search for images: </Text>
         <TextInput
           style={{height: 40}}
           placeholder="search"
