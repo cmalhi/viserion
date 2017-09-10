@@ -36,16 +36,22 @@ class ShortTextModal extends React.Component {
     }).start(this.props.closeModal)
   }
 
+  updateComponent(sitePref, id, path, value)
+
   closeAndUpdate() {
     const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
     // socket.emit('changeTitleDom', { key: this.props.id, textValue: this.state.title, data: this.props.data });
-    this.props.data.newValue = this.state.title; 
-    console.log('preferences before', this.props.preferences)
-    var newPreferences = changePrefs(this.props.data, this.props.preferences);
-    console.log('preferences are ', this.props.preferences);
+    var newValue = this.state.title;
+    var { id, path } = this.props.data;
+    console.log('newValue', newValue);
+    console.log('id', id);
+    console.log('path', path);
+    console.log('this.props.preferences >>', this.props.preferences);
 
-    socket.emit('updatePref', newPreferences);
+    // var newPreferences = changePrefs(this.props.data, this.props.preferences);
+
+    // socket.emit('updatePref', newPreferences);
   }
 
   render() {

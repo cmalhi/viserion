@@ -35,7 +35,7 @@ export const store = createStore(
 );
 
 const AppNavigator = StackNavigator({
-  // Index: { screen: PresetPalettes },
+  // Index: { screen: UserEdit },
   Index: { screen: HomeScreen },
   PresetPalettes: { screen: PresetPalettes },
   ThreeColorPicker: { screen: ThreeColorPicker },
