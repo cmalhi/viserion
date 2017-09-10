@@ -106,7 +106,7 @@
     componentWillMount() {
       // Web client listens to 'addPrefDomStore' event emitted when the user hits 'Submit'
       socket.on('addPrefDomStore', (addition) => {
-        let newPref = this.state.sitePreferences; // Copy old site preferences
+        let newPref = this.state.sitePreferences;
         newPref = [...newPref, this.toComponent(addition)];
         this.setState({ sitePreferences: newPref });
       });
@@ -142,12 +142,12 @@
       this.handleHeaderClick = this.handleHeaderClick.bind(this);
     }
     componentDidMount() {
-      socket.on('colorChange2', (bgColor) => {
-        this.setState({ bgColor })
-      })
+//      socket.on('colorChange2', (bgColor) => {
+//        this.setState({ bgColor })
+//      })
     }
     handleHeaderClick() {
-      socket.emit('colorChange', 'change ID x!');
+      socket.emit('colorChange', { id: this.props.id, path: ['attr', 'bgColor'] });
     }
     render() {
       return (
@@ -158,7 +158,13 @@
             style={{ backgroundColor: this.state.bgColor }}
           >
             <div className="centered">
-              <span className="site-title"><EditableShortText value={this.state.title} /></span>
+              <span className="site-title">
+                <EditableShortText
+                  value={this.state.title}
+                  id={this.props.id}
+                  path={['attr', 'title']}
+                />
+              </span>
             </div>
           </header>
         </div>
@@ -250,7 +256,6 @@
     }
     handleClick(e) {
       e.stopPropagation();
-      console.log('you clicked short text', this.props.id)
       socket.emit('launchTitleModal', {key: this.state.key, textValue: this.state.textValue, id: this.props.id, path: this.props.path});
     }
     render() {
@@ -385,23 +390,22 @@
         path1: ['attr', 'text'],
         path2: ['attr', 'bgColor'],
       }
-      this.handleFooterClick = this.handleFooterClick.bind(this);
+//      this.handleFooterClick = this.handleFooterClick.bind(this);
     }
-    componentDidMount() {
-      socket.on('colorChange2', (bgColor) => {
-        this.setState({ bgColor })
-      })
-    }
-    handleFooterClick() {
-      // TODO: send the path and id here too
-      socket.emit('colorChange', 'change ID x!');
-    }
+//    componentDidMount() {
+//      socket.on('colorChange2', (bgColor) => {
+//        this.setState({ bgColor })
+//      })
+//    }
+//    handleFooterClick() {
+//      // TODO: send the path and id here too
+//      socket.emit('colorChange', 'change ID x!');
+//    }
     render() {
       return (
         <footer 
           className="footer-area"
           style={{ backgroundColor: this.state.bgColor }}
-          onClick={this.handleFooterClick}
         >
           <p><EditableShortText value={this.state.text} id={this.state.id} path={this.state.path1}/></p>
         </footer>

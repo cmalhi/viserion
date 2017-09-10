@@ -40,6 +40,7 @@ class UserEdit extends React.Component {
       addPageModal: false,
 
       shortTextData: null,
+      colorData: null,
     };
     this.handleRearrange = this.handleRearrange.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
@@ -65,8 +66,8 @@ class UserEdit extends React.Component {
     });
 
     socket.on('colorChange', (data) => {
-      console.log('colorChange data', data);
-      this.setState({ colorModal: true });
+      // data : { id: x, path: y }
+      this.setState({ colorModal: true, colorData: data });
     });
 
     socket.on('launchPricingModal2', (list) => {
@@ -90,7 +91,7 @@ class UserEdit extends React.Component {
         {this.state.shortTextModal ? <ShortTextModal data={this.state.shortTextData} id={this.state.shortTextId} title={this.state.shortTextValue} closeModal={() => this.setState({shortTextModal: false}) } /> : null}
         {this.state.longTextModal ? <LongTextModal id={this.state.longTextId} body={this.state.longTextValue} closeModal={() => this.setState({longTextModal: false}) } /> : null}
         {this.state.imageModal ? <ImageModal id={this.state.imageId} closeModal={() => this.setState({imageModal: false})} /> : null}
-        {this.state.colorModal ? <ColorModal navigation={this.props.navigation} closeModal={() => this.setState({colorModal: false})} /> : null}
+        {this.state.colorModal ? <ColorModal data={this.state.colorData} navigation={this.props.navigation} closeModal={() => this.setState({colorModal: false})} /> : null}
         {this.state.orderModal ? <OrderModal closeModal={() => this.setState({orderModal: false})} openAddModal={(() => this.setState({addPageModal: true}))} /> : null}
         {this.state.addPageModal ? <AddPageModal closeModal={() => this.setState({addPageModal: false})} /> : null}
         {this.state.pricingListModal ? <PricingListModal details={this.state.pricingDetails} Id={this.state.pricingListId} closeModal={() =>this.setState({pricingListModal: false})} /> : null }  

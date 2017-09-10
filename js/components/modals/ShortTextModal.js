@@ -3,7 +3,6 @@ import { Animated, Dimensions, Image, Text, TouchableOpacity, View, WebView, But
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { updatePrefs } from '../../actions/index';
-import changePrefs from '../utils/changePref';
 const io = require('socket.io-client');
 import { updateComponent } from '../../utils.js'
 
@@ -105,7 +104,7 @@ function mapStateToProps({ preferences }) {
 }
 
 const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({updatePrefs}, dispatch)
+  return bindActionCreators({ updatePrefs }, dispatch)
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(ShortTextModal);
