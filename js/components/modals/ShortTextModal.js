@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { updatePrefs } from '../../actions/index';
 import changePrefs from '../utils/changePref';
 const io = require('socket.io-client');
+import { updateComponent } from '../../utils.js'
 
 var {
   height: deviceHeight
@@ -36,22 +37,15 @@ class ShortTextModal extends React.Component {
     }).start(this.props.closeModal)
   }
 
-  updateComponent(sitePref, id, path, value)
-
   closeAndUpdate() {
     const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
     // socket.emit('changeTitleDom', { key: this.props.id, textValue: this.state.title, data: this.props.data });
-    var newValue = this.state.title;
+    var value = this.state.title;
     var { id, path } = this.props.data;
-    console.log('newValue', newValue);
-    console.log('id', id);
-    console.log('path', path);
-    console.log('this.props.preferences >>', this.props.preferences);
-
-    // var newPreferences = changePrefs(this.props.data, this.props.preferences);
-
-    // socket.emit('updatePref', newPreferences);
+    var newPref = updateComponent(this.props.preferences, id, path, value);
+    // var newPref = changePrefs(this.props.data, this.props.preferences);
+    socket.emit('updatePref', newPref);
   }
 
   render() {

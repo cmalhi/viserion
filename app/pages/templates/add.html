@@ -100,7 +100,10 @@
       });
       return res;
     }
-    componentDidMount() {
+    shouldComponentUpdate(){
+      return true;
+    }
+    componentWillMount() {
       // Web client listens to 'addPrefDomStore' event emitted when the user hits 'Submit'
       socket.on('addPrefDomStore', (addition) => {
         let newPref = this.state.sitePreferences; // Copy old site preferences
@@ -108,11 +111,12 @@
         this.setState({ sitePreferences: newPref });
       });
       socket.on('updatePrefDomStore', (newPrefs) => {
-        console.log('the newpref coming in ', newPrefs)
-        let newPrefsComp = this.toComponents(newPrefs)
-        console.log('the newpref coming in ', newPrefsComp)
-        console.log('the old preferences ', this.state.sitePreferences)
-        this.setState({ sitePreferences: newPrefsComp });
+        console.log('on updatePrefDomStore newPrefs>> ', newPrefs);
+        let newPrefsComp = this.toComponents(newPrefs);
+
+        // TODO: refactor
+        this.setState({ sitePreferences: newPrefsComp.reverse() });
+        this.setState({ sitePreferences: newPrefsComp.reverse() });
       });
     }
     render() {
