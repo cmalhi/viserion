@@ -42,6 +42,7 @@ class UserEdit extends React.Component {
       shortTextData: null,
       colorData: null,
       longTextData: null,
+      imageData: null,
     };
     this.handleRearrange = this.handleRearrange.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
@@ -62,8 +63,8 @@ class UserEdit extends React.Component {
       this.setState({ longTextModal: true, longTextId: data.key, longTextValue: data.textValue, longTextData: data });
     });
 
-    socket.on('launchImageModal', (id) => {
-      this.setState({ imageModal: true, imageId: id });
+    socket.on('launchImageModal', (data) => {
+      this.setState({ imageModal: true, imageId: data.id, imageData: data });
     });
 
     socket.on('colorChange', (data) => {
@@ -91,7 +92,7 @@ class UserEdit extends React.Component {
         <WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/add.html`}} />
         {this.state.shortTextModal ? <ShortTextModal data={this.state.shortTextData} id={this.state.shortTextId} title={this.state.shortTextValue} closeModal={() => this.setState({shortTextModal: false}) } /> : null}
         {this.state.longTextModal ? <LongTextModal data={this.state.longTextData} id={this.state.longTextId} body={this.state.longTextValue} closeModal={() => this.setState({longTextModal: false}) } /> : null}
-        {this.state.imageModal ? <ImageModal id={this.state.imageId} closeModal={() => this.setState({imageModal: false})} /> : null}
+        {this.state.imageModal ? <ImageModal data={this.state.imageData} id={this.state.imageId} closeModal={() => this.setState({imageModal: false})} /> : null}
         {this.state.colorModal ? <ColorModal data={this.state.colorData} navigation={this.props.navigation} closeModal={() => this.setState({colorModal: false})} /> : null}
         {this.state.orderModal ? <OrderModal closeModal={() => this.setState({orderModal: false})} openAddModal={(() => this.setState({addPageModal: true}))} /> : null}
         {this.state.addPageModal ? <AddPageModal closeModal={() => this.setState({addPageModal: false})} /> : null}
