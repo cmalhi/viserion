@@ -78,6 +78,9 @@
         TextContent: {
           componentName: <TextContent />,
         },
+        List: {
+          componentName: <List />,
+        },
         Footer: {
           componentName: <Footer />,
         },
@@ -123,8 +126,7 @@
         let newPrefsComp = this.toComponents(newPrefs);
 
         // TODO: refactor
-        this.setState({ sitePreferences: newPrefsComp.reverse() });
-        this.setState({ sitePreferences: newPrefsComp.reverse() });
+        this.setState({ sitePreferences: newPrefsComp});
       });
     }
     render() {
@@ -535,6 +537,47 @@
         >
           <p><EditableShortText value={this.state.text} id={this.state.id} path={this.state.path1}/></p>
         </footer>
+      )
+    }
+  }
+
+  class List extends React.Component {
+    constructor(props){
+      super(props);
+      this.state = {
+        bgColor: this.props.bgColor,
+        items: this.props.items,
+        id: this.props.id,
+        path: ['attr', 'items'],
+      }
+      this.handleClick = this.handleClick.bind(this);
+    }
+    componentWillReceiveProps(nextProps) {
+      this.setState({
+        id: nextProps.id,
+        bgColor: nextProps.bgColor,
+        items: nextProps.items,
+      })
+    }
+
+    handleClick() {
+      socket.emit('launchImageModal', {key: this.state.key, id: this.state.id, path: this.state.path});
+    }
+
+    render() {
+      const list = this.state.items.map((item, i) => {
+        var itempath = [...this.state.path]
+        itempath.push(i);
+        return (
+          <p><EditableShortText value={item} key={i} id={this.state.id} path={itempath}/></p>
+        )
+      });
+      return (
+        <div className="content">
+          <div className="columns columns-image">
+            {list}
+          </div>
+        </div>
       )
     }
   }

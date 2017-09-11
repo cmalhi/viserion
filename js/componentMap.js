@@ -89,6 +89,15 @@ const componentMap = {
       body: 'The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols.',
     },
   },
+  List: {
+    id: 'notSet',
+    nickname: 'My List',
+    componentName: 'List',
+    attr: {
+      bgColor: '#262626',
+      items: ['This is a listing component', 'Here\'s an item', 'Another Item', 'Yet Another Item'],
+    },
+  },
   Footer: {
     id: 'notSet',
     nickName: 'My Footer',
