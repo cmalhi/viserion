@@ -9,6 +9,7 @@ const io = require('socket.io-client');
 var {
   height: deviceHeight
 } = Dimensions.get('window');
+const socket = io(global.HOST, { transports: ['websocket'] });
 
 class ShortTextModal extends React.Component {
   constructor(props) {
@@ -27,6 +28,24 @@ class ShortTextModal extends React.Component {
       toValue: 0
     }).start();
     console.log('DATA', this.props.data)
+  //   socket.emit('updatePref', [{
+  //         id: 'hero',
+  //         nickName: 'My Hero',
+  //         componentName: <Hero1 />,
+  //         attr: {
+  //           bgColor: 'defaultColor',
+  //           title: 'defaultTitle',
+  //         },
+  //       },
+  //       {
+  //         id: 'footer',
+  //         nickName: 'My Footer',
+  //         componentName: <Footer />,
+  //         attr: {
+  //           bgColor: 'defaultColor',
+  //           text: 'defaultText',
+  //         },
+  //       }])
   }
 
   closeModal() {
@@ -37,13 +56,13 @@ class ShortTextModal extends React.Component {
   }
 
   closeAndUpdate() {
-    const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
     // socket.emit('changeTitleDom', { key: this.props.id, textValue: this.state.title, data: this.props.data });
     this.props.data.newValue = this.state.title; 
-    console.log('preferences before', this.props.preferences)
+    console.log('closeAndUpdate, this.props.preferences >>', this.props.preferences)
+    console.log('closeAndUpdate, this.props.data >> ', this.props.data)
     var newPreferences = changePrefs(this.props.data, this.props.preferences);
-    console.log('preferences are ', this.props.preferences);
+    console.log('closeAndUpdate new preferences >> ', this.props.preferences);
 
     socket.emit('updatePref', newPreferences);
   }
