@@ -5,28 +5,25 @@ import axios from 'axios';
 export default class SavedPages extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { templates: [] };
+    this.state = { sites: [] };
   }
 
   componentDidMount() {
     axios.get(`${global.HOST}/sites/list/test`)
       .then((res) => {
         console.log(res.data);
-        this.setState({ templates: res.data });
+        this.setState({ sites: res.data });
       })
       .catch((err) => console.log('Err getting /sites/list: ', err));
   }
 
   render() {
     let images = [];
-    if (this.state.templates.length > 0){
+    if (this.state.sites.length > 0){
       // Pull just the URLs
-      images = this.state.templates.map((t) => {
+      images = this.state.sites.map((site) => {
         return (
-          <View key={t['_id']}>
-            <Text>{t['_id']}</Text>
-            { t.screenshot && <Image style={{width:400, height: 200}} source={require('./example.png')} resizeMode="contain" /> }
-          </View>
+          <Text>{site}</Text>
         )
       })
     }
@@ -38,3 +35,8 @@ export default class SavedPages extends React.Component {
     )
   }
 }
+
+// <View key={t['_id']}>
+//   <Text>{t['_id']}</Text>
+//    { t.screenshot && <Image style={{width:400, height: 200}} source={require('./example.png')} resizeMode="contain" /> }
+//  </View>
