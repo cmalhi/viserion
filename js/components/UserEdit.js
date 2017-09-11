@@ -49,6 +49,7 @@ class UserEdit extends React.Component {
     };
     this.handleRearrange = this.handleRearrange.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -92,6 +93,11 @@ class UserEdit extends React.Component {
     this.setState({ addPageModal: true });
   }
 
+  handleSubmit() {
+    // TODO: Send these preferences to DB along with HTML TEMPLATE
+    
+  }
+
   render() {
     return (
       <View style={styles.flexContainer}>
@@ -107,6 +113,7 @@ class UserEdit extends React.Component {
         {this.state.pricingListModal ? <PricingListModal details={this.state.pricingDetails} Id={this.state.pricingListId} closeModal={() =>this.setState({pricingListModal: false})} /> : null }  
         <Button title="Add New Component" onPress={this.handleAdd} />
         <Button title="Rearrange Components" onPress={this.handleRearrange} />
+        <Button title="Submit" onPress={this.handleSubmit} />
       </View>
     );
   }

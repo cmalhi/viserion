@@ -22,8 +22,8 @@ class LoginForm extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // const { navigate } = this.props.navigation;
-    // nextProps.auth.isLoggedIn && navigate('Template')
+    const { navigate } = this.props.navigation;
+    nextProps.auth.isLoggedIn && navigate('Template')
   }
 
   async emailLogin(email, password) {
@@ -32,7 +32,6 @@ class LoginForm extends Component {
       this.props.loginOrSignUpUser();
       const { navigate } = this.props.navigation;
       navigate('Template');
-      const user = firebase.auth().currentUser;
     } catch (error) {
       const errorMessage = error.toString();
       this.setState({ errorMessage });

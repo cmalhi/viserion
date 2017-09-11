@@ -42,7 +42,6 @@ export function loginOrSignUpUser() {
         axios.post(`${global.HOST}/signup`, {
           userId: user.uid
         })
-        .then(success => console.log('Used created', success))
         .catch(err => console.log('Error creating user', err))
         // Retrieve JWT token and set on AsyncStorage
         user.getIdToken()

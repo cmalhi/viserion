@@ -62,6 +62,28 @@ const Root = StackNavigator(
   }
 );
 
+const AppNavigator = StackNavigator({
+  // Index: { screen: PresetPalettes },
+  // Index: { screen: HomeScreen },
+  Index: { screen: UserEdit },
+  PresetPalettes: { screen: PresetPalettes },
+  ThreeColorPicker: { screen: ThreeColorPicker },
+  Template: { screen: ChooseLayout },
+  Title: { screen: ChooseTitle },
+  ConfirmSite: { screen: ConfirmSite },
+  ShareScreen: { screen: SharedScreen },
+  Keywords: { screen: ChooseKeywords },
+  Image: { screen: ImageUploader },
+  Saved: { screen: SavedPages },
+  Login: { screen: Login },
+  SignUp: { screen: SignUp },
+  UserEdit: { screen: UserEdit },
+  ColorPicker: { screen: ColorPicker },
+  ColorModal: { screen: ColorModal },
+  AddComponent: { screen: AddComponent },
+  ChangeComponent: { screen: ChangeComponent },
+});
+
 export default () => (
   <Provider store={store}>
     <Root />

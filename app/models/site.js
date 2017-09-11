@@ -5,13 +5,7 @@ const siteSchema = mongoose.Schema({
   userId: String,
   html: String,
   screenshot: String,
-  settings: {
-    components: [String],
-    colors: [String],
-    text: {
-      title: String,
-    },
-  },
+  preferences: Object,
 });
 
 const Site = mongoose.model('Site', siteSchema);
