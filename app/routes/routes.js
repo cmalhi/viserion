@@ -53,18 +53,16 @@ var routerInstance = function(io) {
 
   router.post('/sites', siteController.addOne);
 
+
   router.get('/sites/list/:userid', siteController.retrieveList);
 
   router.get('/sites/all', siteController.retrieveAll);
-  
+ 
   router.get('/sites/all/:userid', siteController.retrieveUserAll);
-  
+ 
   router.get('/sites/:siteid', siteController.retrieveOne);
 
-  
-
-  
-
+  router.put('/sites/:siteid', siteController.updateOne);
 
   /*
    * /POST /submitchoice

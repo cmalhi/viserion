@@ -31,15 +31,22 @@ exports.retrieveAll = function(req, res) {
     .catch(err => res.status(500).send({ success: false, error: 'Error retrieving sites ' + err}));
 };
 
-
-
 exports.retrieveOne = function(req, res) {
-  const fileId = req.params.siteid;
-  Site.findOne( { _id: fileId }, 'body', function(err, file) {
-    if (err || !file) return res.status(500).send({ success: false, error: 'Error retrieving site with id ' + req.params.id });
-    res.send(file['preferences']);
+  const siteId = req.params.siteid;
+  Site.findOne( { _id: siteId }, function(err, site) {
+    if (err || !site) return res.status(500).send({ success: false, error: 'Error retrieving site with id ' + req.params.siteid });
+    res.send(site);
   })
 };
+
+exports.updateOne = function(req, res) {
+  const siteId = req.params.siteid;
+  const { preferences } = req.body;
+  Site.findOneAndUpdate( {_id: siteId }, { 'preferences' : preferences }, function(err, site) {
+    if (err || !site) return res.status(500).send({ success: false, error: 'Error updating site with id ' + req.params.siteid });
+    res.send(site);
+  })
+}
 
 exports.retrieveList = function(req, res) {
   const userId = req.params.userid;
