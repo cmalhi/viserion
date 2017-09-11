@@ -26,7 +26,6 @@ class ShortTextModal extends React.Component {
       duration: 300,
       toValue: 0
     }).start();
-    console.log('DATA', this.props.data)
   }
 
   closeModal() {
@@ -54,7 +53,12 @@ class ShortTextModal extends React.Component {
             <Text style={styles.center}>Close Menu</Text>
           </TouchableOpacity>
           <Text style={styles.bigText}>Edit Text</Text>
-          <TextInput style={styles.form} onChangeText={(title) => this.setState({title})} placeholder={this.props.title} value={this.state.title} />
+          <TextInput
+            style={styles.form}
+            onChangeText={(title) => this.setState({title})}
+            placeholder={this.props.title}
+            value={this.state.title}
+          />
           <Button onPress={this.closeAndUpdate} title="Enter" />
         </View>
       </Animated.View>

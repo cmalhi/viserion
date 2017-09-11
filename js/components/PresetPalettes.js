@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addColors } from '../actions/index';
 import CircularColorPalette from './CircularColorPalette';
+import styles from '../styles';
 
 class PresetPalettes extends React.Component {
   constructor(props) {
@@ -52,42 +53,27 @@ class PresetPalettes extends React.Component {
     });
     return (
       <View style={styles.container}>
-        <ScrollView contentContainerStyle={styles.innerContainer}>
-          <View>
-            <Text style={styles.big}>Pick any colors you like.</Text>
-            <Text style={styles.small}>We'll use these to craft your page.</Text>
-            <Text onPress={() => { navigate('ThreeColorPicker')}}>Or use our custom color picker</Text>
-          </View>
-          {circles}
-        </ScrollView>
-        <Button title="Continue" onPress={this.submitColor} />
+        <View style={{ flex : 8 }}>
+          <ScrollView>
+            <View style={[styles.header, styles.headerHeight]}>
+              <Text style={styles.title}>Pick any colors you like.</Text>
+              <Text>We'll use these to craft your page.</Text>
+              <Text onPress={() => { navigate('ThreeColorPicker')}}>Or use our custom color picker</Text>
+            </View>
+            <View style={styles.mainHeight}>
+              <View style={styles.grid}>
+                {circles}
+              </View>
+            </View>
+          </ScrollView>
+        </View>
+        <View style={styles.footerHeight}>
+          <Button title="Continue" onPress={this.submitColor} />
+        </View>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  innerContainer: {
-    flexDirection: 'row',
-    backgroundColor: '#FFFFFF',
-    alignItems: 'center',
-    justifyContent: 'center',
-    // maxHeight: 20,
-    flexWrap: 'wrap',
-  },
-  big: {
-    fontSize: 30,
-  },
-  small: {
-    fontSize: 20,
-  },
-  selected: {
-    backgroundColor: '#aaa',
-  },
-});
 
 function mapStateToProps({ colors }) {
   return { colors };
