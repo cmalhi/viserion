@@ -2,9 +2,12 @@ const Site = require('../models/site');
 const User = require('../models/user');
 
 exports.addOne = function(req, res) {
+  console.log('req.body', req.body)
   const { userId, html, preferences } = req.body;
+  console.log('req.body', req.body)
   // TODO: configure screenshots
   const newSite = { userId, html, preferences };
+  console.log('New site to post', newSite);
   Site.create(newSite)
     .then((site) => {
       console.log(site);

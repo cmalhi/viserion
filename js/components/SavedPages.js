@@ -1,15 +1,22 @@
 import React from 'react';
-import { Image, View, Text} from 'react-native';
+import { Image, View, Text, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 
 export default class SavedPages extends React.Component {
   constructor(props) {
     super(props);
     this.state = { sites: [] };
+
+    this.handleLinkPress = this.handleLinkPress.bind(this);
   }
 
+  handleLinkPress(site) {
+    console.log(site);
+  }
+
+
   componentDidMount() {
-    axios.get(`${global.HOST}/sites/list/test`)
+    axios.get(`${global.HOST}/sites/all/test`)
       .then((res) => {
         console.log(res.data);
         this.setState({ sites: res.data });
@@ -23,7 +30,9 @@ export default class SavedPages extends React.Component {
       // Pull just the URLs
       images = this.state.sites.map((site) => {
         return (
-          <Text>{site}</Text>
+          <TouchableOpacity onPress={this.handleLinkPress.bind(this, site)}>
+            <Text>{site._id}</Text>
+          </TouchableOpacity>
         )
       })
     }
