@@ -80,6 +80,7 @@ class UserEdit extends React.Component {
     });
 
     socket.on('launchListModal', (data) => {
+      //TODO: get id
       this.setState({ listModal: true, listData: data });
     });
   }
@@ -103,7 +104,7 @@ class UserEdit extends React.Component {
         {this.state.colorModal ? <ColorModal data={this.state.colorData} navigation={this.props.navigation} closeModal={() => this.setState({colorModal: false})} /> : null}
         {this.state.orderModal ? <OrderModal closeModal={() => this.setState({orderModal: false})} openAddModal={(() => this.setState({addPageModal: true}))} /> : null}
         {this.state.addPageModal ? <AddPageModal closeModal={() => this.setState({addPageModal: false})} /> : null}
-        {this.state.imageModal ? <ImageModal data={this.state.listData} id={this.state.imageId} closeModal={() => this.setState({imageModal: false})} /> : null}
+        {this.state.listModal ? <ListModal data={this.state.listData} closeModal={() => this.setState({listModal: false})} /> : null}
         {this.state.pricingListModal ? <PricingListModal details={this.state.pricingDetails} Id={this.state.pricingListId} closeModal={() =>this.setState({pricingListModal: false})} /> : null }  
         <Button title="Add New Component" onPress={this.handleAdd} />
         <Button title="Rearrange Components" onPress={this.handleRearrange} />
