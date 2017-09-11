@@ -3,7 +3,7 @@ import { Text, Image, TouchableHighlight, Button } from 'react-native';
 import { Container, Header, DeckSwiper, Card, CardItem, Thumbnail, View, Left, Body, Icon } from 'native-base';
 import { connect } from 'react-redux';
 import { addLayouts } from '../../actions/index';
-import layoutsData from '../../layoutsData';
+import layoutsData from './layoutsData';
 import LayoutItem from './LayoutItem';
 import styles from '../../styles';
 

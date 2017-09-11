@@ -2,7 +2,7 @@ import React from 'react';
 import { Alert, AppRegistry, Button, ListView, Text, TouchableHighlight, View, StyleSheet, AsyncStorage } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { addColors } from '../actions/index';
+import { addColors } from '../../actions/index';
 import { TriangleColorPicker, fromHsv } from 'react-native-color-picker';
 
 class ThreeColorPicker extends React.Component {

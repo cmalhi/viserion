@@ -2,7 +2,7 @@ import React from 'react';
 import { Animated, Dimensions, Image, Text, TouchableOpacity, View, Button, StyleSheet, TextInput } from 'react-native';
 import { ImagePicker } from 'expo';
 import { RNS3 } from 'react-native-aws3';
-import ImageSearch from '../ImageSearch'
+import ImageSearch from './ImageSearch'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { updatePrefs } from '../../actions/index';

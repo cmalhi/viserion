@@ -2,9 +2,9 @@ import React from 'react';
 import { Alert, AppRegistry, Button, ListView, Text, TouchableOpacity, View, StyleSheet, AsyncStorage, ScrollView } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { addColors } from '../actions/index';
+import { addColors } from '../../actions/index';
 import CircularColorPalette from './CircularColorPalette';
-import styles from '../styles';
+import styles from '../../styles';
 
 class PresetPalettes extends React.Component {
   constructor(props) {

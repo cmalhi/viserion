@@ -6,7 +6,7 @@ import ShortTextModal from './modals/ShortTextModal';
 import LongTextModal from './modals/LongTextModal';
 import ColorModal from './modals/ColorModal';
 import OrderModal from './modals/OrderModal';
-import AddPageModal from './modals/AddPageModal';
+import AddPageModal from './modals/AddComponentModal';
 import PricingListModal from './modals/PricingListModal';
 import ListModal from './modals/ListModal';
 import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker';
@@ -96,7 +96,7 @@ class UserEdit extends React.Component {
     return (
       <View style={styles.flexContainer}>
         {/*<WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/reactify.html`}} />*/}
-        <WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/add.html`}} />
+        <WebView style={styles.webView} source={{uri: `${global.HOST}/webpages/add.html`}} />
         {this.state.shortTextModal ? <ShortTextModal data={this.state.shortTextData} id={this.state.shortTextId} title={this.state.shortTextValue} closeModal={() => this.setState({shortTextModal: false}) } /> : null}
         {this.state.longTextModal ? <LongTextModal data={this.state.longTextData} id={this.state.longTextId} body={this.state.longTextValue} closeModal={() => this.setState({longTextModal: false}) } /> : null}
         {this.state.imageModal ? <ImageModal data={this.state.imageData} id={this.state.imageId} closeModal={() => this.setState({imageModal: false})} /> : null}
