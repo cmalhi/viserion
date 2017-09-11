@@ -1,6 +1,5 @@
 import React from 'react';
 import { Platform, StyleSheet, Button, Text, View, ScrollView } from 'react-native';
-// import { TabNavigator, StackNavigator, TabView } from 'react-navigation';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
