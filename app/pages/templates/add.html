@@ -36,7 +36,7 @@
           componentName: <Hero1 />,
           attr: {
             bgColor: 'defaultColor',
-            title: 'defaultTitle',
+            title: 'Title',
           },
         },
           {
@@ -45,7 +45,7 @@
             componentName: <Footer />,
             attr: {
               bgColor: 'defaultColor',
-              text: 'defaultText',
+              text: 'Footer',
             },
           }],
       };
@@ -61,6 +61,9 @@
         },
         ImageContent: {
           componentName: <ImageContent />,
+        },
+        PinterestText: {
+          componentName: <PinterestText />,
         },
         PinterestContent: {
           componentName: <PinterestContent />,
@@ -327,24 +330,29 @@
       this.state = {
         content: this.props.content,
         id: this.props.id,
-        path: ['attr'],
+        path: ['attr', 'content'],
       }
     }
 
     componentWillReceiveProps(nextProps) {
       this.setState({
         id: nextProps.id,
-        content: this.props.content,
+        content: next.content,
       })
     }
 
     render() {
       const items = this.state.content.map((item, i) => {
-        //var path = this.state.path.push(i)
+        var path1 = [...this.state.path];
+        var path2 = [...this.state.path];
+        path1.push(i);
+        path2.push(i);
+        path1.push('title');
+        path2.push('body');
         return (
           <figure key={i}>
-            <h2><EditableShortText color={this.props.headerColor} value={item.title} /></h2>
-            <EditableLongText body={item.body} />
+            <h2><EditableShortText color={this.props.headerColor} value={item.title} id={this.state.id} path={path1}/></h2>
+            <EditableLongText body={item.body} id={this.state.id} path={path2}/>
           </figure>
         )
       });
@@ -392,19 +400,29 @@
     }
   }
   class PinterestContent extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        imageUrls: this.props.imageUrls,
+        id: this.props.id,
+        path: ['attr', 'imageUrls'],
+      }
+    }
+
+    componentWillReceiveProps(nextProps) {
+      this.setState({
+        id: nextProps.id,
+        imageUrls: nextProps.imageUrls,
+      })
+    }
+
     render() {
-      const imageUrls = [
-        'https://68.media.tumblr.com/8c03ff7f9a45832be4a65783b5c39ecb/tumblr_ovebbfcc3S1s2tva9o1_1280.jpg',
-        'https://68.media.tumblr.com/3523f18b84d111ca2d39797c766d6ab8/tumblr_ov7e3t3Dg61s2tva9o1_1280.jpg',
-        'https://68.media.tumblr.com/dd9ef337da64596dad08baf332e7c91e/tumblr_ovebc0U7381s2tva9o1_1280.jpg',
-        'https://68.media.tumblr.com/bf224896567a05f502931d1f738cec85/tumblr_oubn37DsUk1s2tva9o1_1280.jpg',
-        'https://68.media.tumblr.com/c0f6f53319b37c3dd46158438739a5ae/tumblr_oubn9jascg1s2tva9o1_1280.jpg',
-        'https://68.media.tumblr.com/aac121c777631aa1ef756fd4164a004f/tumblr_oubn8iPPLG1s2tva9o1_1280.jpg',
-      ];
-      const images = imageUrls.map((item, i) => {
+      const images = this.state.imageUrls.map((item, i) => {
+        var imgpath = [...this.state.path]
+        imgpath.push(i);
         return (
           <figure key={i}>
-            <EditableImage src={item}/>
+            <EditableImage src={item} id={this.state.id} path={imgpath}/>
           </figure>
         )
       });
@@ -428,6 +446,13 @@
         path2: ['attr', 'caption'],
       }
     }
+
+    componentWillReceiveProps(nextProps) {
+      imageUrl: nextProps.imageUrl,
+      caption: nextProps.caption,
+      id: nextProps.id,
+    } 
+
     render() {
       return (
         <div className="content">

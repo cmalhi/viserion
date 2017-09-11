@@ -7,7 +7,7 @@ const componentMap = {
     componentName: 'Hero',
     attr: {
       bgColor: 'defaultColor',
-      title: 'defaultTitle',
+      title: 'Title',
     },
   },
   PricingList: {
@@ -33,10 +33,10 @@ const componentMap = {
       body3: 'Hear this week’s latest singles and albums, and check out what’s hot in the Top 50.',
     },
   },
-  PinterestContent: {
+  PinterestText: {
     id: 'notSet',
-    nickName: 'My PinterestContent',
-    componentName: 'PinterestContent',
+    nickName: 'My PinterestText',
+    componentName: 'PinterestText',
     attr: {
       headerColor: '#d3654b',
       content: [
@@ -53,6 +53,22 @@ const componentMap = {
           body: 'Yes, there will be a standby line if accepted attendees do not show up! The line will open when registration starts (9am) and students will be admitted off the standby line after registration ends (10:30am).',
         },
       ],
+    },
+  },
+  PinterestContent: {
+    id: 'notSet',
+    nickName: 'My PinterestContent',
+    componentName: 'PinterestContent',
+    attr: {
+      headerColor: '#d3654b',
+      imageUrls: [
+        'https://68.media.tumblr.com/8c03ff7f9a45832be4a65783b5c39ecb/tumblr_ovebbfcc3S1s2tva9o1_1280.jpg',
+        'https://68.media.tumblr.com/3523f18b84d111ca2d39797c766d6ab8/tumblr_ov7e3t3Dg61s2tva9o1_1280.jpg',
+        'https://68.media.tumblr.com/dd9ef337da64596dad08baf332e7c91e/tumblr_ovebc0U7381s2tva9o1_1280.jpg',
+        'https://68.media.tumblr.com/bf224896567a05f502931d1f738cec85/tumblr_oubn37DsUk1s2tva9o1_1280.jpg',
+        'https://68.media.tumblr.com/c0f6f53319b37c3dd46158438739a5ae/tumblr_oubn9jascg1s2tva9o1_1280.jpg',
+        'https://68.media.tumblr.com/aac121c777631aa1ef756fd4164a004f/tumblr_oubn8iPPLG1s2tva9o1_1280.jpg',
+      ]
     },
   },
   ImageCaption: {
@@ -79,7 +95,7 @@ const componentMap = {
     componentName: 'Footer',
     attr: {
       bgColor: '#EEE',
-      text: 'defaultText',
+      text: 'Footer',
     },
   },
 };
