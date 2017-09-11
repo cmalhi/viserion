@@ -51,7 +51,6 @@
           }],
       };
 
-
       this.map = this.map.bind(this);
       this.toComponents = this.toComponents.bind(this);
     }
@@ -608,6 +607,38 @@
           </div> 
         );
       }
+    }
+
+    class Ticker extends React.Component {
+      constructor(props){
+        super(props)
+        this.state = {
+          msg: 'Enter Your Message Here....',
+        }
+        this.continue = true;
+      }
+
+      componentDidMount() {
+       this.beginScroll(); 
+      }
+
+      beginScroll(){
+        if(this.continue && this.state.msg) {
+          setInterval(function(){
+            var msg = this.state.msg;
+            msg = msg.split('');
+            msg.push(msg.shift(''));
+            this.setState({msg: msg});
+          },250);
+        }
+      }  
+
+      render() {
+        return (
+         <Hero title={this.state.msg} />
+        )
+      }
+
     }
 
   ReactDOM.render(<Parent/>, document.getElementById('parent'));
