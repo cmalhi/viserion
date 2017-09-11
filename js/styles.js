@@ -38,5 +38,28 @@ export default styles = StyleSheet.create({
   footerHeight: {
     flex: 1,
     justifyContent: 'center',
+  },
+
+  // Keywords
+  keyword: {
+    backgroundColor: '#2E9D88',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    margin: 5,
+  },
+  keywordsContainer: {
+    flex: 1,
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  keywordSelected: {
+    opacity: 0.7,
+    backgroundColor: '#15433A',
+  },
+  keywordText: {
+    fontSize: 20,
+    color: '#fff',
   }
 });
