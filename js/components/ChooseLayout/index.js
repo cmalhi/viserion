@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, Image, TouchableHighlight, Button } from 'react-native';
+import { Text, Image, TouchableHighlight, Button } from 'react-native';
 import { Container, Header, DeckSwiper, Card, CardItem, Thumbnail, View, Left, Body, Icon } from 'native-base';
 import { connect } from 'react-redux';
 import { addLayouts } from '../../actions/index';
 import layoutsData from '../../layoutsData';
 import LayoutItem from './LayoutItem';
+import styles from '../../styles';
 
 class ChooseLayout extends React.Component {
   constructor(props) {
@@ -59,62 +60,40 @@ class ChooseLayout extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.content}>
-          <View style={styles.header}>
-            <Text style={styles.title}>What kind of websites do you like?</Text>
-            <Text>We'll use these as inspiration.</Text>
-          </View>
-            <DeckSwiper
-              ref={(c) => this._deckSwiper = c}
-              dataSource={this.state.layoutsData}
-              looping={false}
-              onSwipeRight={this.handleRightSwipe}
-              onSwipeLeft={this.handleRightSwipe}
-              renderEmpty={() =>
-                <View style={{ alignSelf: "center" }}>
-                  <Text style={styles.title}>That\'s all!</Text>
-                </View>}
-              renderItem={(layout) =>
-                <LayoutItem
-                  layout={layout}
-                  handleLayoutPress={this.handleLayoutPress}
-                />
-              }
-            />
+        <View style={[styles.header, styles.headerHeight]}>
+          <Text style={styles.title}>What kind of websites do you like?</Text>
+          <Text>We'll use these as inspiration.</Text>
         </View>
-        <Button
-          onPress={this.handleSubmit}
-          title="Continue"
-          color="#000000"
-        />
+        <View style={styles.mainHeight}>
+          <DeckSwiper
+            ref={(c) => this._deckSwiper = c}
+            dataSource={this.state.layoutsData}
+            looping={false}
+            onSwipeRight={this.handleRightSwipe}
+            onSwipeLeft={this.handleRightSwipe}
+            renderEmpty={() =>
+              <View style={{ alignSelf: "center" }}>
+                <Text style={styles.title}>That\'s all!</Text>
+              </View>}
+            renderItem={(layout) =>
+              <LayoutItem
+                layout={layout}
+                handleLayoutPress={this.handleLayoutPress}
+              />
+            }
+          />
+        </View>
+        <View style={styles.footerHeight}>
+          <Button
+            onPress={this.handleSubmit}
+            title="Continue"
+            style={styles.bottomButton}
+          />
+        </View>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  content: {
-    flex: 1,
-    padding: 10,
-  },
-  deckContainer: {
-    // marginTop: -390,
-  },
-  title: {
-    fontSize: 22,
-  },
-  header: {
-    marginBottom: 20,
-    // alignItems: 'center',
-  },
-});
 
 function mapStateToProps({ layouts }) {
   return { layouts };
