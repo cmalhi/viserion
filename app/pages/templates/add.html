@@ -117,6 +117,7 @@
         newPref = [...newPref, this.toComponent(addition)];
         this.setState({ sitePreferences: newPref }, console.log('this.state.sitePreferences', this.state.sitePreferences));
       });
+      
       socket.on('updatePrefDomStore', (newPrefs) => {
         let newPrefsComp = this.toComponents(newPrefs);
 

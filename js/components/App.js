@@ -39,7 +39,7 @@ export const store = createStore(
 
 const Root = StackNavigator(
   {
-    // Index: { screen: MainTabNavigator },
+    // Index: { screen: ChooseLayout },
     Index: { screen: HomeScreen },
     MainApp: { screen: MainTabNavigator },
     PresetPalettes: { screen: PresetPalettes },

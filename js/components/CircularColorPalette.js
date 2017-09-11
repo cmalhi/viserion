@@ -28,8 +28,8 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   item: {
-    height: 110,
-    width: 110,
+    height: 100,
+    width: 100,
     borderRadius: 200,
     margin: 5,
   },
