@@ -81,7 +81,7 @@ class UserEdit extends React.Component {
 
     socket.on('launchListModal', (data) => {
       //TODO: get id
-      this.setState({ listModal: true, listData: data });
+      this.setState({ listModal: true, listData: data, listId: data.key, value: data.textValue});
     });
   }
 
