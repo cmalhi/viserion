@@ -61,7 +61,7 @@ const Root = StackNavigator(
   },
   {
     navigationOptions: {
-      title: 'PageMill',
+      title: 'PageExpress',
     },
   }
 );
