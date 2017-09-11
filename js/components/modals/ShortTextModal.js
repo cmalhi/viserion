@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { updatePrefs } from '../../actions/index';
 const io = require('socket.io-client');
-import { updateComponent } from '../../utils.js'
+import { updateComponent } from '../../utils.js';
 
 var {
   height: deviceHeight
