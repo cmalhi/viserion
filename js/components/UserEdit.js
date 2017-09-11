@@ -8,6 +8,7 @@ import ColorModal from './modals/ColorModal';
 import OrderModal from './modals/OrderModal';
 import AddPageModal from './modals/AddPageModal';
 import PricingListModal from './modals/PricingListModal';
+import ListModal from './modals/ListModal';
 import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -38,11 +39,13 @@ class UserEdit extends React.Component {
 
       orderModal: false,
       addPageModal: false,
+      listModal: false,
 
       shortTextData: null,
       colorData: null,
       longTextData: null,
       imageData: null,
+      listData: null,
     };
     this.handleRearrange = this.handleRearrange.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
@@ -75,6 +78,10 @@ class UserEdit extends React.Component {
     socket.on('launchPricingModal2', (list) => {
       this.setState({ pricingListModal: true, pricingDetails: list.details, pricingListId: list.key });
     });
+
+    socket.on('launchListModal', (data) => {
+      this.setState({ listModal: true, listData: data });
+    });
   }
 
   handleRearrange() {
@@ -96,6 +103,7 @@ class UserEdit extends React.Component {
         {this.state.colorModal ? <ColorModal data={this.state.colorData} navigation={this.props.navigation} closeModal={() => this.setState({colorModal: false})} /> : null}
         {this.state.orderModal ? <OrderModal closeModal={() => this.setState({orderModal: false})} openAddModal={(() => this.setState({addPageModal: true}))} /> : null}
         {this.state.addPageModal ? <AddPageModal closeModal={() => this.setState({addPageModal: false})} /> : null}
+        {this.state.imageModal ? <ImageModal data={this.state.listData} id={this.state.imageId} closeModal={() => this.setState({imageModal: false})} /> : null}
         {this.state.pricingListModal ? <PricingListModal details={this.state.pricingDetails} Id={this.state.pricingListId} closeModal={() =>this.setState({pricingListModal: false})} /> : null }  
         <Button title="Add New Component" onPress={this.handleAdd} />
         <Button title="Rearrange Components" onPress={this.handleRearrange} />
