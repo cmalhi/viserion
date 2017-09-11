@@ -13,6 +13,7 @@
 <script src="https://fb.me/react-dom-15.0.0.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
 <script src="http://127.0.0.1:8080/socket.io/socket.io.js"></script>
+
 <!--<script src="http://ec2-54-203-8-222.us-west-2.compute.amazonaws.com:8080/socket.io/socket.io.js"></script>-->
 
 <div id="parent"></div>
@@ -114,7 +115,7 @@
         newPref = [...newPref, this.toComponent(addition)];
         this.setState({ sitePreferences: newPref }, console.log('this.state.sitePreferences', this.state.sitePreferences));
       });
-      
+
       socket.on('updatePrefDomStore', (newPrefs) => {
         let newPrefsComp = this.toComponents(newPrefs);
 
