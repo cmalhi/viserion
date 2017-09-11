@@ -21,17 +21,17 @@ class ImageSearch extends React.Component {
   searchForImages(){
     axios({
       method: 'get',
-      url: `https://api.cognitive.microsoft.com/bing/v5.0/images/search?q=${this.state.text}&count=24&offset=0&mkt=en-us&safeSearcs`,
+      url: `https://api.cognitive.microsoft.com/bing/v5.0/images/search?q=${this.state.text}&count=36&offset=0&mkt=en-us&safeSearcs`,
       headers: {
         'Content-Type': 'multipart/form-data',
         'Ocp-Apim-Subscription-Key': key
       }
     })
     .then((response) => {
-      var urlData =response.data.value.map((obj,id)=> {
+      var urlData =response.data.value.map((obj)=> {
         return (
-          <TouchableHighlight key={id} onPress={this.handlePress.bind(this, id, obj.contentUrl)}>  
-            <Image source={{uri: obj.contentUrl}}
+          <TouchableHighlight key={obj.imageId} onPress={this.handlePress.bind(this, obj.imageId, obj.contentUrl)}>  
+            <Image source={{uri: obj.thumbnailUrl}}
             style={styles.pic} />
           </TouchableHighlight>
         )
@@ -75,8 +75,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    justifyContent: 'center',
-    height: 250,
+    justifyContent: 'center'
   },
   content: {
     paddingVertical: 20,
