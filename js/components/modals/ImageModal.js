@@ -30,7 +30,6 @@ class ImageModal extends React.Component {
       duration: 300,
       toValue: 0
     }).start();
-    console.log('THE DATA PROP IN IMAGE MODAL IS ', this.props.data)
   }
 
   closeModal() {
@@ -58,10 +57,8 @@ class ImageModal extends React.Component {
       if (response.status !== 201)
         throw new Error("Failed to upload image to S3");
       const imageUrl = response.body.postResponse.location;
-      console.log('CAMERAROLL FUNCTION RAN')
       var { id, path } = this.props.data;
       var newPref = updateComponent(this.props.preferences, id, path, imageUrl);
-      console.log('THE DATA IS NOW ', newPref)
       socket.emit('updatePref', newPref);
       // socket.emit('changeImageDom', {key: this.props.id, src: imageUrl});
     });

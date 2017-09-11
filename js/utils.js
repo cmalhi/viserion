@@ -61,7 +61,6 @@ exports.updateComponent = (components, id, path, value) => {
   // 1) Get target object we want to modify
   var target = exports.getObj(res, 'id', id);
   var index = res.indexOf(target);
-  console.log('THE UPDATE COMPONENTS FUNCTION RAN')
   // 2) Create the path
   // Add index to path
   // So ['attr', 'title'] becomes [2, 'attr', 'title']
