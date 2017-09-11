@@ -1,21 +1,13 @@
 import React from 'react';
 import { StyleSheet, Button, Text, View, ScrollView } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import { createLogger } from 'redux-logger';
-const io = require('socket.io-client');
-
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { appendPrefs, updatePrefs } from '../actions/index';
-
 import ConfirmSite from './ConfirmSite';
 import Login from './Login';
 import SignUp from './SignUp';
 import UserEdit from './UserEdit';
+const io = require('socket.io-client');
 
-class HomeScreen extends React.Component {
+export default class HomeScreen extends React.Component {
 
   constructor(props) {
     super(props);
@@ -26,18 +18,9 @@ class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
-    // All sockets go here
     const socket = io(global.HOST, { transports: ['websocket'] });
     socket.on('connect', () => {
       this.setState({ isConnected: true });
-    });
-
-    socket.on('addPrefDomStore', (addition) => {
-      this.props.appendPrefs(addition)
-    });
-
-    socket.on('updatePrefDomStore', (newPrefs) => {
-      this.props.updatePrefs(newPrefs)
     });
   }
 
@@ -45,11 +28,6 @@ class HomeScreen extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
-        {/*<View style={styles.navBar}>*/}
-          {/*<Text style={styles.navBarButton}>Back</Text>*/}
-          {/*<Text style={styles.navBarHeader}>WebExpress</Text>*/}
-          {/*<Text style={styles.navBarButton}>More</Text>*/}
-        {/*</View>*/}
         <View style={styles.content}>
           <Text>socket connected: {this.state.isConnected ? 'true' : 'false'}</Text>
           <Text onPress={() => { navigate('MainApp')}} style={styles.text}>App Main Screen</Text>
@@ -66,14 +44,6 @@ class HomeScreen extends React.Component {
           <Text onPress={() => { navigate('UserEdit')}} style={[styles.text, styles.inDev]}>In dev: User Editing</Text>
           <Text onPress={() => { navigate('Saved')}} style={[styles.text, styles.inDev]}>In dev: Saved Pages</Text>
         </View>
-        {/*<View style={styles.tabBar}>*/}
-          {/*<View style={[styles.tabBarButton, styles.button1]}>*/}
-            {/*<Text style={styles.text}>Gallery</Text>*/}
-          {/*</View>*/}
-          {/*<View style={[styles.tabBarButton, styles.button2]}>*/}
-            {/*<Text style={styles.text}>My Sites</Text>*/}
-          {/*</View>*/}
-        {/*</View>*/}
       </View>
     )
   }
@@ -126,36 +96,4 @@ const styles = StyleSheet.create({
   }
 });
 
-// const styles = StyleSheet.create({
-//   content:{
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     backgroundColor: '#374046'
-//   },
-//   container: {
-//     justifyContent: 'flex-start',
-//   },
-//   title: {
-//     fontSize: 40,
-//     fontWeight: 'bold',
-//     color: '#444',
-//   },
-//   defaultText: {
-//     fontSize: 25,
-//   },
-//   inDevelopment: {
-//     fontSize: 25,
-//     backgroundColor: 'yellow',
-//   }
-// });
 
-function mapStateToProps({ preferences }) {
-  return { preferences };
-}
-
-const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({ appendPrefs, updatePrefs }, dispatch)
-};
-
-export default connect(mapStateToProps, matchDispatchToProps)(HomeScreen);
