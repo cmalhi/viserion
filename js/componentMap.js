@@ -14,7 +14,7 @@ const componentMap = {
     nickName: 'My Pricing',
     componentName: 'PricingListModal',
     attr: {
-      details:['Milk..........$4.79','Bread......$1.39','Eggs.......$2.39'],
+      details: ['Milk..........$4.79', 'Bread......$1.39', 'Eggs.......$2.39'],
       color: 'green',
     },
   },
@@ -78,7 +78,7 @@ const componentMap = {
     nickName: 'My Footer',
     componentName: 'Footer',
     attr: {
-      bgColor: 'defaultColor',
+      bgColor: '#EEE',
       text: 'defaultText',
     },
   },

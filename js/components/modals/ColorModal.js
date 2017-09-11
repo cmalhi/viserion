@@ -1,14 +1,18 @@
 import React from 'react';
 import { Animated, Dimensions, Image, Text, TouchableOpacity, View, Button, StyleSheet, TextInput } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { updatePrefs } from '../../actions/index';
+import { updateComponent } from '../../utils.js'
 import { TriangleColorPicker } from 'react-native-color-picker';
-const io = require('socket.io-client');
 import ColorPalette from './ColorPalette';
+const io = require('socket.io-client');
 
 var {
   height: deviceHeight
 } = Dimensions.get('window');
 
-export default class ColorModal extends React.Component {
+class ColorModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,7 +41,11 @@ export default class ColorModal extends React.Component {
   closeAndUpdate(){
     const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
-    socket.emit('colorChange2', this.state.color);
+    // socket.emit('colorChange2', this.state.color);
+    var value = this.state.color;
+    var { id, path } = this.props.data;
+    var newPref = updateComponent(this.props.preferences, id, path, value);
+    socket.emit('updatePref', newPref)
   }
 
   setColor(color) {
@@ -98,3 +106,13 @@ export const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+
+function mapStateToProps({ preferences }) {
+  return { preferences };
+}
+
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators({ updatePrefs }, dispatch)
+};
+
+export default connect(mapStateToProps, matchDispatchToProps)(ColorModal);
