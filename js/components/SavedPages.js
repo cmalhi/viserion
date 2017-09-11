@@ -1,11 +1,14 @@
 import React from 'react';
-import { Image, View, Text, TouchableOpacity } from 'react-native';
+import { Image, View, Text, TouchableOpacity, AsyncStorage } from 'react-native';
 import axios from 'axios';
 
 export default class SavedPages extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { sites: [] };
+    this.state = { 
+      sites: [],
+      userId: '',
+    };
 
     this.handleLinkPress = this.handleLinkPress.bind(this);
   }
@@ -16,12 +19,17 @@ export default class SavedPages extends React.Component {
 
 
   componentDidMount() {
-    axios.get(`${global.HOST}/sites/all/test`)
-      .then((res) => {
-        console.log(res.data);
-        this.setState({ sites: res.data });
+    AsyncStorage.getItem('userId')
+      .then(userId => {
+        // TODO: remove hard coded user ID
+        userId = 'test';
+        axios.get(`${global.HOST}/sites/all/${userId}`)
+          .then((res) => {
+            console.log(res.data);
+            this.setState({ sites: res.data });
+          })
+          .catch((err) => console.log('Err getting /sites/list: ', err));
       })
-      .catch((err) => console.log('Err getting /sites/list: ', err));
   }
 
   render() {

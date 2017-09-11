@@ -63,6 +63,8 @@ var routerInstance = function(io) {
 
   router.put('/sites/:siteid', siteController.updateOne);
 
+  router.get('/:siteid', siteController.serveOne);
+
   /*
    * /POST /submitchoice
    * Grabs templateID, generates screenshot image, inserts screenshot image into userTemplates

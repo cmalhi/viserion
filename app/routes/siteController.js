@@ -1,5 +1,6 @@
 const Site = require('../models/site');
 const User = require('../models/user');
+const prefToReactify = require('../utils/prefToReactify');
 
 exports.addOne = function(req, res) {
   console.log('req.body', req.body)
@@ -50,6 +51,18 @@ exports.updateOne = function(req, res) {
     res.send(site);
   })
 }
+
+exports.serveOne = function(req, res) {
+  const siteId = req.params.siteid;
+  Site.findOne( {_id:siteId } )
+    .exec()
+    .then(site => {
+      const html = prefToReactify(site.preferences);
+      console.log('html >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', html);
+      res.send(html);
+    })
+    .catch(err => res.status(500).send({ success: false, error: 'Error rendering site ' + err}));
+};
 
 exports.retrieveList = function(req, res) {
   const userId = req.params.userid;
