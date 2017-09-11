@@ -5,7 +5,7 @@ const defaultPreferences = [{
   componentName: 'Hero',
   attr: {
     bgColor: 'defaultColor',
-    title: 'defaultTitle',
+    title: 'Title',
   },
 },
 {
@@ -14,7 +14,7 @@ const defaultPreferences = [{
   componentName: 'Footer',
   attr: {
     bgColor: 'defaultColor',
-    text: 'defaultText',
+    text: 'Footer',
   },
 }];
 
