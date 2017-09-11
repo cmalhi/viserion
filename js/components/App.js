@@ -61,7 +61,7 @@ const Root = StackNavigator(
   },
   {
     navigationOptions: {
-      title: 'Piggy Pages',
+      title: 'PageMill',
     },
   }
 );

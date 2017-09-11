@@ -69,41 +69,4 @@ class ChooseKeywords extends React.Component {
   }
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     flexDirection: 'column',
-//     backgroundColor: '#fff',
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-//   title: {
-//     marginTop: 50,
-//     fontSize: 20,
-//   },
-//   keyword: {
-//     backgroundColor: '#2E9D88',
-//     borderRadius: 5,
-//     padding: 2,
-//     height: 30,
-//     margin: 5,
-//     paddingHorizontal: 3,
-//   },
-//   keywordsContainer: {
-//     flex: 1,
-//     flexWrap: 'wrap',
-//     flexDirection: 'row',
-//     justifyContent: 'space-around',
-//   },
-//   keywordSelected: {
-//     opacity: 0.7,
-//     backgroundColor: '#15433A',
-//   },
-//   keywordText: {
-//     fontSize: 20,
-//     color: '#fff',
-//   }
-// });
-
-
 export default connect(null, { addKeywords })(ChooseKeywords);
