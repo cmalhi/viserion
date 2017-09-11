@@ -448,9 +448,11 @@
     }
 
     componentWillReceiveProps(nextProps) {
-      imageUrl: nextProps.imageUrl,
-      caption: nextProps.caption,
-      id: nextProps.id,
+      this.setState({
+        imageUrl: nextProps.imageUrl,
+        caption: nextProps.caption,
+        id: nextProps.id,
+      })
     } 
 
     render() {
@@ -569,6 +571,13 @@
             borderColor: this.state.borderColors
           }
         }
+      }
+
+      componentWillReceiveProps(nextProps) {
+        this.setState({
+          borderColors: nextProps.color,
+          details: this.props.details,
+        })
       }
 
       componentDidMount() {
