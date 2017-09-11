@@ -11,6 +11,7 @@ export default class SavedPages extends React.Component {
   componentDidMount() {
     axios.get(`${global.HOST}/sites/list/test`)
       .then((res) => {
+        console.log(res.data);
         this.setState({ templates: res.data });
       })
       .catch((err) => console.log('Err getting /sites/list: ', err));
