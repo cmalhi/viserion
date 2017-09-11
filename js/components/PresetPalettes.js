@@ -52,15 +52,19 @@ class PresetPalettes extends React.Component {
     });
     return (
       <View style={styles.container}>
-        <ScrollView contentContainerStyle={styles.innerContainer}>
-          <View>
-            <Text style={styles.big}>Pick any colors you like.</Text>
-            <Text style={styles.small}>We'll use these to craft your page.</Text>
-            <Text onPress={() => { navigate('ThreeColorPicker')}}>Or use our custom color picker</Text>
-          </View>
-          {circles}
-        </ScrollView>
-        <Button title="Continue" onPress={this.submitColor} />
+        <View style={styles.content}>
+          <ScrollView>
+            <View style={styles.header}>
+              <Text style={styles.title}>Pick any colors you like.</Text>
+              <Text>We'll use these to craft your page.</Text>
+              <Text onPress={() => { navigate('ThreeColorPicker')}}>Or use our custom color picker</Text>
+            </View>
+            <View style={styles.centeredCircles}>
+              {circles}
+            </View>
+          </ScrollView>
+          <Button title="Continue" onPress={this.submitColor} />
+        </View>
       </View>
     );
   }
@@ -69,20 +73,23 @@ class PresetPalettes extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
   },
-  innerContainer: {
+  content: {
+    flex: 1,
+    padding: 10,
+  },
+  centeredCircles: {
     flexDirection: 'row',
-    backgroundColor: '#FFFFFF',
-    alignItems: 'center',
     justifyContent: 'center',
-    // maxHeight: 20,
     flexWrap: 'wrap',
   },
-  big: {
-    fontSize: 30,
+  title: {
+    fontSize: 24,
   },
-  small: {
-    fontSize: 20,
+  header: {
+    marginBottom: 20,
+    // alignItems: 'center',
   },
   selected: {
     backgroundColor: '#aaa',

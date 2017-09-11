@@ -59,29 +59,32 @@ class ChooseLayout extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Choose some looks and feels that you like</Text>
-        <View style={styles.deckContainer}>
-          <DeckSwiper
-            ref={(c) => this._deckSwiper = c}
-            dataSource={this.state.layoutsData}
-            looping={false}
-            onSwipeRight={this.handleRightSwipe}
-            onSwipeLeft={this.handleRightSwipe}
-            renderEmpty={() =>
-              <View style={{ alignSelf: "center" }}>
-                <Text style={styles.title}>That\'s all!</Text>
-              </View>}
-            renderItem={(layout) =>
-              <LayoutItem 
-                layout={layout} 
-                handleLayoutPress={this.handleLayoutPress}
-              />
-            }
-          />
+        <View style={styles.content}>
+          <View style={styles.header}>
+            <Text style={styles.title}>What kind of websites do you like?</Text>
+            <Text>We'll use these as inspiration.</Text>
+          </View>
+            <DeckSwiper
+              ref={(c) => this._deckSwiper = c}
+              dataSource={this.state.layoutsData}
+              looping={false}
+              onSwipeRight={this.handleRightSwipe}
+              onSwipeLeft={this.handleRightSwipe}
+              renderEmpty={() =>
+                <View style={{ alignSelf: "center" }}>
+                  <Text style={styles.title}>That\'s all!</Text>
+                </View>}
+              renderItem={(layout) =>
+                <LayoutItem
+                  layout={layout}
+                  handleLayoutPress={this.handleLayoutPress}
+                />
+              }
+            />
         </View>
         <Button
           onPress={this.handleSubmit}
-          title="Submit"
+          title="Continue"
           color="#000000"
         />
       </View>
@@ -93,17 +96,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    // marginTop: 10,
     justifyContent: 'space-between',
     alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  content: {
+    flex: 1,
+    padding: 10,
   },
   deckContainer: {
-    marginTop: -390,
+    // marginTop: -390,
   },
   title: {
-    fontSize: 15,
-    marginTop: 10,
+    fontSize: 22,
+  },
+  header: {
     marginBottom: 20,
+    // alignItems: 'center',
   },
 });
 
