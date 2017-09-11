@@ -7,7 +7,6 @@ module.exports = (rawPreferencesObj) => {
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1, maximum-scale=1" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.css">
-  <link rel="stylesheet" href="./style.css">
   <title>Simple</title>
 </head>
 <body>
@@ -16,7 +15,312 @@ module.exports = (rawPreferencesObj) => {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
 <script src="http://127.0.0.1:8080/socket.io/socket.io.js"></script>
 <!--<script src="http://ec2-54-203-8-222.us-west-2.compute.amazonaws.com:8080/socket.io/socket.io.js"></script>-->
+<style type="text/css">
+/*---------------
+      #Header
+  ---------------*/
 
+.hero {
+    background: #ffd5c9;
+}
+
+.hero.hero-wrapper{
+    /*height: 80%;*/
+    height: calc(100vh - 157px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*.content.hero2body {*/
+/*top: 145vh;*/
+/*}*/
+
+.site-title {
+    margin: 0 0 1em;
+    padding: 1em 0;
+    font-size: 2em;
+    font-weight: 300;
+    text-align: center;
+    color: black;
+}
+
+@media screen and (min-width: 44.44em) {
+    .site-title {
+        font-size: 2em;
+    }
+}
+
+@media screen and (min-width: 50em) {
+    .site-title {
+        font-size: 2.5em;
+    }
+}
+
+.site-title a {
+    color: hsl(5, 45%, 95%);
+    text-decoration: none;
+}
+
+.site-title a:hover {
+    text-decoration: underline;
+}
+
+/*---------------
+    #Housekeeping
+---------------*/
+/* CSS Reset to correct browser inconsistencies */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*---------------
+    #Content
+---------------*/
+
+/* If viewport is 480px or larger */
+@media screen and (min-width: 480px) {
+    .content {
+        width: 80%;
+    }
+}
+
+/* Mobile */
+.content {
+    width: 90%;
+    max-width: 1100px;
+    margin: 50px auto 100px auto;
+}
+
+/*---------------
+    #Image Caption
+---------------*/
+
+.image-content-wrapper {
+    display: flex;
+    align-items: flex-start; /* align vertical */
+    justify-content: center; /* align horizontal */
+    height: auto;
+}
+
+.image-content-inner-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.image-scalable {
+    max-width: 100vw;
+    max-height: 100vh;
+}
+
+.image-scalable-container {
+    max-width: 100%;
+}
+
+.figcaption {
+    text-align: left;
+    margin: 10px;
+}
+
+/*---------------
+  #Pinterest Content
+---------------*/
+
+.columns {
+    column-gap: 10px;
+}
+
+.columns.columns-image {
+    column-width: 280px;
+}
+
+div.columns figure {
+    margin: 0 2px 15px;
+    padding: 15px;
+    padding-bottom: 10px;
+    display: inline-block;
+    column-break-inside: avoid;
+}
+
+div.columns.columns-image figure {
+    background: #eee;
+}
+
+div.columns figure img {
+    width: 100%;
+    height: auto;
+    padding-bottom: 15px;
+    margin-bottom: 5px;
+}
+
+@media screen and (max-width: 750px) {
+    .columns { column-gap: 0px; }
+    .columns figure { width: 100%; }
+}
+
+/*---------------
+  #Pinterest Text
+---------------*/
+
+/* If viewport is 480px or larger */
+@media screen and (min-width: 480px) {
+    .content.content-60 {
+        width: 60%;
+    }
+}
+
+.columns.columns-text {
+    column-width: 280px;
+}
+
+/*---------------
+    #Footer
+---------------*/
+
+.footer-area {
+    padding: .4em 1em;
+    text-align: center;
+    background: hsl(0, 0%, 75%);
+}
+
+/*---------------
+    #Layouts
+---------------*/
+
+.centered {
+    margin: 0 auto;
+    padding: 0 1em;
+    text-align: center;
+}
+
+@media screen and (min-width: 52em) {
+    .centered {
+        max-width: 52em;
+    }
+}
+
+/*---------------
+    #Typography
+---------------*/
+
+body,
+button,
+input,
+select,
+textarea {
+    color: #404040;
+    font-family: 'Helvetica', Arial, sans-serif;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    clear: both;
+    line-height: 1.3em;
+    margin-bottom: 0.5em;
+}
+
+p {
+    margin-bottom: 1.5em;
+}
+
+b,
+strong {
+    font-weight: bold;
+}
+
+dfn,
+cite,
+em,
+i {
+    font-style: italic;
+}
+
+blockquote {
+    margin: 0 1.5em;
+}
+
+address {
+    margin: 0 0 1.5em;
+}
+
+pre {
+    background: #eee;
+    font-family: "Courier 10 Pitch", Courier, monospace;
+    font-size: 15px;
+    font-size: 1.5rem;
+    line-height: 1.6;
+    margin-bottom: 1.6em;
+    max-width: 100%;
+    overflow: auto;
+    padding: 1.6em;
+}
+
+code,
+kbd,
+tt,
+var {
+    font: 15px Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+}
+
+abbr,
+acronym {
+    border-bottom: 1px dotted #666;
+    cursor: help;
+}
+
+mark,
+ins {
+    background: #fff9c0;
+    text-decoration: none;
+}
+
+sup,
+sub {
+    font-size: 75%;
+    height: 0;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sup {
+    bottom: 1ex;
+}
+
+sub {
+    top: .5ex;
+}
+
+small {
+    font-size: 75%;
+}
+
+big {
+    font-size: 125%;
+}
+
+bigger {
+    font-size: 350%;
+    font-weight: bold;
+    line-height: 1em;
+}
+
+.color-inverse {
+    color: #fff;
+}
+</style>
 <div id="parent"></div>
 
 <script type="text/babel">
@@ -32,7 +336,7 @@ module.exports = (rawPreferencesObj) => {
     constructor(props) {
       super(props);
       this.state = {
-        // rawPreferences: ${rawPreferences},
+        rawPreferences: ${rawPreferences},
         sitePreferences: [{
           id: 'hero24',
           nickName: 'My Hero',
@@ -104,8 +408,7 @@ module.exports = (rawPreferencesObj) => {
     toComponents(raw) {
       var res = [];
       raw.forEach((comp) => {
-//        comp.componentName = this.map(c
-omp.componentName)
+//        comp.componentName = this.map(comp.componentName)
         var newComp = this.toComponent(comp)
         res.push(newComp)
       });

@@ -58,7 +58,6 @@ exports.serveOne = function(req, res) {
     .exec()
     .then(site => {
       const html = prefToReactify(site.preferences);
-      console.log('html >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', html);
       res.send(html);
     })
     .catch(err => res.status(500).send({ success: false, error: 'Error rendering site ' + err}));

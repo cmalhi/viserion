@@ -80,8 +80,6 @@ const AppNavigator = StackNavigator({
   UserEdit: { screen: UserEdit },
   ColorPicker: { screen: ColorPicker },
   ColorModal: { screen: ColorModal },
-  AddComponent: { screen: AddComponent },
-  ChangeComponent: { screen: ChangeComponent },
 });
 
 export default () => (

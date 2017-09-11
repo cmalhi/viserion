@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Image, View, Text, TouchableOpacity, AsyncStorage } from 'react-native';
 import axios from 'axios';
+import { updatePrefs } from '../actions/index';
 
-export default class SavedPages extends React.Component {
+class SavedPages extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
@@ -15,6 +17,9 @@ export default class SavedPages extends React.Component {
 
   handleLinkPress(site) {
     console.log(site);
+    this.props.updatePrefs(site.preferences);
+    const { navigate } = this.props.navigation;
+    navigate('UserEdit', {siteId: site._id, sitePreferences: site.preferences, userId: this.state.userId });
   }
 
 
@@ -25,8 +30,7 @@ export default class SavedPages extends React.Component {
         userId = 'test';
         axios.get(`${global.HOST}/sites/all/${userId}`)
           .then((res) => {
-            console.log(res.data);
-            this.setState({ sites: res.data });
+            this.setState({ sites: res.data, userId });
           })
           .catch((err) => console.log('Err getting /sites/list: ', err));
       })
@@ -38,7 +42,7 @@ export default class SavedPages extends React.Component {
       // Pull just the URLs
       images = this.state.sites.map((site) => {
         return (
-          <TouchableOpacity onPress={this.handleLinkPress.bind(this, site)}>
+          <TouchableOpacity key={site['_id']} onPress={this.handleLinkPress.bind(this, site)}>
             <Text>{site._id}</Text>
           </TouchableOpacity>
         )
@@ -52,6 +56,9 @@ export default class SavedPages extends React.Component {
     )
   }
 }
+
+
+export default connect(null, { updatePrefs })(SavedPages);
 
 // <View key={t['_id']}>
 //   <Text>{t['_id']}</Text>

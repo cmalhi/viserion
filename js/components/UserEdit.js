@@ -46,6 +46,8 @@ class UserEdit extends React.Component {
       longTextData: null,
       imageData: null,
       listData: null,
+
+      currentPage: 'webpages/add.html',
     };
     this.handleRearrange = this.handleRearrange.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
@@ -83,6 +85,18 @@ class UserEdit extends React.Component {
     socket.on('launchListModal', (data) => {
       this.setState({ listModal: true, listData: data });
     });
+
+    this.setCurrentSite();
+  }
+
+  setCurrentSite() {
+    if (this.props.navigation.state.params) {
+      const { siteId } = this.props.navigation.state.params;
+      this.setState({
+        currentPage: siteId,
+      })
+    };
+    console.log('navigation params >>>>>>>>>>>>>>', this.props.navigation.state.params);
   }
 
   handleRearrange() {
@@ -102,7 +116,7 @@ class UserEdit extends React.Component {
     return (
       <View style={styles.flexContainer}>
         {/*<WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/reactify.html`}} />*/}
-        <WebView style={styles.webView} source={{uri: `${global.HOST}/webpages/add.html`}} />
+        <WebView style={styles.webView} source={{uri: `${global.HOST}/${this.state.currentPage}`}} />
         {this.state.shortTextModal ? <ShortTextModal data={this.state.shortTextData} id={this.state.shortTextId} title={this.state.shortTextValue} closeModal={() => this.setState({shortTextModal: false}) } /> : null}
         {this.state.longTextModal ? <LongTextModal data={this.state.longTextData} id={this.state.longTextId} body={this.state.longTextValue} closeModal={() => this.setState({longTextModal: false}) } /> : null}
         {this.state.imageModal ? <ImageModal data={this.state.imageData} id={this.state.imageId} closeModal={() => this.setState({imageModal: false})} /> : null}
