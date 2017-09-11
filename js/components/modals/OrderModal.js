@@ -1,6 +1,6 @@
 import React from 'react';
 import { Animated, Dimensions, Image, Text, TouchableOpacity, View, Button, StyleSheet, TextInput, Platform, Easing } from 'react-native';
-import SequencedList from '../utils/SequencedList';
+import SequencedList from '../RearrangeComponents/SequencedList';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { setPrefs } from '../../actions/index';

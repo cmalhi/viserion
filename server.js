@@ -16,8 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
 app.use('/', routes);
-app.use('/pages/templates', express.static(path.join(__dirname, '/app/pages/templates')));
-app.use('/file-templates', express.static(path.join(__dirname, '/app/pages/files')));
+app.use('/webpages', express.static(path.join(__dirname, '/app/webpages')));
 app.use(express.static(path.join(__dirname, '/app/public')));
 
 app.get('/', (req, res) => {

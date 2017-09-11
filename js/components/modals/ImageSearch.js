@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Image, TouchableHighlight, ScrollView, ListView, View, Text, TextInput, Button} from 'react-native';
 import axios from 'axios';
-import { bingImageSearch } from '../../config/config';
+import { bingImageSearch } from '../../../config/config';
 const key = bingImageSearch.API_KEY;
 
 class ImageSearch extends React.Component {
