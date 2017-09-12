@@ -1,25 +1,61 @@
 import React from 'react';
-import { View, Text, ScrollView, TouchableHighlight, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import { View, Text, ScrollView, TouchableHighlight, TouchableOpacity, StyleSheet, AsyncStorage } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
+import axios from 'axios';
+import { updatePrefs } from '../actions/index';
 
-export default class MyPages extends React.Component {
+class MyPages extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { 
+      sites: [],
+      userId: '',
+    };
+    this.handleLinkPress = this.handleLinkPress.bind(this);
+  }
+
+  handleLinkPress(site) {
+    const { navigate } = this.props.navigation;
+    this.props.updatePrefs(site.preferences);
+    navigate('UserEdit', {siteId: site._id, sitePreferences: site.preferences, userId: this.state.userId });
+  }
+
+  componentDidMount() {
+    AsyncStorage.getItem('userId')
+      .then(userId => {
+        // TODO: remove hard coded user ID
+        userId = 'test';
+        axios.get(`${global.HOST}/sites/all/${userId}`)
+          .then((res) => {
+            console.log('res data >>>>>>>', res.data);
+            this.setState({ sites: res.data, userId });
+          })
+          .catch((err) => console.log('Err getting /sites/list: ', err));
+      });
+  }
+
+  renderSavedSites() {
+    return this.state.sites.map(site => {
+      return (
+        <View style={styles.items}>
+          <TouchableOpacity onPress={this.handleLinkPress.bind(this, site)}>
+            <View style={styles.item}>
+              <Text>{site._id}</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      );
+    });
+  }
 
   render() {
     const { navigate } = this.props.navigation;
+    if (!this.state.sites.length) return <Text>Loading...</Text>
     return(
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.content}>
-          <View style={styles.items}>
-            <View style={styles.item}>
-              <Text>1</Text>
-            </View>
-            <View style={styles.item}>
-              <Text>2</Text>
-            </View>
-            <View style={styles.item}>
-              <Text>3</Text>
-            </View>
-          </View>
+          {this.renderSavedSites()}
         </ScrollView>
         <View>
           <TouchableHighlight
@@ -79,3 +115,5 @@ const styles = StyleSheet.create({
     // }
   }
 });
+
+export default connect(null, { updatePrefs })(MyPages);

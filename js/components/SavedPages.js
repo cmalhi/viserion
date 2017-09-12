@@ -16,9 +16,8 @@ class SavedPages extends React.Component {
   }
 
   handleLinkPress(site) {
-    console.log(site);
-    this.props.updatePrefs(site.preferences);
     const { navigate } = this.props.navigation;
+    this.props.updatePrefs(site.preferences);
     navigate('UserEdit', {siteId: site._id, sitePreferences: site.preferences, userId: this.state.userId });
   }
 

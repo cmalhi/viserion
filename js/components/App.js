@@ -37,8 +37,8 @@ export const store = createStore(
 
 const Root = StackNavigator(
   {
-    // Index: { screen: HomeScreen },
-    Index: { screen: SavedPages },
+    Index: { screen: HomeScreen },
+    // Index: { screen: SavedPages },
     MainApp: { screen: MainTabNavigator },
     PresetPalettes: { screen: PresetPalettes },
     ThreeColorPicker: { screen: ThreeColorPicker },
