@@ -33,6 +33,7 @@ class UserEdit extends React.Component {
       pricingListModal: false,
       pricingDetails: [],
       pricingListId: '',
+      listId: '',
 
       order: [],
       html: '',
@@ -83,9 +84,9 @@ class UserEdit extends React.Component {
       this.setState({ pricingListModal: true, pricingDetails: list.details, pricingListId: list.key });
     });
 
-    socket.on('launchListModal', (data) => {
+    socket.on('launchListModal2', (data) => {
       //TODO: get id
-      this.setState({ listModal: true, listData: data });
+      this.setState({ listModal: true, listData: data, listId: data.key});
     });
 
     this.setCurrentSite();
