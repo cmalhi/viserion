@@ -20,15 +20,14 @@ import UserEdit from './UserEdit';
 import ColorPicker from './modals/ColorPicker';
 import ColorModal from './modals/ColorModal';
 import HomeScreen from './HomeScreen';
-import { Ionicons } from '@expo/vector-icons';
 import MainTabNavigator from './MainTabNavigator';
 const io = require('socket.io-client');
 import PresetPalettes from './ColorPicker/ColorPalette';
 
 export default RootNavigator = StackNavigator(
   {
-    // Index: { screen: UserEdit },
-    Index: { screen: HomeScreen },
+    Index: { screen: UserEdit },
+    // Index: { screen: HomeScreen },
     MainApp: { screen: MainTabNavigator },
     PresetPalettes: { screen: PresetPalettes },
     ThreeColorPicker: { screen: ThreeColorPicker },
