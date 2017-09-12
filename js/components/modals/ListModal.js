@@ -74,7 +74,7 @@ class ListModal extends React.Component {
               return(
                 <View key={index}>
                   <Text>{c}</Text>
-                  <Text onPress={this.handleDelete.bind(this, index)}>Delete</Text>
+                  <Button onPress={this.handleDelete.bind(this, index)} title="Delete" />
                 </View>
               );
             })}
