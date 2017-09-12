@@ -163,10 +163,10 @@ class UserEdit extends React.Component {
         { this.state.pricingListModal ?
           <PricingListModal
             details={this.state.pricingDetails}
-            Id={this.state.pricingListId} 
+            Id={this.state.pricingListId}
             closeModal={() =>this.setState({pricingListModal: false})}
           /> : null }
-        <Button title="Add New Component" onPress={this.handleAdd} />
+        <Button title="Add New Component" onPress={this.handleAdd} styles={styles.absoluteRight} />
         <Button title="Rearrange Components" onPress={this.handleRearrange} />
         <Button title="Save" onPress={this.handleSubmit} />
       </View>
