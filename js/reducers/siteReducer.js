@@ -3,7 +3,7 @@ export default function (state = '', action) {
     case 'SELECT_SITE':
       return action.payload;
     case 'EDIT_SITE':
-      return  action.paylod;
+      return  action.payload;
     default: 
       return state;
   }

@@ -89,19 +89,20 @@ class UserEdit extends React.Component {
       this.setState({ listModal: true, listData: data, listId: data.key});
     });
 
-    this.setCurrentSite();
+    // this.setCurrentSite();
 
     console.log('siteId', this.props.siteId);
+
   }
 
-  setCurrentSite() {
-    if (this.props.navigation.state.params) {
-      const { siteId } = this.props.navigation.state.params;
-      this.setState({
-        siteId,
-      });
-    }
-  }
+  // setCurrentSite() {
+  //   if (this.props.navigation.state.params) {
+  //     const { siteId } = this.props.navigation.state.params;
+  //     this.setState({
+  //       siteId,
+  //     });
+  //   }
+  // }
 
   handleRearrange() {
     this.setState({ orderModal: true });
@@ -112,7 +113,7 @@ class UserEdit extends React.Component {
   }
 
   handleSubmit() {
-    this.props.updateDatabase(this.state.siteId);
+    this.props.updateDatabase(this.props.siteId);
   }
 
   render() {

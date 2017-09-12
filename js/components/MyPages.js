@@ -73,4 +73,5 @@ class MyPages extends React.Component {
   }
 }
 
-export default connect(null, { updatePrefs })(MyPages);
+export default connect(null, { updatePrefs, editSite })(MyPages);
+
