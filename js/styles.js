@@ -23,7 +23,6 @@ export default styles = StyleSheet.create({
   header: {
     paddingVertical: 20,
     paddingHorizontal: 25,
-    marginBottom: 10,
   },
   grid: {
     flexDirection: 'row',
