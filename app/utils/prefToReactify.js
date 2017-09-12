@@ -7,7 +7,6 @@ module.exports = (rawPreferencesObj) => {
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1, maximum-scale=1" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.css">
-  <link rel="stylesheet" href="style.css">
   <title>Simple</title>
 </head>
 <body>
