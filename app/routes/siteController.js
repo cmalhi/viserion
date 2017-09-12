@@ -46,7 +46,9 @@ exports.retrieveOne = function(req, res) {
 exports.updateOne = function(req, res) {
   const siteId = req.params.siteid;
   const { preferences } = req.body;
-  Site.findOneAndUpdate( {_id: siteId }, { 'preferences' : preferences }, function(err, site) {
+  const html = prefToReactify(preferences);
+  console.log('html>>>>>>>>>>', html);
+  Site.findOneAndUpdate( {_id: siteId }, { 'preferences' : preferences, 'html': html }, function(err, site) {
     if (err || !site) return res.status(500).send({ success: false, error: 'Error updating site with id ' + req.params.siteid });
     res.send(site);
   })

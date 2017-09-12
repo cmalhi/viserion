@@ -12,6 +12,7 @@ import ListModal from './modals/ListModal';
 import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { updateDatabase } from '../actions/index';
 
 var {
   height: deviceHeight
@@ -47,7 +48,7 @@ class UserEdit extends React.Component {
       imageData: null,
       listData: null,
 
-      currentPage: 'webpages/add.html',
+      siteId: 'webpages/add.html',
     };
     this.handleRearrange = this.handleRearrange.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
@@ -93,10 +94,9 @@ class UserEdit extends React.Component {
     if (this.props.navigation.state.params) {
       const { siteId } = this.props.navigation.state.params;
       this.setState({
-        currentPage: siteId,
-      })
-    };
-    console.log('navigation params >>>>>>>>>>>>>>', this.props.navigation.state.params);
+        siteId,
+      });
+    }
   }
 
   handleRearrange() {
@@ -108,7 +108,7 @@ class UserEdit extends React.Component {
   }
 
   handleSubmit() {
-    // TODO: Send these preferences to DB along with HTML TEMPLATE
+    this.props.updateDatabase(this.state.siteId);
 
   }
 
@@ -116,7 +116,7 @@ class UserEdit extends React.Component {
     return (
       <View style={styles.flexContainer}>
         {/*<WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/reactify.html`}} />*/}
-        <WebView style={styles.webView} source={{uri: `${global.HOST}/${this.state.currentPage}`}} />
+        <WebView style={styles.webView} source={{uri: `${global.HOST}/${this.state.siteId}`}} />
         {this.state.shortTextModal ? <ShortTextModal data={this.state.shortTextData} id={this.state.shortTextId} title={this.state.shortTextValue} closeModal={() => this.setState({shortTextModal: false}) } /> : null}
         {this.state.longTextModal ? <LongTextModal data={this.state.longTextData} id={this.state.longTextId} body={this.state.longTextValue} closeModal={() => this.setState({longTextModal: false}) } /> : null}
         {this.state.imageModal ? <ImageModal data={this.state.imageData} id={this.state.imageId} closeModal={() => this.setState({imageModal: false})} /> : null}
@@ -173,4 +173,4 @@ function mapStateToProps({ order }) {
   return { order };
 }
 
-export default connect(mapStateToProps, null)(UserEdit);
+export default connect(mapStateToProps, { updateDatabase })(UserEdit);

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import axios from 'axios';
 import componentMap from '../componentMap';
 import { AsyncStorage } from 'react-native';
-import prefToHtml from '../utils/prefToHtml';
+import prefToReactify from '../../app/utils/prefToReactify';
 
 const combineDesires = (desires) => {
   console.log('combineDesires called');
@@ -117,7 +117,8 @@ export const savePreferences = () => (dispatch, getState) => {
   const { preferences } = getState();
   const html = prefToHtml(preferences);
   AsyncStorage.getItem('userId')
-    .then((userId = '66') => {
+  // TODO: Undo hardcode
+    .then((userId = 'test') => {
       axios.post(`${global.HOST}/sites`, {
         userId,
         preferences,
@@ -127,7 +128,18 @@ export const savePreferences = () => (dispatch, getState) => {
   dispatch({ type:'SAVE_PREFERENCES', payload: preferences })
 }
 
-// Loads cached pereferences from AsyncStorage if found
+export const updateDatabase = (siteId) => (dispatch, getState) => {
+  const { preferences } = getState();
+  axios.put(`${global.HOST}/sites/${siteId}`, {
+    preferences,
+  })
+    .then(site => {
+      console.log('New site updated', site);
+    })
+    .catch(err => console.log('Error saving site preferences: ', err));
+}
+
+// Loads cached preferences from AsyncStorage if found
 export const loadPreferences = () => (dispatch) => {
   AsyncStorage.getItem('preferences')
     .then(preferencesStr => {
