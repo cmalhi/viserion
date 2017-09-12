@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppRegistry, Button, StyleSheet, Text, TextInput, View, TouchableHighlight } from 'react-native';
+import { AppRegistry, Button, Dimensions, StyleSheet, Text, TextInput, View, TouchableHighlight } from 'react-native';
 import { postPreferences, createPreferences } from '../actions/index'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -48,7 +48,7 @@ class ChooseTitle extends React.Component {
                 borderColor: '#3E84FB',
                 borderBottomWidth: 1,
                 fontSize: 30,
-                width: 340,
+                width: Dimensions.get('window').width - 50,
               }
               ]}
           />
