@@ -1,0 +1,57 @@
+<svg width="1356" height="578" viewBox="0 0 1356 578" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>Group</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="matrix(2 0 0 2 -2810 -582)">
+<g id="Group">
+<g id="Vector 4">
+<use xlink:href="#path0_fill" transform="translate(1405 304)" fill="url(#paint0_linear)" fill-opacity="0.4"/>
+</g>
+<g id="Vector 2">
+<use xlink:href="#path1_fill" transform="translate(1405 291)" fill="url(#paint1_linear)" fill-opacity="0.2"/>
+</g>
+<g id="Vector">
+</g>
+<g id="Vector 3">
+<use xlink:href="#path2_fill" transform="translate(1405 321)" fill="url(#paint2_linear)" fill-opacity="0.5"/>
+</g>
+<g id="Vector 5">
+<use xlink:href="#path3_fill" transform="translate(1405 401.865)" fill="url(#paint3_linear)" fill-opacity="0.6"/>
+</g>
+<g id="Vector 6">
+<use xlink:href="#path4_fill" transform="translate(1405 480)" fill="url(#paint4_linear)" fill-opacity="0.5"/>
+</g>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(558.054 15.6738 -38.643 10813.7 30.5029 -5201.69)">
+<stop offset="0.00552486" stop-color="#6B64A1"/>
+<stop offset="0.841589" stop-color="#34819C"/>
+<stop offset="1" stop-color="#25899B"/>
+</linearGradient>
+<linearGradient id="paint1_linear" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(558.054 16.4147 -38.643 11324.9 30.5029 -5447.59)">
+<stop offset="0.00552486" stop-color="#6B64A1"/>
+<stop offset="0.841589" stop-color="#34819C"/>
+<stop offset="1" stop-color="#25899B"/>
+</linearGradient>
+<linearGradient id="paint2_linear" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(557.231 14.7049 -38.586 10145.3 30.4579 -4880.13)">
+<stop offset="0.00552486" stop-color="#6B64A1"/>
+<stop offset="0.841589" stop-color="#34819C"/>
+<stop offset="1" stop-color="#25899B"/>
+</linearGradient>
+<linearGradient id="paint3_linear" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(558.054 12.995 -38.643 8965.58 30.5029 -4301.54)">
+<stop offset="0.00552486" stop-color="#9355B7"/>
+<stop offset="0.841589" stop-color="#34819C"/>
+<stop offset="1" stop-color="#25899B"/>
+</linearGradient>
+<linearGradient id="paint4_linear" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(558.054 5.52857 -38.643 3814.3 30.5029 -1834.78)">
+<stop offset="0" stop-color="#9571BF"/>
+<stop offset="0.841589" stop-color="#34819C"/>
+<stop offset="1" stop-color="#25899B"/>
+</linearGradient>
+<path id="path0_fill" d="M 333.127 22.038C 222.617 -20.0128 68.4421 7.64565 5.1684 26.7312L 0 26.7312L 0 275L 678 275L 678 22.038C 608.462 84.9265 471.264 74.6016 333.127 22.038Z"/>
+<path id="path1_fill" d="M 293.816 38.2952C 141.882 96.6263 34.6329 93.5632 0 84.7403L 0 288L 678 288L 678 18.8183C 613.244 1.00598 445.75 -20.0358 293.816 38.2952Z"/>
+<path id="path2_fill" d="M 437.099 98.1903C 290.856 34.4668 84.7649 6.17864 0 0L 0 258L 677 258L 677 125.744C 657.968 143.111 583.343 161.914 437.099 98.1903Z"/>
+<path id="path3_fill" d="M 204.651 50.6791C 117.787 15.0654 32.0236 9.78932 0 11.603L 0 177.635L 678 177.635L 678 2.63486C 668.993 -5.27929 626.162 3.39206 526.889 45.7328C 402.797 98.6587 313.231 95.1962 204.651 50.6791Z"/>
+<path id="path4_fill" d="M 294.783 48.2487C 211.024 20.5057 63.3613 4.52332 0 0L 0 97L 678 97L 678 0C 585.16 27.6425 378.542 75.9917 294.783 48.2487Z"/>
+</defs>
+</svg>

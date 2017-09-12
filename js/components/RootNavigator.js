@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { appendPrefs, updatePrefs } from '../actions/index';
 import ThreeColorPicker from './ColorPicker/ColorPicker';
 import ChooseTitle from './ChooseTitle';
 import ChooseLayout from './ChooseLayout/index';
@@ -23,11 +22,13 @@ import HomeScreen from './HomeScreen';
 import MainTabNavigator from './MainTabNavigator';
 const io = require('socket.io-client');
 import PresetPalettes from './ColorPicker/ColorPalette';
+import Prescreen from './Prescreen';
 
 export default RootNavigator = StackNavigator(
   {
-    // Index: { screen: UserEdit },
+    // Index: { screen: ChooseLayout },
     Index: { screen: HomeScreen },
+    Prescreen: { screen: Prescreen },
     MainApp: { screen: MainTabNavigator },
     PresetPalettes: { screen: PresetPalettes },
     ThreeColorPicker: { screen: ThreeColorPicker },
@@ -45,7 +46,8 @@ export default RootNavigator = StackNavigator(
   },
   {
     navigationOptions: {
-      title: 'PageMill',
+      // title: 'QuikPages',
+      // header: null,
     },
   }
 );
