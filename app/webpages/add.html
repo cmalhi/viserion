@@ -40,14 +40,23 @@
             title: 'Title',
           },
         },
-          {
+        {
+            id: 'ticker2',
+            nickName: 'My Ticker',
+            componentName: <Ticker />,
+            attr: {
+              bgColor: 'defaultColor',
+              title: 'Adrienne Tran, Matthew Go, Chet Malhi, Ed Sweezey',
+            }
+          }
+          ,{
             id: 'footer12',
             nickName: 'My Footer',
             componentName: <Footer />,
             attr: {
               bgColor: 'defaultColor',
               text: 'Footer',
-            },
+            }
           }],
       };
 
@@ -377,11 +386,9 @@
         items: nextProps.items,
       })
     }
-
     handleClick() {
       socket.emit('launchListModal', {key: this.state.key, id: this.state.id, path: this.state.path});
     }
-
     render() {
       const list = this.state.items.map((item, i) => {
         return (
@@ -679,7 +686,47 @@
           </div>
         );
       }
+
     }
+
+  class Ticker extends React.Component {
+    constructor(props){
+      super(props)
+      this.state = {
+        msg: 'Adrienne Tran, Chet Malhi, Matthew Go, Ed Sweezey ',
+        id: 'need to connect to prop',
+        path: ['need to create componentMap.js connection'],
+      }
+      this.continue = true;
+    }
+
+    componentDidMount() {
+      this.beginScroll(); 
+    }
+
+    rotateCharacters() {
+      var msg = this.state.msg;
+      msg = msg.split('');
+      msg.push(msg.shift());
+      msg = msg.join('');
+      this.setState({msg: msg});
+    }
+
+    beginScroll(){
+      if(this.continue && this.state.msg) {
+        setInterval(this.rotateCharacters.bind(this),250)
+      }
+    }  
+
+    render() {
+      var msg = this.state.msg.slice(0,14);
+      return (
+        <div>
+          <Hero1 title={msg} />
+        </div>
+      )
+    }
+  }   
 
   ReactDOM.render(<Parent/>, document.getElementById('parent'));
 </script>
