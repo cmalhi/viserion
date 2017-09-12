@@ -10,6 +10,19 @@ const componentMap = {
       title: 'Title',
     },
   },
+  GradientHero: {
+    id: 'notSet',
+    nickName: 'My GraditentHero',
+    componentName: 'GradientHero',
+    attr: {
+      color: {
+        color1: '#F44336',
+        color2: '#FF4081',
+      },
+      mainTitle: 'Welcome',
+      subTitle: 'adjust your gradient',
+    },
+  },
   PricingList: {
     nickName: 'My Pricing',
     componentName: 'PricingListModal',
