@@ -1,6 +1,5 @@
 import React from 'react';
-import { Animated, Dimensions, Image, Text, TouchableOpacity, View, WebView, Button, StyleSheet, TextInput } from 'react-native';
-const io = require('socket.io-client');
+import { Animated, Dimensions, Image, Text, TouchableHighlight, TouchableOpacity, View, WebView, Button, StyleSheet, TextInput } from 'react-native';
 import ImageModal from './modals/ImageModal';
 import ShortTextModal from './modals/ShortTextModal';
 import LongTextModal from './modals/LongTextModal';
@@ -13,6 +12,9 @@ import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { updateDatabase } from '../actions/index';
+import styles from '../styles'
+import { Ionicons } from '@expo/vector-icons';
+const io = require('socket.io-client');
 
 var {
   height: deviceHeight
@@ -116,60 +118,80 @@ class UserEdit extends React.Component {
 
   render() {
     return (
-      <View style={styles.flexContainer}>
-        {/*<WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/reactify.html`}} />*/}
-        <WebView style={styles.webView} source={{uri: `${global.HOST}/${this.state.siteId}`}} />
-        {this.state.shortTextModal ? <ShortTextModal data={this.state.shortTextData} id={this.state.shortTextId} title={this.state.shortTextValue} closeModal={() => this.setState({shortTextModal: false}) } /> : null}
-        {this.state.longTextModal ? <LongTextModal data={this.state.longTextData} id={this.state.longTextId} body={this.state.longTextValue} closeModal={() => this.setState({longTextModal: false}) } /> : null}
-        {this.state.imageModal ? <ImageModal data={this.state.imageData} id={this.state.imageId} closeModal={() => this.setState({imageModal: false})} /> : null}
-        {this.state.colorModal ? <ColorModal data={this.state.colorData} navigation={this.props.navigation} closeModal={() => this.setState({colorModal: false})} /> : null}
-        {this.state.orderModal ? <OrderModal closeModal={() => this.setState({orderModal: false})} openAddModal={(() => this.setState({addPageModal: true}))} /> : null}
-        {this.state.addPageModal ? <AddPageModal closeModal={() => this.setState({addPageModal: false})} /> : null}
-        {this.state.listModal ? <ListModal data={this.state.listData} closeModal={() => this.setState({listModal: false})} /> : null}
-        {this.state.pricingListModal ? <PricingListModal details={this.state.pricingDetails} Id={this.state.pricingListId} closeModal={() =>this.setState({pricingListModal: false})} /> : null }  
-        <Button title="Add New Component" onPress={this.handleAdd} />
-        <Button title="Rearrange Components" onPress={this.handleRearrange} />
-        <Button title="Submit" onPress={this.handleSubmit} />
+      <View style={styles.basicContainer}>
+        <View style={styles.basicContainer}>
+          {/*<WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/reactify.html`}} />*/}
+          <WebView style={styles.fullWidth} source={{uri: `${global.HOST}/${this.state.siteId}`}} />
+          { this.state.shortTextModal ?
+            <ShortTextModal
+              data={this.state.shortTextData}
+              id={this.state.shortTextId}
+              title={this.state.shortTextValue}
+              closeModal={() => this.setState({shortTextModal: false}) }
+            /> : null }
+          { this.state.longTextModal ?
+            <LongTextModal
+              data={this.state.longTextData}
+              id={this.state.longTextId}
+              body={this.state.longTextValue}
+              closeModal={() => this.setState({longTextModal: false}) }
+            /> : null }
+          { this.state.imageModal ?
+            <ImageModal
+              data={this.state.imageData}
+              id={this.state.imageId}
+              closeModal={() => this.setState({imageModal: false})}
+            /> : null }
+          {this.state.colorModal ?
+            <ColorModal
+              data={this.state.colorData}
+              navigation={this.props.navigation}
+              closeModal={() => this.setState({colorModal: false})}
+            /> : null }
+          { this.state.orderModal ?
+            <OrderModal
+              closeModal={() => this.setState({orderModal: false})}
+              openAddModal={(() => this.setState({addPageModal: true}))}
+            /> : null }
+          { this.state.addPageModal ?
+            <AddPageModal
+              closeModal={() => this.setState({addPageModal: false})}
+            /> : null }
+          { this.state.listModal ?
+            <ListModal
+              data={this.state.listData}
+              closeModal={() => this.setState({listModal: false})}
+            /> : null }
+          { this.state.pricingListModal ?
+            <PricingListModal
+              details={this.state.pricingDetails}
+              Id={this.state.pricingListId}
+              closeModal={() =>this.setState({pricingListModal: false})}
+            /> : null }
+
+          <Button title="Save" onPress={this.handleSubmit} />
+        </View>
+        <View style={styles.absoluteRight} >
+          <TouchableHighlight
+            style={[styles.sideButton, styles.buttonCentered]}
+            underlayColor='#ff7043'
+            onPress={this.handleAdd}
+          >
+            <Ionicons name="md-add" size={32} />
+          </TouchableHighlight>
+
+          <TouchableHighlight
+            style={[styles.sideButton, styles.buttonCentered]}
+            underlayColor='#ff7043'
+            onPress={this.handleRearrange}
+          >
+            <Ionicons name="md-reorder" size={32} />
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }
 }
-
-export const styles = StyleSheet.create({
-  form: {
-    padding: 10,
-    borderColor: '#eee',
-    borderWidth: 1,
-  },
-  flexContainer: {
-    flex: 1,
-  },
-  webView: {
-    padding: 10,
-    width: '100%',
-  },
-  modal: {
-    backgroundColor: 'rgba(0,0,0,.3)',
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    width: '100%',
-    alignItems: 'center',
-  },
-  innerModal: {
-    width: '80%',
-    backgroundColor: '#fff',
-    padding: 10,
-    position: 'relative',
-    top: '5%',
-    borderRadius: 10,
-  },
-  bigText: {
-    fontSize: 20,
-  },
-});
 
 function mapStateToProps({ order }) {
   return { order };

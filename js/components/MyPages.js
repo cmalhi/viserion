@@ -4,6 +4,7 @@ import { View, Text, ScrollView, TouchableHighlight, TouchableOpacity, StyleShee
 import { Entypo } from '@expo/vector-icons';
 import axios from 'axios';
 import { updatePrefs } from '../actions/index';
+import styles from '../styles';
 
 class MyPages extends React.Component {
   constructor(props) {
@@ -38,9 +39,9 @@ class MyPages extends React.Component {
   renderSavedSites() {
     return this.state.sites.map(site => {
       return (
-        <View style={styles.items}>
+        <View style={styles.itemsColumn}>
           <TouchableOpacity onPress={this.handleLinkPress.bind(this, site)}>
-            <View style={styles.item}>
+            <View style={styles.boxItem}>
               <Text>{site._id}</Text>
             </View>
           </TouchableOpacity>
@@ -53,13 +54,13 @@ class MyPages extends React.Component {
     const { navigate } = this.props.navigation;
     if (!this.state.sites.length) return <Text>Loading...</Text>
     return(
-      <View style={styles.container}>
+      <View style={styles.basicContainer}>
         <ScrollView contentContainerStyle={styles.content}>
           {this.renderSavedSites()}
         </ScrollView>
         <View>
           <TouchableHighlight
-            style={styles.addButton}
+            style={[styles.addButton, styles.buttonCentered]}
             underlayColor='#ff7043'
             onPress={()=>{ navigate('Template') }}
           >
@@ -70,50 +71,5 @@ class MyPages extends React.Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  content: {
-    // flex: 1,
-    padding: 10,
-  },
-  text:{
-  },
-  items: {
-    flexDirection: 'column',
-  },
-  item: {
-    height: 200,
-    width: '100%',
-    backgroundColor: '#eee',
-    margin: 1,
-    padding: 10,
-  },
-  addButton: {
-    backgroundColor: '#ff5722',
-    borderColor: '#ff5722',
-    borderWidth: 1,
-    height: 50,
-    width: 50,
-    borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
-    shadowColor: "#000000",
-    paddingLeft: 1,
-    paddingTop: 2,
-    // shadowOpacity: 0.8,
-    // shadowRadius: 2,
-    // shadowOffset: {
-    //   height: 1,
-    //   width: 0
-    // }
-  }
-});
 
 export default connect(null, { updatePrefs })(MyPages);
