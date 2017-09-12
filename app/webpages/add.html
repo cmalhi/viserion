@@ -46,7 +46,7 @@
             componentName: <Ticker />,
             attr: {
               bgColor: 'defaultColor',
-              title: 'What ever you want me to be',
+              title: 'Adrienne Tran, Matthew Go, Chet Malhi, Ed Sweezey',
             }
           }
           ,{
@@ -326,6 +326,42 @@
     render() {
       return(
         <span style={{color: this.state.color}} key={this.state.key} onClick={this.handleClick}>{this.state.textValue}</span>
+      )
+    }
+  }
+  class EditableScrollText extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        textValue: this.props.value,
+        path: this.props.path,
+        id: this.props.id,
+        key: newId(),
+      };
+      this.handleClick = this.handleClick.bind(this);
+    }
+    componentWillReceiveProps(nextProps) {
+      this.setState({
+        textValue: nextProps.value,
+        path: nextProps.path,
+        id: nextProps.id,
+      })
+    }
+    componentDidMount() {
+//      socket.on('changeTitleDom2', (data) => {
+//        if (data.key === this.state.key) this.setState({ textValue: data.textValue });
+//      })
+    }
+    handleClick(e) {
+      e.stopPropagation();
+      socket.emit('launchTitleModal', { key: this.state.key, textValue: this.state.textValue, id: this.state.id, path: this.state.path });
+    }
+    render() {
+      console.log('im in the render',this.state.key,this.state.textValue);
+      return(
+        <div className="ticker-wrap">
+          <div className="ticker" key={this.state.key} onClick={this.handleClick} >I AM THE TICKER</div>
+        </div>
       )
     }
   }
@@ -658,33 +694,45 @@
       constructor(props){
         super(props)
         this.state = {
-          msg: 'Enter Your Message Here....',
+          msg: 'Adrienne Tran, Chet Malhi, Matthew Go, Ed Sweezey ',
+          id: 'need to connect to prop',
+          path: ['need to create componentMap.js connection'],
         }
         this.continue = true;
       }
 
       componentDidMount() {
-       this.beginScroll(); 
+        this.beginScroll(); 
+      }
+
+      rotateCharacters() {
+        console.log('rotate');
+        var msg = this.state.msg;
+        msg = msg.split('');
+        msg.push(msg.shift());
+        msg = msg.join('');
+        console.log('array msg before setstate',msg);
+        this.setState({msg: msg})
       }
 
       beginScroll(){
+        console.log('beginning Scroll',this.state.msg);
         if(this.continue && this.state.msg) {
-          setInterval(function(){
-            var msg = this.state.msg;
-            msg = msg.split('');
-            msg.push(msg.shift(''));
-            this.setState({msg: msg});
-          },250);
+          setInterval(this.rotateCharacters.bind(this),250)
         }
       }  
 
       render() {
+        var msg = this.state.msg.slice(0,15);
         return (
-         <Hero title={this.state.msg} />
+          <div>
+            <EditableScrollText value={this.state.msg} id={this.state.id} path={this.state.path} />
+          </div>
         )
       }
+    }   
+}
 
-    }
 
   ReactDOM.render(<Parent/>, document.getElementById('parent'));
 </script>
