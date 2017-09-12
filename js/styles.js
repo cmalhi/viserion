@@ -13,6 +13,10 @@ export default styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 10,
   },
+  centered: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   content: {
     padding: 10,
   },
