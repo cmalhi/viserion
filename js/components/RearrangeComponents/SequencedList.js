@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'react-native'
 import {
   Animated,
   Easing,
@@ -90,7 +91,7 @@ class Row extends Component {
       ]}>
         {/*<Image source={{uri: data.image}} style={styles.image} />*/}
         <Text style={styles.text}>{data.componentName}</Text>
-        <Text onPress={() => this.props.handleDelete(data.id)}>Delete</Text>
+        <Button onPress={() => this.props.handleDelete(data.id)} title="Delete" />
       </Animated.View>
     );
   }
