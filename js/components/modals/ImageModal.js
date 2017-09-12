@@ -57,7 +57,6 @@ class ImageModal extends React.Component {
       if (response.status !== 201)
         throw new Error("Failed to upload image to S3");
       const imageUrl = response.body.postResponse.location;
-     
       var { id, path } = this.props.data;
       var newPref = updateComponent(this.props.preferences, id, path, imageUrl);
       socket.emit('updatePref', newPref);

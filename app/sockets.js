@@ -3,7 +3,6 @@ var socketInstance = function(io) {
 
     // Title
     socket.on('launchTitleModal', function(textData) {
-      console.log('the data coming in is ', textData)
       io.sockets.emit('launchTitleModal', textData);
       // TODO: .to(x) to SPECIFY SOCKET ID;
     });
@@ -48,7 +47,7 @@ var socketInstance = function(io) {
       io.sockets.emit('updatePricingList2', list);
     });
 
-    // Add new component
+    // Add new component 
     // socket.on('updatePref', function(sampleData){
     //   // Display new component in webview
     //   io.sockets.emit('changePref', sampleData)
@@ -59,7 +58,6 @@ var socketInstance = function(io) {
     });
 
     socket.on('updatePref', function(newPref) {
-      console.log('socket updatePref', newPref);
       io.sockets.emit('updatePrefDomStore', newPref)
     })
 

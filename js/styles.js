@@ -39,6 +39,9 @@ export default styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+  selected: {
+    backgroundColor: '#bbb'
+  },
 
   // Keywords
   keyword: {
