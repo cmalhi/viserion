@@ -27,7 +27,7 @@ import PresetPalettes from './ColorPicker/ColorPalette';
 
 export default RootNavigator = StackNavigator(
   {
-    // Index: { screen: ChooseLayout },
+    // Index: { screen: UserEdit },
     Index: { screen: HomeScreen },
     MainApp: { screen: MainTabNavigator },
     PresetPalettes: { screen: PresetPalettes },

@@ -97,4 +97,11 @@ export default styles = StyleSheet.create({
   basicContainer: {
     flex: 1,
   },
+
+  // Buttons
+  absoluteRight: {
+    position: 'absolute',
+    right: 0,
+    top: 50,
+  }
 });

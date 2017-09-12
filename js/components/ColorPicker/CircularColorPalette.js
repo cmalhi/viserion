@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
+import { Dimensions, View, StyleSheet, Text, TouchableHighlight } from 'react-native';
 
 export default class CircularColorPalette extends React.Component {
   constructor(props) {
@@ -28,8 +28,8 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   item: {
-    height: 100,
-    width: 100,
+    height: (Dimensions.get('window').width / 3) - 20,
+    width: (Dimensions.get('window').width / 3) - 20,
     borderRadius: 200,
     margin: 5,
   },
