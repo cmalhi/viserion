@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   layouts: layoutReducer,
   colors: colorReducer,
   title: titleReducer,
-  site: siteReducer,
+  siteId: siteReducer,
   keywords: keywordReducer,
   auth: authReducer,
   preferences: preferencesReducer,

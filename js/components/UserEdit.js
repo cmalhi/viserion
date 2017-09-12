@@ -50,8 +50,6 @@ class UserEdit extends React.Component {
       longTextData: null,
       imageData: null,
       listData: null,
-
-      siteId: 'webpages/add.html',
     };
     this.handleRearrange = this.handleRearrange.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
@@ -92,6 +90,8 @@ class UserEdit extends React.Component {
     });
 
     this.setCurrentSite();
+
+    console.log('siteId', this.props.siteId);
   }
 
   setCurrentSite() {

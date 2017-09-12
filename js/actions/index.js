@@ -37,10 +37,24 @@ export function addTitle(title) {
   }
 }
 
-export function addSite(site) {
+export const selectSite = (preferences) => (dispatch, getState) => {
+  console.log('select site called');
+  const html = prefToReactify(preferences);
+  axios.post(`${global.HOST}/sites`, {
+    preferences,
+    html })
+    .then(response => {
+      const siteId = response.data;
+      console.log('site ID IN SELECTED>>>>>>>>', siteId);
+      dispatch({type:'SELECT_SITE', payload: siteId});
+    })
+    .catch(err => console.log('Error saving site', err));
+}
+
+export function editSite(siteId) {
   return {
-    type: 'ADD_SITE',
-    payload: site,
+    type: 'EDIT_SITE',
+    payload: siteId,
   }
 }
 
@@ -110,7 +124,8 @@ export const selectPreferences = (selectedIndex) => (dispatch, getState) => {
   const { preferencesAll } = getState();
   const selectedPreferences = preferencesAll[selectedIndex];
   AsyncStorage.setItem('preferences', JSON.stringify(selectedPreferences));
-  dispatch({ type: 'SELECT_PREFERENCES', payload: selectPreferences });
+  dispatch(selectSite(selectedPreferences));
+  dispatch({ type: 'SELECT_PREFERENCES', payload: selectedPreferences });
 }
 
 export const savePreferences = () => (dispatch, getState) => {

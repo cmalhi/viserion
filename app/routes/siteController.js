@@ -7,14 +7,16 @@ exports.addOne = function(req, res) {
   console.log('req.body', req.body)
   // TODO: configure screenshots
   const newSite = { userId, html, preferences };
-  console.log('New site to post', newSite);
   Site.create(newSite)
     .then((site) => {
-      console.log(site);
       const siteId = site._id;
-      const update = { $push: { 'savedSites': siteId } }
-      User.findOneAndUpdate(userId, update, { new: true })
-        .then(user => res.send(`User ${user.userId} saved site ${siteId}`));
+      if (userId) {
+        const update = { $push: { 'savedSites': siteId } }
+        User.findOneAndUpdate(userId, update, { new: true })
+          .then(user => res.send(siteId));
+      } else {
+        res.send(siteId);
+      }
     })
     .catch(error => res.send(`Error saving new site: ${error}`));
 };

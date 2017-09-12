@@ -8,7 +8,7 @@ import {
 import Swiper from 'react-native-swiper';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { addSite, selectPreferences } from '../actions/index';
+import { selectSite, selectPreferences } from '../actions/index';
 import axios from 'axios';
 import prefToReactify from '../../app/utils/prefToReactify';
 
@@ -27,7 +27,7 @@ class ConfirmSite extends React.Component {
     this.props.selectPreferences(index);
     navigate('UserEdit');
   }
-
+ 
   renderViews() {
     return this.props.preferencesAll.map((preference, index) => {
       const html = prefToReactify(preference);
@@ -69,7 +69,7 @@ const styles = {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({addSite, selectPreferences}, dispatch)
+  return bindActionCreators({selectSite, selectPreferences}, dispatch)
 };
 
 const mapStateToProps = ({preferencesAll}) => {

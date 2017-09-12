@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { View, Text, ScrollView, TouchableHighlight, TouchableOpacity, StyleSheet, AsyncStorage } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import axios from 'axios';
-import { updatePrefs } from '../actions/index';
 import styles from '../styles';
+import { updatePrefs, editSite } from '../actions/index';
 
 class MyPages extends React.Component {
   constructor(props) {
@@ -19,7 +19,8 @@ class MyPages extends React.Component {
   handleLinkPress(site) {
     const { navigate } = this.props.navigation;
     this.props.updatePrefs(site.preferences);
-    navigate('UserEdit', {siteId: site._id, sitePreferences: site.preferences, userId: this.state.userId });
+    this.props.editSite(site._id);
+    navigate('UserEdit');
   }
 
   componentDidMount() {
