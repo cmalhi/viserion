@@ -57,7 +57,7 @@ class ListModal extends React.Component {
   }
 
   addToList() {
-    this.setState({ list: [...this.state.data.list, this.state.newItem] });
+    this.setState({ list: [...this.state.list, this.state.newItem] });
     this.setState({ newItem: '' });
   }
 
