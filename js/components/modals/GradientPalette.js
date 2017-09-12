@@ -20,7 +20,7 @@ export default class ColorPalette extends React.Component {
         <View>
           <LinearGradient
             colors={[c.color1, c.color2]}
-            style={{ height: 60, width: 60, margin: 5, borderRadius: 3 }}
+            style={styles.item}
           >
           </LinearGradient>
           </View>
@@ -47,5 +47,6 @@ export const styles = StyleSheet.create({
     width: 60,
     borderRadius: 3,
     margin: 5,
+    transform: [{rotateZ: '-90deg'}]
   },
 });
