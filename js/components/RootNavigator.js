@@ -26,8 +26,8 @@ import Prescreen from './Prescreen';
 
 export default RootNavigator = StackNavigator(
   {
-    Index: { screen: Prescreen },
-    // Index: { screen: HomeScreen },
+    // Index: { screen: Prescreen },
+    Index: { screen: HomeScreen },
     Prescreen: { screen: Prescreen },
     MainApp: { screen: MainTabNavigator },
     PresetPalettes: { screen: PresetPalettes },
@@ -46,7 +46,7 @@ export default RootNavigator = StackNavigator(
   },
   {
     navigationOptions: {
-      title: 'PageMill',
+      title: 'QuikPages',
     },
   }
 );
