@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleSheet, Button, Text, View, ScrollView } from 'react-native';
+import { StatusBar, Platform, StyleSheet, Button, Text, View, ScrollView } from 'react-native';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
@@ -23,8 +23,17 @@ class Main extends React.Component{
   }
 
   render() {
+    // StatusBar.setBarStyle('light-content', 'true');
     return(
-      <RootNavigator />
+      <View style={{flex: 1 }}>
+        <View style={{flex: 1, height: 50, backgroundColor: '#000'}}></View>
+        <StatusBar
+          barStyle="light-content"
+        />
+        <View style={{ flex: 30 }}>
+          <RootNavigator />
+        </View>
+      </View>
     )
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, AppRegistry, Button, ListView, Text, TouchableOpacity, View, StyleSheet, AsyncStorage, ScrollView } from 'react-native';
+import { Alert, AppRegistry, Button, ListView, Text, TouchableOpacity, View, StyleSheet, AsyncStorage, TouchableHighlight, ScrollView } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addColors } from '../../actions/index';
@@ -53,22 +53,30 @@ class PresetPalettes extends React.Component {
     });
     return (
       <View style={styles.container}>
-        <View style={{ flex : 8 }}>
+        <View style={{ flex : 5 }}>
           <ScrollView>
-            <View style={[styles.header, styles.headerHeight]}>
-              <Text style={styles.title}>Pick any colors you like.</Text>
-              <Text>We'll use these to craft your page.</Text>
-              <Text onPress={() => { navigate('ThreeColorPicker')}}>Or use our custom color picker</Text>
+            <View style={[styles.headerContainer]}>
+              <View style={styles.header}>
+                <Text style={[styles.text, styles.title]}>Pick colors you like.</Text>
+                <Text style={[styles.text, styles.subtitle]}>We'll use these to craft your page.</Text>
+                <Text style={[styles.text, {fontFamily: 'Avenir-Heavy'}]} onPress={() => { navigate('ThreeColorPicker')}}>Or use our Custom Color Picker.</Text>
+              </View>
             </View>
-            <View style={styles.mainHeight}>
+            <View style={styles.mainContainer}>
               <View style={styles.grid}>
                 {circles}
               </View>
             </View>
           </ScrollView>
         </View>
-        <View style={styles.footerHeight}>
-          <Button title="Continue" onPress={this.submitColor} />
+        <View style={styles.footerContainer}>
+          <TouchableHighlight
+            style={[styles.buttonCentered, styles.continueButton]}
+            underlayColor='#1D59BF'
+            onPress={this.submitColor}
+          >
+            <Text style={ [styles.buttonText, { color: '#eee', }] }>Continue</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );

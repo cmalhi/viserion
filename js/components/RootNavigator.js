@@ -47,7 +47,7 @@ export default RootNavigator = StackNavigator(
   {
     navigationOptions: {
       // title: 'QuikPages',
-      // header: null,
+      header: null
     },
   }
 );

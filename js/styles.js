@@ -3,16 +3,15 @@ import { Dimensions, StyleSheet } from 'react-native';
 export default styles = StyleSheet.create({
   basicContainer: {
     flex: 1,
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
   },
   container: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
-    // backgroundColor: '#fff',
     backgroundColor: '#222A3C',
-    padding: 10,
+    // padding: 10,
   },
   centered: {
     justifyContent: 'center',
@@ -22,22 +21,27 @@ export default styles = StyleSheet.create({
     padding: 10,
   },
   header: {
-    marginBottom: 30,
+    paddingVertical: 20,
+    paddingHorizontal: 25,
+    marginBottom: 10,
   },
   grid: {
     flexDirection: 'row',
     justifyContent: 'center',
     flexWrap: 'wrap',
   },
-  headerHeight: {
+  headerContainer: {
     flex: 1,
     justifyContent: 'center',
+    alignSelf: 'stretch',
+    backgroundColor: '#060E22',
   },
-  mainHeight: {
-    flex: 6,
+  mainContainer: {
+    flex: 2,
+    paddingVertical: 10,
   },
-  footerHeight: {
-    flex: 1,
+  footerContainer: {
+    flex: 0.5,
     justifyContent: 'center',
   },
   selected: {
@@ -46,10 +50,10 @@ export default styles = StyleSheet.create({
 
   // Keywords
   keyword: {
-    backgroundColor: '#2E9D88',
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    backgroundColor: '#000',
+    borderRadius: 25,
+    paddingHorizontal: 20,
+    paddingVertical: 8,
     margin: 5,
   },
   keywordsContainer: {
@@ -57,13 +61,13 @@ export default styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     justifyContent: 'space-around',
+    paddingHorizontal: 15,
   },
   keywordSelected: {
-    opacity: 0.7,
-    backgroundColor: '#15433A',
+    backgroundColor: '#3D6DF9',
   },
   keywordText: {
-    fontSize: 20,
+    fontSize: 16,
     color: '#fff',
   },
 
@@ -71,20 +75,26 @@ export default styles = StyleSheet.create({
     width: '100%',
   },
 
-  // Text
+  // Typography
   text: {
-    fontFamily: 'AvenirNext-Regular',
+    fontFamily: 'Avenir-Book',
     color: '#fff'
   },
   title: {
-    fontSize: 27,
+    fontFamily: 'Avenir-Heavy',
+    fontSize: 32,
+    lineHeight: 35,
   },
-  subtitle:{
+  subtitle: {
     fontSize: 20,
-    color: '#aaa',
+    color: '#d0d0d0',
   },
   muted: {
     color: '#aaa'
+  },
+  buttonText: {
+    fontFamily: 'Avenir-Heavy',
+    color: '#fff'
   },
 
   // Modals
@@ -123,6 +133,7 @@ export default styles = StyleSheet.create({
     width: (Dimensions.get('window').width / 3) - 20,
     borderRadius: 200,
     margin: 5,
+
   },
 
   // Buttons
@@ -130,15 +141,6 @@ export default styles = StyleSheet.create({
     position: 'absolute',
     top: 100,
     right: 0,
-  },
-  bottomButton: {
-    color: 'red',
-    backgroundColor: 'blue',
-    borderColor: '#ff5722',
-    borderWidth: 1,
-    height: 50,
-    width: 50,
-    borderRadius: 50,
   },
   sideButton: {
     width: 50,
@@ -175,5 +177,11 @@ export default styles = StyleSheet.create({
     backgroundColor: '#eee',
     margin: 1,
     padding: 10,
+  },
+  continueButton: {
+    backgroundColor: '#3E84FB',
+    borderRadius: 30,
+    width: 110,
+    height: 35,
   },
 });

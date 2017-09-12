@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppRegistry, Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { AppRegistry, Button, StyleSheet, Text, TextInput, View, TouchableHighlight } from 'react-native';
 import { postPreferences, createPreferences } from '../actions/index'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -29,23 +29,38 @@ class ChooseTitle extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={[styles.header, styles.headerHeight]}>
-          <Text style={styles.title}>What's the name of your site?</Text>
+        <View style={styles.headerContainer}>
+          <View style={styles.header}>
+            <Text style={[styles.text, styles.title]}>What's the name of your site?</Text>
+          </View>
         </View>
-        <View style={styles.mainHeight}>
+        <View style={styles.mainContainer}>
           <TextInput
             placeholder="Choose a good one"
             onChangeText={(text) => this.setState({text})}
             onSubmitEditing={this.handleSubmit}
             clearButtonMode={'unless-editing'}
             keyboardType={"default"}
+            style={ [
+              styles.text,
+              {
+                height: 40,
+                borderColor: '#3E84FB',
+                borderBottomWidth: 1,
+                fontSize: 30,
+                width: 340,
+              }
+              ]}
           />
         </View>
-        <View style={styles.footerHeight}>
-          <Button
+        <View style={styles.footerContainer}>
+          <TouchableHighlight
+            style={ [styles.buttonCentered, styles.continueButton] }
+            underlayColor='#1D59BF'
             onPress={this.handleSubmit}
-            title="Generate your custom pages"
-          />
+          >
+            <Text style={ [styles.buttonText, { color: '#eee', }] }>Generate</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
