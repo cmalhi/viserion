@@ -121,7 +121,7 @@ class UserEdit extends React.Component {
       <View style={styles.basicContainer}>
         <View style={styles.basicContainer}>
           {/*<WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/reactify.html`}} />*/}
-          <WebView style={styles.fullWidth} source={{uri: `${global.HOST}/${this.state.siteId}`}} />
+          <WebView style={styles.screenWidth} source={{uri: `${global.HOST}/${this.state.siteId}`}} />
           { this.state.shortTextModal ?
             <ShortTextModal
               data={this.state.shortTextData}
@@ -168,24 +168,39 @@ class UserEdit extends React.Component {
               Id={this.state.pricingListId}
               closeModal={() =>this.setState({pricingListModal: false})}
             /> : null }
-
-          <Button title="Save" onPress={this.handleSubmit} />
+        </View>
+        <View style={styles.absoluteBottom}>
+          <TouchableHighlight
+            style={ [styles.buttonCentered, styles.continueButton] }
+            underlayColor='#1D59BF'
+            onPress={this.handleSubmit}
+          >
+            <Text style={ [styles.buttonText, { color: '#eee', }] }>Save</Text>
+          </TouchableHighlight>
         </View>
         <View style={styles.absoluteRight} >
           <TouchableHighlight
             style={[styles.sideButton, styles.buttonCentered]}
-            underlayColor='#ff7043'
+            underlayColor='#3D6DF9'
             onPress={this.handleAdd}
           >
-            <Ionicons name="md-add" size={32} />
+            <Ionicons name="md-add" color="#fff" size={32} />
           </TouchableHighlight>
 
           <TouchableHighlight
             style={[styles.sideButton, styles.buttonCentered]}
-            underlayColor='#ff7043'
+            underlayColor='#3D6DF9'
             onPress={this.handleRearrange}
           >
-            <Ionicons name="md-reorder" size={32} />
+            <Ionicons name="md-reorder" color="#fff" size={32} />
+          </TouchableHighlight>
+
+          <TouchableHighlight
+            style={[styles.sideButton, styles.buttonCentered]}
+            underlayColor='#3D6DF9'
+            onPress={() => { console.log('Share link goes here!') }}
+          >
+            <Ionicons name="ios-share-outline" color="#fff" size={32} />
           </TouchableHighlight>
         </View>
       </View>

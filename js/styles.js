@@ -70,8 +70,8 @@ export default styles = StyleSheet.create({
     color: '#fff',
   },
 
-  fullWidth: {
-    width: '100%',
+  screenWidth: {
+    width: Dimensions.get('window').width,
   },
 
   // Typography
@@ -136,6 +136,11 @@ export default styles = StyleSheet.create({
   },
 
   // Buttons
+  absoluteBottom: {
+    position: 'absolute',
+    bottom: 10,
+    right: (Dimensions.get('window').width / 3), // center
+  },
   absoluteRight: {
     position: 'absolute',
     top: 100,
@@ -144,7 +149,7 @@ export default styles = StyleSheet.create({
   sideButton: {
     width: 50,
     height: 50,
-    backgroundColor: '#eee',
+    backgroundColor: '#222A3C',
 
   },
   buttonCentered: {
