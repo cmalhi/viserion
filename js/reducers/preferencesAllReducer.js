@@ -34,6 +34,7 @@ const defaultPreferencesAll = [[{
 [{
   id: 'hero2',
   nickName: 'My Hero',
+  componentName: 'Hero',
   attr: {
     bgColor: '#009AF2',
     title: 'defaultTitle',
@@ -45,19 +46,13 @@ const defaultPreferencesAll = [[{
   componentName: 'PinterestContent',
   attr: {
     headerColor: '#d3654b',
-    content: [
-      {
-        title: 'Who can attend?',
-        body: 'All undergraduate, graduate, and high school students are welcome. If you are under 18, we\'ll need a parental consent form.',
-      },
-      {
-        title: 'I don’t have a team. Can I still participate?',
-        body: 'Of course! It is not necessary to have a team prior to coming to Hack@Brown.',
-      },
-      {
-        title: 'Will there be a standby line the day-of the event?',
-        body: 'Yes, there will be a standby line if accepted attendees do not show up! The line will open when registration starts (9am) and students will be admitted off the standby line after registration ends (10:30am).',
-      },
+    imageUrls: [
+      'https://68.media.tumblr.com/8c03ff7f9a45832be4a65783b5c39ecb/tumblr_ovebbfcc3S1s2tva9o1_1280.jpg',
+      'https://68.media.tumblr.com/3523f18b84d111ca2d39797c766d6ab8/tumblr_ov7e3t3Dg61s2tva9o1_1280.jpg',
+      'https://68.media.tumblr.com/dd9ef337da64596dad08baf332e7c91e/tumblr_ovebc0U7381s2tva9o1_1280.jpg',
+      'https://68.media.tumblr.com/bf224896567a05f502931d1f738cec85/tumblr_oubn37DsUk1s2tva9o1_1280.jpg',
+      'https://68.media.tumblr.com/c0f6f53319b37c3dd46158438739a5ae/tumblr_oubn9jascg1s2tva9o1_1280.jpg',
+      'https://68.media.tumblr.com/aac121c777631aa1ef756fd4164a004f/tumblr_oubn8iPPLG1s2tva9o1_1280.jpg',
     ],
   },
 },
