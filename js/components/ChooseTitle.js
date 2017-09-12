@@ -21,11 +21,9 @@ class ChooseTitle extends React.Component {
 
     // Create preferences in redux state
     this.props.createPreferences();
-    console.log('handle submit called');
 
-    // Only navigate to ConfirmSite when all templates added
-    this.props.postPreferences(() => navigate('ConfirmSite') );
-    // navigate('ConfirmSite');  
+    navigate('ConfirmSite');
+
   }
 
   render() {
@@ -55,7 +53,7 @@ class ChooseTitle extends React.Component {
 }
 
 const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({addTitle, postPreferences, createPreferences}, dispatch)
+  return bindActionCreators({addTitle, createPreferences}, dispatch)
 };
 
 export default connect(null, matchDispatchToProps)(ChooseTitle);

@@ -1,6 +1,7 @@
 const defaultPreferencesAll = [[{
   nickName: 'My Hero',
   componentName: 'Hero',
+  id: 'hero1',
   attr: {
     bgColor: '#FB5B45',
     title: 'defaultTitle',
@@ -9,8 +10,8 @@ const defaultPreferencesAll = [[{
 {
   nickName: 'My ImageContent',
   componentName: 'ImageContent',
+  id: 'imagecontent1',
   attr: {
-    id: 'notSet',
     imageUrl: 'http://i.imgur.com/A1SGNax.png',
     mainTitle: 'What\'s on Spotify?',
     subtitle1: 'Music',
@@ -24,6 +25,7 @@ const defaultPreferencesAll = [[{
 {
   nickName: 'My Footer',
   componentName: 'Footer',
+  id: 'footer3',
   attr: {
     bgColor: '#009AF2',
     text: 'defaultText',
@@ -32,6 +34,7 @@ const defaultPreferencesAll = [[{
 [{
   nickName: 'My Hero',
   componentName: 'Hero',
+  id: 'hero5',
   attr: {
     bgColor: '#009AF2',
     title: 'defaultTitle',
@@ -40,8 +43,8 @@ const defaultPreferencesAll = [[{
 {
   nickName: 'My PinterestContent',
   componentName: 'PinterestContent',
+  id: 'pinterest1',
   attr: {
-    id: 'notSet',
     headerColor: '#d3654b',
     content: [
       {
@@ -62,6 +65,7 @@ const defaultPreferencesAll = [[{
 {
   nickName: 'My Footer',
   componentName: 'Footer',
+  id: 'footer4',
   attr: {
     bgColor: '#009AF2',
     text: 'defaultText',

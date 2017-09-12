@@ -3,6 +3,6 @@ export default function (state = ['ImageCaption'], action) {
     case 'ADD_LAYOUTS':
       return action.payload;
     default:
-      return state
+      return state;
   }
 }

@@ -6,7 +6,7 @@ import axios from 'axios';
 import styles from '../styles';
 import { updatePrefs, editSite } from '../actions/index';
 
-class MyPages extends React.Component {
+class Gallery extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
@@ -24,16 +24,13 @@ class MyPages extends React.Component {
   }
 
   componentDidMount() {
-    AsyncStorage.getItem('userId')
-      .then(userId => {
-        // TODO: remove hard coded user ID
-        // userId = 'test';
-        axios.get(`${global.HOST}/sites/all/${userId}`)
-          .then((res) => {
-            this.setState({ sites: res.data, userId });
-          })
-          .catch((err) => console.log('Err getting /sites/list: ', err));
-      });
+    console.log('compo mounted')
+    axios.get(`${global.HOST}/sites/all`)
+      .then((res) => {
+        console.log('res data >>>>>'. res.data);
+        this.setState({ sites: res.data, userId });
+      })
+      .catch((err) => console.log('Err getting /sites/list: ', err));
   }
 
   renderSavedSites() {
@@ -72,4 +69,4 @@ class MyPages extends React.Component {
   }
 }
 
-export default connect(null, { updatePrefs, editSite })(MyPages);
+export default connect(null, { updatePrefs, editSite })(Gallery);

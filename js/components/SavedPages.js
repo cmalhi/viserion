@@ -26,7 +26,7 @@ class SavedPages extends React.Component {
     AsyncStorage.getItem('userId')
       .then(userId => {
         // TODO: remove hard coded user ID
-        userId = 'test';
+        // userId = 'test';
         axios.get(`${global.HOST}/sites/all/${userId}`)
           .then((res) => {
             this.setState({ sites: res.data, userId });

@@ -37,10 +37,23 @@ export function addTitle(title) {
   }
 }
 
-export function addSite(site) {
+// Creates entry in database for a new site, preferences, and html
+export const selectSite = (preferences) => (dispatch, getState) => {
+  const html = prefToReactify(preferences);
+  axios.post(`${global.HOST}/sites`, {
+    preferences,
+    html })
+    .then(response => {
+      const siteId = response.data;
+      dispatch({type:'SELECT_SITE', payload: siteId});
+    })
+    .catch(err => console.log('Error saving site', err));
+}
+
+export function editSite(siteId) {
   return {
-    type: 'ADD_SITE',
-    payload: site,
+    type: 'EDIT_SITE',
+    payload: siteId,
   }
 }
 
@@ -106,11 +119,13 @@ export const createPreferences = () => (dispatch, getState) => {
   dispatch({ type: 'CREATE_PREFERENCES', payload: preferences });
 };
 
+// Sets the selected preferences using the clicked index, sets to AsyncStorage
 export const selectPreferences = (selectedIndex) => (dispatch, getState) => {
   const { preferencesAll } = getState();
   const selectedPreferences = preferencesAll[selectedIndex];
   AsyncStorage.setItem('preferences', JSON.stringify(selectedPreferences));
-  dispatch({ type: 'SELECT_PREFERENCES', payload: selectPreferences });
+  dispatch(selectSite(selectedPreferences));
+  dispatch({ type: 'SELECT_PREFERENCES', payload: selectedPreferences });
 }
 
 export const savePreferences = () => (dispatch, getState) => {
@@ -118,7 +133,8 @@ export const savePreferences = () => (dispatch, getState) => {
   const html = prefToHtml(preferences);
   AsyncStorage.getItem('userId')
   // TODO: Undo hardcode
-    .then((userId = 'test') => {
+    .then((userId) => {
+      // userId = 'test';
       axios.post(`${global.HOST}/sites`, {
         userId,
         preferences,
@@ -128,8 +144,8 @@ export const savePreferences = () => (dispatch, getState) => {
   dispatch({ type:'SAVE_PREFERENCES', payload: preferences })
 }
 
-export const updateDatabase = (siteId) => (dispatch, getState) => {
-  const { preferences } = getState();
+export const updateSite = () => (dispatch, getState) => {
+  const { preferences, siteId } = getState();
   axios.put(`${global.HOST}/sites/${siteId}`, {
     preferences,
   })
@@ -137,7 +153,22 @@ export const updateDatabase = (siteId) => (dispatch, getState) => {
       console.log('New site updated', site);
     })
     .catch(err => console.log('Error saving site preferences: ', err));
-}
+};
+
+export const assignUser = () => (dispatch, getState) => {
+  const { siteId } = getState();
+  AsyncStorage.getItem('userId')
+    .then((userId) => {
+      axios.put(`${global.HOST}/sites/${siteId}`, {
+        userId,
+      })
+      .then (site => {
+        console.log(`Site ${siteId} assigned to user, ${userId}`);
+      })
+      .catch(err => console.log('Error saving site to user'));
+    })
+    .catch(err => console.log('Error retieving user from AsyncStorage', err));
+};
 
 // Loads cached preferences from AsyncStorage if found
 export const loadPreferences = () => (dispatch) => {
@@ -148,32 +179,31 @@ export const loadPreferences = () => (dispatch) => {
     })
     .catch(error => {
       dispatch({type:'LOAD_PREFERENCES', found: false, payload: null});
-    })
-}
+    });
+};
 
+// Deprecated method of creating templates
+// export function postPreferences(navigateToNext) {
+//   return (dispatch, getState) => {
+//     const { layouts, colors, title, keywords, order } = getState();
 
-export function postPreferences(navigateToNext) {
-  return (dispatch, getState) => {
-    const { layouts, colors, title, keywords, order } = getState();
-
-    //  Collect layouts that from global state that are true
-    const layoutsArr = _.reduce(layouts, (result, layoutStatus, layoutId) => {
-      if (layoutStatus === true ) result.push(layoutId);
-      return result;
-    }, []);
-
+//     //  Collect layouts that from global state that are true
+//     const layoutsArr = _.reduce(layouts, (result, layoutStatus, layoutId) => {
+//       if (layoutStatus === true ) result.push(layoutId);
+//       return result;
+//     }, []);
     // Preferences posted to generate templates
-    axios.post(`${global.HOST}/generate`, {
-      layouts: layoutsArr,
-      colors: colors,
-      title: title,
-      keywords: keywords,
-    })
-      .then(response => {
-        console.log('axios posted to generate templates ', response.data);
-        navigateToNext();
-    })
-      .catch(err => console.log(err));
+    // axios.post(`${global.HOST}/generate`, {
+    //   layouts: layoutsArr,
+    //   colors: colors,
+    //   title: title,
+    //   keywords: keywords,
+    // })
+    //   .then(response => {
+    //     console.log('axios posted to generate templates ', response.data);
+    //     navigateToNext();
+    // })
+    //   .catch(err => console.log(err));
 
     // Preferences are stored in user table
     // axios.post(`${global.HOST}/preferences`, {
@@ -189,5 +219,5 @@ export function postPreferences(navigateToNext) {
     //   })
     // })
     //   .catch(err => console.log(err));
-  }
-}
+  // }
+// }

@@ -11,7 +11,7 @@ import ListModal from './modals/ListModal';
 import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { updateDatabase } from '../actions/index';
+import { updateSite, assignUser } from '../actions/index';
 import styles from '../styles'
 import { Ionicons } from '@expo/vector-icons';
 const io = require('socket.io-client');
@@ -50,8 +50,6 @@ class UserEdit extends React.Component {
       longTextData: null,
       imageData: null,
       listData: null,
-
-      siteId: 'webpages/add.html',
     };
     this.handleRearrange = this.handleRearrange.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
@@ -90,17 +88,6 @@ class UserEdit extends React.Component {
       //TODO: get id
       this.setState({ listModal: true, listData: data, listId: data.key});
     });
-
-    this.setCurrentSite();
-  }
-
-  setCurrentSite() {
-    if (this.props.navigation.state.params) {
-      const { siteId } = this.props.navigation.state.params;
-      this.setState({
-        siteId,
-      });
-    }
   }
 
   handleRearrange() {
@@ -112,8 +99,8 @@ class UserEdit extends React.Component {
   }
 
   handleSubmit() {
-    this.props.updateDatabase(this.state.siteId);
-
+    this.props.updateSite();
+    this.props.assignUser();
   }
 
   render() {
@@ -121,7 +108,7 @@ class UserEdit extends React.Component {
       <View style={styles.basicContainer}>
         <View style={styles.basicContainer}>
           {/*<WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/reactify.html`}} />*/}
-          <WebView style={styles.fullWidth} source={{uri: `${global.HOST}/${this.state.siteId}`}} />
+          <WebView style={styles.fullWidth} source={{uri: `${global.HOST}/${this.props.siteId}`}} />
           { this.state.shortTextModal ?
             <ShortTextModal
               data={this.state.shortTextData}
@@ -193,8 +180,8 @@ class UserEdit extends React.Component {
   }
 }
 
-function mapStateToProps({ order }) {
-  return { order };
+function mapStateToProps({ order, siteId }) {
+  return { order, siteId };
 }
 
-export default connect(mapStateToProps, { updateDatabase })(UserEdit);
+export default connect(mapStateToProps, { updateSite, assignUser })(UserEdit);
