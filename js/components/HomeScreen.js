@@ -6,6 +6,8 @@ import Login from './Login';
 import SignUp from './SignUp';
 import UserEdit from './UserEdit';
 const io = require('socket.io-client');
+import { Font } from 'expo';
+
 
 export default class HomeScreen extends React.Component {
 
@@ -14,10 +16,13 @@ export default class HomeScreen extends React.Component {
     this.state = {
       isConnected: false,
       data: null,
+      fontLoaded: false,
     }
   }
 
   componentDidMount() {
+    // Fonts
+    this.setState({ fontLoaded: true });
     const socket = io(global.HOST, { transports: ['websocket'] });
     socket.on('connect', () => {
       this.setState({ isConnected: true });
@@ -73,7 +78,6 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   text: {
-    // color: '#eee',
     fontSize: 20,
   },
   tabBar: {

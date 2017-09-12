@@ -8,17 +8,16 @@ import { connect } from 'react-redux';
 import { appendPrefs, updatePrefs } from '../actions/index';
 import { Ionicons } from '@expo/vector-icons';
 import RootNavigator from './RootNavigator';
+import { Font } from 'expo';
 const io = require('socket.io-client');
 
 class Main extends React.Component{
   componentDidMount() {
     // All sockets go here
     const socket = io(global.HOST, { transports: ['websocket'] });
-
     socket.on('addPrefDomStore', (addition) => {
       this.props.appendPrefs(addition)
     });
-
     socket.on('updatePrefDomStore', (newPrefs) => {
       this.props.updatePrefs(newPrefs)
     });
