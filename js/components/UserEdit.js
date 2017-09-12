@@ -101,6 +101,8 @@ class UserEdit extends React.Component {
   handleSubmit() {
     this.props.updateSite();
     this.props.assignUser();
+    const { navigate } = this.props.navigation; 
+    navigate('ShareScreen');
   }
 
   render() {

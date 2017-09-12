@@ -39,7 +39,7 @@ class MyPages extends React.Component {
   renderSavedSites() {
     return this.state.sites.map(site => {
       return (
-        <View style={styles.itemsColumn}>
+        <View key={site._id} style={styles.itemsColumn}>
           <TouchableOpacity onPress={this.handleLinkPress.bind(this, site)}>
             <View style={styles.boxItem}>
               <Text>{site._id}</Text>

@@ -1,5 +1,5 @@
 module.exports = (rawPreferencesObj) => {
-  var rawPreferences = JSON.stringify(rawPreferencesObj)
+  var rawPreferences = JSON.stringify(rawPreferencesObj);
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +14,7 @@ module.exports = (rawPreferencesObj) => {
 <script src="https://fb.me/react-dom-15.0.0.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
 <script src="http://127.0.0.1:8080/socket.io/socket.io.js"></script>
+
 <!--<script src="http://ec2-54-203-8-222.us-west-2.compute.amazonaws.com:8080/socket.io/socket.io.js"></script>-->
 <style type="text/css">
 /*---------------
@@ -320,6 +321,7 @@ bigger {
 .color-inverse {
     color: #fff;
 }
+
 </style>
 <div id="parent"></div>
 
@@ -346,17 +348,25 @@ bigger {
             title: 'Title',
           },
         },
-          {
+        {
+            id: 'ticker2',
+            nickName: 'My Ticker',
+            componentName: <Ticker />,
+            attr: {
+              bgColor: 'defaultColor',
+              title: 'Adrienne Tran, Matthew Go, Chet Malhi, Ed Sweezey',
+            }
+          }
+          ,{
             id: 'footer12',
             nickName: 'My Footer',
             componentName: <Footer />,
             attr: {
               bgColor: 'defaultColor',
               text: 'Footer',
-            },
+            }
           }],
       };
-
 
       this.map = this.map.bind(this);
       this.toComponents = this.toComponents.bind(this);
@@ -384,6 +394,9 @@ bigger {
         TextContent: {
           componentName: <TextContent />,
         },
+        List: {
+          componentName: <List />,
+        },
         Footer: {
           componentName: <Footer />,
         },
@@ -408,14 +421,10 @@ bigger {
     toComponents(raw) {
       var res = [];
       raw.forEach((comp) => {
-//        comp.componentName = this.map(comp.componentName)
-        var newComp = this.toComponent(comp)
+        var newComp = this.toComponent(comp);
         res.push(newComp)
       });
       return res;
-    }
-    shouldComponentUpdate(){
-      return true;
     }
     componentDidMount() {
       let newPref = this.toComponents(this.state.rawPreferences);
@@ -426,14 +435,12 @@ bigger {
       socket.on('addPrefDomStore', (addition) => {
         let newPref = this.state.sitePreferences;
         newPref = [...newPref, this.toComponent(addition)];
-        this.setState({ sitePreferences: newPref }, console.log('this.state.sitePreferences', this.state.sitePreferences));
+        this.setState({ sitePreferences: newPref });
       });
+
       socket.on('updatePrefDomStore', (newPrefs) => {
         let newPrefsComp = this.toComponents(newPrefs);
-
-        // TODO: refactor
-        this.setState({ sitePreferences: newPrefsComp.reverse() });
-        this.setState({ sitePreferences: newPrefsComp.reverse() });
+        this.setState({ sitePreferences: newPrefsComp});
       });
     }
     render() {
@@ -511,17 +518,16 @@ bigger {
         subtitle3: this.props.subtitle3,
         body3: this.props.body3,
         id: this.props.id,
-        path1: ['attr', 'imageUrl'],
-        path2: ['attr', 'mainTitle'],
-        path3: ['attr', 'subtitle1'],
-        path4: ['attr', 'body1'],
-        path5: ['attr', 'subtitle2'],
-        path6: ['attr', 'body2'],
-        path7: ['attr', 'subtitle3'],
-        path8: ['attr', 'body3'],
       }
+      this._path1 = ['attr', 'imageUrl'];
+      this._path2 = ['attr', 'mainTitle'];
+      this._path3 = ['attr', 'subtitle1'];
+      this._path4 = ['attr', 'body1'];
+      this._path5 = ['attr', 'subtitle2'];
+      this._path6 = ['attr', 'body2'];
+      this._path7 = ['attr', 'subtitle3'];
+      this._path8 = ['attr', 'body3'];
     }
-
     componentWillReceiveProps(nextProps) {
       this.setState({
         imageUrl: nextProps.imageUrl,
@@ -542,24 +548,24 @@ bigger {
           <div className="row middle-md">
             <div className="col-xs-12 col-sm-7 col-md-5">
               <div className="box">
-                <h1><EditableShortText value={this.state.mainTitle} id={this.state.id} path={this.state.path2}/></h1>
+                <h1><EditableShortText value={this.state.mainTitle} id={this.state.id} path={this._path2}/></h1>
                 <p>
-                  <h3><EditableShortText value={this.state.subtitle1} id={this.state.id} path={this.state.path3}/></h3>
-                  <EditableLongText body={this.state.body1} id={this.state.id} path={this.state.path4}/>
+                  <h3><EditableShortText value={this.state.subtitle1} id={this.state.id} path={this._path3}/></h3>
+                  <EditableLongText body={this.state.body1} id={this.state.id} path={this._path4}/>
                 </p>
                 <p>
-                  <h3><EditableShortText value={this.state.subtitle2} id={this.state.id} path={this.state.path5}/></h3>
-                  <EditableLongText body={this.state.body2} id={this.state.id} path={this.state.path6}/>
+                  <h3><EditableShortText value={this.state.subtitle2} id={this.state.id} path={this._path5}/></h3>
+                  <EditableLongText body={this.state.body2} id={this.state.id} path={this._path6}/>
                 </p>
                 <p>
-                  <h3><EditableShortText value={this.state.subtitle3} id={this.state.id} path={this.state.path7}/></h3>
-                  <EditableLongText body={this.state.body3} id={this.state.id} path={this.state.path8}/>
+                  <h3><EditableShortText value={this.state.subtitle3} id={this.state.id} path={this._path7}/></h3>
+                  <EditableLongText body={this.state.body3} id={this.state.id} path={this._path8}/>
                 </p>
               </div>
             </div>
             <div className="col-xs-12 col-sm-4 col-sm-offset-1 col-md-6">
               <div className="box">
-                <EditableImage src={this.state.imageUrl} id={this.state.id} path={this.state.path1}/>
+                <EditableImage src={this.state.imageUrl} id={this.state.id} path={this._path1}/>
               </div>
             </div>
           </div>
@@ -600,6 +606,45 @@ bigger {
       )
     }
   }
+  class EditableListText extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        color: this.props.color,
+        textValue: this.props.value,
+        path: this.props.path,
+        list: this.props.list,
+        id: this.props.id,
+        key: newId(),
+        index: this.props.key
+      };
+      this.handleClick = this.handleClick.bind(this);
+    }
+    componentWillReceiveProps(nextProps) {
+      this.setState({
+        color: nextProps.color,
+        textValue: nextProps.value,
+        path: nextProps.path,
+        list: nextProps.list,
+        id: nextProps.id,
+        index: nextProps.key,
+      })
+    }
+    componentDidMount() {
+//      socket.on('changeTitleDom2', (data) => {
+//        if (data.key === this.state.key) this.setState({ textValue: data.textValue });
+//      })
+    }
+    handleClick(e) {
+      e.stopPropagation();
+      socket.emit('launchListModal', { key: this.state.key, index: this.state.index, textValue: this.state.textValue, list: this.state.list, id: this.state.id, path: this.state.path });
+    }
+    render() {
+      return(
+        <span style={{color: this.state.color}} key={this.state.key} onClick={this.handleClick}>{this.state.textValue}</span>
+      )
+    }
+  }
   class EditableShortText extends React.Component {
     constructor(props) {
       super(props);
@@ -632,6 +677,42 @@ bigger {
     render() {
       return(
         <span style={{color: this.state.color}} key={this.state.key} onClick={this.handleClick}>{this.state.textValue}</span>
+      )
+    }
+  }
+  class List extends React.Component {
+    constructor(props){
+      super(props);
+      this.state = {
+        bgColor: this.props.bgColor,
+        items: this.props.items,
+        id: this.props.id,
+        path: ['attr', 'items'],
+      }
+      this.handleClick = this.handleClick.bind(this);
+    }
+    componentWillReceiveProps(nextProps) {
+      this.setState({
+        id: nextProps.id,
+        bgColor: nextProps.bgColor,
+        items: nextProps.items,
+      })
+    }
+    handleClick() {
+      socket.emit('launchListModal', {key: this.state.key, id: this.state.id, path: this.state.path});
+    }
+    render() {
+      const list = this.state.items.map((item, i) => {
+        return (
+          <p><EditableListText value={item} list={this.state.items} key={i} id={this.state.id} path={this.state.path}/></p>
+        )
+      });
+      return (
+        <div className="content">
+          <div className="columns columns-image">
+            {list}
+          </div>
+        </div>
       )
     }
   }
@@ -764,7 +845,7 @@ bigger {
         caption: nextProps.caption,
         id: nextProps.id,
       })
-    } 
+    }
 
     render() {
       return (
@@ -837,7 +918,7 @@ bigger {
     }
     render() {
       return (
-        <footer 
+        <footer
           className="footer-area"
           style={{ backgroundColor: this.state.bgColor }}
           onClick={this.handleFooterClick}
@@ -895,7 +976,7 @@ bigger {
         socket.on('updatePricingList2', (data) => {
           if (data.key === this.state.key) this.setState({ details: data.details});
         });
-      } 
+      }
 
       handleClick() {
         socket.emit('launchPricingModal', {key: this.state.key, details: this.state.details});
@@ -904,23 +985,63 @@ bigger {
       render() {
         var list = this.state.details.map( (item) => {
          return <div><EditableShortText value={item} color={this.styles.list.color} /></div>
-        })   
+        })
         return (
           <div className='Parent' style={this.styles.parent} onClick={this.handleClick} >
             <div id='title' style={this.styles.title}>
               <EditableShortText value={this.state.title} />
-            </div> 
+            </div>
             <div id='list' style={this.styles.list}>
               {list}
             </div>
             <div id='total' style={this.styles.total} ><EditableShortText value={this.state.total} /></div>
-          </div> 
+          </div>
         );
       }
+
     }
+
+  class Ticker extends React.Component {
+    constructor(props){
+      super(props)
+      this.state = {
+        msg: 'Adrienne Tran, Chet Malhi, Matthew Go, Ed Sweezey ',
+        id: 'need to connect to prop',
+        path: ['need to create componentMap.js connection'],
+      }
+      this.continue = true;
+    }
+
+    componentDidMount() {
+      this.beginScroll(); 
+    }
+
+    rotateCharacters() {
+      var msg = this.state.msg;
+      msg = msg.split('');
+      msg.push(msg.shift());
+      msg = msg.join('');
+      this.setState({msg: msg});
+    }
+
+    beginScroll(){
+      if(this.continue && this.state.msg) {
+        setInterval(this.rotateCharacters.bind(this),250)
+      }
+    }  
+
+    render() {
+      var msg = this.state.msg.slice(0,14);
+      return (
+        <div>
+          <Hero1 title={msg} />
+        </div>
+      )
+    }
+  }   
 
   ReactDOM.render(<Parent/>, document.getElementById('parent'));
 </script>
 </body>
-</html>`
-}
+</html>`;
+};
