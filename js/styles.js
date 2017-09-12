@@ -64,5 +64,37 @@ export default styles = StyleSheet.create({
   keywordText: {
     fontSize: 20,
     color: '#fff',
-  }
+  },
+
+  fullWidth: {
+    width: '100%',
+  },
+
+  // Modals
+  modal: {
+    backgroundColor: 'rgba(0,0,0,.3)',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    width: '100%',
+    alignItems: 'center',
+  },
+  innerModal: {
+    width: '80%',
+    backgroundColor: '#fff',
+    padding: 10,
+    position: 'relative',
+    top: '5%',
+    borderRadius: 10,
+  },
+  form: {
+    padding: 10,
+    borderColor: '#eee',
+    borderWidth: 1,
+  },
+  basicContainer: {
+    flex: 1,
+  },
 });
