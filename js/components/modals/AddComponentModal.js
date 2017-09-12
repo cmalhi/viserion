@@ -8,7 +8,7 @@ const io = require('socket.io-client');
 const tempURL = require('../../../images/components/text_image.png');
 
 var {
-  height: deviceHeight
+  width: deviceWidth
 } = Dimensions.get('window');
 
 var id = 0;
@@ -17,7 +17,7 @@ class AddPageModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      offset: new Animated.Value(deviceHeight),
+      offset: new Animated.Value(deviceWidth),
       compList: [],
     };
     this.closeModal = this.closeModal.bind(this);
@@ -55,7 +55,7 @@ class AddPageModal extends React.Component {
   closeModal() {
     Animated.timing(this.state.offset, {
       duration: 300,
-      toValue: deviceHeight,
+      toValue: deviceWidth,
     }).start(this.props.closeModal);
   }
 
@@ -69,7 +69,7 @@ class AddPageModal extends React.Component {
   render() {
     return (
       <Animated.View
-        style={[styles.modal, { transform: [{ translateY: this.state.offset }] }]}
+        style={[styles.modal, { transform: [{ translateX: this.state.offset }] }]}
       >
         <View style={styles.innerModal}>
           <TouchableOpacity onPress={this.closeModal}>

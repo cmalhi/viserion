@@ -8,7 +8,7 @@ const io = require('socket.io-client');
 import { getObj, removeByValue } from '../../utils'
 
 var {
-  height: deviceHeight
+  width: deviceWidth
 } = Dimensions.get('window');
 
 /*
@@ -21,7 +21,7 @@ class OrderModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      offset: new Animated.Value(deviceHeight),
+      offset: new Animated.Value(deviceWidth),
       // currentOrder: null,
       sequencedData: this.toSequencedData(this.props.preferences),
       sitePreferences: this.props.preferences,
@@ -101,7 +101,7 @@ class OrderModal extends React.Component {
   closeModal() {
     Animated.timing(this.state.offset, {
       duration: 300,
-      toValue: deviceHeight,
+      toValue: deviceWidth,
     }).start(this.props.closeModal);
   }
 
@@ -124,7 +124,7 @@ class OrderModal extends React.Component {
 
   render() {
     return(
-      <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
+      <Animated.View style={[styles.modal, {transform: [{translateX: this.state.offset}]}]}>
         <View style={styles.innerModal}>
           <TouchableOpacity onPress={this.closeModal}>
             <Text style={styles.center}>Close menu</Text>
