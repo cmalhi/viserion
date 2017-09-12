@@ -1,5 +1,6 @@
 import React from 'react';
-import { Dimensions, View, StyleSheet, Text, TouchableHighlight } from 'react-native';
+import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
+import styles from '../../styles'
 
 export default class CircularColorPalette extends React.Component {
   constructor(props) {
@@ -9,31 +10,14 @@ export default class CircularColorPalette extends React.Component {
   render() {
     const circles = this.props.colors.map((c, index) => {
       return(
-        <View key={index} style={[styles.item, {backgroundColor: c}]} />
+        <View key={index} style={[styles.circle, {backgroundColor: c}]} />
       );
     });
 
     return(
-      <View style={styles.container}>
+      <View style={styles.circleContainer}>
         {circles}
       </View>
     )
   }
 }
-
-export const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    flexWrap: 'wrap',
-  },
-  item: {
-    height: (Dimensions.get('window').width / 3) - 20,
-    width: (Dimensions.get('window').width / 3) - 20,
-    borderRadius: 200,
-    margin: 5,
-  },
-  selected: {
-    borderWidth: 10,
-  },
-});

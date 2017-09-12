@@ -1,6 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 export default styles = StyleSheet.create({
+  basicContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -9,19 +13,14 @@ export default styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 10,
   },
+  content: {
+    padding: 10,
+  },
   title: {
     fontSize: 22,
   },
   header: {
     marginBottom: 20,
-  },
-  bottomButton: {
-    backgroundColor: '#ff7043',
-    borderColor: '#ff5722',
-    borderWidth: 1,
-    height: 50,
-    width: 50,
-    borderRadius: 50,
   },
   grid: {
     flexDirection: 'row',
@@ -94,14 +93,68 @@ export default styles = StyleSheet.create({
     borderColor: '#eee',
     borderWidth: 1,
   },
-  basicContainer: {
-    flex: 1,
+
+  // Color Palette
+  circleContainer: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap',
+  },
+  circle: {
+    height: (Dimensions.get('window').width / 3) - 20,
+    width: (Dimensions.get('window').width / 3) - 20,
+    borderRadius: 200,
+    margin: 5,
   },
 
   // Buttons
   absoluteRight: {
     position: 'absolute',
+    top: 100,
     right: 0,
-    top: 50,
-  }
+  },
+  bottomButton: {
+    backgroundColor: '#ff7043',
+    borderColor: '#ff5722',
+    borderWidth: 1,
+    height: 50,
+    width: 50,
+    borderRadius: 50,
+  },
+  sideButton: {
+    width: 50,
+    height: 50,
+    backgroundColor: '#eee',
+
+  },
+  buttonCentered: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingLeft: 1,
+    paddingTop: 2,
+  },
+  addButton: {
+    backgroundColor: '#ff5722',
+    borderColor: '#ff5722',
+    borderWidth: 1,
+    height: 50,
+    width: 50,
+    borderRadius: 50,
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    shadowColor: "#000000",
+  },
+
+  // Grids
+  itemsColumn: {
+    flexDirection: 'column',
+  },
+  boxItem: {
+    height: 200,
+    width: '100%',
+    backgroundColor: '#eee',
+    margin: 1,
+    padding: 10,
+  },
 });
