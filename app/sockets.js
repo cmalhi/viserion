@@ -47,6 +47,11 @@ var socketInstance = function(io) {
       io.sockets.emit('updatePricingList2', list);
     });
 
+    //Pricing component
+    socket.on('launchListModal', function(list) {
+      io.sockets.emit('launchListModal2', list);
+    });
+
     // Add new component 
     // socket.on('updatePref', function(sampleData){
     //   // Display new component in webview
