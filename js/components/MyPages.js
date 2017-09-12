@@ -27,7 +27,7 @@ class MyPages extends React.Component {
     AsyncStorage.getItem('userId')
       .then(userId => {
         // TODO: remove hard coded user ID
-        userId = 'test';
+        // userId = 'test';
         axios.get(`${global.HOST}/sites/all/${userId}`)
           .then((res) => {
             console.log('res data >>>>>>>', res.data);
@@ -74,4 +74,3 @@ class MyPages extends React.Component {
 }
 
 export default connect(null, { updatePrefs, editSite })(MyPages);
-

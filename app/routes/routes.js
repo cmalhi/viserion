@@ -15,23 +15,6 @@ const userController = require('./userController');
 const siteController = require('./siteController');
 
 var routerInstance = function(io) {
-  /*
-   * /GET /:filename
-   */
-  router.get('/files/:filename', fileController.retrieveOne);
-
-  /*
-   *  Returns an array of template IDs URLs ['usertemplates/:id', ...] from userID
-   */
-  // router.get('/usertemplates/list', userTemplateController.retrieveTemplates);
-
-
-  // router.get('/usertemplates/all', userTemplateController.retrieve);
-
-  // /*
-  //  * /GET /:templateid
-  //  */
-  // router.get('/usertemplates/:id', userTemplateController.retrieveOne);
 
   /*
    * /POST /signup
@@ -95,6 +78,8 @@ var routerInstance = function(io) {
   // Receives array of preferences with each object
   // Sends them to swiper to render pages
 
+
+  // Deprecated method for creating user templates
   /*
    * /POST /generate
    * 1) Uses user preferences to pull relevant file components
@@ -102,111 +87,111 @@ var routerInstance = function(io) {
    * 3) Replaces strings in templates with user preferences (e.g. ${BG-COLOR})
    * 4) Stores templates into userTemplates
    */
-  router.post('/generate', function (req, res) {
-    // Shape of user preferences example:
-    // const userPreferences = { layouts: ['grid'], colors: ['blue', 'green'], title: "Chetan's Milk Shop", keywords: ['cooking']};
+  // router.post('/generate', function (req, res) {
+  //   // Shape of user preferences example:
+  //   // const userPreferences = { layouts: ['grid'], colors: ['blue', 'green'], title: "Chetan's Milk Shop", keywords: ['cooking']};
 
-    const userPreferences = req.body;
-    console.log('userPreferences in generate', req.body, userPreferences);
+  //   const userPreferences = req.body;
+  //   console.log('userPreferences in generate', req.body, userPreferences);
 
-    const beg = '<!DOCTYPE html><html lang="en">';
-    const end = '</body></html>';
+  //   const beg = '<!DOCTYPE html><html lang="en">';
+  //   const end = '</body></html>';
 
-    // Create templates for each combination or user selected style
-    // Finds file names in file table and concatenates bodies of each file object
-    var components = {};
-    var queryTerms = [{layouts: 'base'}];
+  //   // Create templates for each combination or user selected style
+  //   // Finds file names in file table and concatenates bodies of each file object
+  //   var components = {};
+  //   var queryTerms = [{layouts: 'base'}];
 
-    userPreferences.layouts.forEach(layout=> {
-      queryTerms.push({layouts: layout});
-    });
+  //   userPreferences.layouts.forEach(layout=> {
+  //     queryTerms.push({layouts: layout});
+  //   });
 
-    userPreferences.keywords.forEach(keyword => {
-      queryTerms.push({keywords: keyword});
-    });
+  //   userPreferences.keywords.forEach(keyword => {
+  //     queryTerms.push({keywords: keyword});
+  //   });
 
-    var query = {$or: queryTerms};
-    File.find(query).exec()
-      .then(files => {
-        files.map(file => {
-          const section = file.section;
-          if (components[section]) {
-            components[section].push(file);
-          } else {
-            components[section] = [file];
-          }
-          // components[section] = components[section] ? components[section].push(file) : [file]
-        });
+  //   var query = {$or: queryTerms};
+  //   File.find(query).exec()
+  //     .then(files => {
+  //       files.map(file => {
+  //         const section = file.section;
+  //         if (components[section]) {
+  //           components[section].push(file);
+  //         } else {
+  //           components[section] = [file];
+  //         }
+  //         // components[section] = components[section] ? components[section].push(file) : [file]
+  //       });
 
-        const combinations = produceCombinations(components);
-        let templatePromises = [];
+  //       const combinations = produceCombinations(components);
+  //       let templatePromises = [];
 
-        // Replace with user preferences: replace color and title for each template
-        combinations.forEach((combination) => {
-          userPreferences.colors.forEach((color) => {
-            let page = combination.replace('${BG-COLOR}', color).replace('${TITLE}', userPreferences.title);
-            page = beg + page + end;
+  //       // Replace with user preferences: replace color and title for each template
+  //       combinations.forEach((combination) => {
+  //         userPreferences.colors.forEach((color) => {
+  //           let page = combination.replace('${BG-COLOR}', color).replace('${TITLE}', userPreferences.title);
+  //           page = beg + page + end;
 
-            // Store combinations in DB
-            // TODO: update user id
-            templatePromises.push(
-              UserTemplate.create({body: page, userid: '1'})
-                .then(template => {
-                  return template;
-                })
-                .catch(err => console.log(err))
-            )
-          });
-        });
+  //           // Store combinations in DB
+  //           // TODO: update user id
+  //           templatePromises.push(
+  //             UserTemplate.create({body: page, userid: '1'})
+  //               .then(template => {
+  //                 return template;
+  //               })
+  //               .catch(err => console.log(err))
+  //           )
+  //         });
+  //       });
 
-        refreshUserTemplates();
+  //       refreshUserTemplates();
 
-        // Resolve promise additions to usertemplates collection
-        Promise.all(templatePromises)
-          .then(templates => {
-            res.send('User pages generated');
-          })
-          .catch(err => console.log(err));
+  //       // Resolve promise additions to usertemplates collection
+  //       Promise.all(templatePromises)
+  //         .then(templates => {
+  //           res.send('User pages generated');
+  //         })
+  //         .catch(err => console.log(err));
 
-      });
+  //     });
 
-  });
+  // });
 
 
-  /*
-   * Removes user's old templates
-   */
-  var refreshUserTemplates = () => {
-    // TODO: add user ID
-    UserTemplate
-      .remove({})
-      .exec()
-      .then(data => {
-        return "Old templates successfully deleted";
-      })
-  };
+  // /*
+  //  * Removes user's old templates
+  //  */
+  // var refreshUserTemplates = () => {
+  //   // TODO: add user ID
+  //   UserTemplate
+  //     .remove({})
+  //     .exec()
+  //     .then(data => {
+  //       return "Old templates successfully deleted";
+  //     })
+  // };
 
-  /*
-   * produceCombinations: Produces combinations of components
-   * input: { 0: [File({body: 'a'}), File({body: 'b'})],
-   *          1: [File({body: 'c'})],
-   *          2: [File({body: 'd'})] }
-   * output: ['acd', 'bcd']
-   */
-  var produceCombinations = (obj) => {
-    var keys = Object.keys(obj);
-    var combinations = [];
+  // /*
+  //  * produceCombinations: Produces combinations of components
+  //  * input: { 0: [File({body: 'a'}), File({body: 'b'})],
+  //  *          1: [File({body: 'c'})],
+  //  *          2: [File({body: 'd'})] }
+  //  * output: ['acd', 'bcd']
+  //  */
+  // var produceCombinations = (obj) => {
+  //   var keys = Object.keys(obj);
+  //   var combinations = [];
 
-    function recur(currCombination, i) {
-      if (i === keys.length) return combinations.push(currCombination);
-      for (var inner = 0; inner < obj[keys[i]].length; inner++) {
-        recur(currCombination + obj[keys[i]][inner].body, i + 1)
-      }
-    }
+  //   function recur(currCombination, i) {
+  //     if (i === keys.length) return combinations.push(currCombination);
+  //     for (var inner = 0; inner < obj[keys[i]].length; inner++) {
+  //       recur(currCombination + obj[keys[i]][inner].body, i + 1)
+  //     }
+  //   }
 
-    recur('', 0);
-    return combinations;
-  };
+  //   recur('', 0);
+  //   return combinations;
+  // };
 
   return router;
 };

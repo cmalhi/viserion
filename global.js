@@ -13,4 +13,4 @@ global.AWSEC3 = {
   successActionStatus: 201,
 };
 
-//global.HOST= 'http://542a9fa6.ngrok.io'; //ngrok business plan
+// global.HOST= 'http://542a9fa6.ngrok.io'; //ngrok business plan

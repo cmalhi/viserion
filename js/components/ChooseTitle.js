@@ -24,8 +24,6 @@ class ChooseTitle extends React.Component {
 
     navigate('ConfirmSite');
 
-    // Only navigate to ConfirmSite when all templates added
-    // this.props.postPreferences(() => navigate('ConfirmSite') );
   }
 
   render() {
@@ -55,7 +53,7 @@ class ChooseTitle extends React.Component {
 }
 
 const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({addTitle, postPreferences, createPreferences}, dispatch)
+  return bindActionCreators({addTitle, createPreferences}, dispatch)
 };
 
 export default connect(null, matchDispatchToProps)(ChooseTitle);

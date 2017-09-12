@@ -37,15 +37,14 @@ export function addTitle(title) {
   }
 }
 
+// Creates entry in database for a new site, preferences, and html
 export const selectSite = (preferences) => (dispatch, getState) => {
-  console.log('select site called');
   const html = prefToReactify(preferences);
   axios.post(`${global.HOST}/sites`, {
     preferences,
     html })
     .then(response => {
       const siteId = response.data;
-      console.log('site ID IN SELECTED>>>>>>>>', siteId);
       dispatch({type:'SELECT_SITE', payload: siteId});
     })
     .catch(err => console.log('Error saving site', err));
@@ -120,6 +119,7 @@ export const createPreferences = () => (dispatch, getState) => {
   dispatch({ type: 'CREATE_PREFERENCES', payload: preferences });
 };
 
+// Sets the selected preferences using the clicked index, sets to AsyncStorage
 export const selectPreferences = (selectedIndex) => (dispatch, getState) => {
   const { preferencesAll } = getState();
   const selectedPreferences = preferencesAll[selectedIndex];
@@ -144,7 +144,7 @@ export const savePreferences = () => (dispatch, getState) => {
   dispatch({ type:'SAVE_PREFERENCES', payload: preferences })
 }
 
-export const updateDatabase = (siteId) => (dispatch, getState) => {
+export const updateSite = (siteId) => (dispatch, getState) => {
   const { preferences } = getState();
   axios.put(`${global.HOST}/sites/${siteId}`, {
     preferences,
@@ -167,17 +167,16 @@ export const loadPreferences = () => (dispatch) => {
     })
 }
 
+// Deprecated method of creating templates
+// export function postPreferences(navigateToNext) {
+//   return (dispatch, getState) => {
+//     const { layouts, colors, title, keywords, order } = getState();
 
-export function postPreferences(navigateToNext) {
-  return (dispatch, getState) => {
-    const { layouts, colors, title, keywords, order } = getState();
-
-    //  Collect layouts that from global state that are true
-    const layoutsArr = _.reduce(layouts, (result, layoutStatus, layoutId) => {
-      if (layoutStatus === true ) result.push(layoutId);
-      return result;
-    }, []);
-
+//     //  Collect layouts that from global state that are true
+//     const layoutsArr = _.reduce(layouts, (result, layoutStatus, layoutId) => {
+//       if (layoutStatus === true ) result.push(layoutId);
+//       return result;
+//     }, []);
     // Preferences posted to generate templates
     // axios.post(`${global.HOST}/generate`, {
     //   layouts: layoutsArr,
@@ -205,5 +204,5 @@ export function postPreferences(navigateToNext) {
     //   })
     // })
     //   .catch(err => console.log(err));
-  }
-}
+  // }
+// }

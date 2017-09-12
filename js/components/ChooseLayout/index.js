@@ -59,6 +59,7 @@ class ChooseLayout extends React.Component {
     navigate('PresetPalettes');
     // navigate('ThreeColorPicker');
     const layouts = this.calculatePreferredLayouts();
+    console.log('layouts>>>>>>>>', layouts);
     this.props.addLayouts(layouts);
   }
 
