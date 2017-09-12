@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, StyleSheet, Text, Button, AsyncStorage } from 'react-native';
+import { StatusBar, StyleSheet, Text, Button, AsyncStorage, TouchableHighlight } from 'react-native';
 import { DeckSwiper, View } from 'native-base';
 import { connect } from 'react-redux';
 import { addLayouts } from '../../actions/index';
@@ -68,7 +68,7 @@ class ChooseLayout extends React.Component {
         <View style={styles.headerContainer}>
           <View style={styles.header}>
             <Text style={[styles.text, styles.title]}>What kind of websites do you like?</Text>
-            <Text style={[styles.text, styles.subtitle]}>We'll use these as inspiration.</Text>
+            <Text style={[styles.text, styles.subtitle]}>We'll use these for inspiration.</Text>
           </View>
         </View>
         <View style={styles.mainContainer}>
@@ -91,10 +91,13 @@ class ChooseLayout extends React.Component {
           />
         </View>
         <View style={styles.footerContainer}>
-          <Button
+          <TouchableHighlight
+            style={[styles.buttonCentered, styles.continueButton]}
+            underlayColor='#1D59BF'
             onPress={this.handleSubmit}
-            title="Continue"
-          />
+          >
+            <Text style={ [styles.buttonText, { color: '#eee', }] }>Continue</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );

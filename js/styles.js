@@ -92,6 +92,10 @@ export default styles = StyleSheet.create({
   muted: {
     color: '#aaa'
   },
+  buttonText: {
+    fontFamily: 'Avenir-Heavy',
+    color: '#fff'
+  },
 
   // Modals
   modal: {
@@ -173,5 +177,11 @@ export default styles = StyleSheet.create({
     backgroundColor: '#eee',
     margin: 1,
     padding: 10,
+  },
+  continueButton: {
+    backgroundColor: '#3E84FB',
+    borderRadius: 30,
+    width: 110,
+    height: 35,
   },
 });

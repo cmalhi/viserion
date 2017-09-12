@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, AppRegistry, Button, ListView, Text, TouchableOpacity, View, StyleSheet, AsyncStorage, ScrollView } from 'react-native';
+import { Alert, AppRegistry, Button, ListView, Text, TouchableOpacity, View, StyleSheet, AsyncStorage, TouchableHighlight, ScrollView } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addColors } from '../../actions/index';
@@ -57,7 +57,7 @@ class PresetPalettes extends React.Component {
           <ScrollView>
             <View style={[styles.headerContainer]}>
               <View style={styles.header}>
-                <Text style={[styles.text, styles.title]}>Pick any colors you like.</Text>
+                <Text style={[styles.text, styles.title]}>Pick colors you like.</Text>
                 <Text style={[styles.text, styles.subtitle]}>We'll use these to craft your page.</Text>
                 <Text style={[styles.text, {fontFamily: 'Avenir-Heavy'}]} onPress={() => { navigate('ThreeColorPicker')}}>Or use our Custom Color Picker.</Text>
               </View>
@@ -70,7 +70,13 @@ class PresetPalettes extends React.Component {
           </ScrollView>
         </View>
         <View style={styles.footerContainer}>
-          <Button title="Continue" onPress={this.submitColor} />
+          <TouchableHighlight
+            style={[styles.buttonCentered, styles.continueButton]}
+            underlayColor='#1D59BF'
+            onPress={this.submitColor}
+          >
+            <Text style={ [styles.buttonText, { color: '#eee', }] }>Continue</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );

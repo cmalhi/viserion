@@ -50,8 +50,8 @@ class ChooseKeywords extends React.Component {
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <View style={styles.header}>
-            <Text style={[styles.text, styles.title]}>What words do you associate with your site?</Text>
-            <Text style={[styles.text, styles.subtitle]}>We'll use these as inspiration.</Text>
+            <Text style={[styles.text, styles.title]}>Anything else?</Text>
+            <Text style={[styles.text, styles.subtitle]}>We'll use these for inspiration.</Text>
           </View>
         </View>
         <View style={styles.mainContainer}>
@@ -60,10 +60,13 @@ class ChooseKeywords extends React.Component {
           </View>
         </View>
         <View style={styles.footerContainer}>
-          <Button
+          <TouchableHighlight
+            style={ [styles.buttonCentered, styles.continueButton] }
+            underlayColor='#1D59BF'
             onPress={this.handleSubmit}
-            title="Continue"
-          />
+          >
+            <Text style={ [styles.buttonText, { color: '#eee', }] }>Continue</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
