@@ -31,19 +31,31 @@ class ChooseTitle extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={[styles.header, styles.headerHeight]}>
-          <Text style={styles.title}>What's the name of your site?</Text>
+        <View style={styles.headerContainer}>
+          <View style={styles.header}>
+            <Text style={[styles.text, styles.title]}>What's the name of your site?</Text>
+          </View>
         </View>
-        <View style={styles.mainHeight}>
+        <View style={styles.mainContainer}>
           <TextInput
             placeholder="Choose a good one"
             onChangeText={(text) => this.setState({text})}
             onSubmitEditing={this.handleSubmit}
             clearButtonMode={'unless-editing'}
             keyboardType={"default"}
+            style={ [
+              styles.text,
+              {
+                height: 40,
+                borderColor: 'gray',
+                borderBottomWidth: 1,
+                fontSize: 30,
+                width: 340,
+              }
+              ]}
           />
         </View>
-        <View style={styles.footerHeight}>
+        <View style={styles.footerContainer}>
           <Button
             onPress={this.handleSubmit}
             title="Generate your custom pages"

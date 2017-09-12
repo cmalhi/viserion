@@ -55,19 +55,21 @@ class PresetPalettes extends React.Component {
       <View style={styles.container}>
         <View style={{ flex : 8 }}>
           <ScrollView>
-            <View style={[styles.header, styles.headerHeight]}>
-              <Text style={styles.title}>Pick any colors you like.</Text>
-              <Text>We'll use these to craft your page.</Text>
-              <Text onPress={() => { navigate('ThreeColorPicker')}}>Or use our custom color picker</Text>
+            <View style={[styles.headerContainer]}>
+              <View style={styles.header}>
+                <Text style={[styles.text, styles.title]}>Pick any colors you like.</Text>
+                <Text style={[styles.text, styles.subtitle]}>We'll use these to craft your page.</Text>
+                <Text style={[styles.text, {fontFamily: 'Avenir-Heavy'}]} onPress={() => { navigate('ThreeColorPicker')}}>Or use our Custom Color Picker.</Text>
+              </View>
             </View>
-            <View style={styles.mainHeight}>
+            <View style={styles.mainContainer}>
               <View style={styles.grid}>
                 {circles}
               </View>
             </View>
           </ScrollView>
         </View>
-        <View style={styles.footerHeight}>
+        <View style={styles.footerContainer}>
           <Button title="Continue" onPress={this.submitColor} />
         </View>
       </View>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, Button, AsyncStorage } from 'react-native';
+import { StatusBar, StyleSheet, Text, Button, AsyncStorage } from 'react-native';
 import { DeckSwiper, View } from 'native-base';
 import { connect } from 'react-redux';
 import { addLayouts } from '../../actions/index';
@@ -64,12 +64,14 @@ class ChooseLayout extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={[styles.header, styles.headerHeight]}>
-          <Text style={[styles.text, styles.title]}>What kind of websites do you like?</Text>
-          <Text style={[styles.text, styles.subtitle]}>We'll use these as inspiration.</Text>
+      <View style={ [styles.container] }>
+        <View style={styles.headerContainer}>
+          <View style={styles.header}>
+            <Text style={[styles.text, styles.title]}>What kind of websites do you like?</Text>
+            <Text style={[styles.text, styles.subtitle]}>We'll use these as inspiration.</Text>
+          </View>
         </View>
-        <View style={styles.mainHeight}>
+        <View style={styles.mainContainer}>
           <DeckSwiper
             ref={(c) => this._deckSwiper = c}
             dataSource={this.state.layoutsData}
@@ -88,11 +90,10 @@ class ChooseLayout extends React.Component {
             }
           />
         </View>
-        <View style={styles.footerHeight}>
+        <View style={styles.footerContainer}>
           <Button
             onPress={this.handleSubmit}
             title="Continue"
-            style={styles.bottomButton}
           />
         </View>
       </View>

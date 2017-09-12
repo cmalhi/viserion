@@ -39,7 +39,7 @@ class ChooseKeywords extends React.Component {
     return this.state.keywords.map((keyword, index) => {
       return ( 
         <TouchableHighlight key={index} style={[styles.keyword, this.state.selectedKeywords[keyword] && styles.keywordSelected]} onPress={this.handleKeywordPress.bind(this, keyword)} >
-          <Text style={styles.keywordText} >{keyword}</Text>
+          <Text style={[styles.text, styles.keywordText, { fontFamily: 'Avenir-Heavy' }]} >{keyword}</Text>
         </TouchableHighlight > 
       );
     });
@@ -48,20 +48,21 @@ class ChooseKeywords extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={[styles.header, styles.headerHeight]}>
-          <Text style={styles.title}>What words do you associate with your site?</Text>
-          <Text>We'll use these as inspiration.</Text>
+        <View style={styles.headerContainer}>
+          <View style={styles.header}>
+            <Text style={[styles.text, styles.title]}>What words do you associate with your site?</Text>
+            <Text style={[styles.text, styles.subtitle]}>We'll use these as inspiration.</Text>
+          </View>
         </View>
-        <View style={styles.mainHeight}>
+        <View style={styles.mainContainer}>
           <View style={styles.keywordsContainer}>
             { this.renderKeywordChoices() }
           </View>
         </View>
-        <View style={styles.footerHeight}>
+        <View style={styles.footerContainer}>
           <Button
             onPress={this.handleSubmit}
-            title="Submit"
-            color="#000000"
+            title="Continue"
           />
         </View>
       </View>
