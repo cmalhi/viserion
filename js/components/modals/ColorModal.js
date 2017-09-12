@@ -50,6 +50,7 @@ class ColorModal extends React.Component {
     this.closeModal();
     // socket.emit('colorChange2', this.state.color);
     console.log('the gradient is ', this.state.gradient)
+    console.log('the data is ', this.props.data)
     if(this.state.type === 'gradient'){
       var value = this.state.gradient;
     } else {
