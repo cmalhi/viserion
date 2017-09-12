@@ -27,16 +27,16 @@ class Gallery extends React.Component {
     console.log('compo mounted')
     axios.get(`${global.HOST}/sites/all`)
       .then((res) => {
-        console.log('res data >>>>>'. res.data);
-        this.setState({ sites: res.data, userId });
+        console.log('res data >>>>>'. res);
+        this.setState({ sites: res.data });
       })
-      .catch((err) => console.log('Err getting /sites/list: ', err));
+      .catch((err) => console.log('Err getting /sites/ ', err));
   }
 
   renderSavedSites() {
     return this.state.sites.map(site => {
       return (
-        <View style={styles.itemsColumn}>
+        <View key={site._id} style={styles.itemsColumn}>
           <TouchableOpacity onPress={this.handleLinkPress.bind(this, site)}>
             <View style={styles.boxItem}>
               <Text>{site._id}</Text>
