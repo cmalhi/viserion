@@ -6,7 +6,7 @@ export default class ColorPalette extends React.Component {
   constructor(props) {
     super(props);
   }
-
+  //translate the boxes -90 deg to match gradient direction
   render() {
     const colors = [{color1: '#00b09b', color2: '#96c93d'}, {color1: '#D3CCE3', color2: '#E9E4F0'}, 
     {color1: '#e1eec3', color2: '#f05053'}, {color1: '#74ebd5', color2: '#ACB6E5'}, {color1: '#22c1c3', color2: '#fdbb2d'}, 
@@ -16,7 +16,7 @@ export default class ColorPalette extends React.Component {
 
     const squares = colors.map((c, index) => {
       return(
-        <TouchableHighlight key={index} onPress={() => {this.props.setColor({c})}}>
+        <TouchableHighlight key={index} onPress={() => {this.props.setColor({color1: c.color1, color2: c.color2})}}>
         <View>
           <LinearGradient
             colors={[c.color1, c.color2]}

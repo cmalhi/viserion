@@ -34,7 +34,7 @@
         sitePreferences: [{
           id: 'hero24',
           nickName: 'My Hero',
-          componentName: <Hero2 />,
+          componentName: <GradientHero />,
           attr: {
             color: {
               color1: '#F44336',
@@ -62,6 +62,9 @@
       const components = {
         Hero: {
           componentName: <Hero1 />,
+        },
+        GradientHero: {
+          componentName: <GradientHero />
         },
         ImageContent: {
           componentName: <ImageContent />,
@@ -188,7 +191,7 @@
       )
     }
   }
-  class Hero2 extends React.Component {
+  class GradientHero extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -197,7 +200,7 @@
         color1: this.props.color.color1,
         color2: this.props.color.color2,
         id: this.props.id,
-        pathGradient: ['attr'],
+        pathGradient: ['attr', 'color'],
         path1: ['attr', 'mainTitle'],
         path2: ['attr', 'subTitle'], 
       }
@@ -207,8 +210,8 @@
       this.setState({
         mainTitle: nextProps.mainTitle,
         subTitle: nextProps.subTitle,
-        color1: nextProps.color1,
-        color2: nextProps.color2,
+        color1: nextProps.color.color1,
+        color2: nextProps.color.color2,
         id: nextProps.id,
       });
     }
