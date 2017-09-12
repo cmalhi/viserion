@@ -23,15 +23,15 @@ var routerInstance = function(io) {
   /*
    *  Returns an array of template IDs URLs ['usertemplates/:id', ...] from userID
    */
-  router.get('/usertemplates/list', userTemplateController.retrieveTemplates);
+  // router.get('/usertemplates/list', userTemplateController.retrieveTemplates);
 
 
-  router.get('/usertemplates/all', userTemplateController.retrieve);
+  // router.get('/usertemplates/all', userTemplateController.retrieve);
 
-  /*
-   * /GET /:templateid
-   */
-  router.get('/usertemplates/:id', userTemplateController.retrieveOne);
+  // /*
+  //  * /GET /:templateid
+  //  */
+  // router.get('/usertemplates/:id', userTemplateController.retrieveOne);
 
   /*
    * /POST /signup
@@ -51,7 +51,19 @@ var routerInstance = function(io) {
    * Adds selected site to user collection and sites collection
    */
 
-  router.post('/site', siteController.addOne);
+  router.post('/sites', siteController.addOne);
+
+  router.get('/sites/list/:userid', siteController.retrieveList);
+
+  router.get('/sites/all', siteController.retrieveAll);
+ 
+  router.get('/sites/all/:userid', siteController.retrieveUserAll);
+ 
+  router.get('/sites/:siteid', siteController.retrieveOne);
+
+  router.put('/sites/:siteid', siteController.updateOne);
+
+  router.get('/:siteid', siteController.serveOne);
 
   /*
    * /POST /submitchoice

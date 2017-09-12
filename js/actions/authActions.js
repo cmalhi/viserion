@@ -32,21 +32,22 @@ function loginError(error) {
   }
 }
 
-export function loginUser() {
+export function loginOrSignUpUser() {
+  console.log('loginuser');
   return dispatch => {
-    // We dispatch requestLogin to kickoff the call to the API
     dispatch(loginRequest())
     const user = firebase.auth().currentUser;
       if (user) {
         console.log('user found >>>>>>>', user);
-        axios.post('/signup', {
+        axios.post(`${global.HOST}/signup`, {
           userId: user.uid
         })
-        .then(success => console.log('Used created', sucess));
+        .then(success => console.log('Used created', success))
+        .catch(err => console.log('Error creating user', err))
         // Retrieve JWT token and set on AsyncStorage
         user.getIdToken()
           .then((tokenId) => {
-            AsyncStorage.multiSet([['username', user.email], ['token', tokenId], ['userId', user.uid]]);
+            AsyncStorage.multiSet([['username', user.email || user.displayName], ['token', tokenId], ['userId', user.uid]]);
           });
         dispatch(loginSuccess(user));
       } else {

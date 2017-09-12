@@ -4,7 +4,7 @@ import Expo from 'expo';
 import config from '../../../config/config';
 import firebase from '../../../database/firebase';
 import { connect } from 'react-redux';
-import { loginUser } from '../../actions/authActions';
+import { loginOrSignUpUser } from '../../actions/authActions';
 
 class LoginForm extends Component {
   constructor() {
@@ -22,34 +22,17 @@ class LoginForm extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { navigate } = this.props.navigation;
-    nextProps.auth.isLoggedIn && navigate('Template')
+    // const { navigate } = this.props.navigation;
+    // nextProps.auth.isLoggedIn && navigate('Template')
   }
 
   async emailLogin(email, password) {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
-      // this.props.loginUser();
+      this.props.loginOrSignUpUser();
+      const { navigate } = this.props.navigation;
+      navigate('Template');
       const user = firebase.auth().currentUser;
-      if (user) {
-        this.setState({
-          email: '',
-          password: '',
-        });
-
-        // Navigate to next page
-        const { navigate } = this.props.navigation;
-        navigate('Template');
-
-        // Retrieve JWT token and set on AsyncStorage
-        user.getIdToken()
-          .then((tokenId) => {
-            AsyncStorage.multiSet([['username', user.email], ['token', tokenId], ['userId', user.uid]]);
-          });
-      } else {
-        // No user is signed in.
-        console.log('No user signed in');
-      }
     } catch (error) {
       const errorMessage = error.toString();
       this.setState({ errorMessage });
@@ -83,18 +66,7 @@ class LoginForm extends Component {
 
         // Retrieve user information from firebase
         firebase.auth().signInWithCredential(credential)
-          .then((user) => {
-            console.log('GOOGLE SIGN IN WITH CREDENTIAL', user);
-
-            // Retrieve JWT token and set on AsyncStorage
-            user.getIdToken()
-              .then((IdToken) => {
-                AsyncStorage.multiSet([['username', user.displayName], ['token', IdToken], ['userId', user.uid]])
-              });
-          })
-          .catch((error) => {
-          console.log('Google Account Firebase Login error', error);
-        });
+          this.props.loginOrSignUpUser();
       } else {
         console.log('Google Log in cancelled');
       }
@@ -117,16 +89,7 @@ class LoginForm extends Component {
       // Build Firebase credential with Facebook access token
       const credential = firebase.auth.FacebookAuthProvider.credential(token);
       firebase.auth().signInWithCredential(credential)
-        .then((user) => {
-          // Set username, JWT token, and userId on AsyncStorage
-          user.getIdToken()
-            .then((IdToken) => {
-              AsyncStorage.multiSet([['username', user.displayName], ['token', IdToken], ['userId', user.uid]])
-            });
-        })
-        .catch((error) => {
-          console.log('FB firebase Login error', error);
-      });
+        this.props.loginOrSignUpUser();
     }
   }
 
@@ -199,4 +162,4 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps, { loginUser })(LoginForm);
+export default connect(mapStateToProps, { loginOrSignUpUser })(LoginForm);

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, Image, TouchableHighlight, Button } from 'react-native';
-import { Container, Header, DeckSwiper, Card, CardItem, Thumbnail, View, Left, Body, Icon } from 'native-base';
+import { StyleSheet, Text, Button, AsyncStorage } from 'react-native';
+import { DeckSwiper, View } from 'native-base';
 import { connect } from 'react-redux';
 import { addLayouts } from '../../actions/index';
 import layoutsData from './layoutsData';
@@ -21,6 +21,11 @@ class ChooseLayout extends React.Component {
     this.handleLayoutPress = this.handleLayoutPress.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRightSwipe = this.handleRightSwipe.bind(this);
+  }
+
+  componentDidMount() {
+    AsyncStorage.getItem('userId')
+      .then(username => console.log(username));
   }
 
   handleLayoutPress(layout, index) {
