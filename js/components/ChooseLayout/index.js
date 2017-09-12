@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, Image, TouchableHighlight, Button } from 'react-native';
-import { Container, Header, DeckSwiper, Card, CardItem, Thumbnail, View, Left, Body, Icon } from 'native-base';
+import { StyleSheet, Text, Button, AsyncStorage } from 'react-native';
+import { DeckSwiper, View } from 'native-base';
 import { connect } from 'react-redux';
 import { addLayouts } from '../../actions/index';
-import layoutsData from '../../layoutsData';
+import layoutsData from './layoutsData';
 import LayoutItem from './LayoutItem';
+import styles from '../../styles';
 
 class ChooseLayout extends React.Component {
   constructor(props) {
@@ -20,6 +21,11 @@ class ChooseLayout extends React.Component {
     this.handleLayoutPress = this.handleLayoutPress.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRightSwipe = this.handleRightSwipe.bind(this);
+  }
+
+  componentDidMount() {
+    AsyncStorage.getItem('userId')
+      .then(username => console.log(username));
   }
 
   handleLayoutPress(layout, index) {
@@ -59,8 +65,11 @@ class ChooseLayout extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Choose some looks and feels that you like</Text>
-        <View style={styles.deckContainer}>
+        <View style={[styles.header, styles.headerHeight]}>
+          <Text style={styles.title}>What kind of websites do you like?</Text>
+          <Text>We'll use these as inspiration.</Text>
+        </View>
+        <View style={styles.mainHeight}>
           <DeckSwiper
             ref={(c) => this._deckSwiper = c}
             dataSource={this.state.layoutsData}
@@ -72,40 +81,24 @@ class ChooseLayout extends React.Component {
                 <Text style={styles.title}>That\'s all!</Text>
               </View>}
             renderItem={(layout) =>
-              <LayoutItem 
-                layout={layout} 
+              <LayoutItem
+                layout={layout}
                 handleLayoutPress={this.handleLayoutPress}
               />
             }
           />
         </View>
-        <Button
-          onPress={this.handleSubmit}
-          title="Submit"
-          color="#000000"
-        />
+        <View style={styles.footerHeight}>
+          <Button
+            onPress={this.handleSubmit}
+            title="Continue"
+            style={styles.bottomButton}
+          />
+        </View>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    // marginTop: 10,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  deckContainer: {
-    marginTop: -390,
-  },
-  title: {
-    fontSize: 15,
-    marginTop: 10,
-    marginBottom: 20,
-  },
-});
 
 function mapStateToProps({ layouts }) {
   return { layouts };

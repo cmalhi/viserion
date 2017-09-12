@@ -1,15 +1,19 @@
 import React from 'react';
 import { Animated, Dimensions, Image, Text, TouchableOpacity, View, Button, StyleSheet, TextInput } from 'react-native';
 import { ImagePicker } from 'expo';
-const io = require('socket.io-client');
 import { RNS3 } from 'react-native-aws3';
-import ImageSearch from '../ImageSearch'
+import ImageSearch from './ImageSearch'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { updatePrefs } from '../../actions/index';
+const io = require('socket.io-client');
+import { updateComponent } from '../../utils.js';
 
 var {
   height: deviceHeight
 } = Dimensions.get('window');
 
-export default class ImageModal extends React.Component {
+class ImageModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -53,7 +57,11 @@ export default class ImageModal extends React.Component {
       if (response.status !== 201)
         throw new Error("Failed to upload image to S3");
       const imageUrl = response.body.postResponse.location;
-      socket.emit('changeImageDom', {key: this.props.id, src: imageUrl});
+     
+      var { id, path } = this.props.data;
+      var newPref = updateComponent(this.props.preferences, id, path, imageUrl);
+      socket.emit('updatePref', newPref);
+      // socket.emit('changeImageDom', {key: this.props.id, src: imageUrl});
     });
   }
 
@@ -68,8 +76,8 @@ export default class ImageModal extends React.Component {
           <Text style={styles.bigText}>Choose an image</Text>
           <ImageSearch onSelect={this.imageSearchCallback}/>
           <Button onPress={this._pickImage} title="Select From Camera Roll" />
-          {img && <Image source={{ uri: img }} style={{ width: 200, height: 200 }} />}
-          <Button onPress={this.closeAndUpdate} title="Enter" />
+          {/*{img && <Image source={{ uri: img }} style={{ width: 200, height: 200 }} />}*/}
+          {/*<Button onPress={this.closeAndUpdate} title="Enter" />*/}
         </View>
       </Animated.View>
     )
@@ -78,7 +86,11 @@ export default class ImageModal extends React.Component {
   imageSearchCallback(imgCB){
     const socket = io(global.HOST, { transports: ['websocket'] });    
     this.setState({img: imgCB});
-    socket.emit('changeImageDom', {key: this.props.id, src: imgCB});    
+    var value = imgCB;
+    var { id, path } = this.props.data;
+    var newPref = updateComponent(this.props.preferences, id, path, value);
+    socket.emit('updatePref', newPref);
+    // socket.emit('changeImageDom', {key: this.props.id, src: imgCB});    
     this.closeModal();
   }
 
@@ -90,10 +102,20 @@ export default class ImageModal extends React.Component {
       });
 
     if (!result.cancelled) {
-      this.setState({ img: result.uri });
+      this.setState({ img: result.uri }, this.closeAndUpdate);
     }
   }
 }
+
+function mapStateToProps({ preferences }) {
+  return { preferences };
+}
+
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators({ updatePrefs }, dispatch)
+};
+
+export default connect(mapStateToProps, matchDispatchToProps)(ImageModal);
 
 export const styles = StyleSheet.create({
   form: {

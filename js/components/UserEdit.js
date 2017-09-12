@@ -6,11 +6,13 @@ import ShortTextModal from './modals/ShortTextModal';
 import LongTextModal from './modals/LongTextModal';
 import ColorModal from './modals/ColorModal';
 import OrderModal from './modals/OrderModal';
-import AddPageModal from './modals/AddPageModal';
+import AddPageModal from './modals/AddComponentModal';
 import PricingListModal from './modals/PricingListModal';
+import ListModal from './modals/ListModal';
 import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { updateDatabase } from '../actions/index';
 
 var {
   height: deviceHeight
@@ -38,11 +40,19 @@ class UserEdit extends React.Component {
 
       orderModal: false,
       addPageModal: false,
+      listModal: false,
 
       shortTextData: null,
+      colorData: null,
+      longTextData: null,
+      imageData: null,
+      listData: null,
+
+      siteId: 'webpages/add.html',
     };
     this.handleRearrange = this.handleRearrange.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -57,21 +67,36 @@ class UserEdit extends React.Component {
     });
 
     socket.on('launchLongTextModal', (data) => {
-      this.setState({ longTextModal: true, longTextId: data.key, longTextValue: data.textValue });
+      this.setState({ longTextModal: true, longTextId: data.key, longTextValue: data.textValue, longTextData: data });
     });
 
-    socket.on('launchImageModal', (id) => {
-      this.setState({ imageModal: true, imageId: id });
+    socket.on('launchImageModal', (data) => {
+      this.setState({ imageModal: true, imageId: data.id, imageData: data });
     });
 
     socket.on('colorChange', (data) => {
-      console.log('colorChange data', data);
-      this.setState({ colorModal: true });
+      // data : { id: x, path: y }
+      this.setState({ colorModal: true, colorData: data });
     });
 
     socket.on('launchPricingModal2', (list) => {
       this.setState({ pricingListModal: true, pricingDetails: list.details, pricingListId: list.key });
     });
+
+    socket.on('launchListModal', (data) => {
+      this.setState({ listModal: true, listData: data });
+    });
+
+    this.setCurrentSite();
+  }
+
+  setCurrentSite() {
+    if (this.props.navigation.state.params) {
+      const { siteId } = this.props.navigation.state.params;
+      this.setState({
+        siteId,
+      });
+    }
   }
 
   handleRearrange() {
@@ -82,20 +107,27 @@ class UserEdit extends React.Component {
     this.setState({ addPageModal: true });
   }
 
+  handleSubmit() {
+    this.props.updateDatabase(this.state.siteId);
+
+  }
+
   render() {
     return (
       <View style={styles.flexContainer}>
         {/*<WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/reactify.html`}} />*/}
-        <WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/add.html`}} />
+        <WebView style={styles.webView} source={{uri: `${global.HOST}/${this.state.siteId}`}} />
         {this.state.shortTextModal ? <ShortTextModal data={this.state.shortTextData} id={this.state.shortTextId} title={this.state.shortTextValue} closeModal={() => this.setState({shortTextModal: false}) } /> : null}
-        {this.state.longTextModal ? <LongTextModal id={this.state.longTextId} body={this.state.longTextValue} closeModal={() => this.setState({longTextModal: false}) } /> : null}
-        {this.state.imageModal ? <ImageModal id={this.state.imageId} closeModal={() => this.setState({imageModal: false})} /> : null}
-        {this.state.colorModal ? <ColorModal navigation={this.props.navigation} closeModal={() => this.setState({colorModal: false})} /> : null}
+        {this.state.longTextModal ? <LongTextModal data={this.state.longTextData} id={this.state.longTextId} body={this.state.longTextValue} closeModal={() => this.setState({longTextModal: false}) } /> : null}
+        {this.state.imageModal ? <ImageModal data={this.state.imageData} id={this.state.imageId} closeModal={() => this.setState({imageModal: false})} /> : null}
+        {this.state.colorModal ? <ColorModal data={this.state.colorData} navigation={this.props.navigation} closeModal={() => this.setState({colorModal: false})} /> : null}
         {this.state.orderModal ? <OrderModal closeModal={() => this.setState({orderModal: false})} openAddModal={(() => this.setState({addPageModal: true}))} /> : null}
         {this.state.addPageModal ? <AddPageModal closeModal={() => this.setState({addPageModal: false})} /> : null}
+        {this.state.imageModal ? <ImageModal data={this.state.listData} id={this.state.imageId} closeModal={() => this.setState({imageModal: false})} /> : null}
         {this.state.pricingListModal ? <PricingListModal details={this.state.pricingDetails} Id={this.state.pricingListId} closeModal={() =>this.setState({pricingListModal: false})} /> : null }  
         <Button title="Add New Component" onPress={this.handleAdd} />
         <Button title="Rearrange Components" onPress={this.handleRearrange} />
+        <Button title="Submit" onPress={this.handleSubmit} />
       </View>
     );
   }
@@ -141,4 +173,4 @@ function mapStateToProps({ order }) {
   return { order };
 }
 
-export default connect(mapStateToProps, null)(UserEdit);
+export default connect(mapStateToProps, { updateDatabase })(UserEdit);

@@ -1,21 +1,19 @@
 import React from 'react';
 import { Animated, Dimensions, Image, Text, TouchableOpacity, View, WebView, Button, StyleSheet, TextInput } from 'react-native';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { updatePrefs } from '../../actions/index';
 const io = require('socket.io-client');
-import { updateComponent } from '../../utils.js';
 
 var {
   height: deviceHeight
 } = Dimensions.get('window');
 
-class ShortTextModal extends React.Component {
+export default class ListModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       offset: new Animated.Value(deviceHeight),
-      title: '',
+      details: this.props.details,
+      Id: this.props.Id,
+      newItem: ''
     };
     this.closeModal = this.closeModal.bind(this);
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
@@ -32,18 +30,16 @@ class ShortTextModal extends React.Component {
     Animated.timing(this.state.offset, {
       duration: 300,
       toValue: deviceHeight
-    }).start(this.props.closeModal)
+    }).start(this.props.closeModal);
   }
 
   closeAndUpdate() {
-    const socket = io(global.HOST, { transports: ['websocket'] });
-    this.closeModal();
-    // socket.emit('changeTitleDom', { key: this.props.id, textValue: this.state.title, data: this.props.data });
-    var value = this.state.title;
-    var { id, path } = this.props.data;
-    var newPref = updateComponent(this.props.preferences, id, path, value);
-    socket.emit('updatePref', newPref);
-  }
+    this.setState({details: [...this.state.details, this.state.newItem]},function(){
+      const socket = io(global.HOST, { transports: ['websocket'] });
+      this.closeModal();
+      socket.emit('updatePricingList', {key: this.state.Id, details: this.state.details});
+    })
+  };
 
   render() {
     return (
@@ -52,13 +48,11 @@ class ShortTextModal extends React.Component {
           <TouchableOpacity onPress={this.closeModal}>
             <Text style={styles.center}>Close Menu</Text>
           </TouchableOpacity>
-          <Text style={styles.bigText}>Edit Text</Text>
-          <TextInput
-            style={styles.form}
-            onChangeText={(title) => this.setState({title})}
-            placeholder={this.props.title}
-            value={this.state.title}
-          />
+          <Text style={styles.bigText}>Add Pricing Item</Text>
+          <TextInput style={styles.form} onChangeText={(newItem) => { 
+            this.setState({newItem})
+            } 
+            }value={this.state.newItem} />
           <Button onPress={this.closeAndUpdate} title="Enter" />
         </View>
       </Animated.View>
@@ -66,7 +60,7 @@ class ShortTextModal extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   form: {
     padding: 10,
     borderColor: '#eee',
@@ -101,14 +95,3 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
-
-function mapStateToProps({ preferences }) {
-  return { preferences };
-}
-
-const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({ updatePrefs }, dispatch)
-};
-
-export default connect(mapStateToProps, matchDispatchToProps)(ShortTextModal);
-

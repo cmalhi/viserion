@@ -1,10 +1,11 @@
 import React from 'react';
 import { Animated, Dimensions, Image, Text, TouchableOpacity, View, Button, StyleSheet, TextInput, Platform, Easing } from 'react-native';
-import SequencedList from '../utils/SequencedList';
+import SequencedList from '../RearrangeComponents/SequencedList';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { setPrefs } from '../../actions/index';
 const io = require('socket.io-client');
+import { getObj, removeByValue } from '../../utils'
 
 var {
   height: deviceHeight
@@ -22,83 +23,38 @@ class OrderModal extends React.Component {
     this.state = {
       offset: new Animated.Value(deviceHeight),
       // currentOrder: null,
-      sequencedData: null,
+      sequencedData: this.toSequencedData(this.props.preferences),
       sitePreferences: this.props.preferences,
     };
     this.closeModal = this.closeModal.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
     this.onChangeOrder = this.onChangeOrder.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   /*
-   * getObj()
-   * Input:
-   *  - objArr [ {1: 'hi', 2: 'bye}, {1: 'hello} ]
-   *  - key: 1
-   *  - value: 'hi'
-   * Output:
-   *  - {1: 'hi', 2: 'bye'}
+   * toSequencedData: puts the preferences in a format that SortableListView can accept
+   * @param {Array}
+   * @output {Object}
+   * {
+   *  componentName1: { componentName: 'TextContent' },
+   *  componentName2: { componentName: 'Footer' }
+   * }
    */
-  getObj = (objArr, key, value) => {
-    for (var i = 0; i < objArr.length; i++) {
-      if (objArr[i][key] && objArr[i][key] === value) {
-        return objArr[i]
-      }
-    }
-    return false;
-  };
-
-  onChangeOrder(orderData) {
-    const socket = io(global.HOST, { transports: ['websocket'] });
-    // this.setState({ currentOrder: orderData });
-
-    // Example
-
-    // orderData: ["TextContent", "Hero", "Footer"]
-
-    // sitePreferences = {
-    // components: [
-    //   {
-    //     componentName: 'Hero',
-    //     attr: { title: 'Hello' },
-    //   },
-    //   {
-    //     componentName: 'TextContent',
-    //     attr: { title: 'title', body: 'goodbye' },
-    //   },
-    //   {
-    //     componentName: 'Footer',
-    //     attr: { title: 'Hello' },
-    //   },
-    // ]
-    // }
-
-    /* Rearrange the order of our sitePreferences */
-    var sitePref = [];
-    orderData.forEach((name) => {
-      var objArr = this.state.sitePreferences;
-      sitePref.push(this.getObj(objArr, 'componentName', name))
+  toSequencedData(components) {
+    let sequencedData = {};
+    components.map((c) => {
+      sequencedData[c.id] = { id: c.id, componentName: c.componentName };
     });
-    this.setState({ sitePreferences : sitePref });
+    return sequencedData;
   }
 
   componentWillMount() {
     // TODO: make a GET request to sitePreferences
-    /*
-     * This section puts the preferences in a format that SortableListView can accept
-     *
-     * SortableList requires data of this shape :
-     * {
-     *  componentName1: { componentName: 'TextContent' },
-     *  componentName2: { componentName: 'Footer' }
-     * }
-     */
-    let components = this.props.preferences;
-    let sequencedData = {};
-    components.map((c) => {
-      sequencedData[c.componentName] = { componentName: c.componentName }
-    });
-    this.setState({ sequencedData });
+
+    // let components = this.props.preferences;
+    // const sequencedData = toSequencedData(components);
+    // this.setState({ sequencedData });
   }
 
   componentDidMount() {
@@ -106,6 +62,40 @@ class OrderModal extends React.Component {
       duration: 300,
       toValue: 0,
     }).start();
+  }
+
+  /**
+   * onChangeOrder - changes sitePreferences according to the order
+   * @param {Array} orderData [ componentId, ..., componentId]
+   *
+   * sitePreferences = {
+      components: [
+        {
+          componentName: 'Hero',
+          attr: { title: 'Hello' },
+        },
+        {
+          componentName: 'TextContent',
+          attr: { title: 'title', body: 'goodbye' },
+        },
+        {
+          componentName: 'Footer',
+          attr: { title: 'Hello' },
+        },
+      ]
+      }
+   *
+   */
+  onChangeOrder(orderData) {
+    const socket = io(global.HOST, { transports: ['websocket'] });
+    var sitePref = [];
+
+    orderData.forEach((id) => {
+      var objArr = this.state.sitePreferences;
+      var targetObj = getObj(objArr, 'id', id);
+      sitePref.push(targetObj)
+    });
+    this.setState({ sitePreferences : sitePref });
   }
 
   closeModal() {
@@ -121,6 +111,17 @@ class OrderModal extends React.Component {
     socket.emit('updatePref', this.state.sitePreferences);
   }
 
+  handleDelete(id) {
+    const socket = io(global.HOST, { transports: ['websocket'] });
+    var componentToDelete = getObj(this.state.sitePreferences, 'id', id);
+    var newSitePreferences = removeByValue(this.state.sitePreferences.slice(), componentToDelete);
+    this.setState({
+      sitePreferences: newSitePreferences,
+      sequencedData: this.toSequencedData(newSitePreferences)
+    });
+    socket.emit('updatePref', newSitePreferences);
+  }
+
   render() {
     return(
       <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
@@ -129,7 +130,7 @@ class OrderModal extends React.Component {
             <Text style={styles.center}>Close menu</Text>
           </TouchableOpacity>
           <Text style={styles.bigText}>Rearrange Components</Text>
-          <SequencedList data={this.state.sequencedData} onChangeOrder={this.onChangeOrder} />
+          <SequencedList data={this.state.sequencedData} onChangeOrder={this.onChangeOrder} handleDelete={this.handleDelete} />
           <View style={styles.options}>
             <Button onPress={this.handleUpdate} title="Update" />
           </View>

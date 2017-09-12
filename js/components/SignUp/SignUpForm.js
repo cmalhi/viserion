@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, TouchableOpacity, Text, KeyboardAvoidingView, AsyncStorage } from 'react-native';
+import { connect } from 'react-redux';
+import { StyleSheet, View, TextInput, TouchableOpacity, Text, KeyboardAvoidingView } from 'react-native';
 import Expo from 'expo';
 import firebase from '../../../database/firebase';
+import { loginOrSignUpUser } from '../../actions/authActions';
 
-export default class SignUpForm extends Component {
+class SignUpForm extends Component {
   constructor() {
     super();
     this.state = {
@@ -20,27 +22,9 @@ export default class SignUpForm extends Component {
     try {
       await firebase.auth()
         .createUserWithEmailAndPassword(email, password);
-        // console.log("Account created");
-        var user = firebase.auth().currentUser;
-        if (user) {
-
-          user.getIdToken()
-            .then(IdToken => {
-              AsyncStorage.multiSet([['username', user.providerData[0].email], ['token', IdToken], ['userId', user.uid]])
-            });
-          
-          this.setState({
-            email: '',
-            password: '',
-          });
-
-          const { navigate } = this.props.navigation;
-          navigate('Template');
-
-        } else {
-          console.log('No user signed in');
-        }
-
+      this.props.loginOrSignUpUser();
+      const { navigate } = this.props.navigation;
+      navigate('Template');
     } catch (error) {
       const errorMessage = error.toString();
       this.setState({ errorMessage });
@@ -106,3 +90,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 })
+
+function mapStateToProps({ auth }) {
+  return { auth };
+};
+
+export default connect(mapStateToProps, { loginOrSignUpUser })(SignUpForm);

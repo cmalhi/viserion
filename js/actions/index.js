@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import axios from 'axios';
 import componentMap from '../componentMap';
+import { AsyncStorage } from 'react-native';
+import prefToReactify from '../../app/utils/prefToReactify';
 
 const combineDesires = (desires) => {
   console.log('combineDesires called');
@@ -84,18 +86,6 @@ export function updatePrefs(newPrefs) {
   }
 }
 
-export function changePrefs(changeAndPath) {
-  return {
-    type: 'CHANGE_PREFS',
-    payload: changeAndPath,
-  }
-}
-
-export const selectPreferences = (selectedIndex) => (dispatch, getState) => {
-  const { preferencesAll } = getState();
-  dispatch({ type: 'SELECT_PREFERENCES', payload: preferencesAll[selectedIndex] });
-}
-
 export const createPreferences = () => (dispatch, getState) => {
   const { layouts, colors, title, keywords } = getState();
 
@@ -115,6 +105,51 @@ export const createPreferences = () => (dispatch, getState) => {
   const preferences = combineDesires(desires);
   dispatch({ type: 'CREATE_PREFERENCES', payload: preferences });
 };
+
+export const selectPreferences = (selectedIndex) => (dispatch, getState) => {
+  const { preferencesAll } = getState();
+  const selectedPreferences = preferencesAll[selectedIndex];
+  AsyncStorage.setItem('preferences', JSON.stringify(selectedPreferences));
+  dispatch({ type: 'SELECT_PREFERENCES', payload: selectPreferences });
+}
+
+export const savePreferences = () => (dispatch, getState) => {
+  const { preferences } = getState();
+  const html = prefToHtml(preferences);
+  AsyncStorage.getItem('userId')
+  // TODO: Undo hardcode
+    .then((userId = 'test') => {
+      axios.post(`${global.HOST}/sites`, {
+        userId,
+        preferences,
+        html
+      })
+    })
+  dispatch({ type:'SAVE_PREFERENCES', payload: preferences })
+}
+
+export const updateDatabase = (siteId) => (dispatch, getState) => {
+  const { preferences } = getState();
+  axios.put(`${global.HOST}/sites/${siteId}`, {
+    preferences,
+  })
+    .then(site => {
+      console.log('New site updated', site);
+    })
+    .catch(err => console.log('Error saving site preferences: ', err));
+}
+
+// Loads cached preferences from AsyncStorage if found
+export const loadPreferences = () => (dispatch) => {
+  AsyncStorage.getItem('preferences')
+    .then(preferencesStr => {
+      const preferences = JSON.parse(preferencesStr);
+      dispatch({type:'LOAD_PREFERENCES', found: true, payload: preferences});
+    })
+    .catch(error => {
+      dispatch({type:'LOAD_PREFERENCES', found: false, payload: null});
+    })
+}
 
 
 export function postPreferences(navigateToNext) {

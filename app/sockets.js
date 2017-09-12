@@ -3,6 +3,7 @@ var socketInstance = function(io) {
 
     // Title
     socket.on('launchTitleModal', function(textData) {
+      console.log('the data coming in is ', textData)
       io.sockets.emit('launchTitleModal', textData);
       // TODO: .to(x) to SPECIFY SOCKET ID;
     });
@@ -58,7 +59,7 @@ var socketInstance = function(io) {
     });
 
     socket.on('updatePref', function(newPref) {
-      console.log('newPref', newPref);
+      console.log('socket updatePref', newPref);
       io.sockets.emit('updatePrefDomStore', newPref)
     })
 

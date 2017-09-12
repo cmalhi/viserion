@@ -32,7 +32,10 @@ class LoginForm extends Component {
       this.props.loginOrSignUpUser();
       const { navigate } = this.props.navigation;
       navigate('Template');
+<<<<<<< HEAD
       const user = firebase.auth().currentUser;
+=======
+>>>>>>> savepage
     } catch (error) {
       const errorMessage = error.toString();
       this.setState({ errorMessage });
