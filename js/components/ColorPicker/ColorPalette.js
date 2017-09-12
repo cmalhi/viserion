@@ -53,7 +53,7 @@ class PresetPalettes extends React.Component {
     });
     return (
       <View style={styles.container}>
-        <View style={{ flex : 8 }}>
+        <View style={{ flex : 5 }}>
           <ScrollView>
             <View style={[styles.headerContainer]}>
               <View style={styles.header}>

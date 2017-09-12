@@ -38,7 +38,7 @@ export default styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 2,
-    paddingVertical: 20,
+    paddingVertical: 10,
   },
   footerContainer: {
     flex: 0.5,
