@@ -24,6 +24,7 @@ export default class ListModal extends React.Component {
       duration: 300,
       toValue: 0
     }).start();
+    coonsole.log('THE DATA COMING INTO THE LIST MODAL IS ', this.props.data)
   }
 
   closeModal() {
@@ -48,7 +49,7 @@ export default class ListModal extends React.Component {
           <TouchableOpacity onPress={this.closeModal}>
             <Text style={styles.center}>Close Menu</Text>
           </TouchableOpacity>
-          <Text style={styles.bigText}>Add Pricing Item</Text>
+          <Text style={styles.bigText}>Add/Modify List Item</Text>
           <TextInput style={styles.form} onChangeText={(newItem) => { 
             this.setState({newItem})
             } 
