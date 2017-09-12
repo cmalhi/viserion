@@ -10,17 +10,19 @@ export default styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
+    backgroundColor: '#222A3C',
     padding: 10,
+  },
+  centered: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   content: {
     padding: 10,
   },
-  title: {
-    fontSize: 22,
-  },
   header: {
-    marginBottom: 20,
+    marginBottom: 30,
   },
   grid: {
     flexDirection: 'row',
@@ -69,6 +71,22 @@ export default styles = StyleSheet.create({
     width: '100%',
   },
 
+  // Text
+  text: {
+    fontFamily: 'AvenirNext-Regular',
+    color: '#fff'
+  },
+  title: {
+    fontSize: 27,
+  },
+  subtitle:{
+    fontSize: 20,
+    color: '#aaa',
+  },
+  muted: {
+    color: '#aaa'
+  },
+
   // Modals
   modal: {
     backgroundColor: 'rgba(0,0,0,.3)',
@@ -114,7 +132,8 @@ export default styles = StyleSheet.create({
     right: 0,
   },
   bottomButton: {
-    backgroundColor: '#ff7043',
+    color: 'red',
+    backgroundColor: 'blue',
     borderColor: '#ff5722',
     borderWidth: 1,
     height: 50,

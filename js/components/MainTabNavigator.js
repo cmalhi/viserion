@@ -25,7 +25,7 @@ export default TabNavigator(
             iconName = Platform.OS === 'ios' ? `ios-home${focused ? '' : '-outline'}` : 'md-home';
             break;
           case 'Gallery':
-            iconName = Platform.OS === 'ios' ? `ios-search${focused ? '' : '-outline'}` : 'md-search';
+            iconName = Platform.OS === 'ios' ? `ios-home${focused ? '' : '-outline'}` : 'md-home';
             break;
           case 'My Sites':
             iconName = Platform.OS === 'ios' ? `ios-browsers${focused ? '' : '-outline'}` : 'md-browsers';
@@ -35,6 +35,7 @@ export default TabNavigator(
           <Ionicons
             name={iconName}
             size={20}
+            color="white"
           />
         )
       }
@@ -42,10 +43,12 @@ export default TabNavigator(
     tabBarPosition: 'bottom',
     animationEnabled: true,
     tabBarOptions: {
+      activeBackgroundColor: '#3C465C',
       // activeTintColor: '#e91e63',
+      showLabel: false,
       style: {
         height: 35,
-        backgroundColor: 'white',
+        backgroundColor: '#222A3C',
       },
     },
   }

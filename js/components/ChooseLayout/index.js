@@ -67,8 +67,8 @@ class ChooseLayout extends React.Component {
     return (
       <View style={styles.container}>
         <View style={[styles.header, styles.headerHeight]}>
-          <Text style={styles.title}>What kind of websites do you like?</Text>
-          <Text>We'll use these as inspiration.</Text>
+          <Text style={[styles.text, styles.title]}>What kind of websites do you like?</Text>
+          <Text style={[styles.text, styles.subtitle]}>We'll use these as inspiration.</Text>
         </View>
         <View style={styles.mainHeight}>
           <DeckSwiper

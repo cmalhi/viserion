@@ -37,6 +37,7 @@ export default class HomeScreen extends React.Component {
           <Text>socket connected: {this.state.isConnected ? 'true' : 'false'}</Text>
           <Text onPress={() => { navigate('MainApp')}} style={styles.text}>App Main Screen</Text>
           <Text></Text>
+          <Text onPress={() => { navigate('Prescreen')}} style={styles.text}>Prescreen</Text>
           <Text onPress={() => { navigate('SignUp')}} style={styles.text}>Step 0: Sign Up</Text>
           <Text onPress={() => { navigate('Login')}} style={styles.text}>Step 0.5: Log In</Text>
           <Text onPress={() => { navigate('Template')}} style={styles.text}>Step 1: Template</Text>
