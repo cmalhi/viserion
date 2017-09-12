@@ -113,7 +113,6 @@ class UserEdit extends React.Component {
 
   handleSubmit() {
     this.props.updateDatabase(this.state.siteId);
-
   }
 
   render() {

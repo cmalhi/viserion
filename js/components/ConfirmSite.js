@@ -25,7 +25,7 @@ class ConfirmSite extends React.Component {
   handlePress(index) {
     const { navigate } = this.props.navigation; 
     this.props.selectPreferences(index);
-    navigate('UserEdit');   
+    navigate('UserEdit');
   }
 
   renderViews() {

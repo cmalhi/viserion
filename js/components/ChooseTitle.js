@@ -21,11 +21,11 @@ class ChooseTitle extends React.Component {
 
     // Create preferences in redux state
     this.props.createPreferences();
-    console.log('handle submit called');
+
+    navigate('ConfirmSite');
 
     // Only navigate to ConfirmSite when all templates added
-    this.props.postPreferences(() => navigate('ConfirmSite') );
-    // navigate('ConfirmSite');  
+    // this.props.postPreferences(() => navigate('ConfirmSite') );
   }
 
   render() {

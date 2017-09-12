@@ -3,7 +3,6 @@ const User = require('../models/user');
 const prefToReactify = require('../utils/prefToReactify');
 
 exports.addOne = function(req, res) {
-  console.log('req.body', req.body)
   const { userId, html, preferences } = req.body;
   console.log('req.body', req.body)
   // TODO: configure screenshots
@@ -45,10 +44,10 @@ exports.retrieveOne = function(req, res) {
 
 exports.updateOne = function(req, res) {
   const siteId = req.params.siteid;
-  const { preferences } = req.body;
+  const { preferences, userId } = req.body;
   const html = prefToReactify(preferences);
   console.log('html>>>>>>>>>>', html);
-  Site.findOneAndUpdate( {_id: siteId }, { 'preferences' : preferences, 'html': html }, function(err, site) {
+  Site.findOneAndUpdate( {_id: siteId }, { preferences, html, userId }, function(err, site) {
     if (err || !site) return res.status(500).send({ success: false, error: 'Error updating site with id ' + req.params.siteid });
     res.send(site);
   })

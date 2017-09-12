@@ -118,7 +118,8 @@ export const savePreferences = () => (dispatch, getState) => {
   const html = prefToHtml(preferences);
   AsyncStorage.getItem('userId')
   // TODO: Undo hardcode
-    .then((userId = 'test') => {
+    .then((userId) => {
+      // userId = 'test';
       axios.post(`${global.HOST}/sites`, {
         userId,
         preferences,
@@ -163,17 +164,17 @@ export function postPreferences(navigateToNext) {
     }, []);
 
     // Preferences posted to generate templates
-    axios.post(`${global.HOST}/generate`, {
-      layouts: layoutsArr,
-      colors: colors,
-      title: title,
-      keywords: keywords,
-    })
-      .then(response => {
-        console.log('axios posted to generate templates ', response.data);
-        navigateToNext();
-    })
-      .catch(err => console.log(err));
+    // axios.post(`${global.HOST}/generate`, {
+    //   layouts: layoutsArr,
+    //   colors: colors,
+    //   title: title,
+    //   keywords: keywords,
+    // })
+    //   .then(response => {
+    //     console.log('axios posted to generate templates ', response.data);
+    //     navigateToNext();
+    // })
+    //   .catch(err => console.log(err));
 
     // Preferences are stored in user table
     // axios.post(`${global.HOST}/preferences`, {
