@@ -176,18 +176,18 @@ export function postPreferences(navigateToNext) {
       .catch(err => console.log(err));
 
     // Preferences are stored in user table
-    axios.post(`${global.HOST}/preferences`, {
-      layouts: layoutsArr,
-      colors: colors,
-      title: title,
-      keywords: keywords,
-    })
-      .then(response => {
-      dispatch({
-        type: 'POST_PREFERENCES',
-        payload: response,
-      })
-    })
-      .catch(err => console.log(err));
+    // axios.post(`${global.HOST}/preferences`, {
+    //   layouts: layoutsArr,
+    //   colors: colors,
+    //   title: title,
+    //   keywords: keywords,
+    // })
+    //   .then(response => {
+    //   dispatch({
+    //     type: 'POST_PREFERENCES',
+    //     payload: response,
+    //   })
+    // })
+    //   .catch(err => console.log(err));
   }
 }
