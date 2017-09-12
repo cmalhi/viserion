@@ -23,27 +23,26 @@ const defaultPreferencesAll = [[{
   },
 },
 {
+  id: 'footer1',
   nickName: 'My Footer',
   componentName: 'Footer',
-  id: 'footer3',
   attr: {
     bgColor: '#009AF2',
     text: 'defaultText',
   },
 }],
 [{
+  id: 'hero2',
   nickName: 'My Hero',
-  componentName: 'Hero',
-  id: 'hero5',
   attr: {
     bgColor: '#009AF2',
     title: 'defaultTitle',
   },
 },
 {
+  id: 'pinterest1',
   nickName: 'My PinterestContent',
   componentName: 'PinterestContent',
-  id: 'pinterest1',
   attr: {
     headerColor: '#d3654b',
     content: [
@@ -63,9 +62,9 @@ const defaultPreferencesAll = [[{
   },
 },
 {
+  id: 'footer2',
   nickName: 'My Footer',
   componentName: 'Footer',
-  id: 'footer4',
   attr: {
     bgColor: '#009AF2',
     text: 'defaultText',

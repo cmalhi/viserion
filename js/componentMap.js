@@ -24,6 +24,7 @@ const componentMap = {
     },
   },
   PricingList: {
+    id: 'notSet',
     nickName: 'My Pricing',
     componentName: 'PricingListModal',
     attr: {
