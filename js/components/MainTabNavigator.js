@@ -5,13 +5,14 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
 import MyPages from './MyPages';
+import Gallery from './Gallery';
 import { Ionicons } from '@expo/vector-icons';
 const io = require('socket.io-client');
 
 export default TabNavigator(
   {
     // 'Index': { screen: Stack },
-    'Gallery': { screen: MyPages },
+    'Gallery': { screen: Gallery },
     'My Sites': { screen: MyPages },
   },
   {

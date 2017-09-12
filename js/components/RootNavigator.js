@@ -28,6 +28,7 @@ export default RootNavigator = StackNavigator(
   {
     // Index: { screen: UserEdit },
     Index: { screen: HomeScreen },
+    // Index: { screen: ConfirmSite },
     MainApp: { screen: MainTabNavigator },
     PresetPalettes: { screen: PresetPalettes },
     ThreeColorPicker: { screen: ThreeColorPicker },

@@ -4,7 +4,6 @@ const prefToReactify = require('../utils/prefToReactify');
 
 exports.addOne = function(req, res) {
   const { userId, html, preferences } = req.body;
-  console.log('req.body', req.body)
   // TODO: configure screenshots
   const newSite = { userId, html, preferences };
   Site.create(newSite)
@@ -48,9 +47,22 @@ exports.updateOne = function(req, res) {
   const siteId = req.params.siteid;
   const { preferences, userId } = req.body;
   const html = prefToReactify(preferences);
-  console.log('html>>>>>>>>>>', html);
-  Site.findOneAndUpdate( {_id: siteId }, { preferences, html, userId }, function(err, site) {
+  let update = {};
+  if (preferences) {
+    const html = prefToReactify(preferences);
+    update['preferences'] = preferences;
+    update['html'] = html;
+  }
+  if (userId) {
+    console.log("update with user id", userId);
+    update['userId'] = userId;
+    const userUpdate = { $push: { 'savedSites': siteId } };
+    User.findOneAndUpdate({"userId": userId}, userUpdate, { new: true })
+  }
+  console.log('update to update >>>>>', update, siteId);
+  Site.findOneAndUpdate( {_id: siteId }, update, function(err, site) {
     if (err || !site) return res.status(500).send({ success: false, error: 'Error updating site with id ' + req.params.siteid });
+    // console.log('user added to a site', site);
     res.send(site);
   })
 }

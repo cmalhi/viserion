@@ -11,7 +11,7 @@ import ListModal from './modals/ListModal';
 import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { updateSite } from '../actions/index';
+import { updateSite, assignUser } from '../actions/index';
 import styles from '../styles'
 import { Ionicons } from '@expo/vector-icons';
 const io = require('socket.io-client');
@@ -99,7 +99,8 @@ class UserEdit extends React.Component {
   }
 
   handleSubmit() {
-    this.props.updateSite(this.props.siteId);
+    this.props.updateSite();
+    this.props.assignUser();
   }
 
   render() {
@@ -183,4 +184,4 @@ function mapStateToProps({ order, siteId }) {
   return { order, siteId };
 }
 
-export default connect(mapStateToProps, { updateSite })(UserEdit);
+export default connect(mapStateToProps, { updateSite, assignUser })(UserEdit);

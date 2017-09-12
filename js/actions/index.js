@@ -144,8 +144,8 @@ export const savePreferences = () => (dispatch, getState) => {
   dispatch({ type:'SAVE_PREFERENCES', payload: preferences })
 }
 
-export const updateSite = (siteId) => (dispatch, getState) => {
-  const { preferences } = getState();
+export const updateSite = () => (dispatch, getState) => {
+  const { preferences, siteId } = getState();
   axios.put(`${global.HOST}/sites/${siteId}`, {
     preferences,
   })
@@ -153,7 +153,22 @@ export const updateSite = (siteId) => (dispatch, getState) => {
       console.log('New site updated', site);
     })
     .catch(err => console.log('Error saving site preferences: ', err));
-}
+};
+
+export const assignUser = () => (dispatch, getState) => {
+  const { siteId } = getState();
+  AsyncStorage.getItem('userId')
+    .then((userId) => {
+      axios.put(`${global.HOST}/sites/${siteId}`, {
+        userId,
+      })
+      .then (site => {
+        console.log(`Site ${siteId} assigned to user, ${userId}`);
+      })
+      .catch(err => console.log('Error saving site to user'));
+    })
+    .catch(err => console.log('Error retieving user from AsyncStorage', err));
+};
 
 // Loads cached preferences from AsyncStorage if found
 export const loadPreferences = () => (dispatch) => {
@@ -164,8 +179,8 @@ export const loadPreferences = () => (dispatch) => {
     })
     .catch(error => {
       dispatch({type:'LOAD_PREFERENCES', found: false, payload: null});
-    })
-}
+    });
+};
 
 // Deprecated method of creating templates
 // export function postPreferences(navigateToNext) {
