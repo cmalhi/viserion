@@ -6,7 +6,9 @@ import { updatePrefs } from '../../actions/index';
 import { updateComponent } from '../../utils.js'
 import { TriangleColorPicker } from 'react-native-color-picker';
 import ColorPalette from './ColorPalette';
+import GradientPalette from './GradientPalette';
 const io = require('socket.io-client');
+
 
 var {
   height: deviceHeight
@@ -18,6 +20,8 @@ class ColorModal extends React.Component {
     this.state = {
       offset: new Animated.Value(deviceHeight),
       color: null,
+      type: 'solid',
+      gradient: null,
     };
     this.closeModal = this.closeModal.bind(this);
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
@@ -29,6 +33,9 @@ class ColorModal extends React.Component {
       duration: 300,
       toValue: 0
     }).start();
+    if (this.props.data.type === 'gradient') {
+      this.setState({type: this.props.data.type});
+    }
   }
 
   closeModal() {
@@ -49,7 +56,11 @@ class ColorModal extends React.Component {
   }
 
   setColor(color) {
-    this.setState({ color });
+    if(this.state.type === 'gradient') {
+      this.setState({gradient: color})
+    } else if (this.state.type === 'solid') {
+      this.setState({ color });
+    }
   }
 
   render() {
@@ -61,7 +72,7 @@ class ColorModal extends React.Component {
             <Text style={styles.center}>Close menu</Text>
           </TouchableOpacity>
           <Text style={styles.bigText}>Choose a color</Text>
-          <ColorPalette setColor={this.setColor} />
+          {this.state.type === 'gradient' ? <GradientPalette setColor={this.setColor} type={this.props.data.type}/> : <ColorPalette setColor={this.setColor} type={this.props.data.type}/>}
           <Text onPress={() => { navigate('ColorPicker')}}>Color picker</Text>
           <Text>{this.state.color}</Text>
           <Button onPress={this.closeAndUpdate} title="Enter" />

@@ -34,10 +34,14 @@
         sitePreferences: [{
           id: 'hero24',
           nickName: 'My Hero',
-          componentName: <Hero1 />,
+          componentName: <Hero2 />,
           attr: {
-            bgColor: 'defaultColor',
-            title: 'Title',
+            color: {
+              color1: '#F44336',
+              color2: '#FF4081',
+            },
+            mainTitle: 'Welcome',
+            subTitle: 'adjust your gradient',
           },
         },
           {
@@ -178,6 +182,59 @@
                   path={this.state.path2}
                 />
               </span>
+            </div>
+          </header>
+        </div>
+      )
+    }
+  }
+  class Hero2 extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        mainTitle: this.props.mainTitle,
+        subTitle: this.props.subTitle,
+        color1: this.props.color.color1,
+        color2: this.props.color.color2,
+        id: this.props.id,
+        pathGradient: ['attr'],
+        path1: ['attr', 'mainTitle'],
+        path2: ['attr', 'subTitle'], 
+      }
+      this.handleHeaderClick = this.handleHeaderClick.bind(this);
+    }
+    componentWillReceiveProps(nextProps) {
+      this.setState({
+        mainTitle: nextProps.mainTitle,
+        subTitle: nextProps.subTitle,
+        color1: nextProps.color1,
+        color2: nextProps.color2,
+        id: nextProps.id,
+      });
+    }
+    handleHeaderClick() {
+      socket.emit('colorChange', { id: this.state.id, path: this.state.pathGradient, type: 'gradient' });
+    }
+    render() {
+      return (
+        <div className="outer-wrap">
+
+          <header
+            className="hero hero-wrapper"
+            onClick={this.handleHeaderClick}
+            style={{
+              background: `${this.state.color1}`,
+              background: `-webkit-linear-gradient(to left, ${this.state.color2}, ${this.state.color1})`,
+              background: `linear-gradient(to left, ${this.state.color2}, ${this.state.color1})`,
+            }}
+          >
+            <div className="row">
+              <div className="box">
+                <div className="centered color-inverse">
+                  <bigger><EditableShortText value={this.state.mainTitle} id={this.state.id} path={this.state.path1}/></bigger>
+                  <h3><EditableShortText value={this.state.subTitle} id={this.state.id} path={this.state.path2}/></h3>
+                </div>
+              </div>
             </div>
           </header>
         </div>
