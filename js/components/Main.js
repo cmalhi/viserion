@@ -17,7 +17,7 @@ class Main extends React.Component{
     socket.on('addPrefDomStore', (addition) => {
       this.props.appendPrefs(addition)
     });
-    socket.on('updatePrefDomStore', (newPrefs) => {
+    socket.on('updatePrefStore', (newPrefs) => {
       this.props.updatePrefs(newPrefs)
     });
   }

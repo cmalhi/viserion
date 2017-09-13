@@ -31,7 +31,10 @@ var socketInstance = function(io) {
 
     // Header color
     socket.on('colorChange', function(data) {
+      console.log('sockets colorChange')
+      console.log('socket.rooms', socket.rooms);
       io.sockets.emit('colorChange', data);
+
     });
 
     socket.on('colorChange2', function(color) {
@@ -63,7 +66,8 @@ var socketInstance = function(io) {
     });
 
     socket.on('updatePref', function(newPref) {
-      io.sockets.emit('updatePrefDomStore', newPref)
+      io.sockets.emit('updatePrefDom', newPref);
+      io.sockets.emit('updatePrefStore', newPref.newPref);
     });
 
     socket.on('getPrefs', (message) => {
