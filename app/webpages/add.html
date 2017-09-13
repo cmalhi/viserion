@@ -38,6 +38,7 @@
           attr: {
             bgColor: 'defaultColor',
             title: 'Title',
+            textColor: 'purple'
           },
         },
         ,{
@@ -155,6 +156,7 @@
       super(props);
       this.state = {
         bgColor: this.props.bgColor,
+        textColor: this.props.textColor,
         title: this.props.title,
         id: this.props.id,
         path1: ['attr', 'bgColor'],
@@ -165,6 +167,7 @@
     componentWillReceiveProps(nextProps) {
       this.setState({
         bgColor: nextProps.bgColor,
+        textColor: nextProps.textColor,
         title: nextProps.title,
         id: nextProps.id,
       });
@@ -191,6 +194,7 @@
                   value={this.state.title}
                   id={this.state.id}
                   path={this.state.path2}
+                  color={this.state.textColor}
                 />
               </span>
             </div>
@@ -419,7 +423,7 @@
     }
     handleClick(e) {
       e.stopPropagation();
-      socket.emit('launchTitleModal', { key: this.state.key, textValue: this.state.textValue, id: this.state.id, path: this.state.path });
+      socket.emit('launchTitleModal', { key: this.state.key, textValue: this.state.textValue, id: this.state.id, path: this.state.path, color: this.state.color });
     }
     render() {
       return(

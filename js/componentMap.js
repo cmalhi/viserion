@@ -8,11 +8,12 @@ const componentMap = {
     attr: {
       bgColor: 'defaultColor',
       title: 'Title',
+      textColor: 'purple',
     },
   },
   GradientHero: {
     id: 'notSet',
-    nickName: 'My GraditentHero',
+    nickName: 'My GradientHero',
     componentName: 'GradientHero',
     attr: {
       color: {

@@ -6,6 +6,7 @@ const defaultPreferences = [{
   attr: {
     bgColor: 'defaultColor',
     title: 'Title',
+    textColor: 'purple',
   },
 },
 {

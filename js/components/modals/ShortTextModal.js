@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { updatePrefs } from '../../actions/index';
 const io = require('socket.io-client');
 import { updateComponent } from '../../utils.js';
+import ColorPalette from './ColorPalette';
 
 var {
   height: deviceHeight
@@ -15,10 +16,14 @@ class ShortTextModal extends React.Component {
     super(props);
     this.state = {
       offset: new Animated.Value(deviceHeight),
-      title: '',
+      title: null,
+      color: null,
+      colorChange: false,
     };
     this.closeModal = this.closeModal.bind(this);
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
+    this.setColor = this.setColor.bind(this);
+    this.saveColorToPref = this.saveColorToPref.bind(this);
   }
 
   componentDidMount() {
@@ -26,6 +31,7 @@ class ShortTextModal extends React.Component {
       duration: 300,
       toValue: 0
     }).start();
+    console.log('THE DATA IN SHORT TEXT MODAL',this.props.data)
   }
 
   closeModal() {
@@ -38,11 +44,31 @@ class ShortTextModal extends React.Component {
   closeAndUpdate() {
     const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
-    // socket.emit('changeTitleDom', { key: this.props.id, textValue: this.state.title, data: this.props.data });
-    var value = this.state.title;
+    if(this.state.colorChange) {
+      console.log('saving color');
+      this.saveColorToPref();
+    } else if (this.state.title){
+      // socket.emit('changeTitleDom', { key: this.props.id, textValue: this.state.title, data: this.props.data });
+      var value = this.state.title;
+      var { id, path } = this.props.data;
+      var newPref = updateComponent(this.props.preferences, id, path, value);
+      socket.emit('updatePref', newPref);
+    }
+  }
+
+  saveColorToPref() {
+    const socket = io(global.HOST, { transports: ['websocket'] });
     var { id, path } = this.props.data;
-    var newPref = updateComponent(this.props.preferences, id, path, value);
+    path.pop();
+    path.push('textColor');
+    console.log('SET COLOR path', path);
+    var newPref = updateComponent(this.props.preferences, id, path, this.state.color);
     socket.emit('updatePref', newPref);
+  }
+
+  setColor(color) {
+    this.setState({color: color}, ()=>{console.log('the color is ', this.state.color)});
+    this.setState({colorChange: true});
   }
 
   render() {
@@ -59,6 +85,7 @@ class ShortTextModal extends React.Component {
             placeholder={this.props.title}
             value={this.state.title}
           />
+          <ColorPalette setColor={this.setColor} data={this.props.data}/>
           <Button onPress={this.closeAndUpdate} title="Enter" />
         </View>
       </Animated.View>
