@@ -4,6 +4,8 @@ import {
   View,
   WebView,
   Button,
+  Dimensions,
+  TouchableHighlight,
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { bindActionCreators } from 'redux';
@@ -11,6 +13,7 @@ import { connect } from 'react-redux';
 import { selectSite, selectPreferences } from '../actions/index';
 import axios from 'axios';
 import prefToReactify from '../../app/utils/prefToReactify';
+import styles from '../styles';
 
 
 class ConfirmSite extends React.Component {
@@ -20,6 +23,7 @@ class ConfirmSite extends React.Component {
       preferencesAll: this.props.preferencesAll,
     }
     this.handlePress = this.handlePress.bind(this);
+    this.updateIndex = this.updateIndex.bind(this);
   }
 
   handlePress(index) {
@@ -32,41 +36,48 @@ class ConfirmSite extends React.Component {
     return this.props.preferencesAll.map((preference, index) => {
       const html = prefToReactify(preference);
       return (
-        <View key={index} style={styles.slides}>
-          <WebView style={{padding: 10, width:350 }}
-            automaticallyAdjustContentInsets={false}
-            scrollEnabled={true}
-            scalesPageToFit={true}
-            source={{html: html}}>
-          </WebView>
-          <Button title={'Submit'} onPress={this.handlePress.bind(this, index)} />
+        <View key={index} style={styles.basicContainer}>
+          <View style={styles.basicContainer}>
+            <WebView style={styles.screenWidth}
+              automaticallyAdjustContentInsets={false}
+              scrollEnabled={true}
+              scalesPageToFit={true}
+              source={{ html: html }}>
+            </WebView>
+          </View>
+
         </View>
       )
     })
   }
 
+  updateIndex = (index) => {
+    this.setState({ index });
+  }
+
   render() {
     if(!!this.props.preferencesAll){
       return (
-        <Swiper style={styles.wrapper} showsButtons>
-          {this.renderViews()}
-        </Swiper>
+        <View style={{flex:1}}>
+          <Swiper showsButtons onIndexChanged={this.updateIndex}>
+            {this.renderViews()}
+          </Swiper>
+          <View style={styles.absoluteBottom}>
+            <TouchableHighlight
+              style={ [styles.buttonCentered, styles.continueButton, {width: 120} ] }
+              underlayColor='#1D59BF'
+              onPress={this.handlePress.bind(this, this.state.index)}
+            >
+              <Text style={ [styles.buttonText] }>Start editing</Text>
+            </TouchableHighlight>
+          </View>
+        </View>
       ) 
     } else {
       return(<Text>Loading...</Text>)
     }
   }  
 }
-
-const styles = {
-  wrapper: {},
-  slides: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0)',
-  }
-};
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({selectSite, selectPreferences}, dispatch)

@@ -6,10 +6,10 @@ export default class Prescreen extends React.Component {
   render(){
     return(
       <View style={[styles.container, {backgroundColor: '#222A3C'}]}>
-        <View style={[styles.mainHeight, styles.centered]}>
+        <View style={[{ flex: 5 }, styles.centered]}>
           <Text style={{color: '#fff', fontFamily: 'AvenirNext-Regular', fontSize: 37}}>QuikPages</Text>
         </View>
-        <View style={{flex: 2}}>
+        <View style={{ flex: 2 }}>
           <Image
             style={{width: Dimensions.get('window').width, height: 200}}
             source={require('../../assets/wave.png')}

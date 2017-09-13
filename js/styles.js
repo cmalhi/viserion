@@ -23,7 +23,6 @@ export default styles = StyleSheet.create({
   header: {
     paddingVertical: 20,
     paddingHorizontal: 25,
-    marginBottom: 10,
   },
   grid: {
     flexDirection: 'row',
@@ -71,8 +70,8 @@ export default styles = StyleSheet.create({
     color: '#fff',
   },
 
-  fullWidth: {
-    width: '100%',
+  screenWidth: {
+    width: Dimensions.get('window').width,
   },
 
   // Typography
@@ -137,6 +136,11 @@ export default styles = StyleSheet.create({
   },
 
   // Buttons
+  absoluteBottom: {
+    position: 'absolute',
+    bottom: 10,
+    right: (Dimensions.get('window').width / 3), // center
+  },
   absoluteRight: {
     position: 'absolute',
     top: 100,
@@ -145,7 +149,7 @@ export default styles = StyleSheet.create({
   sideButton: {
     width: 50,
     height: 50,
-    backgroundColor: '#eee',
+    backgroundColor: '#222A3C',
 
   },
   buttonCentered: {
@@ -184,4 +188,12 @@ export default styles = StyleSheet.create({
     width: 110,
     height: 35,
   },
+
+//  Swiper
+//   slides: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     backgroundColor: 'rgba(0,0,0,0)',
+//   }
 });

@@ -72,7 +72,7 @@ class ChooseLayout extends React.Component {
             <Text style={[styles.text, styles.subtitle]}>We'll use these for inspiration.</Text>
           </View>
         </View>
-        <View style={styles.mainContainer}>
+        <View style={ [styles.mainContainer, {marginTop: 20}] } >
           <DeckSwiper
             ref={(c) => this._deckSwiper = c}
             dataSource={this.state.layoutsData}
