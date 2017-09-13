@@ -62,7 +62,9 @@ var socketInstance = function(io) {
     // });
 
     socket.on('addPref', function(addition) {
-      io.sockets.emit('addPrefDomStore', addition)
+      console.log('addition', addition)
+      io.sockets.emit('addPrefDom', addition);
+      io.sockets.emit('addPrefStore', addition.newComponent)
     });
 
     socket.on('updatePref', function(newPref) {

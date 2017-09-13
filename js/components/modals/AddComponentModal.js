@@ -63,7 +63,8 @@ class AddPageModal extends React.Component {
     this.closeModal();
     const socket = io(global.HOST, { transports: ['websocket'] });
     newComponent.id = this.newId();
-    socket.emit('addPref', newComponent );
+    console.log('handle add siteID', this.props.siteId);
+    socket.emit('addPref', { room: this.props.siteId, newComponent: newComponent } );
   }
 
   render() {
@@ -138,8 +139,8 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps({ preferences }) {
-  return { preferences };
+function mapStateToProps({ preferences, siteId }) {
+  return { preferences, siteId };
 }
 
 const matchDispatchToProps = (dispatch) => {

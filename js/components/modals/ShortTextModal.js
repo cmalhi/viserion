@@ -49,23 +49,23 @@ class ShortTextModal extends React.Component {
     } else if (this.state.title){
       // socket.emit('changeTitleDom', { key: this.props.id, textValue: this.state.title, data: this.props.data });
       var value = this.state.title;
-      var { id, path } = this.props.data;
+      var { id, path, room } = this.props.data;
       var newPref = updateComponent(this.props.preferences, id, path, value);
-      socket.emit('updatePref', newPref);
+      socket.emit('updatePref', {room, newPref});
     }
   }
 
   saveColorToPref() {
     const socket = io(global.HOST, { transports: ['websocket'] });
-    var { id, path } = this.props.data;
+    var { id, path, room } = this.props.data;
     path.pop();
     path.push('textColor');
     var newPref = updateComponent(this.props.preferences, id, path, this.state.color);
-    socket.emit('updatePref', newPref);
+    socket.emit('updatePref', { room: room, newPref: newPref });
   }
 
   setColor(color) {
-    this.setState({color: color}, ()=>{console.log('the color is ', this.state.color)});
+    this.setState({color: color});
     this.setState({colorChange: true});
   }
 
