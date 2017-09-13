@@ -1,31 +1,49 @@
 import React from 'react';
-import { Image, View, Text} from 'react-native';
+import { connect } from 'react-redux';
+import { Image, View, Text, TouchableOpacity, AsyncStorage } from 'react-native';
 import axios from 'axios';
+import { updatePrefs } from '../actions/index';
 
-export default class SavedPages extends React.Component {
+class SavedPages extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { templates: [] };
+    this.state = { 
+      sites: [],
+      userId: '',
+    };
+
+    this.handleLinkPress = this.handleLinkPress.bind(this);
   }
 
+  handleLinkPress(site) {
+    const { navigate } = this.props.navigation;
+    this.props.updatePrefs(site.preferences);
+    navigate('UserEdit', {siteId: site._id, sitePreferences: site.preferences, userId: this.state.userId });
+  }
+
+
   componentDidMount() {
-    axios.get(`${global.HOST}/usertemplates/all`)
-      .then((res) => {
-        this.setState({ templates: res.data });
+    AsyncStorage.getItem('userId')
+      .then(userId => {
+        // TODO: remove hard coded user ID
+        // userId = 'test';
+        axios.get(`${global.HOST}/sites/all/${userId}`)
+          .then((res) => {
+            this.setState({ sites: res.data, userId });
+          })
+          .catch((err) => console.log('Err getting /sites/list: ', err));
       })
-      .catch((err) => console.log('Err getting /usertemplates/all: ', err));
   }
 
   render() {
     let images = [];
-    if (this.state.templates.length > 0){
+    if (this.state.sites.length > 0){
       // Pull just the URLs
-      images = this.state.templates.map((t) => {
+      images = this.state.sites.map((site) => {
         return (
-          <View>
-            <Text>{t['_id']}</Text>
-            { t.screenshot && <Image key={t['_id']} style={{width:400, height: 200}} source={require('./example.png')} resizeMode="contain" /> }
-          </View>
+          <TouchableOpacity key={site['_id']} onPress={this.handleLinkPress.bind(this, site)}>
+            <Text>{site._id}</Text>
+          </TouchableOpacity>
         )
       })
     }
@@ -37,3 +55,11 @@ export default class SavedPages extends React.Component {
     )
   }
 }
+
+
+export default connect(null, { updatePrefs })(SavedPages);
+
+// <View key={t['_id']}>
+//   <Text>{t['_id']}</Text>
+//    { t.screenshot && <Image style={{width:400, height: 200}} source={require('./example.png')} resizeMode="contain" /> }
+//  </View>

@@ -1,13 +1,8 @@
-export default function (state = {}, action) {
+export default function (state = ['PinterestContent'], action) {
   switch (action.type) {
-    case 'TOGGLE_LAYOUT':
-      const layoutId = action.payload;
-      var layoutStatus = true;
-      if (state[layoutId]){
-        layoutStatus = false;
-      }
-      return Object.assign({}, state, {[layoutId]: layoutStatus})
-    default: 
-      return state
+    case 'ADD_LAYOUTS':
+      return action.payload;
+    default:
+      return state;
   }
 }

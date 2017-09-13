@@ -1,3 +1,6 @@
+# Keys
+global.js
+config/
 
 # React Native
 .expo/
@@ -7,6 +10,11 @@
 
 # OSX
 .DS_Store
+
+#config
+apiKeys.js
+database.js
+host.js
 
 # Xcode
 build/
@@ -35,6 +43,7 @@ local.properties
 
 # node.js
 node_modules/
+native-base-theme/
 npm-debug.log
 npm-debug.*
 package-lock.json
@@ -47,3 +56,6 @@ buck-out/
 \.buckd/
 android/app/libs
 android/keystores/debug.keystore
+
+# Lint
+.eslintrc.js

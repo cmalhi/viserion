@@ -3,6 +3,7 @@ import { Button, StyleSheet, Text, View, TouchableHighlight } from 'react-native
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { addKeywords } from '../actions/index';
+import styles from '../styles';
 
 class ChooseKeywords extends React.Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class ChooseKeywords extends React.Component {
   handleKeywordPress(keyword) {
     const selected = this.state.selectedKeywords[keyword] ? false : true;
     const newSelectedKeywords = Object.assign({}, this.state.selectedKeywords, {[keyword]: selected});
-    this.setState({selectedKeywords: newSelectedKeywords }, () => console.log('keyword has been pressed', this.state.selectedKeywords) );
+    this.setState({ selectedKeywords: newSelectedKeywords });
   }
 
   handleSubmit() {
@@ -37,8 +38,8 @@ class ChooseKeywords extends React.Component {
   renderKeywordChoices() {
     return this.state.keywords.map((keyword, index) => {
       return ( 
-        <TouchableHighlight key={index} style={[styles.keyword, this.state.selectedKeywords[keyword] && styles.selected]} onPress={this.handleKeywordPress.bind(this, keyword)} >
-          <Text style={styles.keywordText} >{keyword}</Text>
+        <TouchableHighlight key={index} style={[styles.keyword, this.state.selectedKeywords[keyword] && styles.keywordSelected]} onPress={this.handleKeywordPress.bind(this, keyword)} >
+          <Text style={[styles.text, styles.keywordText, { fontFamily: 'Avenir-Heavy' }]} >{keyword}</Text>
         </TouchableHighlight > 
       );
     });
@@ -47,55 +48,29 @@ class ChooseKeywords extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Choose Some Keywords!</Text>
-        <View style={styles.keywordsContainer}>        
-          { this.renderKeywordChoices() }
+        <View style={styles.headerContainer}>
+          <View style={styles.header}>
+            <Text style={[styles.text, styles.title]}>Anything else?</Text>
+            <Text style={[styles.text, styles.subtitle]}>We'll use these for inspiration.</Text>
+          </View>
         </View>
-        <Button
-          onPress={this.handleSubmit}
-          title="Submit"
-          color="#000000"
-        />
+        <View style={styles.mainContainer}>
+          <View style={styles.keywordsContainer}>
+            { this.renderKeywordChoices() }
+          </View>
+        </View>
+        <View style={styles.footerContainer}>
+          <TouchableHighlight
+            style={ [styles.buttonCentered, styles.continueButton] }
+            underlayColor='#1D59BF'
+            onPress={this.handleSubmit}
+          >
+            <Text style={ [styles.buttonText, { color: '#eee', }] }>Continue</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    marginTop: 50,
-    fontSize: 20,
-  },
-  keyword: {
-    backgroundColor: '#2E9D88',
-    borderRadius: 5,
-    padding: 2,
-    height: 30,
-    margin: 5,
-    paddingHorizontal: 3,
-  },
-  keywordsContainer: {
-    flex: 1,
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  selected: {
-    opacity: 0.7,
-    backgroundColor: '#15433A',
-  },
-  keywordText: {
-    fontSize: 20,
-    color: '#fff',
-  }
-});
-
 
 export default connect(null, { addKeywords })(ChooseKeywords);

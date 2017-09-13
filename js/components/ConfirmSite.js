@@ -1,73 +1,77 @@
-import React from 'react'
+import React from 'react';
 import {
   Text,
   View,
   WebView,
-  Button
-} from 'react-native'
-import Swiper from 'react-native-swiper'
+  Button,
+  Dimensions,
+  TouchableHighlight,
+} from 'react-native';
+import Swiper from 'react-native-swiper';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { addSite } from '../actions/index';
+import { selectSite, selectPreferences } from '../actions/index';
 import axios from 'axios';
+import prefToReactify from '../../app/utils/prefToReactify';
+import styles from '../styles';
 
-var source =  [{uri: 'http://google.com'},{uri: 'http://nfl.com'},{uri: 'http://cnn.com'}];
 
 class ConfirmSite extends React.Component {
-  constructor(props){
-      super(props);
-      this.state = {
-          uris: [],
-      }
-      this.handlePress = this.handlePress.bind(this);
-      this.getURIs = this.getURIs.bind(this);
+  constructor(props) {
+    super(props);
+    this.state = {
+      preferencesAll: this.props.preferencesAll,
+    }
+    this.handlePress = this.handlePress.bind(this);
+    this.updateIndex = this.updateIndex.bind(this);
   }
 
-  componentDidMount(){
-    this.getURIs()
-  }
-
- getURIs(){
-    axios.get(`${global.HOST}/usertemplates/list`)
-    .then((response) => {
-      var result = response.data.map(function(val){
-        var site = `${global.HOST}/${val}`;
-        return {uri: site}
-      });
-      console.log("result", result)
-      this.setState({uris: [...result]}, console.log('results from getURIs ', this.state.uris))
-      //cb(source)
-    }).catch(function(err){
-      console.log('There was an error(msg):',err);
-    })  
-  }
-
-  handlePress(index){
+  handlePress(index) {
     const { navigate } = this.props.navigation; 
-    this.props.addSite(this.state.uris[index].uri);
-    navigate('ShareScreen');   
+    this.props.selectPreferences(index);
+    navigate('UserEdit');
   }
-
-  render() {
-    if(this.state.uris.length){
-      var slides = [];
-      for(var u = 0; u < this.state.uris.length; u +=1) {
-        slides.push(
-          <View key={u} style={styles.slides}>
-            <WebView style={{padding: 10, width:370 }}
+ 
+  renderViews() {
+    return this.props.preferencesAll.map((preference, index) => {
+      const html = prefToReactify(preference);
+      return (
+        <View key={index} style={styles.basicContainer}>
+          <View style={styles.basicContainer}>
+            <WebView style={styles.screenWidth}
               automaticallyAdjustContentInsets={false}
               scrollEnabled={true}
               scalesPageToFit={true}
-              source={this.state.uris[u]}>
+              source={{ html: html }}>
             </WebView>
-            <Button title={'Submit'} onPress={this.handlePress.bind(this, u)} />
           </View>
-        )
-      }
+
+        </View>
+      )
+    })
+  }
+
+  updateIndex = (index) => {
+    this.setState({ index });
+  }
+
+  render() {
+    if(!!this.props.preferencesAll){
       return (
-        <Swiper style={styles.wrapper} showsButtons>
-          {slides} 
-        </Swiper>
+        <View style={{flex:1}}>
+          <Swiper showsButtons onIndexChanged={this.updateIndex}>
+            {this.renderViews()}
+          </Swiper>
+          <View style={styles.absoluteBottom}>
+            <TouchableHighlight
+              style={ [styles.buttonCentered, styles.continueButton, {width: 120} ] }
+              underlayColor='#1D59BF'
+              onPress={this.handlePress.bind(this, this.state.index)}
+            >
+              <Text style={ [styles.buttonText] }>Start editing</Text>
+            </TouchableHighlight>
+          </View>
+        </View>
       ) 
     } else {
       return(<Text>Loading...</Text>)
@@ -75,18 +79,13 @@ class ConfirmSite extends React.Component {
   }  
 }
 
-const styles = {
-  wrapper: {},
-  slides: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0)',
-  }
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({selectSite, selectPreferences}, dispatch)
 };
 
-const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({addSite}, dispatch)
+const mapStateToProps = ({preferencesAll}) => {
+  return {preferencesAll};
 };
 
-export default connect(null, matchDispatchToProps)(ConfirmSite);
+export default connect(mapStateToProps, mapDispatchToProps)(ConfirmSite);
+
