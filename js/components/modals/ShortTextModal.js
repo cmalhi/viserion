@@ -31,7 +31,6 @@ class ShortTextModal extends React.Component {
       duration: 300,
       toValue: 0
     }).start();
-    console.log('THE DATA IN SHORT TEXT MODAL',this.props.data)
   }
 
   closeModal() {
@@ -61,7 +60,6 @@ class ShortTextModal extends React.Component {
     var { id, path } = this.props.data;
     path.pop();
     path.push('textColor');
-    console.log('SET COLOR path', path);
     var newPref = updateComponent(this.props.preferences, id, path, this.state.color);
     socket.emit('updatePref', newPref);
   }
