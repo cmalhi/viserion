@@ -11,7 +11,7 @@ export default class ColorPalette extends React.Component {
     const colors = [{color1: '#00b09b', color2: '#96c93d'}, {color1: '#D3CCE3', color2: '#E9E4F0'}, 
     {color1: '#e1eec3', color2: '#f05053'}, {color1: '#74ebd5', color2: '#ACB6E5'}, {color1: '#22c1c3', color2: '#fdbb2d'}, 
     {color1: '#ff9966', color2: '#ff5e62'}, {color1: '#7F00FF', color2: '#E100FF'}, {color1: '#C9D6FF', color2: '#E2E2E2'},
-    {color1: '#d9a7c7', color2: '#fffcdc'}, {color1: '#396afc', color2: '#2948ff'}, {color1: '#0cebeb', color2: '#29ffc6'},
+    {color1: '#d9a7c7', color2: '#fffcdc'}, {color1: '#396afc', color2: '#2948ff'}, {color1: '#F44336', color2: '#FF4081'},
     {color1: '#36D1DC', color2: '#5B86E5'},];
 
     const squares = colors.map((c, index) => {
