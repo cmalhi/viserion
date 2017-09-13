@@ -86,6 +86,7 @@ class ShortTextModal extends React.Component {
             value={this.state.title}
           />
           <ColorPalette setColor={this.setColor} data={this.props.data}/>
+          <Text>{this.state.color}</Text>
           <Button onPress={this.closeAndUpdate} title="Enter" />
         </View>
       </Animated.View>
