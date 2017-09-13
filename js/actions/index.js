@@ -4,6 +4,13 @@ import componentMap from '../componentMap';
 import { AsyncStorage } from 'react-native';
 import prefToReactify from '../../app/utils/prefToReactify';
 
+var id = 1;
+
+function newId(prefix = 'id') {
+  id +=2;
+  return prefix + id;
+}
+
 const combineDesires = (desires) => {
   console.log('combineDesires called');
   let preferences = [];
@@ -12,11 +19,14 @@ const combineDesires = (desires) => {
       let heroColor = Object.assign({}, componentMap['Hero'], {attr: { ...componentMap['Hero'].attr } });
       heroColor.attr.title = desires.title;
       heroColor.attr.bgColor = color;
+      heroColor.id = newId();
 
       let footerColor = Object.assign({}, componentMap['Footer'], {attr: { ...componentMap['Footer'].attr, bgColor: color}});
       footerColor.attr.bgColor = color;
+      footerColor.id = newId();
 
       let content = Object.assign({}, componentMap[layout]);
+      content.id = newId();
       preferences.push([heroColor, content, footerColor]);
     });
   });
