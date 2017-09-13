@@ -327,6 +327,11 @@ bigger {
 
 <script type="text/babel">
   const socket = io('http://127.0.0.1:8080');
+  var room;
+  if (location) {
+    //alert(location.href.split('/')[3])
+    room = location.href.split('/')[3];
+  }
 //  const socket = io('http://ec2-54-203-8-222.us-west-2.compute.amazonaws.com:8080');
   // ID generation
   let lastId = 0;
@@ -441,9 +446,12 @@ bigger {
         this.setState({ sitePreferences: newPref });
       });
 
-      socket.on('updatePrefDomStore', (newPrefs) => {
-        let newPrefsComp = this.toComponents(newPrefs);
-        this.setState({ sitePreferences: newPrefsComp});
+      socket.on('updatePrefDom', (newPrefs) => {
+        if (newPrefs.room === room){
+          console.log('newPrefs.newPref', newPrefs.newPref)
+          let newPrefsComp = this.toComponents(newPrefs.newPref);
+          this.setState({ sitePreferences: newPrefsComp});
+        }
       });
     }
     render() {
@@ -484,9 +492,11 @@ bigger {
 //      })
     }
     handleHeaderClick() {
-      socket.emit('colorChange', { id: this.state.id, path: this.state.path1 });
+      // alert(room);
+      socket.emit('colorChange', { room: room, id: this.state.id, path: this.state.path1 });
     }
     render() {
+      console.log('header loaded')
       return (
         <div className="outer-wrap">
           <header
