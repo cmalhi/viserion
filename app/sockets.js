@@ -64,8 +64,17 @@ var socketInstance = function(io) {
 
     socket.on('updatePref', function(newPref) {
       io.sockets.emit('updatePrefDomStore', newPref)
-    })
+    });
 
+    socket.on('getPrefs', (message) => {
+      console.log('sockets', message)
+      io.sockets.emit('getPrefsUserEdit', 'Getting prefs from user edit file')
+    });
+    socket.on('sendPrefsFromUserEdit', (prefs) => {
+      console.log('prefs', prefs)
+      io.sockets.emit('updatePrefWebviewMount', prefs);
+    });
+    
   });
 };
 

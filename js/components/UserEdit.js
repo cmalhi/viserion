@@ -88,6 +88,11 @@ class UserEdit extends React.Component {
       //TODO: get id
       this.setState({ listModal: true, listData: data, listId: data.key});
     });
+
+    socket.on('getPrefsUserEdit', (message) => {
+      console.log('userEdit', message);
+      socket.emit('sendPrefsFromUserEdit', this.props.preferences);
+    });
   }
 
   handleRearrange() {
@@ -197,8 +202,8 @@ class UserEdit extends React.Component {
   }
 }
 
-function mapStateToProps({ order, siteId }) {
-  return { order, siteId };
+function mapStateToProps({ order, siteId, preferences }) {
+  return { order, siteId, preferences };
 }
 
 export default connect(mapStateToProps, { updateSite, assignUser })(UserEdit);
