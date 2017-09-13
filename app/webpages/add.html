@@ -40,16 +40,7 @@
             title: 'Title',
           },
         },
-        {
-            id: 'ticker2',
-            nickName: 'My Ticker',
-            componentName: <Ticker />,
-            attr: {
-              bgColor: 'defaultColor',
-              title: 'Adrienne Tran, Matthew Go, Chet Malhi, Ed Sweezey',
-            }
-          }
-          ,{
+        ,{
             id: 'footer12',
             nickName: 'My Footer',
             componentName: <Footer />,
@@ -133,6 +124,18 @@
         let newPrefsComp = this.toComponents(newPrefs);
         this.setState({ sitePreferences: newPrefsComp});
       });
+
+      socket.on('getPrefDomStore', (newPrefs) => {
+        let newPrefsComp = this.toComponents(newPrefs);
+        this.setState({ sitePreferences: newPrefsComp});
+      });
+      socket.on('updatePrefWebviewMount', (newPrefs) => {
+        let newPrefsComp = this.toComponents(newPrefs);
+        console.log('the new prefs are', newPrefs)
+        this.setState({ sitePreferences: newPrefsComp});
+      });
+
+      socket.emit('getPrefs', 'webview is asking for prefs on mount');
     }
     render() {
       return (

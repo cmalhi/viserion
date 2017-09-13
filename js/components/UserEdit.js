@@ -88,6 +88,11 @@ class UserEdit extends React.Component {
       //TODO: get id
       this.setState({ listModal: true, listData: data, listId: data.key});
     });
+
+    socket.on('getPrefsUserEdit', (message) => {
+      console.log('userEdit', message);
+      socket.emit('sendPrefsFromUserEdit', this.props.preferences);
+    });
   }
 
   handleRearrange() {
@@ -110,7 +115,7 @@ class UserEdit extends React.Component {
       <View style={styles.basicContainer}>
         <View style={styles.basicContainer}>
           {/*<WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/reactify.html`}} />*/}
-          <WebView style={styles.fullWidth} source={{uri: `${global.HOST}/${this.props.siteId}`}} />
+          <WebView style={styles.fullWidth} source={{uri: `${global.HOST}/webpages/add.html`}} />
           { this.state.shortTextModal ?
             <ShortTextModal
               data={this.state.shortTextData}
@@ -182,8 +187,8 @@ class UserEdit extends React.Component {
   }
 }
 
-function mapStateToProps({ order, siteId }) {
-  return { order, siteId };
+function mapStateToProps({ order, siteId, preferences }) {
+  return { order, siteId, preferences };
 }
 
 export default connect(mapStateToProps, { updateSite, assignUser })(UserEdit);
