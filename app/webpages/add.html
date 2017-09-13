@@ -50,6 +50,10 @@
               color1: '#0cebeb',
               color2: '#29ffc6',
             },
+            textColor: {
+              textColor1: 'black',
+              textColor2: 'black',
+            },
             mainTitle: 'Welcome',
             subTitle: 'adjust your gradient',
           },
@@ -174,6 +178,7 @@
         id: this.props.id,
         path1: ['attr', 'bgColor'],
         path2: ['attr', 'title'],
+        pathTextColor: ['attr', 'textColor']
       };
       this.handleHeaderClick = this.handleHeaderClick.bind(this);
     }
@@ -207,6 +212,7 @@
                   value={this.state.title}
                   id={this.state.id}
                   path={this.state.path2}
+                  colorPath={this.state.pathTextColor}
                   color={this.state.textColor}
                 />
               </span>
@@ -225,11 +231,13 @@
         color1: this.props.color.color1,
         color2: this.props.color.color2,
         id: this.props.id,
-        textColor1: this.props.textColor1,
-        textColor2: this.props.textColor2,
+        textColor1: this.props.textColor.textColor1,
+        textColor2: this.props.textColor.textColor2,
         pathGradient: ['attr', 'color'],
         path1: ['attr', 'mainTitle'],
         path2: ['attr', 'subTitle'], 
+        pathTextColor1: ['attr', 'textColor', 'textColor1'],
+        pathTextColor2: ['attr', 'textColor', 'textColor2'],
       }
       this.handleHeaderClick = this.handleHeaderClick.bind(this);
     }
@@ -240,8 +248,8 @@
         color1: nextProps.color.color1,
         color2: nextProps.color.color2,
         id: nextProps.id,
-        textColor1: nextProps.textColor1,
-        textColor2: nextProps.textColor2,
+        textColor1: nextProps.textColor.textColor1,
+        textColor2: nextProps.textColor.textColor2,
       });
     }
     handleHeaderClick() {
@@ -263,8 +271,8 @@
             <div className="row">
               <div className="box">
                 <div className="centered color-inverse">
-                  <bigger><EditableShortText color={this.state.textColor1} value={this.state.mainTitle} id={this.state.id} path={this.state.path1}/></bigger>
-                  <h3><EditableShortText color={this.state.textColor2} value={this.state.subTitle} id={this.state.id} path={this.state.path2}/></h3>
+                  <bigger><EditableShortText color={this.state.textColor1} value={this.state.mainTitle} id={this.state.id} path={this.state.path1} colorPath={this.state.pathTextColor1}/></bigger>
+                  <h3><EditableShortText color={this.state.textColor2} value={this.state.subTitle} id={this.state.id} path={this.state.path2} colorPath={this.state.pathTextColor2}/></h3>
                 </div>
               </div>
             </div>
@@ -422,6 +430,7 @@
         path: this.props.path,
         id: this.props.id,
         key: newId(),
+        colorPath: this.props.colorPath
       };
       this.handleClick = this.handleClick.bind(this);
     }
@@ -431,6 +440,7 @@
         textValue: nextProps.value,
         path: nextProps.path,
         id: nextProps.id,
+        colorPath: nextProps.colorPath,
       })
     }
     componentDidMount() {
@@ -440,7 +450,7 @@
     }
     handleClick(e) {
       e.stopPropagation();
-      socket.emit('launchTitleModal', { key: this.state.key, textValue: this.state.textValue, id: this.state.id, path: this.state.path, color: this.state.color });
+      socket.emit('launchTitleModal', { key: this.state.key, textValue: this.state.textValue, id: this.state.id, path: this.state.path, color: this.state.color, colorPath: this.state.colorPath });
     }
     render() {
       return(

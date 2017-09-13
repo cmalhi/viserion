@@ -18,8 +18,10 @@ const defaultPreferences = [{
       color1: '#0cebeb',
       color2: '#29ffc6',
     },
-    textColor1: 'purple',
-    textColor2: 'purple',
+    textColor: {
+      textColor1: 'black',
+      textColor2: 'black',
+    },
     mainTitle: 'Welcome',
     subTitle: 'adjust your gradient',
   },

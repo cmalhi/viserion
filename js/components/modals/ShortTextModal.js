@@ -17,8 +17,8 @@ class ShortTextModal extends React.Component {
     this.state = {
       offset: new Animated.Value(deviceHeight),
       title: null,
+      originalTitle: this.props.data.textValue,
       color: null,
-      colorChange: false,
     };
     this.closeModal = this.closeModal.bind(this);
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
@@ -42,31 +42,26 @@ class ShortTextModal extends React.Component {
 
   closeAndUpdate() {
     const socket = io(global.HOST, { transports: ['websocket'] });
-    this.closeModal();
-    if(this.state.colorChange) {
-      console.log('saving color');
-      this.saveColorToPref();
-    } else if (this.state.title){
-      // socket.emit('changeTitleDom', { key: this.props.id, textValue: this.state.title, data: this.props.data });
-      var value = this.state.title;
-      var { id, path } = this.props.data;
-      var newPref = updateComponent(this.props.preferences, id, path, value);
-      socket.emit('updatePref', newPref);
+    //check if tital issue null
+    var value = this.state.title;
+    if (this.state.title === null) {
+      value = this.state.originalTitle
     }
+    this.closeModal();
+    var { id, path } = this.props.data;
+    var newPref = updateComponent(this.props.preferences, id, path, value);
+    socket.emit('updatePref', newPref);
   }
 
   saveColorToPref() {
     const socket = io(global.HOST, { transports: ['websocket'] });
-    var { id, path } = this.props.data;
-    path.pop();
-    path.push('textColor');
-    var newPref = updateComponent(this.props.preferences, id, path, this.state.color);
+    var { id, colorPath } = this.props.data;
+    var newPref = updateComponent(this.props.preferences, id, colorPath, this.state.color);
     socket.emit('updatePref', newPref);
   }
 
   setColor(color) {
-    this.setState({color: color}, ()=>{console.log('the color is ', this.state.color)});
-    this.setState({colorChange: true});
+    this.setState({color: color}, ()=>{this.saveColorToPref()});
   }
 
   render() {
@@ -82,6 +77,7 @@ class ShortTextModal extends React.Component {
             onChangeText={(title) => this.setState({title})}
             placeholder={this.props.title}
             value={this.state.title}
+            ref="input"
           />
           <ColorPalette setColor={this.setColor} data={this.props.data}/>
           <Text>{this.state.color}</Text>
