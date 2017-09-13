@@ -37,7 +37,7 @@ class AddPageModal extends React.Component {
     }).start();
   }
 
-  newId(prefix='id') {
+  newId(prefix = 'id') {
     id += 2;
     return prefix + id;
   }
