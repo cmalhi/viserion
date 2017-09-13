@@ -36,20 +36,33 @@
           nickName: 'My Hero',
           componentName: <Hero1 />,
           attr: {
-            bgColor: 'defaultColor',
+            bgColor: '#000000',
             title: 'Title',
-            textColor: 'purple'
+            textColor: '#7BDBD5'
           },
         },
-        ,{
-            id: 'footer12',
-            nickName: 'My Footer',
-            componentName: <Footer />,
-            attr: {
-              bgColor: 'defaultColor',
-              text: 'Footer',
-            }
-          }],
+        {
+          id: 'notSet',
+          nickName: 'My GradientHero',
+          componentName: <GradientHero />,
+          attr: {
+            color: {
+              color1: '#0cebeb',
+              color2: '#29ffc6',
+            },
+            mainTitle: 'Welcome',
+            subTitle: 'adjust your gradient',
+          },
+        },
+        {
+          id: 'footer12',
+          nickName: 'My Footer',
+          componentName: <Footer />,
+          attr: {
+            bgColor: '#FFFFFF',
+            text: 'Footer',
+          }
+        }],
       };
 
       this.map = this.map.bind(this);

@@ -4,9 +4,22 @@ const defaultPreferences = [{
   nickName: 'My Hero',
   componentName: 'Hero',
   attr: {
-    bgColor: 'defaultColor',
+    bgColor: '#000000',
     title: 'Title',
-    textColor: 'purple',
+    textColor: '#7BDBD5',
+  },
+},
+{
+  id: 'notSet',
+  nickName: 'My GradientHero',
+  componentName: 'GradientHero',
+  attr: {
+    color: {
+      color1: '#0cebeb',
+      color2: '#29ffc6',
+    },
+    mainTitle: 'Welcome',
+    subTitle: 'adjust your gradient',
   },
 },
 {
@@ -14,7 +27,7 @@ const defaultPreferences = [{
   nickName: 'My Footer',
   componentName: 'Footer',
   attr: {
-    bgColor: 'defaultColor',
+    bgColor: '#FFFFFF',
     text: 'Footer',
   },
 }];

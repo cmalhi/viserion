@@ -6,9 +6,9 @@ const componentMap = {
     nickName: 'My Hero',
     componentName: 'Hero',
     attr: {
-      bgColor: 'defaultColor',
+      bgColor: '#000000',
       title: 'Title',
-      textColor: 'purple',
+      textColor: '#7BDBD5',
     },
   },
   GradientHero: {
@@ -17,8 +17,8 @@ const componentMap = {
     componentName: 'GradientHero',
     attr: {
       color: {
-        color1: '#F44336',
-        color2: '#FF4081',
+        color1: '#0cebeb',
+        color2: '#29ffc6',
       },
       mainTitle: 'Welcome',
       subTitle: 'adjust your gradient',
@@ -118,7 +118,7 @@ const componentMap = {
     nickName: 'My Footer',
     componentName: 'Footer',
     attr: {
-      bgColor: '#EEE',
+      bgColor: '#FFFFFF',
       text: 'Footer',
     },
   },
