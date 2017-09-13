@@ -109,8 +109,8 @@ class UserEdit extends React.Component {
     return (
       <View style={styles.basicContainer}>
         <View style={styles.basicContainer}>
-          {/*<WebView style={styles.webView} source={{uri: `${global.HOST}/pages/templates/reactify.html`}} />*/}
-          <WebView style={styles.screenWidth} source={{uri: `${global.HOST}/${this.state.siteId}`}} />
+          {/*<WebView style={styles.screenWidth} source={{uri: `${global.HOST}/webpages/add.html`}} />*/}
+          <WebView style={styles.screenWidth} source={{uri: `${global.HOST}/${this.props.siteId}`}} />
           { this.state.shortTextModal ?
             <ShortTextModal
               data={this.state.shortTextData}

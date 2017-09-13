@@ -188,4 +188,12 @@ export default styles = StyleSheet.create({
     width: 110,
     height: 35,
   },
+
+//  Swiper
+//   slides: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     backgroundColor: 'rgba(0,0,0,0)',
+//   }
 });
