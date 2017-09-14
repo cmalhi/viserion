@@ -13,7 +13,7 @@ class ChooseLayout extends React.Component {
     this.state = {
       // Stub layout data
       layoutsData: layoutsData,
-      currentLayout: {'layouts':[]},
+      currentLayout: {'layouts':['PinterestContent']},
       chosenLayouts: {
       },
       selectedLayouts: 0,
