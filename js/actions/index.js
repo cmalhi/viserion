@@ -12,7 +12,6 @@ function newId(prefix = 'id') {
 }
 
 const combineDesires = (desires) => {
-  console.log('combineDesires called');
   let preferences = [];
   desires.layouts.forEach(layout => {
     desires.colors.forEach((color, index) => {
@@ -173,7 +172,7 @@ export const assignUser = () => (dispatch, getState) => {
         userId,
       })
       .then (site => {
-        console.log(`Site ${siteId} assigned to user, ${userId}`);
+        // console.log(`Site ${siteId} assigned to user, ${userId}`);
       })
       .catch(err => console.log('Error saving site to user'));
     })

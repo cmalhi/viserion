@@ -3,8 +3,8 @@ const defaultPreferencesAll = [[{
   componentName: 'Hero',
   id: 'hero1',
   attr: {
-    bgColor: '#FB5B45',
-    title: 'defaultTitle',
+    bgColor: '#89EFA4',
+    title: 'Your Amazing Site',
     textColor: 'purple',
   },
 },
@@ -38,7 +38,7 @@ const defaultPreferencesAll = [[{
   componentName: 'Hero',
   attr: {
     bgColor: '#009AF2',
-    title: 'defaultTitle',
+    title: 'Your Next Amazing Site',
   },
 },
 {

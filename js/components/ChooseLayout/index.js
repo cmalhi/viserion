@@ -23,11 +23,6 @@ class ChooseLayout extends React.Component {
     this.handleRightSwipe = this.handleRightSwipe.bind(this);
   }
 
-  componentDidMount() {
-    AsyncStorage.getItem('userId')
-      .then(username => console.log(username));
-  }
-
   handleLayoutPress(layout, index) {
     console.log('layout pressed', layout);
     this.setState({ currentLayout: layout });
@@ -59,7 +54,6 @@ class ChooseLayout extends React.Component {
     navigate('PresetPalettes');
     // navigate('ThreeColorPicker');
     const layouts = this.calculatePreferredLayouts();
-    console.log('layouts>>>>>>>>', layouts);
     this.props.addLayouts(layouts);
   }
 

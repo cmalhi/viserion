@@ -5,6 +5,7 @@ import config from '../../../config/config';
 import firebase from '../../../database/firebase';
 import { connect } from 'react-redux';
 import { loginOrSignUpUser } from '../../actions/authActions';
+import styles from '../../styles';
 
 class LoginForm extends Component {
   constructor() {
@@ -66,7 +67,9 @@ class LoginForm extends Component {
 
         // Retrieve user information from firebase
         firebase.auth().signInWithCredential(credential)
-          this.props.loginOrSignUpUser();
+          .then(user => {
+            this.props.loginOrSignUpUser();
+          });
       } else {
         console.log('Google Log in cancelled');
       }
@@ -95,9 +98,10 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <KeyboardAvoidingView behavior="padding" style={styles.container}>
+      <KeyboardAvoidingView behavior="padding">
         <TextInput 
-          placeholder="email"
+          placeholder=" email"
+          placeholderTextColor="#B0BBBD"
           returnKeyType="next"
           keyboardType="email-address"
           style={styles.input}
@@ -108,55 +112,28 @@ class LoginForm extends Component {
           onSubmitEditing={() => this.passwordInput.focus()}
         />
         <TextInput
-          placeholder="password"
+          placeholder=" password"
+          placeholderTextColor="#B0BBBD"
           returnKeyType="go"
           secureTextEntry
           style={styles.input}
           onChangeText={text => this.setState( {password: text })}
           ref={(input) => this.passwordInput = input}
         />
-      <TouchableOpacity onPress={this.handleEmailLogin} style={styles.buttonContainer}>
-        <Text style={styles.buttonText}>LOGIN</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={[styles.buttonContainer, styles.buttonFacebook]} onPress={this.handleFacebookLogin}>
-        <Text style={styles.buttonText}>LOGIN WITH FACEBOOK</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={[styles.buttonContainer, styles.buttonGoogle]} onPress={this.handleGoogleLogin}>
-        <Text style={styles.buttonText}>LOGIN WITH GOOGLE</Text>
-      </TouchableOpacity>
-      {this.state.errorMessage && <Text>{this.state.errorMessage}</Text>}
+        <TouchableOpacity onPress={this.handleEmailLogin} style={[styles.buttonCentered, styles.continueButton, styles.center]}>
+          <Text style={styles.buttonText}>LOGIN</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.buttonCentered, styles.loginButton, styles.facebookButton]} onPress={this.handleFacebookLogin}>
+          <Text style={styles.buttonText}>WITH FACEBOOK</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.buttonCentered, styles.loginButton, styles.googleButton]} onPress={this.handleGoogleLogin}>
+          <Text style={styles.buttonText}>WITH GOOGLE</Text>
+        </TouchableOpacity>
+        {this.state.errorMessage && <Text>{this.state.errorMessage}</Text>}
     </KeyboardAvoidingView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-  },
-  input: {
-    height: 35,
-    backgroundColor: 'rgba(225,225,225,0.4)',
-    marginVertical: 5,
-    color: '#000',
-    paddingHorizontal: 10,
-  },
-  buttonContainer: {
-    backgroundColor: '#F7FFFB',
-    paddingVertical: 10,
-    marginVertical: 5,
-  },
-  buttonFacebook: {
-    backgroundColor: '#4997FF',
-  },
-  buttonGoogle: {
-    backgroundColor: '#FF2B4E',
-  },
-  buttonText: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
-})
 
 function mapStateToProps({ auth }) {
   return { auth };

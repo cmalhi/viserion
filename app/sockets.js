@@ -68,8 +68,8 @@ var socketInstance = function(io) {
     });
 
     socket.on('updatePref', function(newPref) {
-      console.log('updatePref')
-      console.log('newPref', newPref)
+      // console.log('updatePref')
+      // console.log('newPref', newPref)
       io.sockets.emit('updatePrefDom', newPref);
       io.sockets.emit('updatePrefStore', newPref.newPref);
     });

@@ -4,6 +4,7 @@ import { StyleSheet, View, TextInput, TouchableOpacity, Text, KeyboardAvoidingVi
 import Expo from 'expo';
 import firebase from '../../../database/firebase';
 import { loginOrSignUpUser } from '../../actions/authActions';
+import styles from '../../styles';
 
 class SignUpForm extends Component {
   constructor() {
@@ -38,9 +39,10 @@ class SignUpForm extends Component {
 
   render() {
     return (
-      <KeyboardAvoidingView behavior="padding" style={styles.container}> 
-        <TextInput 
-          placeholder="email"
+      <KeyboardAvoidingView behavior="padding"> 
+        <TextInput
+          placeholder=" email"
+          placeholderTextColor="#B0BBBD"
           value={this.state.email}
           returnKeyType="next"
           keyboardType="email-address"
@@ -52,7 +54,8 @@ class SignUpForm extends Component {
           onSubmitEditing={() => this.passwordInput.focus()}
         />
         <TextInput
-          placeholder="password"
+          placeholder=" password"
+          placeholderTextColor="#B0BBBD"
           value={this.state.password}
           returnKeyType="go"
           secureTextEntry
@@ -60,36 +63,16 @@ class SignUpForm extends Component {
           onChangeText={text => this.setState({ password: text })}
           ref={(input) => this.passwordInput = input}
         />
-      <TouchableOpacity onPress={this.handleSignUp} style={styles.buttonContainer}>
-        <Text style={styles.buttonText}>SIGN UP</Text>
-      </TouchableOpacity>
+      <View style={styles.footerContainer}>
+        <TouchableOpacity onPress={this.handleSignUp} style={[styles.buttonCentered, styles.continueButton, styles.center]}>
+          <Text style={styles.buttonText}>SIGN UP</Text>
+        </TouchableOpacity>
       {this.state.errorMessage && <Text>{this.state.errorMessage}</Text>}
+      </View>
     </KeyboardAvoidingView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-  },
-  input: {
-    height: 35,
-    backgroundColor: 'rgba(225,225,225,0.4)',
-    marginVertical: 5,
-    color: '#000',
-    paddingHorizontal: 10,
-  }, 
-  buttonContainer: {
-    backgroundColor: '#F7FFFB',
-    paddingVertical: 10,
-    marginVertical: 5,
-  },
-  buttonText: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
-})
 
 function mapStateToProps({ auth }) {
   return { auth };
