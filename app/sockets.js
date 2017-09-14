@@ -12,13 +12,14 @@ var socketInstance = function(io) {
     // socket.on('changeTitleDom', function(data) {
     //   io.sockets.emit('changeTitleDom2', data);
     // });
-    // Long Text
-    // socket.on('launchLongTextModal', function(id) {
-    //   io.sockets.emit('launchLongTextModal', id);
-    // });
     // socket.on('changeLongTextDom', function(data) {
     //   io.sockets.emit('changeLongTextDom2', data);
     // });
+
+    // Long Text
+    socket.on('launchLongTextModal', function(id) {
+      io.sockets.emit('launchLongTextModal', id);
+    });
 
     // Image
     socket.on('launchImageModal', function(id) {

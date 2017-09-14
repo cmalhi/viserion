@@ -664,6 +664,7 @@ bigger {
 //      })
     }
     handleClick(e) {
+      e.stopPropagation();
       console.log('clicked');
 //      socket.emit('launchLongTextModal', {key: this.state.key, textValue: this.state.body});
       socket.emit('launchLongTextModal', { room: room, key: this.state.key, textValue: this.state.body, id: this.state.id, path: this.state.path });
@@ -740,6 +741,7 @@ bigger {
     }
     handleClick(e) {
       e.stopPropagation();
+      console.log('short text clicked!')
       socket.emit('launchTitleModal', { room: room, key: this.state.key, textValue: this.state.textValue, id: this.state.id, path: this.state.path });
     }
     render() {
