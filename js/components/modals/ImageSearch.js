@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Image, TouchableHighlight, ScrollView, ListView, View, Text, TextInput, Button} from 'react-native';
 import axios from 'axios';
 import { bingImageSearch } from '../../../config/config';
+import styles from '../../styles.js'
 const key = bingImageSearch.API_KEY;
 
 class ImageSearch extends React.Component {
@@ -45,20 +46,23 @@ class ImageSearch extends React.Component {
   render() {
     return (
       <View>
-        <Text>Search for images: </Text>
+        <Text style={[styles.text, styles.subtitle]}>Search for images: </Text>
         <TextInput
-          style={{height: 40}}
+          style={[{height: 40}, styles.form]}
           placeholder="search"
           onChangeText={ (text) => this.setState({text}) }
           clearButtonMode={'unless-editing'}
           keyboardType={"default"}
-          autoFocus
         />
-        <Button
-          onPress={this.searchForImages}
-          title="Search"
-          color="#000000"
-        />
+        <View style={[styles.center, {marginTop: '5%'}]}>    
+          <TouchableHighlight
+            style={ [styles.buttonCentered, styles.continueButton] }
+            underlayColor='#1D59BF'
+            onPress={this.searchForImages}
+          >
+            <Text style={ [styles.buttonText, { color: '#eee', }] }>Search</Text>
+          </TouchableHighlight>
+        </View>
         <ScrollView>
           <View style={styles.scrollGrid} >
             {this.state.images}
@@ -68,24 +72,31 @@ class ImageSearch extends React.Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  scrollGrid: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  content: {
-    paddingVertical: 20,
-  },
-  pic: {
-    backgroundColor: '#CCC',
-    margin: 10,
-    width: 80,
-    height: 80
-  },
-});
+/*
+        <Button
+          onPress={this.searchForImages}
+          title="Search"
+          color="#000000"
+          style={[styles.center, styles.text, styles.subtitle]}
+        />
+*/
+// const styles = StyleSheet.create({
+//   scrollGrid: {
+//     flex: 1,
+//     flexDirection: 'row',
+//     flexWrap: 'wrap',
+//     alignItems: 'center',
+//     justifyContent: 'center'
+//   },
+//   content: {
+//     paddingVertical: 20,
+//   },
+//   pic: {
+//     backgroundColor: '#CCC',
+//     margin: 10,
+//     width: 80,
+//     height: 80
+//   },
+// });
 
 export default ImageSearch;

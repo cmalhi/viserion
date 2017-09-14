@@ -71,9 +71,9 @@ class ImageModal extends React.Component {
       <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
         <View style={styles.innerModal}>
           <TouchableOpacity onPress={this.closeModal}>
-            <Text style={styles.center}>Close Menu</Text>
+            <Text style={[styles.center, styles.text, styles.subtitle]}>Close Menu</Text>
           </TouchableOpacity>
-          <Text style={styles.bigText}>Choose an image</Text>
+          <Text style={[styles.text, styles.title]}>Choose an image</Text>
           <ImageSearch onSelect={this.imageSearchCallback}/>
           <Button onPress={this._pickImage} title="Select From Camera Roll" />
           {/*{img && <Image source={{ uri: img }} style={{ width: 200, height: 200 }} />}*/}
