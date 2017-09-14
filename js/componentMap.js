@@ -50,6 +50,11 @@ const componentMap = {
       body2: 'You’ll find readymade playlists to match your mood, put together by music fans and experts.',
       subtitle3: 'New Releases',
       body3: 'Hear this week’s latest singles and albums, and check out what’s hot in the Top 50.',
+      textColor: {
+        mainTitle: 'black',
+        body: 'black',
+        subTitle: 'black',
+      },
     },
   },
   PinterestText: {
@@ -72,6 +77,10 @@ const componentMap = {
           body: 'Yes, there will be a standby line if accepted attendees do not show up! The line will open when registration starts (9am) and students will be admitted off the standby line after registration ends (10:30am).',
         },
       ],
+      textColor: {
+        title: 'red',
+        body: 'black',
+      },
     },
   },
   PinterestContent: {

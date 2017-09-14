@@ -77,7 +77,6 @@ class ShortTextModal extends React.Component {
             onChangeText={(title) => this.setState({title})}
             placeholder={this.props.title}
             value={this.state.title}
-            ref="input"
           />
           <ColorPalette setColor={this.setColor} data={this.props.data}/>
           <Text>{this.state.color}</Text>
