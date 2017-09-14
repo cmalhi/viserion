@@ -20,6 +20,8 @@ const componentMap = {
         color1: '#0cebeb',
         color2: '#29ffc6',
       },
+      textColor1: 'purple',
+      textColor2: 'purple',
       mainTitle: 'Welcome',
       subTitle: 'adjust your gradient',
     },

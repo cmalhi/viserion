@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { updatePrefs } from '../../actions/index';
 const io = require('socket.io-client');
 import { updateComponent } from '../../utils.js';
+import styles from '../../styles.js';
 
 var {
   height: deviceHeight
@@ -70,9 +71,9 @@ class ImageModal extends React.Component {
       <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
         <View style={styles.innerModal}>
           <TouchableOpacity onPress={this.closeModal}>
-            <Text style={styles.center}>Close Menu</Text>
+            <Text style={[styles.center, styles.text, styles.subtitle]}>Close Menu</Text>
           </TouchableOpacity>
-          <Text style={styles.bigText}>Choose an image</Text>
+          <Text style={[styles.text, styles.title]}>Choose an image</Text>
           <ImageSearch onSelect={this.imageSearchCallback}/>
           <Button onPress={this._pickImage} title="Select From Camera Roll" />
           {/*{img && <Image source={{ uri: img }} style={{ width: 200, height: 200 }} />}*/}
@@ -116,38 +117,38 @@ const matchDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, matchDispatchToProps)(ImageModal);
 
-export const styles = StyleSheet.create({
-  form: {
-    padding: 10,
-    borderColor: '#eee',
-    borderWidth: 1,
-  },
-  flexContainer: {
-    flex: 1,
-  },
-  webView: {
-    padding: 10,
-    width: '100%'
-  },
-  modal: {
-    backgroundColor: 'rgba(0,0,0,.3)',
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    width: '100%',
-    alignItems: 'center',
-  },
-  innerModal:{
-    width: '80%',
-    backgroundColor: '#fff',
-    padding: 10,
-    position: 'relative',
-    top: '5%',
-    borderRadius: 10
-  },
-  bigText:{
-    fontSize: 30,
-  },
-});
+// export const styles = StyleSheet.create({
+//   form: {
+//     padding: 10,
+//     borderColor: '#eee',
+//     borderWidth: 1,
+//   },
+//   flexContainer: {
+//     flex: 1,
+//   },
+//   webView: {
+//     padding: 10,
+//     width: '100%'
+//   },
+//   modal: {
+//     backgroundColor: 'rgba(0,0,0,.3)',
+//     position: 'absolute',
+//     top: 0,
+//     right: 0,
+//     bottom: 0,
+//     left: 0,
+//     width: '100%',
+//     alignItems: 'center',
+//   },
+//   innerModal:{
+//     width: '80%',
+//     backgroundColor: '#fff',
+//     padding: 10,
+//     position: 'relative',
+//     top: '5%',
+//     borderRadius: 10
+//   },
+//   bigText:{
+//     fontSize: 30,
+//   },
+// });

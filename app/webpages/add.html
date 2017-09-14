@@ -225,6 +225,8 @@
         color1: this.props.color.color1,
         color2: this.props.color.color2,
         id: this.props.id,
+        textColor1: this.props.textColor1,
+        textColor2: this.props.textColor2,
         pathGradient: ['attr', 'color'],
         path1: ['attr', 'mainTitle'],
         path2: ['attr', 'subTitle'], 
@@ -238,6 +240,8 @@
         color1: nextProps.color.color1,
         color2: nextProps.color.color2,
         id: nextProps.id,
+        textColor1: nextProps.textColor1,
+        textColor2: nextProps.textColor2,
       });
     }
     handleHeaderClick() {
@@ -259,8 +263,8 @@
             <div className="row">
               <div className="box">
                 <div className="centered color-inverse">
-                  <bigger><EditableShortText value={this.state.mainTitle} id={this.state.id} path={this.state.path1}/></bigger>
-                  <h3><EditableShortText value={this.state.subTitle} id={this.state.id} path={this.state.path2}/></h3>
+                  <bigger><EditableShortText color={this.state.color1} value={this.state.mainTitle} id={this.state.id} path={this.state.path1}/></bigger>
+                  <h3><EditableShortText color={this.state.color2} value={this.state.subTitle} id={this.state.id} path={this.state.path2}/></h3>
                 </div>
               </div>
             </div>
