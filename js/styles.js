@@ -109,16 +109,19 @@ export default styles = StyleSheet.create({
   },
   innerModal: {
     width: '80%',
-    backgroundColor: '#fff',
+    backgroundColor: '#222A3C',
     padding: 10,
     position: 'relative',
     top: '5%',
     borderRadius: 10,
+    color: 'white',
   },
   form: {
     padding: 10,
     borderColor: '#eee',
     borderWidth: 1,
+    color: '#FFF',
+    backgroundColor: '#060E22',
   },
 
   // Color Palette
