@@ -113,7 +113,7 @@ export const styles = StyleSheet.create({
   },
   innerModal:{
     width: 300,
-    backgroundColor: '#fff',
+    backgroundColor: '#060E22',
     padding: 10,
     // position: 'relative',
     top: '5%',
