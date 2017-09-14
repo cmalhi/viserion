@@ -48,14 +48,13 @@ var routerInstance = function(io) {
 
   router.get('/:siteid', siteController.serveOne);
 
-  // Deprecated method for creating templates
-  /*
+    /*
    * /POST /submitchoice
    * Grabs templateID, generates screenshot image, inserts screenshot image into userTemplates
    */
-  // router.post('/submitchoice', function (req, res) {
-  //   console.log('submitchoice');
-  //   const templateId = "59a19409bc1b89b728fe07cb";
+  router.post('/submitchoice', function (req, res) {
+    console.log('submitchoice');
+    const templateId = "59a19409bc1b89b728fe07cb";
 
     // new Screenshot('/usertemplates/' + templateId)
     //   .width(1080)
@@ -72,32 +71,7 @@ var routerInstance = function(io) {
     //     userTemplateController.upsert({_id: templateId}, {screenshot: screenshotUrl})
     //       .then(updatedDoc => console.log('new screenshotUrl: ' + updatedDoc.screenshot));
     //   });
-  // });
-
-  /*
-   * /POST /submitchoice
-   * Grabs templateID, generates screenshot image, inserts screenshot image into userTemplates
-   */
-  // router.post('/submitchoice', function (req, res) {
-  //   console.log('submitchoice');
-  //   const templateId = "59a19409bc1b89b728fe07cb";
-
-    // new Screenshot('/usertemplates/' + templateId)
-    //   .width(1080)
-    //   .height(1920)
-    //   .clip()
-    //   .capture()
-    //   .then(img => {
-    //     // TODO: Store in S3
-
-    //     const screenshotUrl = __dirname + '/../../js/components/example.png';
-    //     fs.writeFileSync(screenshotUrl, img);
-    //     console.log(screenshotUrl);
-
-  //       userTemplateController.upsert({_id: templateId}, {screenshot: screenshotUrl})
-  //         .then(updatedDoc => console.log('new screenshotUrl: ' + updatedDoc.screenshot));
-  //     });
-  // });
+  });
 
 
   // Post to render react pages for web swiper views
@@ -223,5 +197,4 @@ var routerInstance = function(io) {
 };
 
 module.exports = routerInstance;
-
 
