@@ -182,7 +182,7 @@ export default styles = StyleSheet.create({
     alignSelf: 'center',
   },
   googleButton: {
-    backgroundColor: '#D32643',
+    backgroundColor: '#B4233D',
     alignSelf: 'center',
   },
 
@@ -216,9 +216,8 @@ export default styles = StyleSheet.create({
 
   center: {
     alignSelf: 'center',
-  }
-
-
+  },
+  
 //  Swiper
 //   slides: {
 //     flex: 1,
