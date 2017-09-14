@@ -57,9 +57,9 @@ class ImageModal extends React.Component {
       if (response.status !== 201)
         throw new Error("Failed to upload image to S3");
       const imageUrl = response.body.postResponse.location;
-      var { id, path } = this.props.data;
+      var { id, path, room } = this.props.data;
       var newPref = updateComponent(this.props.preferences, id, path, imageUrl);
-      socket.emit('updatePref', newPref);
+      socket.emit('updatePref', { room, newPref });
       // socket.emit('changeImageDom', {key: this.props.id, src: imageUrl});
     });
   }
@@ -86,9 +86,9 @@ class ImageModal extends React.Component {
     const socket = io(global.HOST, { transports: ['websocket'] });    
     this.setState({img: imgCB});
     var value = imgCB;
-    var { id, path } = this.props.data;
+    var { id, path, room } = this.props.data;
     var newPref = updateComponent(this.props.preferences, id, path, value);
-    socket.emit('updatePref', newPref);
+    socket.emit('updatePref', {room, newPref});
     // socket.emit('changeImageDom', {key: this.props.id, src: imgCB});    
     this.closeModal();
   }

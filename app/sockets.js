@@ -22,8 +22,8 @@ var socketInstance = function(io) {
     });
 
     // Image
-    socket.on('launchImageModal', function(id) {
-      io.sockets.emit('launchImageModal', id);
+    socket.on('launchImageModal', function(data) {
+      io.sockets.emit('launchImageModal', data);
     });
 
     // deprecated
