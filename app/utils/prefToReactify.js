@@ -450,8 +450,9 @@ bigger {
 
       socket.on('updatePrefDom', (newPrefs) => {
         if (newPrefs.room === room){
+          console.log('newPrefs.newPref', newPrefs.newPref)
           let newPrefsComp = this.toComponents(newPrefs.newPref);
-          this.setState({ sitePreferences: newPrefsComp}, () => {console.log('this.state.sitePreferences', this.state.sitePreferences)});
+          this.setState({ sitePreferences: newPrefsComp});
         }
       });
     }
@@ -853,7 +854,7 @@ bigger {
       // });
     }
     handleClick() {
-      socket.emit('launchImageModal', {key: this.state.key, id: this.state.id, path: this.state.path});
+      socket.emit('launchImageModal', { room: room, key: this.state.key, id: this.state.id, path: this.state.path});
     }
     render() {
       return (

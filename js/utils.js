@@ -57,6 +57,7 @@ exports.getObjLoose = (objArr, key) => {
  * @output {Array} a list of components with the modified attribute
  */
 exports.updateComponent = (components, id, path, value) => {
+  console.log('components', components)
   var res = components.slice();
   // 1) Get target object we want to modify
   var target = exports.getObj(res, 'id', id);
