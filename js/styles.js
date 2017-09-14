@@ -173,7 +173,7 @@ export default styles = StyleSheet.create({
   loginButton: {
     backgroundColor: '#3E84FB',
     borderRadius: 30,
-    width: 150,
+    width: 200,
     height: 35,
     marginTop: 10,
   },

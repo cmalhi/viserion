@@ -120,7 +120,7 @@ class LoginForm extends Component {
           onChangeText={text => this.setState( {password: text })}
           ref={(input) => this.passwordInput = input}
         />
-        <TouchableOpacity onPress={this.handleEmailLogin} style={[styles.buttonCentered, styles.continueButton, styles.center]}>
+        <TouchableOpacity onPress={this.handleEmailLogin} style={[styles.buttonCentered, styles.loginButton, styles.center]}>
           <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.buttonCentered, styles.loginButton, styles.facebookButton]} onPress={this.handleFacebookLogin}>

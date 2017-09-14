@@ -63,12 +63,10 @@ class SignUpForm extends Component {
           onChangeText={text => this.setState({ password: text })}
           ref={(input) => this.passwordInput = input}
         />
-      <View style={styles.footerContainer}>
-        <TouchableOpacity onPress={this.handleSignUp} style={[styles.buttonCentered, styles.continueButton, styles.center]}>
+        <TouchableOpacity onPress={this.handleSignUp} style={[styles.buttonCentered, styles.loginButton, styles.center]}>
           <Text style={styles.buttonText}>SIGN UP</Text>
         </TouchableOpacity>
       {this.state.errorMessage && <Text>{this.state.errorMessage}</Text>}
-      </View>
     </KeyboardAvoidingView>
     );
   }
