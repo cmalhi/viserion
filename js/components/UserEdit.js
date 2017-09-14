@@ -57,9 +57,7 @@ class UserEdit extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({order: this.props.order}, ()=>{
-      console.log('component did mount user edit', this.props.order)
-    });
+    this.setState({order: this.props.order});
 
     const socket = io(global.HOST, { transports: ['websocket'] });
 

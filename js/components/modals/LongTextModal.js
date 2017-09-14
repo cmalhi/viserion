@@ -41,13 +41,9 @@ class LongTextModal extends React.Component {
     // socket.emit('changeLongTextDom', { key: this.props.id, textValue: this.state.body });
     // TODO: Make database call to save body to user preferences
     var value = this.state.body;
-    var { id, path } = this.props.data;
-    console.log('closeandupdate path >>', path);
-    console.log('closeandupdate id >>', id);
-    console.log('closeandupdate value >>', value);
-    console.log('closeandupdate preferences >>', this.props.preferences);
+    var { id, path, room } = this.props.data;
     var newPref = updateComponent(this.props.preferences, id, path, value);
-    socket.emit('updatePref', newPref);
+    socket.emit('updatePref', {room, newPref});
   }
 
   render() {
