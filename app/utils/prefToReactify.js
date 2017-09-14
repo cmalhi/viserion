@@ -1,6 +1,7 @@
 module.exports = (rawPreferencesObj) => {
   var rawPreferences = JSON.stringify(rawPreferencesObj);
-  return `<!DOCTYPE html>
+  return `
+  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -474,16 +475,19 @@ bigger {
       super(props);
       this.state = {
         bgColor: this.props.bgColor,
+        textColor: this.props.textColor,
         title: this.props.title,
         id: this.props.id,
         path1: ['attr', 'bgColor'],
         path2: ['attr', 'title'],
+        pathTextColor: ['attr', 'textColor']
       };
       this.handleHeaderClick = this.handleHeaderClick.bind(this);
     }
     componentWillReceiveProps(nextProps) {
       this.setState({
         bgColor: nextProps.bgColor,
+        textColor: nextProps.textColor,
         title: nextProps.title,
         id: nextProps.id,
       });
@@ -494,11 +498,9 @@ bigger {
 //      })
     }
     handleHeaderClick() {
-      // alert(room);
-      socket.emit('colorChange', { room: room, id: this.state.id, path: this.state.path1 });
+      socket.emit('colorChange', { id: this.state.id, path: this.state.path1 });
     }
     render() {
-      console.log('header loaded')
       return (
         <div className="outer-wrap">
           <header
@@ -512,6 +514,8 @@ bigger {
                   value={this.state.title}
                   id={this.state.id}
                   path={this.state.path2}
+                  colorPath={this.state.pathTextColor}
+                  color={this.state.textColor}
                 />
               </span>
             </div>
@@ -520,7 +524,7 @@ bigger {
       )
     }
   }
-  class GradientHero extends React.Component {
+class GradientHero extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -529,9 +533,13 @@ bigger {
         color1: this.props.color.color1,
         color2: this.props.color.color2,
         id: this.props.id,
+        textColor1: this.props.textColor.textColor1,
+        textColor2: this.props.textColor.textColor2,
         pathGradient: ['attr', 'color'],
         path1: ['attr', 'mainTitle'],
         path2: ['attr', 'subTitle'], 
+        pathTextColor1: ['attr', 'textColor', 'textColor1'],
+        pathTextColor2: ['attr', 'textColor', 'textColor2'],
       }
       this.handleHeaderClick = this.handleHeaderClick.bind(this);
     }
@@ -542,10 +550,12 @@ bigger {
         color1: nextProps.color.color1,
         color2: nextProps.color.color2,
         id: nextProps.id,
+        textColor1: nextProps.textColor.textColor1,
+        textColor2: nextProps.textColor.textColor2,
       });
     }
     handleHeaderClick() {
-      socket.emit('colorChange', { room: room, id: this.state.id, path: this.state.pathGradient, type: 'gradient' });
+      socket.emit('colorChange', { id: this.state.id, path: this.state.pathGradient, type: 'gradient' });
     }
     render() {
       return (
@@ -556,15 +566,13 @@ bigger {
             onClick={this.handleHeaderClick}
             style={{
               background: this.state.color1,
-              // background: '-webkit-linear-gradient(to left, ' + this.state.color2 +', ' + this.state.color1')',
-              // background: 'linear-gradient(to left, ' + this.state.color2 + ', ' + this.state.color1')',
             }}
           >
             <div className="row">
               <div className="box">
                 <div className="centered color-inverse">
-                  <bigger><EditableShortText value={this.state.mainTitle} id={this.state.id} path={this.state.path1}/></bigger>
-                  <h3><EditableShortText value={this.state.subTitle} id={this.state.id} path={this.state.path2}/></h3>
+                  <bigger><EditableShortText color={this.state.textColor1} value={this.state.mainTitle} id={this.state.id} path={this.state.path1} colorPath={this.state.pathTextColor1}/></bigger>
+                  <h3><EditableShortText color={this.state.textColor2} value={this.state.subTitle} id={this.state.id} path={this.state.path2} colorPath={this.state.pathTextColor2}/></h3>
                 </div>
               </div>
             </div>
@@ -586,6 +594,9 @@ bigger {
         subtitle3: this.props.subtitle3,
         body3: this.props.body3,
         id: this.props.id,
+        mainTitleColor: this.props.textColor.mainTitle,
+        bodyColor: this.props.textColor.body,
+        subTitleColor: this.props.textColor.subTitle,
       }
       this._path1 = ['attr', 'imageUrl'];
       this._path2 = ['attr', 'mainTitle'];
@@ -595,6 +606,10 @@ bigger {
       this._path6 = ['attr', 'body2'];
       this._path7 = ['attr', 'subtitle3'];
       this._path8 = ['attr', 'body3'];
+      this._mainTitleColorPath = ['attr', 'textColor', 'mainTitle'];
+      this._subTitleColorPath = ['attr', 'textColor', 'subTitle'];
+      this._bodyColorPath = ['attr', 'textColor', 'body'];
+
     }
     componentWillReceiveProps(nextProps) {
       this.setState({
@@ -607,6 +622,9 @@ bigger {
         subtitle3: nextProps.subtitle3,
         body3: nextProps.body3,
         id: nextProps.id,
+        mainTitleColor: nextProps.textColor.mainTitle,
+        bodyColor: nextProps.textColor.body,
+        subTitleColor: nextProps.textColor.subTitle,
       })
     }
 
@@ -616,17 +634,17 @@ bigger {
           <div className="row middle-md">
             <div className="col-xs-12 col-sm-7 col-md-5">
               <div className="box">
-                <h1><EditableShortText value={this.state.mainTitle} id={this.state.id} path={this._path2}/></h1>
+                <h1><EditableShortText value={this.state.mainTitle} id={this.state.id} path={this._path2} color={this.state.mainTitleColor} colorPath={this._mainTitleColorPath}/></h1>
                 <p>
-                  <h3><EditableShortText value={this.state.subtitle1} id={this.state.id} path={this._path3}/></h3>
+                  <h3><EditableShortText value={this.state.subtitle1} id={this.state.id} path={this._path3} color={this.state.subTitleColor} colorPath={this._subTitleColorPath}/></h3>
                   <EditableLongText body={this.state.body1} id={this.state.id} path={this._path4}/>
                 </p>
                 <p>
-                  <h3><EditableShortText value={this.state.subtitle2} id={this.state.id} path={this._path5}/></h3>
+                  <h3><EditableShortText value={this.state.subtitle2} id={this.state.id} path={this._path5} color={this.state.subTitleColor} colorPath={this._subTitleColorPath}/></h3>
                   <EditableLongText body={this.state.body2} id={this.state.id} path={this._path6}/>
                 </p>
                 <p>
-                  <h3><EditableShortText value={this.state.subtitle3} id={this.state.id} path={this._path7}/></h3>
+                  <h3><EditableShortText value={this.state.subtitle3} id={this.state.id} path={this._path7} color={this.state.subTitleColor} colorPath={this._subTitleColorPath}/></h3>
                   <EditableLongText body={this.state.body3} id={this.state.id} path={this._path8}/>
                 </p>
               </div>
@@ -659,16 +677,8 @@ bigger {
         id: nextProps.id,
       })
     }
-    componentDidMount() {
-//      socket.on('changeLongTextDom2', (data) => {
-//        if (data.key === this.state.key) this.setState({ body: data.textValue })
-//      })
-    }
     handleClick(e) {
-      e.stopPropagation();
-      console.log('clicked');
-//      socket.emit('launchLongTextModal', {key: this.state.key, textValue: this.state.body});
-      socket.emit('launchLongTextModal', { room: room, key: this.state.key, textValue: this.state.body, id: this.state.id, path: this.state.path });
+      socket.emit('launchLongTextModal', { key: this.state.key, textValue: this.state.body, id: this.state.id, path: this.state.path });
     }
     render() {
       return(
@@ -700,11 +710,6 @@ bigger {
         index: nextProps.key,
       })
     }
-    componentDidMount() {
-//      socket.on('changeTitleDom2', (data) => {
-//        if (data.key === this.state.key) this.setState({ textValue: data.textValue });
-//      })
-    }
     handleClick(e) {
       e.stopPropagation();
       socket.emit('launchListModal', { key: this.state.key, index: this.state.index, textValue: this.state.textValue, list: this.state.list, id: this.state.id, path: this.state.path });
@@ -724,6 +729,7 @@ bigger {
         path: this.props.path,
         id: this.props.id,
         key: newId(),
+        colorPath: this.props.colorPath,
       };
       this.handleClick = this.handleClick.bind(this);
     }
@@ -733,17 +739,15 @@ bigger {
         textValue: nextProps.value,
         path: nextProps.path,
         id: nextProps.id,
+        colorPath: nextProps.colorPath,
       })
     }
     componentDidMount() {
-//      socket.on('changeTitleDom2', (data) => {
-//        if (data.key === this.state.key) this.setState({ textValue: data.textValue });
-//      })
+      console.log('the color is', this.state.color, this.props.color)
     }
     handleClick(e) {
       e.stopPropagation();
-      console.log('short text clicked!')
-      socket.emit('launchTitleModal', { room: room, key: this.state.key, textValue: this.state.textValue, id: this.state.id, path: this.state.path });
+      socket.emit('launchTitleModal', { key: this.state.key, textValue: this.state.textValue, id: this.state.id, path: this.state.path, color: this.state.color, colorPath: this.state.colorPath });
     }
     render() {
       return(
@@ -793,36 +797,43 @@ bigger {
       this.state = {
         content: this.props.content,
         id: this.props.id,
+        titleColor: this.props.textColor.title,
+        bodyColor: this.props.textColor.body,
         path: ['attr', 'content'],
       }
+      this._bodyColorPath = ['attr', 'textColor', 'title'];
+      this._titleColorPath = ['attr', 'textColor', 'body'];
     }
 
     componentWillReceiveProps(nextProps) {
       this.setState({
         id: nextProps.id,
+        titleColor: nextProps.textColor.title,
+        bodyColor: nextProps.textColor.body,
         content: nextProps.content,
       })
     }
 
     render() {
-      const items = this.state.content.map((item, i) => {
-        var path1 = [...this.state.path];
-        var path2 = [...this.state.path];
-        path1.push(i);
-        path2.push(i);
-        path1.push('title');
-        path2.push('body');
-        return (
-          <figure key={i}>
-            <h2><EditableShortText color={this.props.headerColor} value={item.title} id={this.state.id} path={path1}/></h2>
-            <EditableLongText body={item.body} id={this.state.id} path={path2}/>
-          </figure>
-        )
-      });
       return (
         <div className="content content-60">
           <div className="columns columns-text">
-            {items}
+            {
+              this.state.content.map((item, i) => {
+                      var path1 = [...this.state.path];
+                      var path2 = [...this.state.path];
+                      path1.push(i);
+                      path2.push(i);
+                      path1.push('title');
+                      path2.push('body');
+                      return (
+                        <figure key={i}>
+                          <h2><EditableShortText value={item.title} id={this.state.id} path={path1} color={this.state.titleColor} colorPath={this._titleColorPath}/></h2>
+                          <EditableLongText body={item.body} id={this.state.id} path={path2}/>
+                        </figure>
+                      )
+                    })
+            }
           </div>
         </div>
       )
@@ -1114,5 +1125,6 @@ bigger {
   ReactDOM.render(<Parent/>, document.getElementById('parent'));
 </script>
 </body>
-</html>`;
+</html>
+`;
 };
