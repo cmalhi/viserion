@@ -78,7 +78,7 @@ class ColorModal extends React.Component {
           </TouchableOpacity>
           <Text style={[styles.text, styles.title]}>Choose a color</Text>
           {this.state.type === 'gradient' ? <GradientPalette setColor={this.setColor} type={this.props.data.type}/> : <ColorPalette setColor={this.setColor} type={this.props.data.type}/>}
-          <Text onPress={() => { navigate('ColorPicker')}}>Color picker</Text>
+          <Text tyle={[styles.center, styles.text, styles.subtitle]} onPress={() => { navigate('ColorPicker')}}>Color picker</Text>
           <Text>{this.state.color}</Text>
           <View style={styles.center}>    
             <TouchableHighlight
