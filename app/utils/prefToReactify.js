@@ -327,6 +327,11 @@ bigger {
 
 <script type="text/babel">
   const socket = io('http://127.0.0.1:8080');
+  var room;
+  if (location) {
+    //alert(location.href.split('/')[3])
+    room = location.href.split('/')[3];
+  }
 //  const socket = io('http://ec2-54-203-8-222.us-west-2.compute.amazonaws.com:8080');
   // ID generation
   let lastId = 0;
@@ -435,15 +440,20 @@ bigger {
     }
     componentWillMount() {
       // Web client listens to 'addPrefDomStore' event emitted when the user hits 'Submit'
-      socket.on('addPrefDomStore', (addition) => {
-        let newPref = this.state.sitePreferences;
-        newPref = [...newPref, this.toComponent(addition)];
-        this.setState({ sitePreferences: newPref });
+      socket.on('addPrefDom', (addition) => {
+        if (addition.room === room){
+          let newPref = this.state.sitePreferences;
+          newPref = [...newPref, this.toComponent(addition.newComponent)];
+          this.setState({ sitePreferences: newPref });
+        }
       });
 
-      socket.on('updatePrefDomStore', (newPrefs) => {
-        let newPrefsComp = this.toComponents(newPrefs);
-        this.setState({ sitePreferences: newPrefsComp});
+      socket.on('updatePrefDom', (newPrefs) => {
+        if (newPrefs.room === room){
+          console.log('newPrefs.newPref', newPrefs.newPref)
+          let newPrefsComp = this.toComponents(newPrefs.newPref);
+          this.setState({ sitePreferences: newPrefsComp});
+        }
       });
     }
     render() {
@@ -484,9 +494,11 @@ bigger {
 //      })
     }
     handleHeaderClick() {
-      socket.emit('colorChange', { id: this.state.id, path: this.state.path1 });
+      // alert(room);
+      socket.emit('colorChange', { room: room, id: this.state.id, path: this.state.path1 });
     }
     render() {
+      console.log('header loaded')
       return (
         <div className="outer-wrap">
           <header
@@ -533,7 +545,7 @@ bigger {
       });
     }
     handleHeaderClick() {
-      socket.emit('colorChange', { id: this.state.id, path: this.state.pathGradient, type: 'gradient' });
+      socket.emit('colorChange', { room: room, id: this.state.id, path: this.state.pathGradient, type: 'gradient' });
     }
     render() {
       return (
@@ -653,8 +665,10 @@ bigger {
 //      })
     }
     handleClick(e) {
+      e.stopPropagation();
+      console.log('clicked');
 //      socket.emit('launchLongTextModal', {key: this.state.key, textValue: this.state.body});
-      socket.emit('launchLongTextModal', { key: this.state.key, textValue: this.state.body, id: this.state.id, path: this.state.path });
+      socket.emit('launchLongTextModal', { room: room, key: this.state.key, textValue: this.state.body, id: this.state.id, path: this.state.path });
     }
     render() {
       return(
@@ -728,7 +742,8 @@ bigger {
     }
     handleClick(e) {
       e.stopPropagation();
-      socket.emit('launchTitleModal', { key: this.state.key, textValue: this.state.textValue, id: this.state.id, path: this.state.path });
+      console.log('short text clicked!')
+      socket.emit('launchTitleModal', { room: room, key: this.state.key, textValue: this.state.textValue, id: this.state.id, path: this.state.path });
     }
     render() {
       return(
@@ -839,7 +854,7 @@ bigger {
       // });
     }
     handleClick() {
-      socket.emit('launchImageModal', {key: this.state.key, id: this.state.id, path: this.state.path});
+      socket.emit('launchImageModal', { room: room, key: this.state.key, id: this.state.id, path: this.state.path});
     }
     render() {
       return (
@@ -970,7 +985,7 @@ bigger {
 //      })
 //    }
     handleFooterClick() {
-      socket.emit('colorChange', { id: this.state.id, path: this.state.path2 });
+      socket.emit('colorChange', { room: room, id: this.state.id, path: this.state.path2 });
     }
     render() {
       return (

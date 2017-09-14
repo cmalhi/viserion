@@ -48,7 +48,7 @@ var routerInstance = function(io) {
 
   router.get('/:siteid', siteController.serveOne);
 
-  /*
+    /*
    * /POST /submitchoice
    * Grabs templateID, generates screenshot image, inserts screenshot image into userTemplates
    */
@@ -197,5 +197,4 @@ var routerInstance = function(io) {
 };
 
 module.exports = routerInstance;
-
 

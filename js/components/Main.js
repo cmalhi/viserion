@@ -14,10 +14,10 @@ class Main extends React.Component{
   componentDidMount() {
     // All sockets go here
     const socket = io(global.HOST, { transports: ['websocket'] });
-    socket.on('addPrefDomStore', (addition) => {
+    socket.on('addPrefStore', (addition) => {
       this.props.appendPrefs(addition)
     });
-    socket.on('updatePrefDomStore', (newPrefs) => {
+    socket.on('updatePrefStore', (newPrefs) => {
       this.props.updatePrefs(newPrefs)
     });
   }
