@@ -24,7 +24,6 @@ class Gallery extends React.Component {
   }
 
   componentDidMount() {
-    console.log('compo mounted')
     axios.get(`${global.HOST}/sites/all`)
       .then((res) => {
         console.log('res data >>>>>'. res);

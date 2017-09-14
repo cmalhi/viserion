@@ -54,12 +54,11 @@ exports.updateOne = function(req, res) {
     update['html'] = html;
   }
   if (userId) {
-    console.log("update with user id", userId);
     update['userId'] = userId;
     const userUpdate = { $push: { 'savedSites': siteId } };
     User.findOneAndUpdate({"userId": userId}, userUpdate, { new: true })
   }
-  console.log('update to update >>>>>', update, siteId);
+  // console.log('update to update >>>>>', update, siteId);
   Site.findOneAndUpdate( {_id: siteId }, update, function(err, site) {
     if (err || !site) return res.status(500).send({ success: false, error: 'Error updating site with id ' + req.params.siteid });
     // console.log('user added to a site', site);

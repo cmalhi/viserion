@@ -20,6 +20,7 @@ class ConfirmSite extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      index: 0,
       preferencesAll: this.props.preferencesAll,
     }
     this.handlePress = this.handlePress.bind(this);
@@ -51,7 +52,7 @@ class ConfirmSite extends React.Component {
     })
   }
 
-  updateIndex = (index) => {
+  updateIndex(index) {
     this.setState({ index });
   }
 

@@ -44,7 +44,7 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
   },
   selected: {
-    backgroundColor: '#bbb'
+    backgroundColor: '#bbb',
   },
 
   // Keywords
@@ -168,7 +168,22 @@ export default styles = StyleSheet.create({
     position: 'absolute',
     bottom: 20,
     right: 20,
-    shadowColor: "#000000",
+    shadowColor: '#000000',
+  },
+  loginButton: {
+    backgroundColor: '#3E84FB',
+    borderRadius: 30,
+    width: 200,
+    height: 35,
+    marginTop: 10,
+  },
+  facebookButton: {
+    backgroundColor: '#1944D5',
+    alignSelf: 'center',
+  },
+  googleButton: {
+    backgroundColor: '#B4233D',
+    alignSelf: 'center',
   },
 
   // Grids
@@ -189,6 +204,20 @@ export default styles = StyleSheet.create({
     height: 35,
   },
 
+  // Inputs
+  input: {
+    height: 35,
+    width: 200,
+    borderRadius: 2,
+    backgroundColor: 'rgba(225,225,225,0.2)',
+    marginVertical: 5,
+    color: '#000',
+  },
+
+  center: {
+    alignSelf: 'center',
+  },
+  
 //  Swiper
 //   slides: {
 //     flex: 1,

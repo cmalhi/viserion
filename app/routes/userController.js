@@ -2,7 +2,7 @@ const User = require('../models/user');
 
 exports.addOne = function(req, res) {
   const { userId } = req.body;
-  console.log('post to signup', req.body, userId);
+  // console.log('post to signup', req.body, userId);
   User.findOrCreate({ userId })
     .then((newUser) => {
       res.status(200).send(`New User with ID ${newUser.userId} saved`);

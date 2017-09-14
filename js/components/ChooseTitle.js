@@ -10,8 +10,8 @@ class ChooseTitle extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
-    }
+      text: 'Your Site',
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -23,7 +23,6 @@ class ChooseTitle extends React.Component {
     this.props.createPreferences();
 
     navigate('ConfirmSite');
-
   }
 
   render() {
