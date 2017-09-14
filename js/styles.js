@@ -236,7 +236,7 @@ export default styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-    content: {
+  content: {
     paddingVertical: 20,
   },
   pic: {

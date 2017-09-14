@@ -7,7 +7,6 @@ const io = require('socket.io-client');
 import { updateComponent } from '../../utils.js';
 import ColorPalette from './ColorPalette';
 import styles from '../../styles.js';
-
 var {
   height: deviceHeight
 } = Dimensions.get('window');
@@ -94,7 +93,7 @@ class ShortTextModal extends React.Component {
               underlayColor='#1D59BF'
               onPress={this.closeAndUpdate}
             >
-              <Text style={ [styles.buttonText, { color: '#eee', }] }>Continue</Text>
+              <Text style={ [styles.buttonText, { color: '#eee', }] }>Enter</Text>
             </TouchableHighlight>
           </View>
         </View>
