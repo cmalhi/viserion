@@ -985,7 +985,7 @@ bigger {
 //      })
 //    }
     handleFooterClick() {
-      socket.emit('colorChange', { id: this.state.id, path: this.state.path2 });
+      socket.emit('colorChange', { room: room, id: this.state.id, path: this.state.path2 });
     }
     render() {
       return (
