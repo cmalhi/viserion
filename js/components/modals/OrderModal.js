@@ -51,10 +51,9 @@ class OrderModal extends React.Component {
 
   componentWillMount() {
     // TODO: make a GET request to sitePreferences
-
-    // let components = this.props.preferences;
-    // const sequencedData = toSequencedData(components);
-    // this.setState({ sequencedData });
+    let components = this.props.preferences;
+    const sequencedData = this.toSequencedData(components);
+    this.setState({ sequencedData });
   }
 
   componentDidMount() {

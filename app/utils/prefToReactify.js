@@ -544,7 +544,7 @@ bigger {
       });
     }
     handleHeaderClick() {
-      socket.emit('colorChange', { id: this.state.id, path: this.state.pathGradient, type: 'gradient' });
+      socket.emit('colorChange', { room: room, id: this.state.id, path: this.state.pathGradient, type: 'gradient' });
     }
     render() {
       return (
@@ -664,6 +664,7 @@ bigger {
 //      })
     }
     handleClick(e) {
+      console.log('clicked');
 //      socket.emit('launchLongTextModal', {key: this.state.key, textValue: this.state.body});
       socket.emit('launchLongTextModal', { room: room, key: this.state.key, textValue: this.state.body, id: this.state.id, path: this.state.path });
     }

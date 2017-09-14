@@ -6,40 +6,40 @@ var socketInstance = function(io) {
       io.sockets.emit('launchTitleModal', textData);
       // TODO: .to(x) to SPECIFY SOCKET ID;
     });
+
+    // deprecated
     // Editable Short Text
-    socket.on('changeTitleDom', function(data) {
-      io.sockets.emit('changeTitleDom2', data);
-    });
-
+    // socket.on('changeTitleDom', function(data) {
+    //   io.sockets.emit('changeTitleDom2', data);
+    // });
     // Long Text
-    socket.on('launchLongTextModal', function(id) {
-      io.sockets.emit('launchLongTextModal', id);
-    });
-
-    socket.on('changeLongTextDom', function(data) {
-      io.sockets.emit('changeLongTextDom2', data);
-    });
+    // socket.on('launchLongTextModal', function(id) {
+    //   io.sockets.emit('launchLongTextModal', id);
+    // });
+    // socket.on('changeLongTextDom', function(data) {
+    //   io.sockets.emit('changeLongTextDom2', data);
+    // });
 
     // Image
     socket.on('launchImageModal', function(id) {
       io.sockets.emit('launchImageModal', id);
     });
 
-    socket.on('changeImageDom', function(data) {
-      io.sockets.emit('changeImageDom2', data);
-    });
+    // deprecated
+    // socket.on('changeImageDom', function(data) {
+    //   io.sockets.emit('changeImageDom2', data);
+    // });
 
     // Header color
     socket.on('colorChange', function(data) {
-      console.log('sockets colorChange')
-      console.log('socket.rooms', socket.rooms);
       io.sockets.emit('colorChange', data);
 
     });
 
-    socket.on('colorChange2', function(color) {
-      io.sockets.emit('colorChange2', color);
-    });
+    // deprecated
+    // socket.on('colorChange2', function(color) {
+    //   io.sockets.emit('colorChange2', color);
+    // });
 
     //Pricing component
     socket.on('launchPricingModal', function(list) {
@@ -62,22 +62,22 @@ var socketInstance = function(io) {
     // });
 
     socket.on('addPref', function(addition) {
-      console.log('addition', addition)
       io.sockets.emit('addPrefDom', addition);
       io.sockets.emit('addPrefStore', addition.newComponent)
     });
 
     socket.on('updatePref', function(newPref) {
+      console.log('updatePref')
+      console.log('newPref', newPref)
       io.sockets.emit('updatePrefDom', newPref);
       io.sockets.emit('updatePrefStore', newPref.newPref);
     });
 
     socket.on('getPrefs', (message) => {
-      console.log('sockets', message)
       io.sockets.emit('getPrefsUserEdit', 'Getting prefs from user edit file')
     });
+
     socket.on('sendPrefsFromUserEdit', (prefs) => {
-      console.log('prefs', prefs)
       io.sockets.emit('updatePrefWebviewMount', prefs);
     });
     
