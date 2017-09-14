@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const siteSchema = mongoose.Schema({
   id: mongoose.Schema.Types.ObjectId,
+  updated: { type: Date, default: Date.now },
   userId: String,
   html: String,
   screenshot: String,

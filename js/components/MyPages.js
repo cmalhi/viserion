@@ -4,7 +4,8 @@ import { View, Text, ScrollView, TouchableHighlight, TouchableOpacity, StyleShee
 import { Entypo } from '@expo/vector-icons';
 import axios from 'axios';
 import styles from '../styles';
-import { updatePrefs, editSite } from '../actions/index';
+import { updatePrefs } from '../actions/index';
+import { editSite } from '../actions/siteActions';
 
 class MyPages extends React.Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class MyPages extends React.Component {
       .then(userId => {
         // TODO: remove hard coded user ID
         // userId = 'test';
+        console.log('userid found', userId);
         axios.get(`${global.HOST}/sites/all/${userId}`)
           .then((res) => {
             this.setState({ sites: res.data, userId });
@@ -52,6 +54,7 @@ class MyPages extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
+    if (!this.state.userId) return <Text>Sign in</Text>
     if (!this.state.sites.length) return <Text>Loading...</Text>
     return(
       <View style={styles.basicContainer}>

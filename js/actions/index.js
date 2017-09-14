@@ -3,6 +3,7 @@ import axios from 'axios';
 import componentMap from '../componentMap';
 import { AsyncStorage } from 'react-native';
 import prefToReactify from '../../app/utils/prefToReactify';
+import { selectSite } from './siteActions';
 
 var id = 1;
 
@@ -43,26 +44,6 @@ export function addTitle(title) {
   return {
     type: 'ADD_TITLE',
     payload: title,
-  }
-}
-
-// Creates entry in database for a new site, preferences, and html
-export const selectSite = (preferences) => (dispatch, getState) => {
-  const html = prefToReactify(preferences);
-  axios.post(`${global.HOST}/sites`, {
-    preferences,
-    html })
-    .then(response => {
-      const siteId = response.data;
-      dispatch({type:'SELECT_SITE', payload: siteId});
-    })
-    .catch(err => console.log('Error saving site', err));
-}
-
-export function editSite(siteId) {
-  return {
-    type: 'EDIT_SITE',
-    payload: siteId,
   }
 }
 
@@ -152,17 +133,6 @@ export const savePreferences = () => (dispatch, getState) => {
     })
   dispatch({ type:'SAVE_PREFERENCES', payload: preferences })
 }
-
-export const updateSite = () => (dispatch, getState) => {
-  const { preferences, siteId } = getState();
-  axios.put(`${global.HOST}/sites/${siteId}`, {
-    preferences,
-  })
-    .then(site => {
-      console.log('New site updated', site);
-    })
-    .catch(err => console.log('Error saving site preferences: ', err));
-};
 
 export const assignUser = () => (dispatch, getState) => {
   const { siteId } = getState();

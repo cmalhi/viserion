@@ -9,9 +9,9 @@ import AddPageModal from './modals/AddComponentModal';
 import PricingListModal from './modals/PricingListModal';
 import ListModal from './modals/ListModal';
 import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { updateSite, assignUser } from '../actions/index';
+import { assignUser } from '../actions/index';
+import { updateSite } from '../actions/siteActions';
 import styles from '../styles'
 import { Ionicons } from '@expo/vector-icons';
 const io = require('socket.io-client');
