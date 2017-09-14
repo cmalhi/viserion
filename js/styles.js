@@ -228,4 +228,21 @@ export default styles = StyleSheet.create({
 //     alignItems: 'center',
 //     backgroundColor: 'rgba(0,0,0,0)',
 //   }
+  // ImageSearch
+  scrollGrid: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+    content: {
+    paddingVertical: 20,
+  },
+  pic: {
+    backgroundColor: '#CCC',
+    margin: 10,
+    width: 80,
+    height: 80
+  },
 });
