@@ -49,6 +49,7 @@ class ColorModal extends React.Component {
     const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
     // socket.emit('colorChange2', this.state.color);
+    var value;
     if(this.state.type === 'gradient'){
       var value = this.state.gradient;
     } else {
@@ -82,7 +83,7 @@ class ColorModal extends React.Component {
           <Button onPress={this.closeAndUpdate} title="Enter" />
         </View>
       </Animated.View>
-    )
+    );
   }
 }
 
@@ -97,7 +98,7 @@ export const styles = StyleSheet.create({
   },
   webView: {
     padding: 10,
-    width: '100%'
+    width: '100%',
   },
   modal: {
     backgroundColor: 'rgba(0,0,0,.3)',
@@ -109,7 +110,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
   },
-  innerModal:{
+  innerModal: {
     width: 300,
     backgroundColor: '#fff',
     padding: 10,
@@ -117,7 +118,7 @@ export const styles = StyleSheet.create({
     top: '5%',
     borderRadius: 10,
   },
-  bigText:{
+  bigText: {
     fontSize: 20,
   },
 });
