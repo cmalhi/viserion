@@ -135,7 +135,6 @@ export default styles = StyleSheet.create({
     width: (Dimensions.get('window').width / 3) - 20,
     borderRadius: 200,
     margin: 5,
-
   },
 
   // Buttons
@@ -212,15 +211,16 @@ export default styles = StyleSheet.create({
     height: 35,
     width: 200,
     borderRadius: 2,
-    backgroundColor: 'rgba(225,225,225,0.2)',
+    backgroundColor: 'rgba(225,225,225,0.1)',
     marginVertical: 5,
     color: '#000',
+    paddingLeft: 5,
   },
 
   center: {
     alignSelf: 'center',
   },
-  
+
 //  Swiper
 //   slides: {
 //     flex: 1,

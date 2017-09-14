@@ -50,6 +50,7 @@ class ColorModal extends React.Component {
     const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
     // socket.emit('colorChange2', this.state.color);
+    var value;
     if(this.state.type === 'gradient'){
       var value = this.state.gradient;
     } else {
@@ -91,46 +92,9 @@ class ColorModal extends React.Component {
           </View>
         </View>
       </Animated.View>
-    )
+    );
   }
 }
-  //<Button onPress={this.closeAndUpdate} title="Enter" />
-
-// export const styles = StyleSheet.create({
-//   form: {
-//     padding: 10,
-//     borderColor: '#eee',
-//     borderWidth: 1,
-//   },
-//   flexContainer: {
-//     flex: 1,
-//   },
-//   webView: {
-//     padding: 10,
-//     width: '100%'
-//   },
-//   modal: {
-//     backgroundColor: 'rgba(0,0,0,.3)',
-//     position: 'absolute',
-//     top: 0,
-//     right: 0,
-//     bottom: 0,
-//     left: 0,
-//     width: '100%',
-//     alignItems: 'center',
-//   },
-//   innerModal:{
-//     width: 300,
-//     backgroundColor: '#fff',
-//     padding: 10,
-//     // position: 'relative',
-//     top: '5%',
-//     borderRadius: 10,
-//   },
-//   bigText:{
-//     fontSize: 20,
-//   },
-// });
 
 function mapStateToProps({ preferences }) {
   return { preferences };

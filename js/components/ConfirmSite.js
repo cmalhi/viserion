@@ -22,7 +22,7 @@ class ConfirmSite extends React.Component {
     this.state = {
       index: 0,
       preferencesAll: this.props.preferencesAll,
-    }
+    };
     this.handlePress = this.handlePress.bind(this);
     this.updateIndex = this.updateIndex.bind(this);
   }
@@ -32,7 +32,7 @@ class ConfirmSite extends React.Component {
     this.props.selectPreferences(index);
     navigate('UserEdit');
   }
- 
+
   renderViews() {
     return this.props.preferencesAll.map((preference, index) => {
       const html = prefToReactify(preference);
@@ -46,10 +46,9 @@ class ConfirmSite extends React.Component {
               source={{ html: html }}>
             </WebView>
           </View>
-
         </View>
-      )
-    })
+      );
+    });
   }
 
   updateIndex(index) {
