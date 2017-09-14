@@ -57,7 +57,9 @@ class UserEdit extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({order: this.props.order});
+    this.setState({order: this.props.order}, ()=>{
+      console.log('component did mount user edit', this.props.order)
+    });
 
     const socket = io(global.HOST, { transports: ['websocket'] });
 
@@ -112,8 +114,8 @@ class UserEdit extends React.Component {
     return (
       <View style={styles.basicContainer}>
         <View style={styles.basicContainer}>
-          {<WebView style={styles.screenWidth} source={{uri: `${global.HOST}/webpages/add.html`}} />}
-          {/*<WebView style={styles.screenWidth} source={{uri: `${global.HOST}/${this.props.siteId}`}} />*/}
+          {/*<WebView style={styles.screenWidth} source={{uri: `${global.HOST}/webpages/add.html`}} />*/}
+          <WebView style={styles.screenWidth} source={{uri: `${global.HOST}/${this.props.siteId}`}} />
           { this.state.shortTextModal ?
             <ShortTextModal
               data={this.state.shortTextData}

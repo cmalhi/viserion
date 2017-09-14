@@ -27,9 +27,9 @@ import Prescreen from './Prescreen';
 export default RootNavigator = StackNavigator(
   {
     // Index: { screen: MainTabNavigator },
-    // Index: { screen: HomeScreen },
+    Index: { screen: HomeScreen },
     // Index: { screen: SignUp },
-    Index: { screen: UserEdit },
+    // Index: { screen: UserEdit },
     Prescreen: { screen: Prescreen },
     MainApp: { screen: MainTabNavigator },
     PresetPalettes: { screen: PresetPalettes },
