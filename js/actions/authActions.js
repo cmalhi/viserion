@@ -2,6 +2,7 @@ import firebase from '../../database/firebase';
 import { AsyncStorage } from 'react-native';
 import axios from 'axios';
 import { HOST } from '../../global.js';
+import { assignUser } from './index';
 
 function loginRequest() {
   return {
@@ -45,7 +46,9 @@ export function loginOrSignUpUser() {
         // Retrieve JWT token and set on AsyncStorage
         user.getIdToken()
           .then((tokenId) => {
-            AsyncStorage.multiSet([['username', user.email || user.displayName], ['token', tokenId], ['userId', user.uid]]);
+            AsyncStorage.multiSet([['username', user.email || user.displayName], ['token', tokenId], ['userId', user.uid]])
+              // When logging in or signing up, assign the currently edited site to the user
+              .then(success => assignUser());
           });
         dispatch(loginSuccess(user));
       } else {

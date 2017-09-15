@@ -7,7 +7,6 @@ export default styles = StyleSheet.create({
   },
   galleryContainer: {
     flex: 1,
-    alignItems: 'center',
     backgroundColor: '#060E22',
   },
   container: {
@@ -39,6 +38,14 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'stretch',
     backgroundColor: '#060E22',
+  },
+  headerContainerSmall: {
+    flex: 0.75,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    backgroundColor: '#060E22',
+    marginBottom: -15,
   },
   mainContainer: {
     flex: 2,

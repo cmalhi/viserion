@@ -138,7 +138,7 @@ export const assignUser = () => (dispatch, getState) => {
   const { siteId } = getState();
   AsyncStorage.getItem('userId')
     .then((userId) => {
-      axios.put(`${global.HOST}/sites/${siteId}`, {
+      (!!userId) && (!!siteId) && axios.put(`${global.HOST}/sites/${siteId}`, {
         userId,
       })
       .then (site => {
@@ -146,7 +146,6 @@ export const assignUser = () => (dispatch, getState) => {
       })
       .catch(err => console.log('Error saving site to user'));
     })
-    .catch(err => console.log('Error retieving user from AsyncStorage', err));
 };
 
 // Loads cached preferences from AsyncStorage if found

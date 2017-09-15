@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated, Dimensions, Image, Text, TouchableHighlight, TouchableOpacity, View, WebView, Button, StyleSheet, TextInput } from 'react-native';
+import { Animated, Dimensions, Image, Text, TouchableHighlight, TouchableOpacity, View, WebView, Button, StyleSheet, TextInput, AsyncStorage } from 'react-native';
 import ImageModal from './modals/ImageModal';
 import ShortTextModal from './modals/ShortTextModal';
 import LongTextModal from './modals/LongTextModal';
@@ -87,7 +87,7 @@ class UserEdit extends React.Component {
     });
 
     socket.on('launchListModal2', (data) => {
-      //TODO: get id
+      // TODO: get id
       this.setState({ listModal: true, listData: data, listId: data.key});
     });
 
@@ -105,8 +105,19 @@ class UserEdit extends React.Component {
   }
 
   handleSubmit() {
+    AsyncStorage.removeItem('userId');
+    const { navigate } = this.props.navigation;
     this.props.updateSite();
-    this.props.assignUser();
+    AsyncStorage.getItem('userId')
+      .then((userId) => {
+        if (userId) {
+          this.props.assignUser();
+          navigate('MainApp');
+        } else {
+          console.log('false');
+          navigate('LoginSignUpSplash');
+        }
+      });
   }
 
   render() {

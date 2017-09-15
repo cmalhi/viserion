@@ -38,7 +38,7 @@ class Gallery extends React.Component {
   renderSavedSites() {
     return this.state.sites.map(site => {
       return (
-        <View key={site._id} style={styles.galleryContainer}>
+        <View key={site._id} style={[styles.galleryContainer, styles.center]}>
           <TouchableOpacity onPress={this.handleSitePress.bind(this, site)}>
               <WebView style={{marginBottom: 20, width: Dimensions.get('window').width - 50, height: Dimensions.get('window').height - 130}}
                 automaticallyAdjustContentInsets={false}
@@ -55,7 +55,7 @@ class Gallery extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return(
-      <View style={styles.basicContainer}>
+      <View style={styles.galleryContainer}>
         {this.state.sites.length ? (<ScrollView contentContainerStyle={styles.content}>
           {this.renderSavedSites()}
         </ScrollView>) : <Loading />}
