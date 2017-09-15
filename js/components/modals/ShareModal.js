@@ -16,12 +16,14 @@ class ShareModal extends React.Component {
     this.state = {
       offset: new Animated.Value(deviceHeight),
       shortName: null,
+      urlEnding: null,
     };
     this.siteUrl = `${global.HOST}/${this.props.siteId}`;
     this.closeModal = this.closeModal.bind(this);
     this._setClipboardContent = this._setClipboardContent.bind(this);
     this._handleLinkPress = this._handleLinkPress.bind(this);
     this.share = this.share.bind(this);
+    this.changeShortName = this.changeShortName.bind(this);
   }
 
   componentDidMount() {
@@ -29,6 +31,14 @@ class ShareModal extends React.Component {
       duration: 300,
       toValue: 0
     }).start();
+
+    // TODO: Check if this.props.siteId is in the database
+    // if so, this.setState({ urlEnding: '' })
+  }
+
+  changeShortName() {
+    // TODO: Make an axios request to POST /url-shortener
+    // this.props.siteId, shortName
   }
 
   async _setClipboardContent() {
@@ -57,23 +67,36 @@ class ShareModal extends React.Component {
   render() {
     return (
       <Animated.View style={[styles.modalBottom, {transform: [{translateY: this.state.offset}]}]}>
-        <View style={[
-          styles.innerModalBottom,
-          {
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingVertical: 25
-          }
-          ] }>
-          <Text style={[styles.text, {fontSize: 20, fontFamily: 'Avenir-Heavy'}]}>
+        <View style={[styles.innerModalBottom, { paddingVertical: 15, paddingHorizontal: 15 }]}>
+          <Text style={[styles.text, {fontSize: 20, fontFamily: 'Avenir-Heavy'}, styles.center]}>
             View your website
           </Text>
-          <TouchableOpacity onPress={() => this._handleLinkPress(this.siteUrl)}>
-            <Text style={[styles.text, {fontSize: 15}]}>{this.siteUrl}</Text>
+          <TouchableOpacity
+            onPress={() => this._handleLinkPress(this.siteUrl)}
+            style={styles.center}>
+            <Text style={[styles.text, {fontSize: 12}]}>{this.siteUrl}</Text>
           </TouchableOpacity>
-          <TextInput
-            onChangeText={(shortName) => this.setState({shortName})} />
-
+          {/*<View style={{ flexDirection: 'row', paddingTop: 10, }}>*/}
+            {/*<View style={{flex: 2.7}}>*/}
+              {/*<TextInput*/}
+                {/*onChangeText={(shortName) => this.setState({shortName})}*/}
+                {/*style={[styles.text, {height: 40, borderColor: '#617192', borderWidth: 1, paddingHorizontal: 10}]}*/}
+                {/*placeholder="Or simplify with a short name"*/}
+              {/*/>*/}
+            {/*</View>*/}
+            {/*<View style={{flex: 1, justifyContent: 'center', paddingHorizontal: 10}}>*/}
+              {/*<TouchableHighlight*/}
+                {/*onPress={() => console.log('make a call to db!')}*/}
+                {/*style={{*/}
+                  {/*backgroundColor: '#222A3B',*/}
+                  {/*borderRadius: 15,*/}
+                  {/*width: 100,*/}
+                  {/*height: 40,*/}
+                {/*}} >*/}
+                {/*<Text style={[ styles.text, { padding: 10, color: '#fff', alignSelf: 'center' }]}>Change</Text>*/}
+              {/*</TouchableHighlight>*/}
+            {/*</View>*/}
+          {/*</View>*/}
 
         </View>
         <View style={[styles.innerModalBottom, {

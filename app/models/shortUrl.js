@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const shortUrlSchema = mongoose.Schema({
-  siteId: String,
-  shortName: String,
+  siteId: { type: String, unique: true },
+  shortName: { type: String, unique: true },
 });
 
 const ShortUrl = mongoose.model('ShortUrl', shortUrlSchema);
