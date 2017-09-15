@@ -1,6 +1,7 @@
 const Site = require('../models/site');
 const User = require('../models/user');
 const prefToReactify = require('../utils/prefToReactify');
+const Screenshot = require('url-to-screenshot');
 
 exports.addOne = function(req, res) {
   const { userId, html, preferences } = req.body;
@@ -52,9 +53,23 @@ exports.updateOne = function(req, res) {
     const html = prefToReactify(preferences);
     update['preferences'] = preferences;
     update['html'] = html;
+
+    /* SCREENSHOT MAKER */
+    var url = `http://spindleapp.com/id/${siteId}`;
+    new Screenshot(url)
+      .width(1080)
+      .height(1920)
+      .clip()
+      .capture()
+      .then(img => {
+        console.log('img created: ', img);
+        // Upload to AWS
+
+        // Put into database
+      })
+      .catch(err => console.log('Err generating snapshot: ', err));
   }
   if (userId) {
-    console.log('user being updated', userId);
     update['userId'] = userId;
     const userUpdate = { $push: { 'savedSites': siteId } };
     User.findOneAndUpdate({"userId": userId}, userUpdate, { new: true })
