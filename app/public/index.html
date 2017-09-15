@@ -342,7 +342,7 @@
     constructor(props) {
       super(props);
       this.state = {
-        rawPreferences: [{"attr":{"subTitle":"","mainTitle":"Spindle","color":{"color2":"#FF4081","color1":"#F44336"}},"componentName":"GradientHero","nickName":"My GradientHero","id":"id4"},{"attr":{"body3":"","subtitle3":"","body2":"Or type exp://exp.host/@adrienne/viserion inside of Expo","subtitle2":"","body1":"Scan the QR code in the Expo app from the App Store.","subtitle1":"Make your website now","mainTitle":"Share a webpage in minutes.","imageUrl":"/assets/images/qr.png"},"componentName":"ImageContent","nickName":"My ImageContent","id":"id6"},{"attr":{"text":"Made with SpindleApp","bgColor":"#eee"},"componentName":"Footer","nickName":"My Footer","id":"id5"}],
+        rawPreferences: [{"attr":{"subTitle":"","mainTitle":"Spindle","color":{"color2":"#FF4081","color1":"#F44336"}},"componentName":"GradientHero","nickName":"My GradientHero","id":"id4"},{"attr":{"body3":"","subtitle3":"","body2":"","subtitle2":"","body1":"Scan the QR code in the Expo app from the App Store.","subtitle1":"Make your website now","mainTitle":"Share a webpage in minutes.","imageUrl":"/assets/images/qr.png"},"componentName":"ImageContent","nickName":"My ImageContent","id":"id6"},{"attr":{"text":"Made with SpindleApp","bgColor":"#eee"},"componentName":"Footer","nickName":"My Footer","id":"id5"}],
         sitePreferences: [{
           id: 'hero24',
           nickName: 'My Hero',
@@ -353,15 +353,6 @@
           },
         },
           {
-            id: 'ticker2',
-            nickName: 'My Ticker',
-            componentName: <Ticker />,
-            attr: {
-              bgColor: 'defaultColor',
-              title: 'Adrienne Tran, Matthew Go, Chet Malhi, Ed Sweezey',
-            }
-          }
-          ,{
             id: 'footer12',
             nickName: 'My Footer',
             componentName: <Footer />,
@@ -626,9 +617,15 @@
                   <h3><EditableShortText value={this.state.subtitle1} id={this.state.id} path={this._path3}/></h3>
                   <EditableLongText body={this.state.body1} id={this.state.id} path={this._path4}/>
                 </p>
+                {/*<p>
+                  Or go to <a href="exp://exp.host/@adrienne/viserion">exp://exp.host/@adrienne/viserion</a>.
+                </p>*/}
                 <p>
                   <h3><EditableShortText value={this.state.subtitle2} id={this.state.id} path={this._path5}/></h3>
                   <EditableLongText body={this.state.body2} id={this.state.id} path={this._path6}/>
+                  <a href="https://itunes.apple.com/app/apple-store/id982107779?ct=www&mt=8">
+                    <img src="https://d30j33t1r58ioz.cloudfront.net/static/download-apple.png?fce4897ffcdd2449a3ddd3252306014c" width="136px" height="40px" />
+                  </a>
                 </p>
                 <p>
                   <h3><EditableShortText value={this.state.subtitle3} id={this.state.id} path={this._path7}/></h3>

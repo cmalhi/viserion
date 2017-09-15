@@ -45,9 +45,10 @@ class AddComponentModal extends React.Component {
   mapEach() {
     var result = [];
     for (var key in componentMap) {
+      // Turn "GradientHero" into "Gradient Hero"
       let mapped = key.split(/(?=[A-Z])/).join(" ");
-      //push the image url in here too
-      result.push({ attr: componentMap[key], displayName: mapped, img: tempURL });
+      const { imgUrl } = componentMap[key];
+      result.push({ attr: componentMap[key], displayName: mapped, img: require(imgUrl) });
     }
     this.setState({ compList: result });
   }
@@ -63,7 +64,6 @@ class AddComponentModal extends React.Component {
     this.closeModal();
     const socket = io(global.HOST, { transports: ['websocket'] });
     newComponent.id = this.newId();
-    console.log('handle add siteID', this.props.siteId);
     socket.emit('addPref', { room: this.props.siteId, newComponent: newComponent } );
   }
 
@@ -82,14 +82,14 @@ class AddComponentModal extends React.Component {
                 <Text
                   onPress={this.handleAdd.bind(this, comp.attr)}
                   style={styles.bigText}>{comp.displayName}</Text>
-                {/*<TouchableOpacity*/}
-                  {/*onPress={this.handleAdd.bind(this, comp.attr)}*/}
-                {/*>*/}
-                  {/*<Image*/}
-                    {/*style={{ width: 194, height: 120 }}*/}
-                    {/*source={comp.img}*/}
-                  {/*/>*/}
-                {/*</TouchableOpacity>*/}
+                <TouchableOpacity
+                  onPress={this.handleAdd.bind(this, comp.attr)}
+                >
+                  {comp.img ? <Image
+                    style={{ width: 194, height: 120 }}
+                    source={comp.img}
+                  /> : null}
+                </TouchableOpacity>
               </View>)
             }
           </ScrollView>

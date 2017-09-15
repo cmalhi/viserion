@@ -10,6 +10,7 @@ const componentMap = {
       title: 'Title',
       textColor: '#7BDBD5',
     },
+    imgUrl: '../../../images/components/text_image.png',
   },
   GradientHero: {
     id: 'notSet',
