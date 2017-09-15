@@ -17,7 +17,7 @@ class ShareModal extends React.Component {
     this.state = {
       offset: new Animated.Value(deviceHeight),
       shortName: null,
-      siteUrl: `${global.HOST}/id/${this.props.siteId}`,
+      siteUrl: `${global.HOST.split(':8080')[0]}/id/${this.props.siteId}`,
       shortName: null,
       duplicate: false,
     };
@@ -40,7 +40,7 @@ class ShareModal extends React.Component {
       .then((res) => {
         var shortName = res.data;
         this.setState({
-          siteUrl: `${global.HOST}/pages/${shortName}`,
+          siteUrl: `${global.HOST.split(':8080')[0]}/pages/${shortName}`,
           shortName: shortName,
         });
       })
@@ -63,7 +63,7 @@ class ShareModal extends React.Component {
           if (res.data.success) {
             self.setState({
               duplicate: false,
-              siteUrl: `${global.HOST}/pages/${res.data.doc.shortName}`
+              siteUrl: `${global.HOST.split(':8080')[0]}/pages/${res.data.doc.shortName}`
             })
           }
         }
