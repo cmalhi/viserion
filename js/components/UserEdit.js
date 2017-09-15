@@ -26,26 +26,26 @@ class UserEdit extends React.Component {
     super(props);
     this.state = {
       shareModal: false,
-      shortTextModal: true,
-      shortTextValue: '',
-      imageModal: false,
+      shortTextModal: false,
+      imageModal: true,
       colorModal: false,
+      pricingListModal: false,
+      orderModal: false,
+      addPageModal: false,
+      listModal: false,
+      
       imageId: null,
       shortTextId: null,
       longTextId: null,
-      longTextValue: '',
-      pricingListModal: false,
-      pricingDetails: [],
       pricingListId: '',
       listId: '',
 
       order: [],
       html: '',
       componentOrder: '',
-
-      orderModal: false,
-      addPageModal: false,
-      listModal: false,
+      shortTextValue: '',
+      longTextValue: '',
+      pricingDetails: [],
 
       shortTextData: null,
       colorData: null,
