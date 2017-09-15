@@ -19,7 +19,7 @@ class GalleryViewer extends React.Component {
     if (!!this.props.siteId) {
       return(
         <View style={styles.basicContainer}>
-          <WebView style={styles.screenWidth} source={{uri: `${global.HOST}/${this.props.siteId}`}} />
+          <WebView style={styles.screenWidth} source={{uri: `${global.HOST}/id/${this.props.siteId}`}} />
         </View>
       );
     } else {

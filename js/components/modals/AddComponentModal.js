@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { appendPrefs } from '../../actions/index';
 import componentMap from '../../componentMap';
 const io = require('socket.io-client');
-const tempURL = require('../../../images/components/text_image.png');
+// const tempURL = require('../../../images/components/text_image.png');
 
 var {
   width: deviceWidth
@@ -13,7 +13,7 @@ var {
 
 var id = 0;
 
-class AddPageModal extends React.Component {
+class AddComponentModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,6 +24,17 @@ class AddPageModal extends React.Component {
     this.handleAdd = this.handleAdd.bind(this);
     this.mapEach = this.mapEach.bind(this);
     this.newId = this.newId.bind(this);
+
+    this.images = {
+      ImageContent: require('../../../images/components/ImageContent.png'),
+      TextContent: require('../../../images/components/TextContent.png'),
+      PinterestText: require('../../../images/components/PinterestText.png'),
+      PinterestContent: require('../../../images/components/PinterestContent.png'),
+      Hero: require('../../../images/components/Hero.png'),
+      GradientHero: require('../../../images/components/GradientHero.png'),
+      Footer: require('../../../images/components/Footer.png'),
+      ImageCaption: require('../../../images/components/ImageCaption.png'),
+    }
   }
 
   componentWillMount() {
@@ -45,9 +56,13 @@ class AddPageModal extends React.Component {
   mapEach() {
     var result = [];
     for (var key in componentMap) {
+      // Turn "GradientHero" into "Gradient Hero"
       let mapped = key.split(/(?=[A-Z])/).join(" ");
-      //push the image url in here too
-      result.push({ attr: componentMap[key], displayName: mapped, img: tempURL });
+      // const { img } = componentMap[key];
+      // console.log('img', img)
+      // const imgUrl = img;
+      // result.push({ attr: componentMap[key], displayName: mapped, img: this.images[key] });
+      result.push({ attr: componentMap[key], displayName: mapped, img: false });
     }
     this.setState({ compList: result });
   }
@@ -63,7 +78,6 @@ class AddPageModal extends React.Component {
     this.closeModal();
     const socket = io(global.HOST, { transports: ['websocket'] });
     newComponent.id = this.newId();
-    console.log('handle add siteID', this.props.siteId);
     socket.emit('addPref', { room: this.props.siteId, newComponent: newComponent } );
   }
 
@@ -72,7 +86,7 @@ class AddPageModal extends React.Component {
       <Animated.View
         style={[styles.modal, { transform: [{ translateX: this.state.offset }] }]}
       >
-        <View style={styles.innerModal}>
+        <View style={[styles.innerModal, {height: 500}]}>
           <TouchableOpacity onPress={this.closeModal}>
             <Text style={styles.center}>Close Menu</Text>
           </TouchableOpacity>
@@ -82,14 +96,14 @@ class AddPageModal extends React.Component {
                 <Text
                   onPress={this.handleAdd.bind(this, comp.attr)}
                   style={styles.bigText}>{comp.displayName}</Text>
-                {/*<TouchableOpacity*/}
-                  {/*onPress={this.handleAdd.bind(this, comp.attr)}*/}
-                {/*>*/}
-                  {/*<Image*/}
-                    {/*style={{ width: 194, height: 120 }}*/}
-                    {/*source={comp.img}*/}
-                  {/*/>*/}
-                {/*</TouchableOpacity>*/}
+                <TouchableOpacity
+                  onPress={this.handleAdd.bind(this, comp.attr)}
+                >
+                  {comp.img ? <Image
+                    style={{ width: 194, height: 120 }}
+                    source={comp.img}
+                  /> : null}
+                </TouchableOpacity>
               </View>)
             }
           </ScrollView>
@@ -147,4 +161,4 @@ const matchDispatchToProps = (dispatch) => {
   return bindActionCreators({appendPrefs}, dispatch)
 };
 
-export default connect(mapStateToProps, matchDispatchToProps)(AddPageModal);
+export default connect(mapStateToProps, matchDispatchToProps)(AddComponentModal);

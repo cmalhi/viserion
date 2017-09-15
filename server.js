@@ -17,8 +17,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Routes
 app.use('/', routes);
 app.use('/webpages', express.static(path.join(__dirname, '/app/webpages')));
+app.use('/public', express.static(path.join(__dirname, '/app/public')));
 app.use(express.static(path.join(__dirname, '/app/public')));
 
 app.get('/', (req, res) => {
-  res.send('Connected!');
+  res.send(path.join(__dirname, '/app/public/index.html'));
 });

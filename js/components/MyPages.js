@@ -61,11 +61,11 @@ class MyPages extends React.Component {
       return (
         <View key={site._id} style={[styles.galleryContainer, styles.center]}>
           <TouchableOpacity onPress={this.handleSitePress.bind(this, site)}>
-            <WebView style={{marginBottom: 20, width: Dimensions.get('window').width - 50, height: Dimensions.get('window').height - 130}}
-              automaticallyAdjustContentInsets={false}
-              scrollEnabled={false}
-              scalesPageToFit={true}
-              source={{ uri: 'http://localhost:8080/'+site._id }}>
+              <WebView style={{marginBottom: 20, width: Dimensions.get('window').width - 50, height: Dimensions.get('window').height - 130}}
+                automaticallyAdjustContentInsets={false}
+                scrollEnabled={false}
+                scalesPageToFit={true}
+                source={{ uri: `${global.HOST}/id/${site._id}` }}>
             </WebView>
           </TouchableOpacity>
         </View>
