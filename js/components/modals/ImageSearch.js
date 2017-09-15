@@ -61,12 +61,12 @@ class ImageSearch extends React.Component {
             underlayColor='#1D59BF'
             onPress={this.searchForImages}
           >
-            <Text style={ [styles.buttonText, { color: '#eee', }] }>Search</Text>
+            <Text style={ [styles.buttonText, { color: '#eee'}] }>Search</Text>
           </TouchableHighlight>
         </View>
         <View style={{height: Dimensions.get('window').height * 0.45}}>
           <ScrollView>
-            <View style={styles.scrollGrid} >
+            <View style={[styles.scrollGrid, {marginTop: '5%'}]} >
               {this.state.images}
             </View>
           </ScrollView>
