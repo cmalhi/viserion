@@ -37,10 +37,6 @@ class AddComponentModal extends React.Component {
     }
   }
 
-  getImage(num) {
-    return this.images[num];
-  }
-
   componentWillMount() {
     this.mapEach();
   }
@@ -65,7 +61,8 @@ class AddComponentModal extends React.Component {
       // const { img } = componentMap[key];
       // console.log('img', img)
       // const imgUrl = img;
-      result.push({ attr: componentMap[key], displayName: mapped, img: this.images[key] });
+      // result.push({ attr: componentMap[key], displayName: mapped, img: this.images[key] });
+      result.push({ attr: componentMap[key], displayName: mapped, img: false });
     }
     this.setState({ compList: result });
   }
