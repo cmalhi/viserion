@@ -49,16 +49,15 @@ class ColorModal extends React.Component {
     const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
     // socket.emit('colorChange2', this.state.color);
-    console.log('the gradient is ', this.state.gradient)
-    console.log('the data is ', this.props.data)
+    var value;
     if(this.state.type === 'gradient'){
       var value = this.state.gradient;
     } else {
       var value = this.state.color;
     }
-    var { id, path } = this.props.data;
+    var { id, path, room } = this.props.data;
     var newPref = updateComponent(this.props.preferences, id, path, value);
-    socket.emit('updatePref', newPref)
+    socket.emit('updatePref', {room: room, newPref: newPref})
   }
 
   setColor(color) {
@@ -84,7 +83,7 @@ class ColorModal extends React.Component {
           <Button onPress={this.closeAndUpdate} title="Enter" />
         </View>
       </Animated.View>
-    )
+    );
   }
 }
 
@@ -99,7 +98,7 @@ export const styles = StyleSheet.create({
   },
   webView: {
     padding: 10,
-    width: '100%'
+    width: '100%',
   },
   modal: {
     backgroundColor: 'rgba(0,0,0,.3)',
@@ -111,7 +110,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
   },
-  innerModal:{
+  innerModal: {
     width: 300,
     backgroundColor: '#fff',
     padding: 10,
@@ -119,7 +118,7 @@ export const styles = StyleSheet.create({
     top: '5%',
     borderRadius: 10,
   },
-  bigText:{
+  bigText: {
     fontSize: 20,
   },
 });

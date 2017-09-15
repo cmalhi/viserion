@@ -13,7 +13,7 @@ class ChooseLayout extends React.Component {
     this.state = {
       // Stub layout data
       layoutsData: layoutsData,
-      currentLayout: {'layouts':[]},
+      currentLayout: {'layouts':['PinterestContent']},
       chosenLayouts: {
       },
       selectedLayouts: 0,
@@ -21,11 +21,6 @@ class ChooseLayout extends React.Component {
     this.handleLayoutPress = this.handleLayoutPress.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRightSwipe = this.handleRightSwipe.bind(this);
-  }
-
-  componentDidMount() {
-    AsyncStorage.getItem('userId')
-      .then(username => console.log(username));
   }
 
   handleLayoutPress(layout, index) {
@@ -59,7 +54,6 @@ class ChooseLayout extends React.Component {
     navigate('PresetPalettes');
     // navigate('ThreeColorPicker');
     const layouts = this.calculatePreferredLayouts();
-    console.log('layouts>>>>>>>>', layouts);
     this.props.addLayouts(layouts);
   }
 
@@ -81,7 +75,7 @@ class ChooseLayout extends React.Component {
             onSwipeLeft={this.handleRightSwipe}
             renderEmpty={() =>
               <View style={{ alignSelf: "center" }}>
-                <Text style={styles.title}>That's all!</Text>
+                <Text style={[styles.title, styles.text]}>That's all!</Text>
               </View>}
             renderItem={(layout) =>
               <LayoutItem

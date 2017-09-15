@@ -23,7 +23,7 @@ exports.addOne = function(req, res) {
 exports.retrieveUserAll = function(req, res) {
   const userId = req.params.userid;
   Site.find({userId})
-    .exec()
+    .sort({updated: -1})
     .then((sites) => res.send(sites))
     .catch(err => res.status(500).send({ success: false, error: 'Error retrieving sites ' + err}));
 };
@@ -54,12 +54,13 @@ exports.updateOne = function(req, res) {
     update['html'] = html;
   }
   if (userId) {
-    console.log("update with user id", userId);
+    console.log('user being updated', userId);
     update['userId'] = userId;
     const userUpdate = { $push: { 'savedSites': siteId } };
     User.findOneAndUpdate({"userId": userId}, userUpdate, { new: true })
+      .then(user => console.log(`${user} updated`));
   }
-  console.log('update to update >>>>>', update, siteId);
+  // console.log('update to update >>>>>', update, siteId);
   Site.findOneAndUpdate( {_id: siteId }, update, function(err, site) {
     if (err || !site) return res.status(500).send({ success: false, error: 'Error updating site with id ' + req.params.siteid });
     // console.log('user added to a site', site);

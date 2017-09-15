@@ -51,10 +51,9 @@ class OrderModal extends React.Component {
 
   componentWillMount() {
     // TODO: make a GET request to sitePreferences
-
-    // let components = this.props.preferences;
-    // const sequencedData = toSequencedData(components);
-    // this.setState({ sequencedData });
+    let components = this.props.preferences;
+    const sequencedData = this.toSequencedData(components);
+    this.setState({ sequencedData });
   }
 
   componentDidMount() {
@@ -108,7 +107,7 @@ class OrderModal extends React.Component {
   handleUpdate() {
     const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
-    socket.emit('updatePref', this.state.sitePreferences);
+    socket.emit('updatePref', {room: this.props.siteId, newPref: this.state.sitePreferences});
   }
 
   handleDelete(id) {
@@ -119,7 +118,7 @@ class OrderModal extends React.Component {
       sitePreferences: newSitePreferences,
       sequencedData: this.toSequencedData(newSitePreferences)
     });
-    socket.emit('updatePref', newSitePreferences);
+    socket.emit('updatePref', {room: this.props.siteId, newPref: newSitePreferences});
   }
 
   render() {
@@ -181,8 +180,8 @@ export const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps({ preferences }) {
-  return { preferences };
+function mapStateToProps({ preferences, siteId }) {
+  return { preferences, siteId };
 }
 
 const mapDispatchToProps = (dispatch) => {

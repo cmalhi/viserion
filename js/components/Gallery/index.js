@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { View, Text, ScrollView, TouchableHighlight, TouchableOpacity, StyleSheet, AsyncStorage } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import axios from 'axios';
-import styles from '../styles';
-import { updatePrefs, editSite } from '../actions/index';
+import styles from '../../styles';
+import { updatePrefs } from '../../actions/index';
+import { editSite } from '../../actions/siteActions';
 
 class Gallery extends React.Component {
   constructor(props) {
@@ -13,21 +14,21 @@ class Gallery extends React.Component {
       sites: [],
       userId: '',
     };
-    this.handleLinkPress = this.handleLinkPress.bind(this);
+    this.handleSitePress = this.handleSitePress.bind(this);
   }
 
-  handleLinkPress(site) {
+  handleSitePress(site) {
     const { navigate } = this.props.navigation;
     this.props.updatePrefs(site.preferences);
     this.props.editSite(site._id);
-    navigate('UserEdit');
+    console.log('site pressed', site.preferences);
+    navigate('GalleryViewer');
   }
 
   componentDidMount() {
-    console.log('compo mounted')
     axios.get(`${global.HOST}/sites/all`)
       .then((res) => {
-        console.log('res data >>>>>'. res);
+        console.log('res data >>>>>', res);
         this.setState({ sites: res.data });
       })
       .catch((err) => console.log('Err getting /sites/ ', err));
@@ -37,7 +38,7 @@ class Gallery extends React.Component {
     return this.state.sites.map(site => {
       return (
         <View key={site._id} style={styles.itemsColumn}>
-          <TouchableOpacity onPress={this.handleLinkPress.bind(this, site)}>
+          <TouchableOpacity onPress={this.handleSitePress.bind(this, site)}>
             <View style={styles.boxItem}>
               <Text>{site._id}</Text>
             </View>
@@ -49,12 +50,11 @@ class Gallery extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    if (!this.state.sites.length) return <Text>Loading...</Text>
     return(
       <View style={styles.basicContainer}>
-        <ScrollView contentContainerStyle={styles.content}>
+        {this.state.sites.length ? (<ScrollView contentContainerStyle={styles.content}>
           {this.renderSavedSites()}
-        </ScrollView>
+        </ScrollView>) : <Text>Loading....</Text>}
         <View>
           <TouchableHighlight
             style={[styles.addButton, styles.buttonCentered]}

@@ -327,6 +327,11 @@ bigger {
 
 <script type="text/babel">
   const socket = io('http://127.0.0.1:8080');
+  var room;
+  if (location) {
+    //alert(location.href.split('/')[3])
+    room = location.href.split('/')[3];
+  }
 //  const socket = io('http://ec2-54-203-8-222.us-west-2.compute.amazonaws.com:8080');
   // ID generation
   let lastId = 0;
@@ -435,15 +440,20 @@ bigger {
     }
     componentWillMount() {
       // Web client listens to 'addPrefDomStore' event emitted when the user hits 'Submit'
-      socket.on('addPrefDomStore', (addition) => {
-        let newPref = this.state.sitePreferences;
-        newPref = [...newPref, this.toComponent(addition)];
-        this.setState({ sitePreferences: newPref });
+      socket.on('addPrefDom', (addition) => {
+        if (addition.room === room){
+          let newPref = this.state.sitePreferences;
+          newPref = [...newPref, this.toComponent(addition.newComponent)];
+          this.setState({ sitePreferences: newPref });
+        }
       });
 
-      socket.on('updatePrefDomStore', (newPrefs) => {
-        let newPrefsComp = this.toComponents(newPrefs);
-        this.setState({ sitePreferences: newPrefsComp});
+      socket.on('updatePrefDom', (newPrefs) => {
+        if (newPrefs.room === room){
+          console.log('newPrefs.newPref', newPrefs.newPref)
+          let newPrefsComp = this.toComponents(newPrefs.newPref);
+          this.setState({ sitePreferences: newPrefsComp});
+        }
       });
     }
     render() {
@@ -464,10 +474,12 @@ bigger {
       super(props);
       this.state = {
         bgColor: this.props.bgColor,
+        textColor: this.props.textColor,
         title: this.props.title,
         id: this.props.id,
         path1: ['attr', 'bgColor'],
         path2: ['attr', 'title'],
+        path3: ['attr', 'textColor'],
       };
       this.handleHeaderClick = this.handleHeaderClick.bind(this);
     }
@@ -476,6 +488,7 @@ bigger {
         bgColor: nextProps.bgColor,
         title: nextProps.title,
         id: nextProps.id,
+        textColor: nextProps.textColor,
       });
     }
     componentDidMount() {
@@ -484,9 +497,11 @@ bigger {
 //      })
     }
     handleHeaderClick() {
-      socket.emit('colorChange', { id: this.state.id, path: this.state.path1 });
+      // alert(room);
+      socket.emit('colorChange', { room: room, id: this.state.id, path: this.state.path1 });
     }
     render() {
+      console.log('header loaded')
       return (
         <div className="outer-wrap">
           <header
@@ -500,6 +515,8 @@ bigger {
                   value={this.state.title}
                   id={this.state.id}
                   path={this.state.path2}
+                  colorPath={this.state.path3}
+                  color={this.state.textColor}
                 />
               </span>
             </div>
@@ -533,7 +550,7 @@ bigger {
       });
     }
     handleHeaderClick() {
-      socket.emit('colorChange', { id: this.state.id, path: this.state.pathGradient, type: 'gradient' });
+      socket.emit('colorChange', { room: room, id: this.state.id, path: this.state.pathGradient, type: 'gradient' });
     }
     render() {
       return (
@@ -653,8 +670,10 @@ bigger {
 //      })
     }
     handleClick(e) {
+      e.stopPropagation();
+      console.log('clicked');
 //      socket.emit('launchLongTextModal', {key: this.state.key, textValue: this.state.body});
-      socket.emit('launchLongTextModal', { key: this.state.key, textValue: this.state.body, id: this.state.id, path: this.state.path });
+      socket.emit('launchLongTextModal', { room: room, key: this.state.key, textValue: this.state.body, id: this.state.id, path: this.state.path });
     }
     render() {
       return(
@@ -709,6 +728,7 @@ bigger {
         textValue: this.props.value,
         path: this.props.path,
         id: this.props.id,
+        colorPath: this.props.colorPath,
         key: newId(),
       };
       this.handleClick = this.handleClick.bind(this);
@@ -718,6 +738,7 @@ bigger {
         color: nextProps.color,
         textValue: nextProps.value,
         path: nextProps.path,
+        colorPath: nextProps.colorPath,
         id: nextProps.id,
       })
     }
@@ -728,7 +749,8 @@ bigger {
     }
     handleClick(e) {
       e.stopPropagation();
-      socket.emit('launchTitleModal', { key: this.state.key, textValue: this.state.textValue, id: this.state.id, path: this.state.path });
+      console.log('short text clicked!')
+      socket.emit('launchTitleModal', { room: room, key: this.state.key, textValue: this.state.textValue, id: this.state.id, path: this.state.path, color: this.state.color, colorPath: this.state.colorPath });
     }
     render() {
       return(
@@ -839,7 +861,7 @@ bigger {
       // });
     }
     handleClick() {
-      socket.emit('launchImageModal', {key: this.state.key, id: this.state.id, path: this.state.path});
+      socket.emit('launchImageModal', { room: room, key: this.state.key, id: this.state.id, path: this.state.path});
     }
     render() {
       return (
@@ -970,7 +992,7 @@ bigger {
 //      })
 //    }
     handleFooterClick() {
-      socket.emit('colorChange', { id: this.state.id, path: this.state.path2 });
+      socket.emit('colorChange', { room: room, id: this.state.id, path: this.state.path2 });
     }
     render() {
       return (

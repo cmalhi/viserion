@@ -1,7 +1,9 @@
-export default function (state = ['PinterestContent'], action) {
+export default function (state = ['PinterestContent', 'ImageCaption'], action) {
   switch (action.type) {
     case 'ADD_LAYOUTS':
-      return action.payload;
+      console.log('add layouts', action.payload);
+      const layouts = action.payload;
+      return layouts.length ? layouts : state;
     default:
       return state;
   }

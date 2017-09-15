@@ -33,12 +33,10 @@ function loginError(error) {
 }
 
 export function loginOrSignUpUser() {
-  console.log('loginuser');
   return dispatch => {
     dispatch(loginRequest())
     const user = firebase.auth().currentUser;
       if (user) {
-        console.log('user found >>>>>>>', user);
         axios.post(`${global.HOST}/signup`, {
           userId: user.uid
         })

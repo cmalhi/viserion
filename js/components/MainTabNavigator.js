@@ -5,7 +5,8 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
 import MyPages from './MyPages';
-import Gallery from './Gallery';
+import Gallery from './Gallery/index.js';
+import GalleryViewer from './Gallery/GalleryViewer';
 import { Ionicons } from '@expo/vector-icons';
 const io = require('socket.io-client');
 
@@ -30,6 +31,8 @@ export default TabNavigator(
           case 'My Sites':
             iconName = Platform.OS === 'ios' ? `ios-browsers${focused ? '' : '-outline'}` : 'md-browsers';
             break;
+            case 'GalleryViewer':
+            break
         }
         return (
           <Ionicons

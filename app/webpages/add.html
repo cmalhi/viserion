@@ -36,19 +36,33 @@
           nickName: 'My Hero',
           componentName: <Hero1 />,
           attr: {
-            bgColor: 'defaultColor',
+            bgColor: '#000000',
             title: 'Title',
+            textColor: '#7BDBD5'
           },
         },
-          {
-            id: 'footer12',
-            nickName: 'My Footer',
-            componentName: <Footer />,
-            attr: {
-              bgColor: 'defaultColor',
-              text: 'Footer',
-            }
-          }],
+        {
+          id: 'notSet',
+          nickName: 'My GradientHero',
+          componentName: <GradientHero />,
+          attr: {
+            color: {
+              color1: '#0cebeb',
+              color2: '#29ffc6',
+            },
+            mainTitle: 'Welcome',
+            subTitle: 'adjust your gradient',
+          },
+        },
+        {
+          id: 'footer12',
+          nickName: 'My Footer',
+          componentName: <Footer />,
+          attr: {
+            bgColor: '#FFFFFF',
+            text: 'Footer',
+          }
+        }],
       };
 
       this.map = this.map.bind(this);
@@ -155,6 +169,7 @@
       super(props);
       this.state = {
         bgColor: this.props.bgColor,
+        textColor: this.props.textColor,
         title: this.props.title,
         id: this.props.id,
         path1: ['attr', 'bgColor'],
@@ -165,6 +180,7 @@
     componentWillReceiveProps(nextProps) {
       this.setState({
         bgColor: nextProps.bgColor,
+        textColor: nextProps.textColor,
         title: nextProps.title,
         id: nextProps.id,
       });
@@ -191,6 +207,7 @@
                   value={this.state.title}
                   id={this.state.id}
                   path={this.state.path2}
+                  color={this.state.textColor}
                 />
               </span>
             </div>
@@ -419,7 +436,7 @@
     }
     handleClick(e) {
       e.stopPropagation();
-      socket.emit('launchTitleModal', { key: this.state.key, textValue: this.state.textValue, id: this.state.id, path: this.state.path });
+      socket.emit('launchTitleModal', { key: this.state.key, textValue: this.state.textValue, id: this.state.id, path: this.state.path, color: this.state.color });
     }
     render() {
       return(

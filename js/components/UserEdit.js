@@ -9,9 +9,9 @@ import AddPageModal from './modals/AddComponentModal';
 import PricingListModal from './modals/PricingListModal';
 import ListModal from './modals/ListModal';
 import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { updateSite, assignUser } from '../actions/index';
+import { assignUser } from '../actions/index';
+import { updateSite } from '../actions/siteActions';
 import styles from '../styles'
 import { Ionicons } from '@expo/vector-icons';
 const io = require('socket.io-client');
@@ -57,9 +57,7 @@ class UserEdit extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({order: this.props.order}, ()=>{
-      console.log('component did mount user edit', this.props.order)
-    });
+    this.setState({order: this.props.order});
 
     const socket = io(global.HOST, { transports: ['websocket'] });
 

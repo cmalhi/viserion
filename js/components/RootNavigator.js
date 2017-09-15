@@ -23,11 +23,13 @@ import MainTabNavigator from './MainTabNavigator';
 const io = require('socket.io-client');
 import PresetPalettes from './ColorPicker/ColorPalette';
 import Prescreen from './Prescreen';
+import GalleryViewer from './Gallery/GalleryViewer';
 
 export default RootNavigator = StackNavigator(
   {
-    // Index: { screen: ChooseLayout },
+    // Index: { screen: MainTabNavigator },
     Index: { screen: HomeScreen },
+    // Index: { screen: SignUp },
     Prescreen: { screen: Prescreen },
     MainApp: { screen: MainTabNavigator },
     PresetPalettes: { screen: PresetPalettes },
@@ -43,6 +45,7 @@ export default RootNavigator = StackNavigator(
     UserEdit: { screen: UserEdit },
     ColorPicker: { screen: ColorPicker },
     ColorModal: { screen: ColorModal },
+    GalleryViewer: { screen: GalleryViewer },
   },
   {
     navigationOptions: {
