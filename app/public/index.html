@@ -1,6 +1,4 @@
-module.exports = (rawPreferencesObj) => {
-  var rawPreferences = JSON.stringify(rawPreferencesObj);
-  return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -17,246 +15,246 @@ module.exports = (rawPreferencesObj) => {
 <!--<script src="http://spindleapp.com/socket.io/socket.io.js"></script>-->
 <!--<script src="http://ec2-54-203-8-222.us-west-2.compute.amazonaws.com:8080/socket.io/socket.io.js"></script>-->
 <style type="text/css">
-/*---------------
-      #Header
-  ---------------*/
+  /*---------------
+        #Header
+    ---------------*/
 
-.hero {
+  .hero {
     background: #ffd5c9;
-}
+  }
 
-.hero.hero-wrapper{
+  .hero.hero-wrapper{
     /*height: 80%;*/
     height: calc(100vh - 157px);
     display: flex;
     align-items: center;
     justify-content: center;
-}
+  }
 
-/*.content.hero2body {*/
-/*top: 145vh;*/
-/*}*/
+  /*.content.hero2body {*/
+  /*top: 145vh;*/
+  /*}*/
 
-.site-title {
+  .site-title {
     margin: 0 0 1em;
     padding: 1em 0;
     font-size: 2em;
     font-weight: 300;
     text-align: center;
     color: black;
-}
+  }
 
-@media screen and (min-width: 44.44em) {
+  @media screen and (min-width: 44.44em) {
     .site-title {
-        font-size: 2em;
+      font-size: 2em;
     }
-}
+  }
 
-@media screen and (min-width: 50em) {
+  @media screen and (min-width: 50em) {
     .site-title {
-        font-size: 2.5em;
+      font-size: 2.5em;
     }
-}
+  }
 
-.site-title a {
+  .site-title a {
     color: hsl(5, 45%, 95%);
     text-decoration: none;
-}
+  }
 
-.site-title a:hover {
+  .site-title a:hover {
     text-decoration: underline;
-}
+  }
 
-/*---------------
-    #Housekeeping
----------------*/
-/* CSS Reset to correct browser inconsistencies */
-* {
+  /*---------------
+      #Housekeeping
+  ---------------*/
+  /* CSS Reset to correct browser inconsistencies */
+  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+  }
 
-/*---------------
-    #Content
----------------*/
+  /*---------------
+      #Content
+  ---------------*/
 
-/* If viewport is 480px or larger */
-@media screen and (min-width: 480px) {
+  /* If viewport is 480px or larger */
+  @media screen and (min-width: 480px) {
     .content {
-        width: 80%;
+      width: 80%;
     }
-}
+  }
 
-/* Mobile */
-.content {
+  /* Mobile */
+  .content {
     width: 90%;
     max-width: 1100px;
     margin: 50px auto 100px auto;
-}
+  }
 
-/*---------------
-    #Image Caption
----------------*/
+  /*---------------
+      #Image Caption
+  ---------------*/
 
-.image-content-wrapper {
+  .image-content-wrapper {
     display: flex;
     align-items: flex-start; /* align vertical */
     justify-content: center; /* align horizontal */
     height: auto;
-}
+  }
 
-.image-content-inner-wrapper {
+  .image-content-inner-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     margin: 0 auto;
-}
+  }
 
-.image-scalable {
+  .image-scalable {
     max-width: 100vw;
     max-height: 100vh;
-}
+  }
 
-.image-scalable-container {
+  .image-scalable-container {
     max-width: 100%;
-}
+  }
 
-.figcaption {
+  .figcaption {
     text-align: left;
     margin: 10px;
-}
+  }
 
-/*---------------
-  #Pinterest Content
----------------*/
+  /*---------------
+    #Pinterest Content
+  ---------------*/
 
-.columns {
+  .columns {
     column-gap: 10px;
-}
+  }
 
-.columns.columns-image {
+  .columns.columns-image {
     column-width: 280px;
-}
+  }
 
-div.columns figure {
+  div.columns figure {
     margin: 0 2px 15px;
     padding: 15px;
     padding-bottom: 10px;
     display: inline-block;
     column-break-inside: avoid;
-}
+  }
 
-div.columns.columns-image figure {
+  div.columns.columns-image figure {
     background: #eee;
-}
+  }
 
-div.columns figure img {
+  div.columns figure img {
     width: 100%;
     height: auto;
     padding-bottom: 15px;
     margin-bottom: 5px;
-}
+  }
 
-@media screen and (max-width: 750px) {
+  @media screen and (max-width: 750px) {
     .columns { column-gap: 0px; }
     .columns figure { width: 100%; }
-}
+  }
 
-/*---------------
-  #Pinterest Text
----------------*/
+  /*---------------
+    #Pinterest Text
+  ---------------*/
 
-/* If viewport is 480px or larger */
-@media screen and (min-width: 480px) {
+  /* If viewport is 480px or larger */
+  @media screen and (min-width: 480px) {
     .content.content-60 {
-        width: 60%;
+      width: 60%;
     }
-}
+  }
 
-.columns.columns-text {
+  .columns.columns-text {
     column-width: 280px;
-}
+  }
 
-/*---------------
-    #Footer
----------------*/
+  /*---------------
+      #Footer
+  ---------------*/
 
-.footer-area {
+  .footer-area {
     padding: .4em 1em;
     text-align: center;
     background: hsl(0, 0%, 75%);
-}
+  }
 
-/*---------------
-    #Layouts
----------------*/
+  /*---------------
+      #Layouts
+  ---------------*/
 
-.centered {
+  .centered {
     margin: 0 auto;
     padding: 0 1em;
     text-align: center;
-}
+  }
 
-@media screen and (min-width: 52em) {
+  @media screen and (min-width: 52em) {
     .centered {
-        max-width: 52em;
+      max-width: 52em;
     }
-}
+  }
 
-/*---------------
-    #Typography
----------------*/
+  /*---------------
+      #Typography
+  ---------------*/
 
-body,
-button,
-input,
-select,
-textarea {
+  body,
+  button,
+  input,
+  select,
+  textarea {
     color: #404040;
     font-family: 'Helvetica', Arial, sans-serif;
     font-size: 18px;
     line-height: 1.5;
-}
+  }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     clear: both;
     line-height: 1.3em;
     margin-bottom: 0.5em;
-}
+  }
 
-p {
+  p {
     margin-bottom: 1.5em;
-}
+  }
 
-b,
-strong {
+  b,
+  strong {
     font-weight: bold;
-}
+  }
 
-dfn,
-cite,
-em,
-i {
+  dfn,
+  cite,
+  em,
+  i {
     font-style: italic;
-}
+  }
 
-blockquote {
+  blockquote {
     margin: 0 1.5em;
-}
+  }
 
-address {
+  address {
     margin: 0 0 1.5em;
-}
+  }
 
-pre {
+  pre {
     background: #eee;
     font-family: "Courier 10 Pitch", Courier, monospace;
     font-size: 15px;
@@ -266,61 +264,61 @@ pre {
     max-width: 100%;
     overflow: auto;
     padding: 1.6em;
-}
+  }
 
-code,
-kbd,
-tt,
-var {
+  code,
+  kbd,
+  tt,
+  var {
     font: 15px Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
-}
+  }
 
-abbr,
-acronym {
+  abbr,
+  acronym {
     border-bottom: 1px dotted #666;
     cursor: help;
-}
+  }
 
-mark,
-ins {
+  mark,
+  ins {
     background: #fff9c0;
     text-decoration: none;
-}
+  }
 
-sup,
-sub {
+  sup,
+  sub {
     font-size: 75%;
     height: 0;
     line-height: 0;
     position: relative;
     vertical-align: baseline;
-}
+  }
 
-sup {
+  sup {
     bottom: 1ex;
-}
+  }
 
-sub {
+  sub {
     top: .5ex;
-}
+  }
 
-small {
+  small {
     font-size: 75%;
-}
+  }
 
-big {
+  big {
     font-size: 125%;
-}
+  }
 
-bigger {
+  bigger {
     font-size: 350%;
     font-weight: bold;
     line-height: 1em;
-}
+  }
 
-.color-inverse {
+  .color-inverse {
     color: #fff;
-}
+  }
 
 </style>
 <div id="parent"></div>
@@ -344,7 +342,7 @@ bigger {
     constructor(props) {
       super(props);
       this.state = {
-        rawPreferences: ${rawPreferences},
+        rawPreferences: [{"attr":{"subTitle":"","mainTitle":"Spindle","color":{"color2":"#FF4081","color1":"#F44336"}},"componentName":"GradientHero","nickName":"My GradientHero","id":"id4"},{"attr":{"body3":"","subtitle3":"","body2":"","subtitle2":"","body1":"Scan the QR code in the Expo app from the App Store.","subtitle1":"Make your website now","mainTitle":"Share a webpage in minutes.","imageUrl":"/assets/images/qr.png"},"componentName":"ImageContent","nickName":"My ImageContent","id":"id6"},{"attr":{"text":"Made with SpindleApp","bgColor":"#eee"},"componentName":"Footer","nickName":"My Footer","id":"id5"}],
         sitePreferences: [{
           id: 'hero24',
           nickName: 'My Hero',
@@ -354,16 +352,7 @@ bigger {
             title: 'Title',
           },
         },
-        {
-            id: 'ticker2',
-            nickName: 'My Ticker',
-            componentName: <Ticker />,
-            attr: {
-              bgColor: 'defaultColor',
-              title: 'Adrienne Tran, Matthew Go, Chet Malhi, Ed Sweezey',
-            }
-          }
-          ,{
+          {
             id: 'footer12',
             nickName: 'My Footer',
             componentName: <Footer />,
@@ -537,7 +526,7 @@ bigger {
         id: this.props.id,
         pathGradient: ['attr', 'color'],
         path1: ['attr', 'mainTitle'],
-        path2: ['attr', 'subTitle'], 
+        path2: ['attr', 'subTitle'],
       }
       this.handleHeaderClick = this.handleHeaderClick.bind(this);
     }
@@ -628,9 +617,15 @@ bigger {
                   <h3><EditableShortText value={this.state.subtitle1} id={this.state.id} path={this._path3}/></h3>
                   <EditableLongText body={this.state.body1} id={this.state.id} path={this._path4}/>
                 </p>
+                {/*<p>
+                  Or go to <a href="exp://exp.host/@adrienne/viserion">exp://exp.host/@adrienne/viserion</a>.
+                </p>*/}
                 <p>
                   <h3><EditableShortText value={this.state.subtitle2} id={this.state.id} path={this._path5}/></h3>
                   <EditableLongText body={this.state.body2} id={this.state.id} path={this._path6}/>
+                  <a href="https://itunes.apple.com/app/apple-store/id982107779?ct=www&mt=8">
+                    <img src="https://d30j33t1r58ioz.cloudfront.net/static/download-apple.png?fce4897ffcdd2449a3ddd3252306014c" width="136px" height="40px" />
+                  </a>
                 </p>
                 <p>
                   <h3><EditableShortText value={this.state.subtitle3} id={this.state.id} path={this._path7}/></h3>
@@ -1010,76 +1005,76 @@ bigger {
   }
 
   class PricingListModal extends React.Component {
-      constructor(props) {
-        super(props);
-        this.state = {
-          borderColors: this.props.color,
-          title: 'Items On Sale This Week',
-          details: this.props.details,
-          total: '$8.57',
-          key: newId()
-        };
-        this.handleClick = this.handleClick.bind(this);
-        this.styles = {
-          parent: {
-            maxWidth: '420px',
-            border: 'solid 2px',
-            borderColor: this.state.borderColors
-          },
-          title: {
-            border: 'solid 2px',
-            borderColor: this.state.borderColors,
-            textAlign: 'center'
-          },
-          list: {
-            textAlign: 'center',
-            color: this.state.borderColors
-          },
-          total: {
-            width: '80px',
-            margin: '0 auto',
-            border: 'solid 2px',
-            textAlign: 'center',
-            borderColor: this.state.borderColors
-          }
+    constructor(props) {
+      super(props);
+      this.state = {
+        borderColors: this.props.color,
+        title: 'Items On Sale This Week',
+        details: this.props.details,
+        total: '$8.57',
+        key: newId()
+      };
+      this.handleClick = this.handleClick.bind(this);
+      this.styles = {
+        parent: {
+          maxWidth: '420px',
+          border: 'solid 2px',
+          borderColor: this.state.borderColors
+        },
+        title: {
+          border: 'solid 2px',
+          borderColor: this.state.borderColors,
+          textAlign: 'center'
+        },
+        list: {
+          textAlign: 'center',
+          color: this.state.borderColors
+        },
+        total: {
+          width: '80px',
+          margin: '0 auto',
+          border: 'solid 2px',
+          textAlign: 'center',
+          borderColor: this.state.borderColors
         }
       }
-
-      componentWillReceiveProps(nextProps) {
-        this.setState({
-          borderColors: nextProps.color,
-          details: this.props.details,
-        })
-      }
-
-      componentDidMount() {
-        socket.on('updatePricingList2', (data) => {
-          if (data.key === this.state.key) this.setState({ details: data.details});
-        });
-      }
-
-      handleClick() {
-        socket.emit('launchPricingModal', {key: this.state.key, details: this.state.details});
-      }
-
-      render() {
-        var list = this.state.details.map( (item) => {
-         return <div><EditableShortText value={item} color={this.styles.list.color} /></div>
-        })
-        return (
-          <div className='Parent' style={this.styles.parent} onClick={this.handleClick} >
-            <div id='title' style={this.styles.title}>
-              <EditableShortText value={this.state.title} />
-            </div>
-            <div id='list' style={this.styles.list}>
-              {list}
-            </div>
-            <div id='total' style={this.styles.total} ><EditableShortText value={this.state.total} /></div>
-          </div>
-        );
-      }
-
     }
+
+    componentWillReceiveProps(nextProps) {
+      this.setState({
+        borderColors: nextProps.color,
+        details: this.props.details,
+      })
+    }
+
+    componentDidMount() {
+      socket.on('updatePricingList2', (data) => {
+        if (data.key === this.state.key) this.setState({ details: data.details});
+      });
+    }
+
+    handleClick() {
+      socket.emit('launchPricingModal', {key: this.state.key, details: this.state.details});
+    }
+
+    render() {
+      var list = this.state.details.map( (item) => {
+        return <div><EditableShortText value={item} color={this.styles.list.color} /></div>
+      })
+      return (
+        <div className='Parent' style={this.styles.parent} onClick={this.handleClick} >
+          <div id='title' style={this.styles.title}>
+            <EditableShortText value={this.state.title} />
+          </div>
+          <div id='list' style={this.styles.list}>
+            {list}
+          </div>
+          <div id='total' style={this.styles.total} ><EditableShortText value={this.state.total} /></div>
+        </div>
+      );
+    }
+
+  }
 
   class Ticker extends React.Component {
     constructor(props){
@@ -1093,7 +1088,7 @@ bigger {
     }
 
     componentDidMount() {
-      this.beginScroll(); 
+      this.beginScroll();
     }
 
     rotateCharacters() {
@@ -1108,7 +1103,7 @@ bigger {
       if(this.continue && this.state.msg) {
         setInterval(this.rotateCharacters.bind(this),250)
       }
-    }  
+    }
 
     render() {
       var msg = this.state.msg.slice(0,14);
@@ -1118,10 +1113,9 @@ bigger {
         </div>
       )
     }
-  }   
+  }
 
   ReactDOM.render(<Parent/>, document.getElementById('parent'));
 </script>
 </body>
-</html>`;
-};
+</html>

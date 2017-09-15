@@ -1,4 +1,4 @@
-// AddPageModal uses this to generate default addable components
+// AddComponentModal uses this to generate default addable components
 
 const componentMap = {
   Hero: {
@@ -21,18 +21,19 @@ const componentMap = {
         color2: '#29ffc6',
       },
       mainTitle: 'Welcome',
-      subTitle: 'adjust your gradient',
+      subTitle: '',
     },
   },
-  PricingList: {
-    id: 'notSet',
-    nickName: 'My Pricing',
-    componentName: 'PricingListModal',
-    attr: {
-      details: ['Milk..........$4.79', 'Bread......$1.39', 'Eggs.......$2.39'],
-      color: 'green',
-    },
-  },
+  // Currently not wired up
+  // PricingList: {
+  //   id: 'notSet',
+  //   nickName: 'My Pricing',
+  //   componentName: 'PricingListModal',
+  //   attr: {
+  //     details: ['Milk..........$4.79', 'Bread......$1.39', 'Eggs.......$2.39'],
+  //     color: 'green',
+  //   },
+  // },
   ImageContent: {
     id: 'notSet',
     nickName: 'My ImageContent',
@@ -104,15 +105,16 @@ const componentMap = {
       body: 'The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols.',
     },
   },
-  List: {
-    id: 'notSet',
-    nickname: 'My List',
-    componentName: 'List',
-    attr: {
-      bgColor: '#262626',
-      items: ['This is a listing component', 'Here\'s an item', 'Another Item', 'Yet Another Item'],
-    },
-  },
+  // Currently not wired up
+  // List: {
+  //   id: 'notSet',
+  //   nickname: 'My List',
+  //   componentName: 'List',
+  //   attr: {
+  //     bgColor: '#262626',
+  //     items: ['This is a listing component', 'Here\'s an item', 'Another Item', 'Yet Another Item'],
+  //   },
+  // },
   Footer: {
     id: 'notSet',
     nickName: 'My Footer',

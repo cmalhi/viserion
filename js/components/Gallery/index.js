@@ -44,7 +44,7 @@ class Gallery extends React.Component {
                 automaticallyAdjustContentInsets={false}
                 scrollEnabled={false}
                 scalesPageToFit={true}
-                source={{ uri: 'http://localhost:8080/'+site._id }}>
+                source={{ uri: `${global.HOST}/id/${site._id}` }}>
             </WebView>
           </TouchableOpacity>
         </View>

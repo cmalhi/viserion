@@ -5,7 +5,7 @@ import ShortTextModal from './modals/ShortTextModal';
 import LongTextModal from './modals/LongTextModal';
 import ColorModal from './modals/ColorModal';
 import OrderModal from './modals/OrderModal';
-import AddPageModal from './modals/AddComponentModal';
+import AddComponentModal from './modals/AddComponentModal';
 import PricingListModal from './modals/PricingListModal';
 import ListModal from './modals/ListModal';
 import ShareModal from './modals/ShareModal';
@@ -44,7 +44,7 @@ class UserEdit extends React.Component {
       componentOrder: '',
 
       orderModal: false,
-      addPageModal: false,
+      addComponentModal: false,
       listModal: false,
 
       shortTextData: null,
@@ -101,7 +101,7 @@ class UserEdit extends React.Component {
   }
 
   handleAdd() {
-    this.setState({ addPageModal: true });
+    this.setState({ addComponentModal: true });
   }
 
   handleSubmit() {
@@ -156,11 +156,11 @@ class UserEdit extends React.Component {
           { this.state.orderModal ?
             <OrderModal
               closeModal={() => this.setState({orderModal: false})}
-              openAddModal={(() => this.setState({addPageModal: true}))}
+              openAddModal={(() => this.setState({addComponentModal: true}))}
             /> : null }
-          { this.state.addPageModal ?
-            <AddPageModal
-              closeModal={() => this.setState({addPageModal: false})}
+          { this.state.addComponentModal ?
+            <AddComponentModal
+              closeModal={() => this.setState({addComponentModal: false})}
             /> : null }
           { this.state.listModal ?
             <ListModal
