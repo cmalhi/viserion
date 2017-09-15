@@ -21,7 +21,7 @@ const componentMap = {
         color2: '#29ffc6',
       },
       mainTitle: 'Welcome',
-      subTitle: 'adjust your gradient',
+      subTitle: '',
     },
   },
   PricingList: {

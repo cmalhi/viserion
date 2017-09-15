@@ -13,8 +13,8 @@ module.exports = (rawPreferencesObj) => {
 <script src="https://fb.me/react-15.0.0.js"></script>
 <script src="https://fb.me/react-dom-15.0.0.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
-<!--<script src="http://127.0.0.1:8080/socket.io/socket.io.js"></script>-->
-<script src="http://spindleapp.com/socket.io/socket.io.js"></script>
+<script src="http://127.0.0.1:8080/socket.io/socket.io.js"></script>
+<!--<script src="http://spindleapp.com/socket.io/socket.io.js"></script>-->
 <!--<script src="http://ec2-54-203-8-222.us-west-2.compute.amazonaws.com:8080/socket.io/socket.io.js"></script>-->
 <style type="text/css">
 /*---------------
@@ -326,8 +326,8 @@ bigger {
 <div id="parent"></div>
 
 <script type="text/babel">
-  //const socket = io('http://127.0.0.1:8080');
-  const socket = io('http://spindleapp.com');
+  const socket = io('http://127.0.0.1:8080');
+  //const socket = io('http://spindleapp.com');
   //const socket = io('http://ec2-54-203-8-222.us-west-2.compute.amazonaws.com:8080');
   var room;
   if (location) {
@@ -571,7 +571,7 @@ bigger {
               <div className="box">
                 <div className="centered color-inverse">
                   <bigger><EditableShortText value={this.state.mainTitle} id={this.state.id} path={this.state.path1}/></bigger>
-                  <h3><EditableShortText value={this.state.subTitle} id={this.state.id} path={this.state.path2}/></h3>
+                  {/*<h3><EditableShortText value={this.state.subTitle} id={this.state.id} path={this.state.path2}/></h3>*/}
                 </div>
               </div>
             </div>
