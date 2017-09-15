@@ -7,7 +7,7 @@ import styles from '../styles';
 import { updatePrefs } from '../actions/index';
 import { editSite } from '../actions/siteActions';
 import Loading from './Loading';
-import LoginSignUpSplash from './LoginSignUpSplash'
+import LoginSplashScreen from './Login/LoginSplashScreen';
 
 class MyPages extends React.Component {
   constructor(props) {
@@ -17,6 +17,17 @@ class MyPages extends React.Component {
       userId: null,
     };
     this.handleSitePress = this.handleSitePress.bind(this);
+    this.fetchSavedSites = this.fetchSavedSites.bind(this);
+    this.checkUserStatus = this.checkUserStatus.bind(this);
+  }
+
+  componentDidMount() {
+    this.checkUserStatus();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('my pages will get props', nextProps);
+    this.checkUserStatus();
   }
 
   handleSitePress(site) {
@@ -26,16 +37,21 @@ class MyPages extends React.Component {
     navigate('UserEdit');
   }
 
-  componentDidMount() {
-    const { navigate } = this.props.navigation;
+  fetchSavedSites(userId) {
+    axios.get(`${global.HOST}/sites/all/${userId}`)
+      .then((res) => {
+        this.setState({ sites: res.data});
+      })
+      .catch((err) => console.log('Err getting /sites/all ', err));
+  }
+
+  checkUserStatus() {
+    this.setState({userId: this.props.auth.userId});
     AsyncStorage.getItem('userId')
-      .then(userId => {
+      .then((userId) => {
         if (userId) {
-          axios.get(`${global.HOST}/sites/all/${userId}`)
-            .then((res) => {
-              this.setState({ sites: res.data, userId });
-            })
-            .catch((err) => console.log('Err getting /sites/all ', err));
+          this.setState({ userId });
+          this.fetchSavedSites(userId);
         }
       });
   }
@@ -45,11 +61,11 @@ class MyPages extends React.Component {
       return (
         <View key={site._id} style={[styles.galleryContainer, styles.center]}>
           <TouchableOpacity onPress={this.handleSitePress.bind(this, site)}>
-              <WebView style={{marginBottom: 20, width: Dimensions.get('window').width - 50, height: Dimensions.get('window').height - 130}}
-                automaticallyAdjustContentInsets={false}
-                scrollEnabled={false}
-                scalesPageToFit={true}
-                source={{ uri: 'http://localhost:8080/'+site._id }}>
+            <WebView style={{marginBottom: 20, width: Dimensions.get('window').width - 50, height: Dimensions.get('window').height - 130}}
+              automaticallyAdjustContentInsets={false}
+              scrollEnabled={false}
+              scalesPageToFit={true}
+              source={{ uri: 'http://localhost:8080/'+site._id }}>
             </WebView>
           </TouchableOpacity>
         </View>
@@ -59,25 +75,29 @@ class MyPages extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    return this.state.userId 
+    return this.state.userId
       ? (<View style={styles.galleryContainer}>
           {this.state.sites.length 
             ? (<ScrollView contentContainerStyle={styles.content}>
-                {this.renderSavedSites()} 
+                {this.renderSavedSites()}
               </ScrollView>) 
             : <Loading />}
-        <View>
-          <TouchableHighlight
-            style={[styles.addButton, styles.buttonCentered]}
-            underlayColor='#ff7043'
-            onPress={()=>{ navigate('Template') }}
-          >
-            <Entypo name="plus" size={25} color="white" />
-          </TouchableHighlight>
-        </View>
-      </View>)
-    : <LoginSignUpSplash />
+          <View>
+            <TouchableHighlight
+              style={[styles.addButton, styles.buttonCentered]}
+              underlayColor='#ff7043'
+              onPress={()=>{ navigate('Template') }}
+            >
+              <Entypo name="plus" size={25} color="white" />
+            </TouchableHighlight>
+          </View>
+        </View>)
+      : (<LoginSplashScreen rootNavigate={navigate} />);
   }
 }
 
-export default connect(null, { updatePrefs, editSite })(MyPages);
+function mapStateToProps({ auth }) {
+  return { auth };
+};
+
+export default connect(mapStateToProps, { updatePrefs, editSite })(MyPages);

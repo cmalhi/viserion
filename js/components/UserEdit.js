@@ -105,7 +105,6 @@ class UserEdit extends React.Component {
   }
 
   handleSubmit() {
-    AsyncStorage.removeItem('userId');
     const { navigate } = this.props.navigation;
     this.props.updateSite();
     AsyncStorage.getItem('userId')

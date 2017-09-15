@@ -22,11 +22,11 @@ class Gallery extends React.Component {
     const { navigate } = this.props.navigation;
     this.props.updatePrefs(site.preferences);
     this.props.editSite(site._id);
-    console.log('site pressed', site.preferences);
     navigate('GalleryViewer');
   }
 
   componentDidMount() {
+    console.log('focus >>>>>>>', this.props.navigation);
     axios.get(`${global.HOST}/sites/all`)
       .then((res) => {
         console.log('res data >>>>>', res);
@@ -73,4 +73,8 @@ class Gallery extends React.Component {
   }
 }
 
-export default connect(null, { updatePrefs, editSite })(Gallery);
+function mapStateToProps({ auth }) {
+  return { auth };
+}
+
+export default connect(mapStateToProps, { updatePrefs, editSite })(Gallery);

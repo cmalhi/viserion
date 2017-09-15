@@ -19,13 +19,18 @@ class SignUpForm extends Component {
     this.signup = this.signup.bind(this);
   }
 
+  navigateToGallery() {
+    console.log('navigate to gallery');
+    this.props.rootNavigate('MainApp');
+  }
+
   async signup(email, password) {
     try {
       await firebase.auth()
         .createUserWithEmailAndPassword(email, password);
       this.props.loginOrSignUpUser();
-      const { navigate } = this.props.navigation;
-      navigate('MainApp');
+      this.navigateToGallery();
+      // navigate('MainApp');
     } catch (error) {
       const errorMessage = error.toString();
       this.setState({ errorMessage });

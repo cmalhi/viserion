@@ -16,7 +16,7 @@ export default class LoginSignUpSplash extends Component {
         </View>
         <View style={styles.mainContainer}>
           <LoginSignUpNavigator 
-            screenProps={ this.props.navigation && { rootNavigate:this.props.navigation.state.params.rootNavigate }} />
+            screenProps={{ rootNavigate:this.props.navigation.state.params.rootNavigate }} />
         </View>
       </View>
     );
