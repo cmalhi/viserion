@@ -1,4 +1,3 @@
-
 const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,8 +13,8 @@ body {
 }
 
 body {
-    background: #111;
-    background: radial-gradient(#111, #000);
+    background: #222A3C;
+    background: radial-gradient(#111, #222A3C);
 }
 
 .blob {
@@ -97,21 +96,14 @@ import {
   View,
   WebView,
 } from 'react-native';
-import styles from '../../styles';
-
 
 export default class LoadingScreen extends React.Component {
-
   render() {
-    if (!!this.props.siteId) {
-      return(
-        <View style={styles.basicContainer}>
-          <WebView style={styles.screenWidth} source={{ html: html }} />
-        </View>
-      );
-    } else {
-      return (<Text>Loading...</Text>);
-    }
+    return(
+      <View style={styles.basicContainer}>
+        <WebView style={styles.screenWidth} source={{ html: html }} />
+      </View>
+    );
   }
 }
 

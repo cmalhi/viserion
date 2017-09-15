@@ -6,6 +6,7 @@ import axios from 'axios';
 import styles from '../../styles';
 import { updatePrefs } from '../../actions/index';
 import { editSite } from '../../actions/siteActions';
+import Loading from '../Loading';
 
 class Gallery extends React.Component {
   constructor(props) {
@@ -54,7 +55,7 @@ class Gallery extends React.Component {
       <View style={styles.basicContainer}>
         {this.state.sites.length ? (<ScrollView contentContainerStyle={styles.content}>
           {this.renderSavedSites()}
-        </ScrollView>) : <Text>Loading....</Text>}
+        </ScrollView>) : <Loading />}
         <View>
           <TouchableHighlight
             style={[styles.addButton, styles.buttonCentered]}

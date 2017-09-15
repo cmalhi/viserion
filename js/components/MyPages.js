@@ -6,11 +6,12 @@ import axios from 'axios';
 import styles from '../styles';
 import { updatePrefs } from '../actions/index';
 import { editSite } from '../actions/siteActions';
+import Loading from './Loading';
 
 class MyPages extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       sites: [],
       userId: '',
     };
@@ -63,9 +64,11 @@ class MyPages extends React.Component {
     if (!this.state.sites.length) return <Text>Loading...</Text>
     return(
       <View style={styles.basicContainer}>
-        <ScrollView contentContainerStyle={styles.content}>
-          {this.renderSavedSites()}
-        </ScrollView>
+          {this.state.sites.length 
+            ? (<ScrollView contentContainerStyle={styles.content}>
+                {this.renderSavedSites()} 
+              </ScrollView>) 
+            : <Loading />}
         <View>
           <TouchableHighlight
             style={[styles.addButton, styles.buttonCentered]}
