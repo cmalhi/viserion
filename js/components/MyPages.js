@@ -25,7 +25,7 @@ class MyPages extends React.Component {
   }
 
   componentDidMount() {
-    AsyncStorage.removeItem('userId');
+    // AsyncStorage.removeItem('userId');
     AsyncStorage.getItem('userId')
       .then(userId => {
         // TODO: remove hard coded user ID

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { updatePrefs } from '../../actions/index';
 import { Ionicons } from '@expo/vector-icons';
 import styles from '../../styles';
+import axios from 'axios';
 
 var {
   height: deviceHeight
@@ -16,14 +17,15 @@ class ShareModal extends React.Component {
     this.state = {
       offset: new Animated.Value(deviceHeight),
       shortName: null,
-      urlEnding: null,
+      siteUrl: `${global.HOST}/id/${this.props.siteId}`,
+      shortName: null,
+      duplicate: false,
     };
-    this.siteUrl = `${global.HOST}/${this.props.siteId}`;
     this.closeModal = this.closeModal.bind(this);
     this._setClipboardContent = this._setClipboardContent.bind(this);
     this._handleLinkPress = this._handleLinkPress.bind(this);
     this.share = this.share.bind(this);
-    this.changeShortName = this.changeShortName.bind(this);
+    this.updateShortName = this.updateShortName.bind(this);
   }
 
   componentDidMount() {
@@ -32,17 +34,44 @@ class ShareModal extends React.Component {
       toValue: 0
     }).start();
 
-    // TODO: Check if this.props.siteId is in the database
-    // if so, this.setState({ urlEnding: '' })
+    // Check if this.props.siteId is in the database
+    // If so, this.setState({ urlEnding: '' })
+    axios.get(`${global.HOST}/url-shortener/:${this.props.siteId}`)
+      .then((res) => {
+        var shortName = res.data;
+        this.setState({
+          siteUrl: `${global.HOST}/pages/${shortName}`,
+          shortName: shortName,
+        });
+      })
   }
 
-  changeShortName() {
-    // TODO: Make an axios request to POST /url-shortener
-    // this.props.siteId, shortName
+  updateShortName() {
+    // Make an axios request to POST /url-shortener
+    var self = this;
+    axios.post(`${global.HOST}/url-shortener`, {
+      siteId: this.props.siteId,
+      shortName: this.state.shortName
+      })
+      .then(function(res) {
+        console.log('updateShortName res', res)
+        // If the URL already exists, let them know and don't set state
+        if (!res.data.success && res.data.status === "duplicate") {
+          console.log('duplicate!')
+          self.setState({ duplicate: true });
+        } else {
+          if (res.data.success) {
+            self.setState({
+              duplicate: false,
+              siteUrl: `${global.HOST}/pages/${res.data.doc.shortName}`
+            })
+          }
+        }
+      })
   }
 
   async _setClipboardContent() {
-    Clipboard.setString(this.siteUrl);
+    Clipboard.setString(this.state.siteUrl);
   }
 
   _handleLinkPress(link) {
@@ -51,8 +80,8 @@ class ShareModal extends React.Component {
 
   share() {
     Share.share({
-      message: `View my new new site at ${this.siteUrl}`,
-      url: this.siteUrl,
+      message: `View my new new site at ${this.state.siteUrl}`,
+      url: this.state.siteUrl,
       title: 'Come check out my new site'
     })
   }
@@ -72,31 +101,34 @@ class ShareModal extends React.Component {
             View your website
           </Text>
           <TouchableOpacity
-            onPress={() => this._handleLinkPress(this.siteUrl)}
+            onPress={() => this._handleLinkPress(this.state.siteUrl)}
             style={styles.center}>
-            <Text style={[styles.text, {fontSize: 12}]}>{this.siteUrl}</Text>
+            <Text style={[styles.text, {fontSize: 14}]}>{this.state.siteUrl}</Text>
           </TouchableOpacity>
-          {/*<View style={{ flexDirection: 'row', paddingTop: 10, }}>*/}
-            {/*<View style={{flex: 2.7}}>*/}
-              {/*<TextInput*/}
-                {/*onChangeText={(shortName) => this.setState({shortName})}*/}
-                {/*style={[styles.text, {height: 40, borderColor: '#617192', borderWidth: 1, paddingHorizontal: 10}]}*/}
-                {/*placeholder="Or simplify with a short name"*/}
-              {/*/>*/}
-            {/*</View>*/}
-            {/*<View style={{flex: 1, justifyContent: 'center', paddingHorizontal: 10}}>*/}
-              {/*<TouchableHighlight*/}
-                {/*onPress={() => console.log('make a call to db!')}*/}
-                {/*style={{*/}
-                  {/*backgroundColor: '#222A3B',*/}
-                  {/*borderRadius: 15,*/}
-                  {/*width: 100,*/}
-                  {/*height: 40,*/}
-                {/*}} >*/}
-                {/*<Text style={[ styles.text, { padding: 10, color: '#fff', alignSelf: 'center' }]}>Change</Text>*/}
-              {/*</TouchableHighlight>*/}
-            {/*</View>*/}
-          {/*</View>*/}
+          {this.state.duplicate ? <Text style={[styles.text,styles.center,{fontFamily:'Avenir-Heavy', fontSize: 12, color: '#3E84FB'}]}>This name already exists. Please choose another one.</Text> : null}
+
+          <View style={{ flexDirection: 'row', paddingTop: 10, }}>
+            <View style={{flex: 2.7}}>
+              <TextInput
+                autoCapitalize="none"
+                onChangeText={(shortName) => this.setState({shortName})}
+                style={[styles.text, {height: 40, borderColor: '#617192', borderWidth: 1, paddingHorizontal: 10}]}
+                placeholder="Or simplify with a short name"
+              />
+            </View>
+            <View style={{flex: 1, justifyContent: 'center', paddingHorizontal: 10}}>
+              <TouchableHighlight
+                onPress={this.updateShortName}
+                style={{
+                  backgroundColor: '#222A3B',
+                  borderRadius: 15,
+                  width: 100,
+                  height: 40,
+                }} >
+                <Text style={[ styles.text, { padding: 10, color: '#fff', alignSelf: 'center' }]}>Change</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
 
         </View>
         <View style={[styles.innerModalBottom, {
@@ -111,14 +143,14 @@ class ShareModal extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              this._handleLinkPress(`sms:1&body=Check%20out%20my%20new%20site%20at%20${this.siteUrl}`)
+              this._handleLinkPress(`sms:1&body=Check%20out%20my%20new%20site%20at%20${this.state.siteUrl}`)
             }}
             style={{flex: 1, alignItems: 'center'}}>
             <Ionicons name="ios-chatboxes-outline" size={45} color="rgba(250,250,250,0.7)"/>
             <Text style={[styles.text, styles.iconText]}>Message</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => this._handleLinkPress(`mailto:recipient?subject=Check%20out%20my%20new%20website!&body=View%20it%20at%20${this.siteUrl}`)}
+            onPress={() => this._handleLinkPress(`mailto:recipient?subject=Check%20out%20my%20new%20website!&body=View%20it%20at%20${this.state.siteUrl}`)}
             style={{flex: 1, alignItems: 'center'}}>
             <Ionicons name="md-mail" size={45} color="rgba(250,250,250,0.7)"/>
             <Text style={[styles.text, styles.iconText]}>Email</Text>

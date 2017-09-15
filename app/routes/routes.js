@@ -23,7 +23,11 @@ var routerInstance = function(io) {
    * Takes in a (1) siteId, and (2) short name, and puts it into the database
    */
   // TODO : refactor to controller
-  router.post('/url-shortener', shortUrlController.addOne);
+  router.post('/url-shortener', shortUrlController.addOrUpdate);
+
+  router.get('/url-shortener/:siteid', shortUrlController.retrieveShortName);
+
+  router.get('/pages/:shortname', shortUrlController.serveOne);
 
   /*
    * /POST /signup
@@ -55,7 +59,8 @@ var routerInstance = function(io) {
 
   router.put('/sites/:siteid', siteController.updateOne);
 
-  router.get('/:siteid', siteController.serveOne);
+  router.get('/id/:siteid', siteController.serveOne);
+
 
     /*
    * /POST /submitchoice

@@ -326,13 +326,13 @@ bigger {
 <div id="parent"></div>
 
 <script type="text/babel">
-  // const socket = io('http://127.0.0.1:8080');
-  const socket = io('http://spindleapp.com:8080');
+  const socket = io('http://127.0.0.1:8080');
+  //const socket = io('http://spindleapp.com:8080');
   //const socket = io('http://ec2-54-203-8-222.us-west-2.compute.amazonaws.com:8080');
   var room;
   if (location) {
-    //alert(location.href.split('/')[3])
-    room = location.href.split('/')[3];
+    //alert(location.href.split('/')[4])
+    room = location.href.split('/')[4];
   }
   // ID generation
   let lastId = 0;
