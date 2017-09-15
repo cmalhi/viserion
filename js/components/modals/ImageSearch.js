@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, TouchableHighlight, ScrollView, ListView, View, Text, TextInput, Button} from 'react-native';
+import { StyleSheet, Image, TouchableHighlight, ScrollView, ListView, View, Text, TextInput, Button, Dimensions} from 'react-native';
 import axios from 'axios';
 import { bingImageSearch } from '../../../config/config';
 const key = bingImageSearch.API_KEY;
@@ -59,11 +59,13 @@ class ImageSearch extends React.Component {
           title="Search"
           color="#000000"
         />
-        <ScrollView>
-          <View style={styles.scrollGrid} >
-            {this.state.images}
-          </View>  
-        </ScrollView>
+        <View style={{height: Dimensions.get('window').height * 0.45}}>
+          <ScrollView>
+            <View style={styles.scrollGrid} >
+              {this.state.images}
+            </View>
+          </ScrollView>
+        </View>
       </View>  
     )
   }

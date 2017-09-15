@@ -14,7 +14,7 @@ exports.addOne = function(req, res) {
 
 exports.updatePreferences = function(req, res) {
   const userId = req.params.userid;
-  const update = { preferences: req.body }
+  const update = { preferences: req.body };
   User.findOneAndUpdate(userId, update, { new:true })
     .exec()
     .then((user) => {

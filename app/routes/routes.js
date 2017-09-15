@@ -9,12 +9,25 @@ const User = require('../models/user');
 const File = require('../models/file');
 const Site = require('../models/site');
 const UserTemplate = require('../models/userTemplate');
+const shortUrlController = require('./shortUrlController');
 const fileController = require('./fileController');
 const userTemplateController = require('./userTemplateController');
 const userController = require('./userController');
 const siteController = require('./siteController');
 
 var routerInstance = function(io) {
+
+  // Url shortener
+  /*
+   * POST /url-shortener
+   * Takes in a (1) siteId, and (2) short name, and puts it into the database
+   */
+  // TODO : refactor to controller
+  router.post('/url-shortener', shortUrlController.addOrUpdate);
+
+  router.get('/url-shortener/:siteid', shortUrlController.retrieveShortName);
+
+  router.get('/pages/:shortname', shortUrlController.serveOne);
 
   /*
    * /POST /signup
@@ -46,7 +59,8 @@ var routerInstance = function(io) {
 
   router.put('/sites/:siteid', siteController.updateOne);
 
-  router.get('/:siteid', siteController.serveOne);
+  router.get('/id/:siteid', siteController.serveOne);
+
 
     /*
    * /POST /submitchoice

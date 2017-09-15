@@ -7,14 +7,14 @@ module.exports = (rawPreferencesObj) => {
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1, maximum-scale=1" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.css">
-  <title>Simple</title>
+  <title>Spindle</title>
 </head>
 <body>
 <script src="https://fb.me/react-15.0.0.js"></script>
 <script src="https://fb.me/react-dom-15.0.0.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
-<script src="http://127.0.0.1:8080/socket.io/socket.io.js"></script>
-<!--<script src="http://spindleapp.com:8080/socket.io/socket.io.js"></script>-->
+<!--<script src="http://127.0.0.1:8080/socket.io/socket.io.js"></script>-->
+<script src="http://spindleapp.com:8080/socket.io/socket.io.js"></script>
 <!--<script src="http://ec2-54-203-8-222.us-west-2.compute.amazonaws.com:8080/socket.io/socket.io.js"></script>-->
 <style type="text/css">
 /*---------------
@@ -327,12 +327,12 @@ bigger {
 
 <script type="text/babel">
   const socket = io('http://127.0.0.1:8080');
-  // const socket = io('http://spindleapp.com:8080');
-  // const socket = io('http://ec2-54-203-8-222.us-west-2.compute.amazonaws.com:8080');
+  //const socket = io('http://spindleapp.com:8080');
+  //const socket = io('http://ec2-54-203-8-222.us-west-2.compute.amazonaws.com:8080');
   var room;
   if (location) {
-    //alert(location.href.split('/')[3])
-    room = location.href.split('/')[3];
+    //alert(location.href.split('/')[4])
+    room = location.href.split('/')[4];
   }
   // ID generation
   let lastId = 0;
