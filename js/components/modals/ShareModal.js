@@ -112,8 +112,9 @@ class ShareModal extends React.Component {
               <TextInput
                 autoCapitalize="none"
                 onChangeText={(shortName) => this.setState({shortName})}
-                style={[styles.text, {height: 40, borderColor: '#617192', borderWidth: 1, paddingHorizontal: 10}]}
+                style={[styles.text, {height: 40, borderColor: '#617192', borderWidth: 1, paddingHorizontal: 10, fontSize: 15, color: '#fff'}]}
                 placeholder="Or simplify with a short name"
+                placeholderTextColor="#aaa"
               />
             </View>
             <View style={{flex: 1, justifyContent: 'center', paddingHorizontal: 10}}>
@@ -125,7 +126,7 @@ class ShareModal extends React.Component {
                   width: 100,
                   height: 40,
                 }} >
-                <Text style={[ styles.text, { padding: 10, color: '#fff', alignSelf: 'center' }]}>Change</Text>
+                <Text style={[ styles.text, { padding: 10, color: '#fff', alignSelf: 'center' }]}>Save</Text>
               </TouchableHighlight>
             </View>
           </View>
