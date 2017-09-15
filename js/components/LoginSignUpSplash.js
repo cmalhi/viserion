@@ -4,6 +4,8 @@ import styles from '../styles';
 import LoginSignUpNavigator from './LoginSignUpNavigator';
 
 export default class LoginSignUpSplash extends Component {
+  componentWillMount() {
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -13,7 +15,8 @@ export default class LoginSignUpSplash extends Component {
           </View>
         </View>
         <View style={styles.mainContainer}>
-          <LoginSignUpNavigator />
+          <LoginSignUpNavigator 
+            screenProps={{ rootNavigate:this.props.navigation.state.params.rootNavigate }} />
         </View>
       </View>
     );

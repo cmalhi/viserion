@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import LoginForm from './LoginForm';
 import styles from '../../styles';
+import { connect } from 'react-redux'; 
 
-export default class Login extends Component {
+class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.mainContainer}>
-          <LoginForm navigation={this.props.navigation} />
+          <LoginForm 
+            rootNavigate={this.props.screenProps.rootNavigate} />
         </View>
       </View>
     );
@@ -19,3 +21,9 @@ export default class Login extends Component {
 //     <Text style={[styles.text, styles.title]}>Log In</Text>
 //   </View>
 // </View>
+
+function mapStateToProps({ auth }) {
+  return { auth };
+}
+
+export default connect(mapStateToProps)(Login);

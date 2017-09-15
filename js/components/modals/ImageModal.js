@@ -50,7 +50,7 @@ class ImageModal extends React.Component {
     let file = {
       // `uri` can also be a file system path (i.e. file://)
       uri: this.state.img,
-      name: "image.png",
+      name: `${this.props.siteId + JSON.stringify(Math.random()*10000).split('.')[0]}.png`,
       type: "image/png"
     };
 
@@ -116,8 +116,8 @@ class ImageModal extends React.Component {
   }
 }
 
-function mapStateToProps({ preferences }) {
-  return { preferences };
+function mapStateToProps({ preferences, siteId }) {
+  return { preferences, siteId };
 }
 
 const matchDispatchToProps = (dispatch) => {

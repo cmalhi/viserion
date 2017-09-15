@@ -46,7 +46,6 @@ var routerInstance = function(io) {
    * /POST /site
    * Adds selected site to user collection and sites collection
    */
-
   router.post('/sites', siteController.addOne);
   
   router.get('/sites/list/:userid', siteController.retrieveList);
@@ -57,6 +56,7 @@ var routerInstance = function(io) {
  
   router.get('/sites/:siteid', siteController.retrieveOne);
 
+  // This is called when the user saves a site
   router.put('/sites/:siteid', siteController.updateOne);
 
   router.get('/id/:siteid', siteController.serveOne);
