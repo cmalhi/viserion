@@ -28,7 +28,7 @@ class ConfirmSite extends React.Component {
   }
 
   handlePress(index) {
-    const { navigate } = this.props.navigation; 
+    const { navigate } = this.props.navigation;
     this.props.selectPreferences(index);
     navigate('UserEdit');
   }
@@ -40,10 +40,10 @@ class ConfirmSite extends React.Component {
         <View key={index} style={styles.basicContainer}>
           <View style={styles.basicContainer}>
             <WebView style={styles.screenWidth}
-              automaticallyAdjustContentInsets={false}
-              scrollEnabled={true}
-              scalesPageToFit={true}
-              source={{ html: html }}>
+                     automaticallyAdjustContentInsets={false}
+                     scrollEnabled={true}
+                     scalesPageToFit={true}
+                     source={{ html: html }}>
             </WebView>
           </View>
         </View>
@@ -64,7 +64,7 @@ class ConfirmSite extends React.Component {
           </Swiper>
           <View style={styles.absoluteBottom}>
             <TouchableHighlight
-              style={ [styles.buttonCentered, styles.continueButton, {width: 120} ] }
+              style={ [styles.buttonCentered, styles.continueButton, { width: 190, bottom: 40 } ] }
               underlayColor='#1D59BF'
               onPress={this.handlePress.bind(this, this.state.index)}
             >
@@ -72,11 +72,11 @@ class ConfirmSite extends React.Component {
             </TouchableHighlight>
           </View>
         </View>
-      ) 
+      )
     } else {
       return(<Text>Loading...</Text>)
     }
-  }  
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
