@@ -1,7 +1,9 @@
 const Site = require('../models/site');
 const User = require('../models/user');
 const prefToReactify = require('../utils/prefToReactify');
+const snapshot = require('../utils/snapshot');
 const Screenshot = require('url-to-screenshot');
+const fs = require('fs');
 
 exports.addOne = function(req, res) {
   const { userId, html, preferences } = req.body;
@@ -54,20 +56,27 @@ exports.updateOne = function(req, res) {
     update['preferences'] = preferences;
     update['html'] = html;
 
-    /* SCREENSHOT MAKER */
-    var url = `http://spindleapp.com/id/${siteId}`;
-    new Screenshot(url)
-      .width(1080)
-      .height(1920)
-      .clip()
-      .capture()
-      .then(img => {
-        console.log('img created: ', img);
-        // Upload to AWS
-
-        // Put into database
-      })
-      .catch(err => console.log('Err generating snapshot: ', err));
+    /* SCREENSHOT MAKER START */
+    // var url = `http://spindleapp.com/id/${siteId}`;
+    // var url = 'http://spindleapp.com/pages/quo2';
+    // new Screenshot(url)
+    //   .width(1080)
+    //   .height(1920)
+    //   .clip()
+    //   .capture()
+    //   .then(img => {
+    //     console.log('img created: ', img);
+    //     // test
+    //     fs.writeFileSync('./img.png', img);
+    //
+    //     // Upload to AWS
+    //     snapshot.uploadAws(img);
+    //
+    //     // Put into database
+    //     // TODO: Database call that takes in { siteId, imgUrl } and updates DB
+    //   })
+    //   .catch(err => console.log('Err generating snapshot: ', err));
+    /* SCREENSHOT MAKER END*/
   }
   if (userId) {
     update['userId'] = userId;
