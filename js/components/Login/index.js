@@ -4,11 +4,16 @@ import LoginForm from './LoginForm';
 import styles from '../../styles';
 
 export default class Login extends Component {
+  componentDidMount() {
+    console.log('login mounted', this.props.screenProps);
+  }
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.mainContainer}>
-          <LoginForm navigation={this.props.navigation} />
+          <LoginForm 
+
+            navigation={this.props.navigation} />
         </View>
       </View>
     );

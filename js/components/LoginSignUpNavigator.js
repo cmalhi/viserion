@@ -18,6 +18,7 @@ export default TabNavigator(
     }),
     tabBarPosition: 'top',
     animationEnabled: true,
+    headerTitle: 'Title',
     tabBarOptions: {
       labelStyle: {
         fontFamily: 'Avenir-Heavy',

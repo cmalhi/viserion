@@ -115,7 +115,7 @@ class UserEdit extends React.Component {
           navigate('MainApp');
         } else {
           console.log('false');
-          navigate('LoginSignUpSplash');
+          navigate('LoginSignUpSplash', { rootNavigate:navigate });
         }
       });
   }

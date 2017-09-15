@@ -22,6 +22,10 @@ class LoginForm extends Component {
     this.emailLogin = this.emailLogin.bind(this);
   }
 
+  componentDidMount() {
+    console.log('login form mounted', this.props.navigation);
+  }
+
   async emailLogin(email, password) {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
@@ -41,6 +45,7 @@ class LoginForm extends Component {
   }
 
   async handleGoogleLogin() {
+    console.log(this.props.screenProps);
     try {
       const result = await Expo.Google.logInAsync({
         androidClientId: config.google.androidClientId,
@@ -55,7 +60,8 @@ class LoginForm extends Component {
         // Navigate to next page
         const { navigate } = this.props.navigation;
         console.log('navigating to MainApp', this.props.navigation);
-        navigate('SignUp');
+        navigate('MainApp');
+
 
         // Build Firebase credential with Google access token
         const token = result.accessToken;
