@@ -30,7 +30,7 @@ class UserEdit extends React.Component {
       imageModal: false,
       colorModal: false,
       pricingListModal: false,
-      orderModal: false,
+      orderModal: true,
       addPageModal: false,
       listModal: false,
       

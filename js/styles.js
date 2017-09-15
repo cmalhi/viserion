@@ -291,4 +291,13 @@ export default styles = StyleSheet.create({
     width: 60,
     height: 60,
   },
+
+  //order modal
+  options:{
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+  },
+    flexContainer: {
+      flex: 1,
+    },
 });
