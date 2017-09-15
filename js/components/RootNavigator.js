@@ -46,6 +46,7 @@ export default RootNavigator = StackNavigator(
     ColorPicker: { screen: ColorPicker },
     ColorModal: { screen: ColorModal },
     GalleryViewer: { screen: GalleryViewer },
+    LoginSignUpSplash: { screen: LoginSignUpSplash },
   },
   {
     navigationOptions: {
