@@ -93,7 +93,11 @@ export default styles = StyleSheet.create({
   },
   buttonText: {
     fontFamily: 'Avenir-Heavy',
-    color: '#fff'
+    color: '#fff',
+    fontSize: 19,
+  },
+  iconText: {
+    fontSize: 12,
   },
 
   // Modals
@@ -109,16 +113,19 @@ export default styles = StyleSheet.create({
   },
   innerModal: {
     width: '80%',
-    backgroundColor: '#fff',
+    backgroundColor: '#222A3C',
     padding: 10,
     position: 'relative',
     top: '5%',
     borderRadius: 10,
+    color: 'white',
   },
   form: {
     padding: 10,
     borderColor: '#eee',
     borderWidth: 1,
+    color: '#FFF',
+    backgroundColor: '#060E22',
   },
 
   // Color Palette
@@ -138,7 +145,9 @@ export default styles = StyleSheet.create({
   absoluteBottom: {
     position: 'absolute',
     bottom: 10,
-    right: (Dimensions.get('window').width / 3), // center
+    left: 0,
+    right: 0,
+    alignItems: 'center',
   },
   absoluteRight: {
     position: 'absolute',
@@ -199,8 +208,8 @@ export default styles = StyleSheet.create({
   continueButton: {
     backgroundColor: '#3E84FB',
     borderRadius: 30,
-    width: 110,
-    height: 35,
+    width: 150,
+    height: 45,
   },
 
   // Inputs
@@ -218,11 +227,38 @@ export default styles = StyleSheet.create({
     alignSelf: 'center',
   },
 
-//  Swiper
-//   slides: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     backgroundColor: 'rgba(0,0,0,0)',
-//   }
+  // ImageSearch
+  scrollGrid: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  pic: {
+    backgroundColor: '#CCC',
+    margin: 10,
+    width: 80,
+    height: 80
+  },
+
+  // Share link
+  modalBottom: {
+    position: 'absolute',
+    top: Dimensions.get('window').height / 1.85 ,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    width: '100%',
+    alignItems: 'center',
+    height: Dimensions.get('window').height * 0.1,
+  },
+  innerModalBottom:{
+    width: Dimensions.get('window').width-10,
+    backgroundColor: 'rgba(60,72,101,1)',
+    padding: 10,
+    position: 'relative',
+    top: '5%',
+    borderRadius: 10
+  },
 });
