@@ -13,7 +13,7 @@ var {
 
 var id = 0;
 
-class AddPageModal extends React.Component {
+class AddComponentModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -147,4 +147,4 @@ const matchDispatchToProps = (dispatch) => {
   return bindActionCreators({appendPrefs}, dispatch)
 };
 
-export default connect(mapStateToProps, matchDispatchToProps)(AddPageModal);
+export default connect(mapStateToProps, matchDispatchToProps)(AddComponentModal);
