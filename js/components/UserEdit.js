@@ -27,7 +27,7 @@ class UserEdit extends React.Component {
     this.state = {
       shareModal: false,
       shortTextModal: false,
-      imageModal: true,
+      imageModal: false,
       colorModal: false,
       pricingListModal: false,
       orderModal: false,

@@ -288,7 +288,7 @@ export default styles = StyleSheet.create({
   pic: {
     backgroundColor: '#CCC',
     margin: 10,
-    width: 80,
-    height: 80
+    width: 60,
+    height: 60,
   },
 });
