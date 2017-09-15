@@ -1,9 +1,9 @@
 module.exports = (rawPreferencesObj) => {
   var rawPreferences = JSON.stringify(rawPreferencesObj);
-  var SOCKETJS= "http://127.0.0.1:8080/socket.io/socket.io.js";
-  var HOST = "http://127.0.0.1:8080";
-  // var HOST = "http://spindleapp.com:8080";
-  // var HOST = "http://spindleapp.com:8080/socket.io/socket.io.js";
+  // var SOCKETJS= "http://127.0.0.1:8080/socket.io/socket.io.js";
+  // var HOST = "http://127.0.0.1:8080";
+  var HOST = "http://spindleapp.com:8080";
+  var SOCKETJS = "http://spindleapp.com:8080/socket.io/socket.io.js";
   return `<!DOCTYPE html>
 <html lang="en">
 <head>

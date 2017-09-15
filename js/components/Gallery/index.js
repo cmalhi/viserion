@@ -26,7 +26,6 @@ class Gallery extends React.Component {
   }
 
   componentDidMount() {
-    console.log('focus >>>>>>>', this.props.navigation);
     axios.get(`${global.HOST}/sites/all`)
       .then((res) => {
         console.log('res data >>>>>', res);
