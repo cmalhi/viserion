@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { appendPrefs } from '../../actions/index';
 import componentMap from '../../componentMap';
+import styles from '../../styles';
 const io = require('socket.io-client');
 const tempURL = require('../../../images/components/text_image.png');
 
@@ -74,14 +75,15 @@ class AddPageModal extends React.Component {
       >
         <View style={styles.innerModal}>
           <TouchableOpacity onPress={this.closeModal}>
-            <Text style={styles.center}>Close Menu</Text>
+            <Text style={[styles.center, styles.subtitle, styles.text]}>Close Menu</Text>
           </TouchableOpacity>
+          <Text style={[styles.title, {color: 'white'}]}>Add Components</Text>
           <ScrollView>
             {this.state.compList.map((comp, index) =>
               <View key={index}>
                 <Text
                   onPress={this.handleAdd.bind(this, comp.attr)}
-                  style={styles.bigText}>{comp.displayName}</Text>
+                  style={[styles.center, styles.subtitle, styles.text, {fontSize: 30}]}>{comp.displayName}</Text>
                 {/*<TouchableOpacity*/}
                   {/*onPress={this.handleAdd.bind(this, comp.attr)}*/}
                 {/*>*/}
@@ -99,45 +101,45 @@ class AddPageModal extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  flexContainer: {
-    flex: 1,
-  },
-  center: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlign: 'center',
-  },
-  webView: {
-    padding: 10,
-    width: '100%',
-  },
-  modal: {
-    backgroundColor: 'rgba(0,0,0,.5)',
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    width: '100%',
-    alignItems: 'center',
-  },
-  innerModal: {
-    width: '80%',
-    backgroundColor: '#fff',
-    padding: 10,
-    position: 'relative',
-    top: '5%',
-    borderRadius: 10,
-  },
-  bigText: {
-    fontSize: 20,
-  },
-    selected: {
-    opacity: 0.5,
-    backgroundColor: '#FFF',
-  },
-});
+// const styles = StyleSheet.create({
+//   flexContainer: {
+//     flex: 1,
+//   },
+//   center: {
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     textAlign: 'center',
+//   },
+//   webView: {
+//     padding: 10,
+//     width: '100%',
+//   },
+//   modal: {
+//     backgroundColor: 'rgba(0,0,0,.5)',
+//     position: 'absolute',
+//     top: 0,
+//     right: 0,
+//     bottom: 0,
+//     left: 0,
+//     width: '100%',
+//     alignItems: 'center',
+//   },
+//   innerModal: {
+//     width: '80%',
+//     backgroundColor: '#fff',
+//     padding: 10,
+//     position: 'relative',
+//     top: '5%',
+//     borderRadius: 10,
+//   },
+//   bigText: {
+//     fontSize: 20,
+//   },
+//     selected: {
+//     opacity: 0.5,
+//     backgroundColor: '#FFF',
+//   },
+// });
 
 function mapStateToProps({ preferences, siteId }) {
   return { preferences, siteId };
