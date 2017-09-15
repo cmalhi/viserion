@@ -31,8 +31,6 @@ export default TabNavigator(
           case 'My Sites':
             iconName = Platform.OS === 'ios' ? `ios-browsers${focused ? '' : '-outline'}` : 'md-browsers';
             break;
-            case 'GalleryViewer':
-            break
         }
         return (
           <Ionicons

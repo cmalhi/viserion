@@ -22,17 +22,12 @@ class LoginForm extends Component {
     this.emailLogin = this.emailLogin.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    // const { navigate } = this.props.navigation;
-    // nextProps.auth.isLoggedIn && navigate('Template')
-  }
-
   async emailLogin(email, password) {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
       this.props.loginOrSignUpUser();
       const { navigate } = this.props.navigation;
-      navigate('Template');
+      navigate('MainApp');
       const user = firebase.auth().currentUser;
     } catch (error) {
       const errorMessage = error.toString();
@@ -59,7 +54,8 @@ class LoginForm extends Component {
         });
         // Navigate to next page
         const { navigate } = this.props.navigation;
-        navigate('Template');
+        console.log('navigating to MainApp', this.props.navigation);
+        navigate('SignUp');
 
         // Build Firebase credential with Google access token
         const token = result.accessToken;
@@ -87,7 +83,7 @@ class LoginForm extends Component {
         password: '',
       });
       const { navigate } = this.props.navigation;
-      navigate('Template');
+      navigate('MainApp');
 
       // Build Firebase credential with Facebook access token
       const credential = firebase.auth.FacebookAuthProvider.credential(token);

@@ -1,23 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Text, ScrollView, TouchableHighlight, TouchableOpacity, StyleSheet, AsyncStorage } from 'react-native';
+import { View, Text, ScrollView, TouchableHighlight, TouchableOpacity, StyleSheet, AsyncStorage, Dimensions, WebView } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import axios from 'axios';
 import styles from '../styles';
 import { updatePrefs } from '../actions/index';
 import { editSite } from '../actions/siteActions';
+import Loading from './Loading';
+import LoginSignUpSplash from './LoginSignUpSplash'
 
 class MyPages extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       sites: [],
-      userId: '',
+      userId: null,
     };
-    this.handleLinkPress = this.handleLinkPress.bind(this);
+    this.handleSitePress = this.handleSitePress.bind(this);
   }
 
-  handleLinkPress(site) {
+  handleSitePress(site) {
     const { navigate } = this.props.navigation;
     this.props.updatePrefs(site.preferences);
     this.props.editSite(site._id);
@@ -25,32 +27,30 @@ class MyPages extends React.Component {
   }
 
   componentDidMount() {
-    AsyncStorage.removeItem('userId');
+    const { navigate } = this.props.navigation;
     AsyncStorage.getItem('userId')
       .then(userId => {
-        // TODO: remove hard coded user ID
-        // userId = 'test';
-        console.log('userid found', userId);
-        axios.get(`${global.HOST}/sites/all/${userId}`)
-          .then((res) => {
-            this.setState({ sites: res.data, userId });
-          })
-          .catch((err) => console.log('Err getting /sites/list: ', err));
-      })
-      .catch((error) => {
-        const { navigate } = this.props.navigation;
-        navigate('SignUp');
-      })
+        if (userId) {
+          axios.get(`${global.HOST}/sites/all/${userId}`)
+            .then((res) => {
+              this.setState({ sites: res.data, userId });
+            })
+            .catch((err) => console.log('Err getting /sites/all ', err));
+        }
+      });
   }
 
   renderSavedSites() {
     return this.state.sites.map(site => {
       return (
-        <View key={site._id} style={styles.itemsColumn}>
-          <TouchableOpacity onPress={this.handleLinkPress.bind(this, site)}>
-            <View style={styles.boxItem}>
-              <Text>{site._id}</Text>
-            </View>
+        <View key={site._id} style={[styles.galleryContainer, styles.center]}>
+          <TouchableOpacity onPress={this.handleSitePress.bind(this, site)}>
+              <WebView style={{marginBottom: 20, width: Dimensions.get('window').width - 50, height: Dimensions.get('window').height - 130}}
+                automaticallyAdjustContentInsets={false}
+                scrollEnabled={false}
+                scalesPageToFit={true}
+                source={{ uri: 'http://localhost:8080/'+site._id }}>
+            </WebView>
           </TouchableOpacity>
         </View>
       );
@@ -59,13 +59,13 @@ class MyPages extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    if (!this.state.userId) return <Text>Sign in</Text>
-    if (!this.state.sites.length) return <Text>Loading...</Text>
-    return(
-      <View style={styles.basicContainer}>
-        <ScrollView contentContainerStyle={styles.content}>
-          {this.renderSavedSites()}
-        </ScrollView>
+    return this.state.userId 
+      ? (<View style={styles.galleryContainer}>
+          {this.state.sites.length 
+            ? (<ScrollView contentContainerStyle={styles.content}>
+                {this.renderSavedSites()} 
+              </ScrollView>) 
+            : <Loading />}
         <View>
           <TouchableHighlight
             style={[styles.addButton, styles.buttonCentered]}
@@ -75,8 +75,8 @@ class MyPages extends React.Component {
             <Entypo name="plus" size={25} color="white" />
           </TouchableHighlight>
         </View>
-      </View>
-    )
+      </View>)
+    : <LoginSignUpSplash />
   }
 }
 

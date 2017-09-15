@@ -25,7 +25,7 @@ class SignUpForm extends Component {
         .createUserWithEmailAndPassword(email, password);
       this.props.loginOrSignUpUser();
       const { navigate } = this.props.navigation;
-      navigate('Template');
+      navigate('MainApp');
     } catch (error) {
       const errorMessage = error.toString();
       this.setState({ errorMessage });

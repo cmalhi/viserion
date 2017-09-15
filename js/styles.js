@@ -5,6 +5,10 @@ export default styles = StyleSheet.create({
     flex: 1,
     // backgroundColor: '#fff',
   },
+  galleryContainer: {
+    flex: 1,
+    backgroundColor: '#060E22',
+  },
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -34,6 +38,14 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'stretch',
     backgroundColor: '#060E22',
+  },
+  headerContainerSmall: {
+    flex: 0.75,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    backgroundColor: '#060E22',
+    marginBottom: -15,
   },
   mainContainer: {
     flex: 2,

@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Text, ScrollView, TouchableHighlight, TouchableOpacity, StyleSheet, AsyncStorage } from 'react-native';
+import { View, Text, ScrollView, TouchableHighlight, TouchableOpacity, WebView, Dimensions } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import axios from 'axios';
 import styles from '../../styles';
 import { updatePrefs } from '../../actions/index';
 import { editSite } from '../../actions/siteActions';
+import Loading from '../Loading';
 
 class Gallery extends React.Component {
   constructor(props) {
@@ -37,11 +38,14 @@ class Gallery extends React.Component {
   renderSavedSites() {
     return this.state.sites.map(site => {
       return (
-        <View key={site._id} style={styles.itemsColumn}>
+        <View key={site._id} style={[styles.galleryContainer, styles.center]}>
           <TouchableOpacity onPress={this.handleSitePress.bind(this, site)}>
-            <View style={styles.boxItem}>
-              <Text>{site._id}</Text>
-            </View>
+              <WebView style={{marginBottom: 20, width: Dimensions.get('window').width - 50, height: Dimensions.get('window').height - 130}}
+                automaticallyAdjustContentInsets={false}
+                scrollEnabled={false}
+                scalesPageToFit={true}
+                source={{ uri: 'http://localhost:8080/'+site._id }}>
+            </WebView>
           </TouchableOpacity>
         </View>
       );
@@ -51,10 +55,10 @@ class Gallery extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return(
-      <View style={styles.basicContainer}>
+      <View style={styles.galleryContainer}>
         {this.state.sites.length ? (<ScrollView contentContainerStyle={styles.content}>
           {this.renderSavedSites()}
-        </ScrollView>) : <Text>Loading....</Text>}
+        </ScrollView>) : <Loading />}
         <View>
           <TouchableHighlight
             style={[styles.addButton, styles.buttonCentered]}
