@@ -15,6 +15,7 @@ class ShareModal extends React.Component {
     super(props);
     this.state = {
       offset: new Animated.Value(deviceHeight),
+      shortName: null,
     };
     this.siteUrl = `${global.HOST}/${this.props.siteId}`;
     this.closeModal = this.closeModal.bind(this);
@@ -70,6 +71,10 @@ class ShareModal extends React.Component {
           <TouchableOpacity onPress={() => this._handleLinkPress(this.siteUrl)}>
             <Text style={[styles.text, {fontSize: 15}]}>{this.siteUrl}</Text>
           </TouchableOpacity>
+          <TextInput
+            onChangeText={(shortName) => this.setState({shortName})} />
+
+
         </View>
         <View style={[styles.innerModalBottom, {
           flexDirection: 'row',
