@@ -50,12 +50,11 @@ class Gallery extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    if (!this.state.sites.length) return <Text>Loading...</Text>
     return(
       <View style={styles.basicContainer}>
-        <ScrollView contentContainerStyle={styles.content}>
+        {this.state.sites.length ? (<ScrollView contentContainerStyle={styles.content}>
           {this.renderSavedSites()}
-        </ScrollView>
+        </ScrollView>) : <Text>Loading....</Text>}
         <View>
           <TouchableHighlight
             style={[styles.addButton, styles.buttonCentered]}

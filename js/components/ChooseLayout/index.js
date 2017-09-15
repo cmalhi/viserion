@@ -75,7 +75,7 @@ class ChooseLayout extends React.Component {
             onSwipeLeft={this.handleRightSwipe}
             renderEmpty={() =>
               <View style={{ alignSelf: "center" }}>
-                <Text style={styles.title}>That's all!</Text>
+                <Text style={[styles.title, styles.text]}>That's all!</Text>
               </View>}
             renderItem={(layout) =>
               <LayoutItem

@@ -25,6 +25,7 @@ class MyPages extends React.Component {
   }
 
   componentDidMount() {
+    AsyncStorage.removeItem('userId');
     AsyncStorage.getItem('userId')
       .then(userId => {
         // TODO: remove hard coded user ID
@@ -35,7 +36,11 @@ class MyPages extends React.Component {
             this.setState({ sites: res.data, userId });
           })
           .catch((err) => console.log('Err getting /sites/list: ', err));
-      });
+      })
+      .catch((error) => {
+        const { navigate } = this.props.navigation;
+        navigate('SignUp');
+      })
   }
 
   renderSavedSites() {

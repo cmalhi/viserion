@@ -474,10 +474,12 @@ bigger {
       super(props);
       this.state = {
         bgColor: this.props.bgColor,
+        textColor: this.props.textColor,
         title: this.props.title,
         id: this.props.id,
         path1: ['attr', 'bgColor'],
         path2: ['attr', 'title'],
+        path3: ['attr', 'textColor'],
       };
       this.handleHeaderClick = this.handleHeaderClick.bind(this);
     }
@@ -486,6 +488,7 @@ bigger {
         bgColor: nextProps.bgColor,
         title: nextProps.title,
         id: nextProps.id,
+        textColor: nextProps.textColor,
       });
     }
     componentDidMount() {
@@ -512,6 +515,8 @@ bigger {
                   value={this.state.title}
                   id={this.state.id}
                   path={this.state.path2}
+                  colorPath={this.state.path3}
+                  color={this.state.textColor}
                 />
               </span>
             </div>
@@ -723,6 +728,7 @@ bigger {
         textValue: this.props.value,
         path: this.props.path,
         id: this.props.id,
+        colorPath: this.props.colorPath,
         key: newId(),
       };
       this.handleClick = this.handleClick.bind(this);
@@ -732,6 +738,7 @@ bigger {
         color: nextProps.color,
         textValue: nextProps.value,
         path: nextProps.path,
+        colorPath: nextProps.colorPath,
         id: nextProps.id,
       })
     }
@@ -743,7 +750,7 @@ bigger {
     handleClick(e) {
       e.stopPropagation();
       console.log('short text clicked!')
-      socket.emit('launchTitleModal', { room: room, key: this.state.key, textValue: this.state.textValue, id: this.state.id, path: this.state.path });
+      socket.emit('launchTitleModal', { room: room, key: this.state.key, textValue: this.state.textValue, id: this.state.id, path: this.state.path, color: this.state.color, colorPath: this.state.colorPath });
     }
     render() {
       return(

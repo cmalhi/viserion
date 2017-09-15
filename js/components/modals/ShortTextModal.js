@@ -56,11 +56,9 @@ class ShortTextModal extends React.Component {
 
   saveColorToPref() {
     const socket = io(global.HOST, { transports: ['websocket'] });
-    var { id, path, room } = this.props.data;
+    var { id, room, colorPath } = this.props.data;
     // console.log('save color to pref', path, this.state.color );
-    path.pop();
-    path.push('textColor');
-    var newPref = updateComponent(this.props.preferences, id, path, this.state.color);
+    var newPref = updateComponent(this.props.preferences, id, colorPath, this.state.color);
     // console.log('new prefs', newPref);
     socket.emit('updatePref', { room: room, newPref: newPref });
   }
