@@ -23,6 +23,7 @@ You will need to change the server Urls in global.js and app/utils/prefsToReacti
 
 ## Screenshot ##
 
+![](images/screenshot.png?raw=true)
 
 ## Technology Stack ##
 
