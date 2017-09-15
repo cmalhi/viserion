@@ -7,11 +7,6 @@ export default class SignUp extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={[styles.headerContainer, styles.centered]}>
-          <View style={styles.header}>
-            <Text style={[styles.text, styles.title]}>Sign Up</Text>
-          </View>
-        </View>
         <View style={[styles.mainContainer]}>
           <SignUpForm navigation={this.props.navigation} />
         </View>
@@ -19,3 +14,9 @@ export default class SignUp extends Component {
     )
   }
 }
+
+// <View style={[styles.headerContainer, styles.centered]}>
+//   <View style={styles.header}>
+//     <Text style={[styles.text, styles.title]}>Sign Up</Text>
+//   </View>
+// </View>
