@@ -534,7 +534,6 @@ bigger {
         subTitle: this.props.subTitle,
         color1: this.props.color.color1,
         color2: this.props.color.color2,
-        //background1: "linear-gradient(to left," + this.props.color.color1 + "," + this.props.color.color2+")",
         id: this.props.id,
         pathGradient: ['attr', 'color'],
         path1: ['attr', 'mainTitle'],
@@ -548,7 +547,6 @@ bigger {
         subTitle: nextProps.subTitle,
         color1: nextProps.color.color1,
         color2: nextProps.color.color2,
-        //background1: "linear-gradient(to left," + nextProps.color.color1 + "," + nextProps.color.color2+")",
         id: nextProps.id,
       });
     }
