@@ -24,6 +24,7 @@ const io = require('socket.io-client');
 import PresetPalettes from './ColorPicker/ColorPalette';
 import Prescreen from './Prescreen';
 import GalleryViewer from './Gallery/GalleryViewer';
+import LoginSignUpSplash from './LoginSignUpSplash';
 
 export default RootNavigator = StackNavigator(
   {

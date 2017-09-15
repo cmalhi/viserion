@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Text, ScrollView, TouchableHighlight, TouchableOpacity, StyleSheet, AsyncStorage } from 'react-native';
+import { View, Text, ScrollView, TouchableHighlight, TouchableOpacity, WebView, Dimensions } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import axios from 'axios';
 import styles from '../../styles';
@@ -38,11 +38,14 @@ class Gallery extends React.Component {
   renderSavedSites() {
     return this.state.sites.map(site => {
       return (
-        <View key={site._id} style={styles.itemsColumn}>
+        <View key={site._id} style={styles.galleryContainer}>
           <TouchableOpacity onPress={this.handleSitePress.bind(this, site)}>
-            <View style={styles.boxItem}>
-              <Text>{site._id}</Text>
-            </View>
+              <WebView style={{marginBottom: 20, width: Dimensions.get('window').width - 50, height: Dimensions.get('window').height - 130}}
+                automaticallyAdjustContentInsets={false}
+                scrollEnabled={false}
+                scalesPageToFit={true}
+                source={{ uri: 'http://localhost:8080/'+site._id }}>
+            </WebView>
           </TouchableOpacity>
         </View>
       );

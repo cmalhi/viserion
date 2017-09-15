@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import LoginForm from './LoginForm';
-import styles from '../../styles';
+import styles from '../styles';
 
 export default class LoginSignUpSplash extends Component {
   render() {

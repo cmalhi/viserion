@@ -5,6 +5,11 @@ export default styles = StyleSheet.create({
     flex: 1,
     // backgroundColor: '#fff',
   },
+  galleryContainer: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#060E22',
+  },
   container: {
     flex: 1,
     flexDirection: 'column',
