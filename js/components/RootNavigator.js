@@ -25,6 +25,7 @@ import PresetPalettes from './ColorPicker/ColorPalette';
 import Prescreen from './Prescreen';
 import GalleryViewer from './Gallery/GalleryViewer';
 import LoginSignUpSplash from './LoginSignUpSplash';
+import LoginSignUpNavigator from './LoginSignUpNavigator';
 
 export default RootNavigator = StackNavigator(
   {
@@ -48,6 +49,7 @@ export default RootNavigator = StackNavigator(
     ColorModal: { screen: ColorModal },
     GalleryViewer: { screen: GalleryViewer },
     LoginSignUpSplash: { screen: LoginSignUpSplash },
+    LoginSignUpNavigator: { screen: LoginSignUpNavigator }
   },
   {
     navigationOptions: {

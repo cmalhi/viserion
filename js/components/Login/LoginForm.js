@@ -6,6 +6,7 @@ import firebase from '../../../database/firebase';
 import { connect } from 'react-redux';
 import { loginOrSignUpUser } from '../../actions/authActions';
 import styles from '../../styles';
+import Loading from '../Loading';
 
 class LoginForm extends Component {
   constructor() {
@@ -14,20 +15,30 @@ class LoginForm extends Component {
       email: '',
       password: '',
       errorMessage: null,
+      isLoading: false,
     };
 
     this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
     this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
     this.handleEmailLogin = this.handleEmailLogin.bind(this);
     this.emailLogin = this.emailLogin.bind(this);
+    this.navigateToGallery = this.navigateToGallery.bind(this);
+  }
+
+  navigateToGallery() {
+    // this.props.rootNavigate('MainApp')
+    this.setState({isLoading: true});
+    setTimeout(() => {
+      this.props.rootNavigate('MainApp')
+      this.setState({isLoading: false});
+    }, 2000);
   }
 
   async emailLogin(email, password) {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
       this.props.loginOrSignUpUser();
-      const { navigate } = this.props.navigation;
-      navigate('MainApp');
+      this.navigateToGallery();
       const user = firebase.auth().currentUser;
     } catch (error) {
       const errorMessage = error.toString();
@@ -53,9 +64,7 @@ class LoginForm extends Component {
           password: '',
         });
         // Navigate to next page
-        const { navigate } = this.props.navigation;
-        console.log('navigating to MainApp', this.props.navigation);
-        navigate('SignUp');
+        this.navigateToGallery();
 
         // Build Firebase credential with Google access token
         const token = result.accessToken;
@@ -82,8 +91,7 @@ class LoginForm extends Component {
         email: '',
         password: '',
       });
-      const { navigate } = this.props.navigation;
-      navigate('MainApp');
+      this.navigateToGallery();
 
       // Build Firebase credential with Facebook access token
       const credential = firebase.auth.FacebookAuthProvider.credential(token);
@@ -94,7 +102,9 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <KeyboardAvoidingView behavior="padding">
+      (this.props.auth.isFetching)
+      ? (<Loading />) :
+      (<KeyboardAvoidingView behavior="padding">
         <TextInput 
           placeholder=" email"
           placeholderTextColor="#B0BBBD"
@@ -126,7 +136,7 @@ class LoginForm extends Component {
           <Text style={styles.buttonText}>WITH GOOGLE</Text>
         </TouchableOpacity>
         {this.state.errorMessage && <Text>{this.state.errorMessage}</Text>}
-    </KeyboardAvoidingView>
+    </KeyboardAvoidingView>)
     );
   }
 }

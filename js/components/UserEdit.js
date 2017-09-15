@@ -105,7 +105,6 @@ class UserEdit extends React.Component {
   }
 
   handleSubmit() {
-    AsyncStorage.removeItem('userId');
     const { navigate } = this.props.navigation;
     this.props.updateSite();
     AsyncStorage.getItem('userId')
@@ -115,7 +114,7 @@ class UserEdit extends React.Component {
           navigate('MainApp');
         } else {
           console.log('false');
-          navigate('LoginSignUpSplash');
+          navigate('LoginSignUpSplash', { rootNavigate:navigate });
         }
       });
   }
