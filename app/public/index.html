@@ -11,8 +11,8 @@
 <script src="https://fb.me/react-15.0.0.js"></script>
 <script src="https://fb.me/react-dom-15.0.0.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
-<script src="http://127.0.0.1:8080/socket.io/socket.io.js"></script>
-<!--<script src="http://spindleapp.com/socket.io/socket.io.js"></script>-->
+<!--<script src="http://127.0.0.1:8080/socket.io/socket.io.js"></script>-->
+<script src="http://spindleapp.com/socket.io/socket.io.js"></script>
 <!--<script src="http://ec2-54-203-8-222.us-west-2.compute.amazonaws.com:8080/socket.io/socket.io.js"></script>-->
 <style type="text/css">
   /*---------------
@@ -324,8 +324,8 @@
 <div id="parent"></div>
 
 <script type="text/babel">
-  const socket = io('http://127.0.0.1:8080');
-  //const socket = io('http://spindleapp.com');
+  //const socket = io('http://127.0.0.1:8080');
+  const socket = io('http://spindleapp.com');
   //const socket = io('http://ec2-54-203-8-222.us-west-2.compute.amazonaws.com:8080');
   var room;
   if (location) {
@@ -342,7 +342,7 @@
     constructor(props) {
       super(props);
       this.state = {
-        rawPreferences: [{"attr":{"subTitle":"","mainTitle":"Spindle","color":{"color2":"#FF4081","color1":"#F44336"}},"componentName":"GradientHero","nickName":"My GradientHero","id":"id4"},{"attr":{"body3":"","subtitle3":"","body2":"","subtitle2":"","body1":"Scan the QR code in the Expo app from the App Store.","subtitle1":"Make your website now","mainTitle":"Share a webpage in minutes.","imageUrl":"/assets/images/qr.png"},"componentName":"ImageContent","nickName":"My ImageContent","id":"id6"},{"attr":{"text":"Made with SpindleApp","bgColor":"#eee"},"componentName":"Footer","nickName":"My Footer","id":"id5"}],
+        rawPreferences: [{"attr":{"subTitle":"","mainTitle":"Spindle","color":{"color2":"#FF4081","color1":"#F44336"}},"componentName":"GradientHero","nickName":"My GradientHero","id":"id4"},{"attr":{"body3":"","subtitle3":"","body2":"","subtitle2":"","body1":"Scan the QR code in the Expo app from the App Store.","subtitle1":"Make your website now","mainTitle":"Share a webpage in minutes.","imageUrl":"/assets/images/qr.png"},"componentName":"ImageContent","nickName":"My ImageContent","id":"id6"},{"attr":{"text":"Made with Spindle App","bgColor":"#eee"},"componentName":"Footer","nickName":"My Footer","id":"id5"}],
         sitePreferences: [{
           id: 'hero24',
           nickName: 'My Hero',
