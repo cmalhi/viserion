@@ -561,9 +561,10 @@ bigger {
             className="hero hero-wrapper"
             onClick={this.handleHeaderClick}
             style={{
-              background: this.state.color1,
-              // background: '-webkit-linear-gradient(to left, ' + this.state.color2 +', ' + this.state.color1')',
-              // background: 'linear-gradient(to left, ' + this.state.color2 + ', ' + this.state.color1')',
+              // background: this.state.color1,
+              background: this.state.background1,
+              background: '-webkit-linear-gradient(to left, ' + this.state.color2 +', ' + this.state.color1+')',
+              background: 'linear-gradient(to left, ' + this.state.color2 + ', ' + this.state.color1 + ')',
             }}
           >
             <div className="row">
