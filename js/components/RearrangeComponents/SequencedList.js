@@ -139,14 +139,13 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#060E22',
     padding: 16,
     height: 80,
     flex: 1,
     marginTop: 7,
     marginBottom: 12,
     borderRadius: 4,
-
 
     ...Platform.select({
       ios: {
@@ -174,6 +173,6 @@ const styles = StyleSheet.create({
 
   text: {
     fontSize: 24,
-    color: '#222222',
+    color: 'white',
   },
 });
