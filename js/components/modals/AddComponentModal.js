@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { appendPrefs } from '../../actions/index';
 import componentMap from '../../componentMap';
 const io = require('socket.io-client');
-const tempURL = require('../../../images/components/text_image.png');
+// const tempURL = require('../../../images/components/text_image.png');
 
 var {
   width: deviceWidth
@@ -24,6 +24,21 @@ class AddComponentModal extends React.Component {
     this.handleAdd = this.handleAdd.bind(this);
     this.mapEach = this.mapEach.bind(this);
     this.newId = this.newId.bind(this);
+
+    this.images = {
+      ImageContent: require('../../../images/components/ImageContent.png'),
+      TextContent: require('../../../images/components/TextContent.png'),
+      PinterestText: require('../../../images/components/PinterestText.png'),
+      PinterestContent: require('../../../images/components/PinterestContent.png'),
+      Hero: require('../../../images/components/Hero.png'),
+      GradientHero: require('../../../images/components/GradientHero.png'),
+      Footer: require('../../../images/components/Footer.png'),
+      ImageCaption: require('../../../images/components/ImageCaption.png'),
+    }
+  }
+
+  getImage(num) {
+    return this.images[num];
   }
 
   componentWillMount() {
@@ -47,8 +62,10 @@ class AddComponentModal extends React.Component {
     for (var key in componentMap) {
       // Turn "GradientHero" into "Gradient Hero"
       let mapped = key.split(/(?=[A-Z])/).join(" ");
-      const { imgUrl } = componentMap[key];
-      result.push({ attr: componentMap[key], displayName: mapped, img: require(imgUrl) });
+      // const { img } = componentMap[key];
+      // console.log('img', img)
+      // const imgUrl = img;
+      result.push({ attr: componentMap[key], displayName: mapped, img: this.images[key] });
     }
     this.setState({ compList: result });
   }
@@ -72,7 +89,7 @@ class AddComponentModal extends React.Component {
       <Animated.View
         style={[styles.modal, { transform: [{ translateX: this.state.offset }] }]}
       >
-        <View style={styles.innerModal}>
+        <View style={[styles.innerModal, {height: 500}]}>
           <TouchableOpacity onPress={this.closeModal}>
             <Text style={styles.center}>Close Menu</Text>
           </TouchableOpacity>
