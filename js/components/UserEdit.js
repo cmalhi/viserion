@@ -65,30 +65,42 @@ class UserEdit extends React.Component {
 
     const socket = io(global.HOST, { transports: ['websocket'] });
 
-    socket.on('launchTitleModal', (data) => {
-      this.setState({ shortTextModal: true, shortTextId: data.key, shortTextValue: data.textValue, shortTextData: data, });
-    });
+      socket.on('launchTitleModal', (data) => {
+        if (data.room === this.props.siteId) {
+          this.setState({ shortTextModal: true, shortTextId: data.key, shortTextValue: data.textValue, shortTextData: data, });
+        }
+      });
 
     socket.on('launchLongTextModal', (data) => {
-      this.setState({ longTextModal: true, longTextId: data.key, longTextValue: data.textValue, longTextData: data });
+      if (data.room === this.props.siteId) {
+        this.setState({ longTextModal: true, longTextId: data.key, longTextValue: data.textValue, longTextData: data });
+      }
     });
 
     socket.on('launchImageModal', (data) => {
-      this.setState({ imageModal: true, imageId: data.id, imageData: data });
+      if (data.room === this.props.siteId) {
+        this.setState({ imageModal: true, imageId: data.id, imageData: data });
+      }
     });
 
     socket.on('colorChange', (data) => {
       // data : { id: x, path: y }
-      this.setState({ colorModal: true, colorData: data });
+      if (data.room === this.props.siteId) {
+        this.setState({ colorModal: true, colorData: data });
+      }
     });
 
     socket.on('launchPricingModal2', (list) => {
-      this.setState({ pricingListModal: true, pricingDetails: list.details, pricingListId: list.key });
+      if (data.room === this.props.siteId) {
+        this.setState({ pricingListModal: true, pricingDetails: list.details, pricingListId: list.key });
+      }
     });
 
     socket.on('launchListModal2', (data) => {
       // TODO: get id
-      this.setState({ listModal: true, listData: data, listId: data.key});
+      if (data.room === this.props.siteId) {
+        this.setState({ listModal: true, listData: data, listId: data.key});
+      }
     });
 
     socket.on('getPrefsUserEdit', (message) => {

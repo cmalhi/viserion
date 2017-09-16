@@ -53,6 +53,8 @@ class ImageSearch extends React.Component {
           clearButtonMode={'unless-editing'}
           keyboardType={"default"}
           autoFocus
+          returnKeyType="go"
+          onEndEditing={this.searchForImages}
         />
         <Button
           onPress={this.searchForImages}

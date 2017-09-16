@@ -27,7 +27,7 @@ const layoutsData = [
     layouts: ['PinterestContent', 'PricingList'],
   },
   { uri: require('../../../images/templates/bright-template.jpg'),
-    layouts: ['PinterestContent'],
+    layouts: ['PinterestContent', 'GradientHero'],
   },
   { uri: require('../../../images/templates/grid3-template.jpg'),
     layouts: ['PinterestContent'],

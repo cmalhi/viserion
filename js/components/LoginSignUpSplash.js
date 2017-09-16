@@ -4,8 +4,6 @@ import styles from '../styles';
 import LoginSignUpNavigator from './LoginSignUpNavigator';
 
 export default class LoginSignUpSplash extends Component {
-  componentWillMount() {
-  }
   render() {
     return (
       <View style={styles.container}>

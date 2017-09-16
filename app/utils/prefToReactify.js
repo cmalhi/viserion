@@ -784,7 +784,7 @@ bigger {
       })
     }
     handleClick() {
-      socket.emit('launchListModal', {key: this.state.key, id: this.state.id, path: this.state.path});
+      socket.emit('launchListModal', { room: room, key: this.state.key, id: this.state.id, path: this.state.path});
     }
     render() {
       const list = this.state.items.map((item, i) => {
@@ -1064,7 +1064,7 @@ bigger {
       }
 
       handleClick() {
-        socket.emit('launchPricingModal', {key: this.state.key, details: this.state.details});
+        socket.emit('launchPricingModal', { room: room, key: this.state.key, details: this.state.details});
       }
 
       render() {
