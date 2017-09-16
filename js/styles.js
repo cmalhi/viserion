@@ -257,7 +257,7 @@ export default styles = StyleSheet.create({
   // Share link
   modalBottom: {
     position: 'absolute',
-    top: Dimensions.get('window').height / 2.3,
+    top: Dimensions.get('window').height / 7,
     right: 0,
     bottom: 0,
     left: 0,
@@ -272,5 +272,11 @@ export default styles = StyleSheet.create({
     position: 'relative',
     top: '5%',
     borderRadius: 10
+  },
+
+  // List
+  list: {
+    fontSize: 14,
+    height: 20,
   },
 });

@@ -61,7 +61,7 @@ class ImageSearch extends React.Component {
           title="Search"
           color="#000000"
         />
-        <View style={{height: Dimensions.get('window').height * 0.45}}>
+        <View style={{height: Dimensions.get('window').height * 0.15}}>
           <ScrollView>
             <View style={styles.scrollGrid} >
               {this.state.images}

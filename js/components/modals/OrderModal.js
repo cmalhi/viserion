@@ -111,6 +111,7 @@ class OrderModal extends React.Component {
   }
 
   handleDelete(id) {
+
     const socket = io(global.HOST, { transports: ['websocket'] });
     var componentToDelete = getObj(this.state.sitePreferences, 'id', id);
     var newSitePreferences = removeByValue(this.state.sitePreferences.slice(), componentToDelete);
