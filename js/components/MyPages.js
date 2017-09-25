@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Text, ScrollView, TouchableHighlight, TouchableOpacity, StyleSheet, AsyncStorage, Dimensions, WebView } from 'react-native';
+import { View, Text, ScrollView, TouchableHighlight, TouchableOpacity, StyleSheet, AsyncStorage, Dimensions, WebView, Image } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import axios from 'axios';
 import styles from '../styles';
@@ -61,12 +61,13 @@ class MyPages extends React.Component {
       return (
         <View key={site._id} style={[styles.galleryContainer, styles.center]}>
           <TouchableOpacity onPress={this.handleSitePress.bind(this, site)}>
-              <WebView style={{marginBottom: 20, width: Dimensions.get('window').width - 50, height: Dimensions.get('window').height - 130}}
-                automaticallyAdjustContentInsets={false}
-                scrollEnabled={false}
-                scalesPageToFit={true}
-                source={{ uri: `${global.HOST}/id/${site._id}` }}>
-            </WebView>
+            <Image style={{marginBottom: 20, width: Dimensions.get('window').width - 50, height: Dimensions.get('window').height - 80}} source={{uri: `https://viserion-hr.s3.amazonaws.com/${site._id}.png`}} />
+              {/*<WebView style={{marginBottom: 20, width: Dimensions.get('window').width - 50, height: Dimensions.get('window').height - 130}}*/}
+                {/*automaticallyAdjustContentInsets={false}*/}
+                {/*scrollEnabled={false}*/}
+                {/*scalesPageToFit={true}*/}
+                {/*source={{ uri: `${global.HOST}/id/${site._id}` }}>*/}
+            {/*</WebView>*/}
           </TouchableOpacity>
         </View>
       );

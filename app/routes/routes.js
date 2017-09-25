@@ -66,26 +66,26 @@ var routerInstance = function(io) {
    * /POST /submitchoice
    * Grabs templateID, generates screenshot image, inserts screenshot image into userTemplates
    */
-  router.post('/submitchoice', function (req, res) {
-    console.log('submitchoice');
-    const templateId = "59a19409bc1b89b728fe07cb";
-
-    // new Screenshot('/usertemplates/' + templateId)
-    //   .width(1080)
-    //   .height(1920)
-    //   .clip()
-    //   .capture()
-    //   .then(img => {
-    //     // TODO: Store in S3
-
-    //     const screenshotUrl = __dirname + '/../../js/components/example.png';
-    //     fs.writeFileSync(screenshotUrl, img);
-    //     console.log(screenshotUrl);
-
-    //     userTemplateController.upsert({_id: templateId}, {screenshot: screenshotUrl})
-    //       .then(updatedDoc => console.log('new screenshotUrl: ' + updatedDoc.screenshot));
-    //   });
-  });
+  // router.post('/submitchoice', function (req, res) {
+  //   console.log('submitchoice');
+  //   const templateId = "59a19409bc1b89b728fe07cb";
+  //
+  //   // new Screenshot('/usertemplates/' + templateId)
+  //   //   .width(1080)
+  //   //   .height(1920)
+  //   //   .clip()
+  //   //   .capture()
+  //   //   .then(img => {
+  //   //     // TODO: Store in S3
+  //
+  //   //     const screenshotUrl = __dirname + '/../../js/components/example2.png';
+  //   //     fs.writeFileSync(screenshotUrl, img);
+  //   //     console.log(screenshotUrl);
+  //
+  //   //     userTemplateController.upsert({_id: templateId}, {screenshot: screenshotUrl})
+  //   //       .then(updatedDoc => console.log('new screenshotUrl: ' + updatedDoc.screenshot));
+  //   //   });
+  // });
 
   return router;
 };

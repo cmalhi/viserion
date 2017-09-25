@@ -19,7 +19,7 @@ and
 
 ## Notes ##
 
-You will need to change the server Urls in global.js and app/utils/prefsToReactify.js
+Dev vs. Production: You will need to change the server URLs in global.js and app/utils/prefsToReactify.js
 
 ## Screenshot ##
 

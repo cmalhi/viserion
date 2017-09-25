@@ -11,7 +11,6 @@ import ChooseTitle from './ChooseTitle';
 import ChooseLayout from './ChooseLayout/index';
 import ChooseKeywords from './ChooseKeywords';
 import ConfirmSite from './ConfirmSite';
-import SavedPages from './SavedPages';
 import SharedScreen from './ShareScreen';
 import Login from './Login/index';
 import SignUp from './SignUp/index';
@@ -41,7 +40,6 @@ export default RootNavigator = StackNavigator(
     ConfirmSite: { screen: ConfirmSite },
     ShareScreen: { screen: SharedScreen },
     Keywords: { screen: ChooseKeywords },
-    Saved: { screen: SavedPages },
     Login: { screen: Login },
     SignUp: { screen: SignUp },
     UserEdit: { screen: UserEdit },
