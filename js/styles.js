@@ -130,7 +130,6 @@ export default styles = StyleSheet.create({
     position: 'relative',
     top: '5%',
     borderRadius: 10,
-    color: 'white',
   },
   form: {
     padding: 10,
