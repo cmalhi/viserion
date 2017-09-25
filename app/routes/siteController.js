@@ -1,9 +1,12 @@
 const Site = require('../models/site');
 const User = require('../models/user');
 const prefToReactify = require('../utils/prefToReactify');
-const snapshot = require('../utils/snapshot');
-const Screenshot = require('url-to-screenshot');
+// const snapshot = require('../utils/snapshot');
+// const Screenshot = require('url-to-screenshot');
 const fs = require('fs');
+const puppeteer = require('puppeteer');
+const knox = require('knox');
+const devices = require('puppeteer/DeviceDescriptors');
 
 exports.addOne = function(req, res) {
   const { userId, html, preferences } = req.body;
@@ -46,6 +49,43 @@ exports.retrieveOne = function(req, res) {
   })
 };
 
+var client = knox.createClient({
+  key: 'AKIAI4U73XJ3DJ4PGJYQ'
+  , secret: '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'
+  , bucket: 'viserion-hr'
+});
+
+function makeScreenshot(url, siteId) {
+  (async () => {
+    try {
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      await page.emulate( devices['iPhone 6'] );
+      await page.goto(url);
+      const imageBuffer = await page.screenshot();
+
+      // Upload to AWS
+      var headers = { 'Content-Type': 'image/png' };
+      client.putBuffer(imageBuffer, `/${siteId}.png`, headers, function(err, res) {
+        if (err) {
+          console.log('Err uploading image to Amazon S3: ', err);
+        }
+        if (res) {
+          var url = res.req.url;
+          // Put into database
+          exports.upsert({ _id: siteId }, { screenshot: url });
+        }
+      });
+
+      await browser.close();
+
+      // TODO: Database call that takes in { siteId, imgUrl } and updates DB
+    } catch (e) {
+      console.log('Error: ', e)
+    }
+  })();
+}
+
 exports.updateOne = function(req, res) {
   const siteId = req.params.siteid;
   const { preferences, userId } = req.body;
@@ -56,27 +96,9 @@ exports.updateOne = function(req, res) {
     update['preferences'] = preferences;
     update['html'] = html;
 
-    /* SCREENSHOT MAKER START */
-    // var url = `http://spindleapp.com/id/${siteId}`;
-    // var url = 'http://spindleapp.com/pages/quo2';
-    // new Screenshot(url)
-    //   .width(1080)
-    //   .height(1920)
-    //   .clip()
-    //   .capture()
-    //   .then(img => {
-    //     console.log('img created: ', img);
-    //     // test
-    //     fs.writeFileSync('./img.png', img);
-    //
-    //     // Upload to AWS
-    //     snapshot.uploadAws(img);
-    //
-    //     // Put into database
-    //     // TODO: Database call that takes in { siteId, imgUrl } and updates DB
-    //   })
-    //   .catch(err => console.log('Err generating snapshot: ', err));
-    /* SCREENSHOT MAKER END*/
+    /* Make screenshot */
+    var url = `http://spindleapp.com/id/${siteId}`;
+    makeScreenshot(url, siteId);
   }
   if (userId) {
     update['userId'] = userId;
@@ -84,13 +106,12 @@ exports.updateOne = function(req, res) {
     User.findOneAndUpdate({"userId": userId}, userUpdate, { new: true })
       .then(user => console.log(`${user} updated`));
   }
-  // console.log('update to update >>>>>', update, siteId);
+
   Site.findOneAndUpdate( {_id: siteId }, update, function(err, site) {
     if (err || !site) return res.status(500).send({ success: false, error: 'Error updating site with id ' + req.params.siteid });
-    // console.log('user added to a site', site);
     res.send(site);
   })
-}
+};
 
 exports.serveOne = function(req, res) {
   const siteId = req.params.siteid;
