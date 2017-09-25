@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated, Dimensions, Image, Text, TouchableOpacity, View, WebView, Button, StyleSheet, TextInput, TouchableWithoutFeedback } from 'react-native';
+import { Animated, Dimensions, Image, Text, TouchableOpacity, View, WebView, Button, StyleSheet, TextInput, TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { updatePrefs } from '../../actions/index';
@@ -49,23 +49,24 @@ class LongTextModal extends React.Component {
 
   render() {
     return (
-      <TouchableWithoutFeedback onPress={ () => { DismissKeyboard() } }>
-        <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
-          <View style={styles.innerModal}>
-            <TouchableOpacity onPress={this.closeModal}>
-              <Text style={styles.center}>Close Menu</Text>
-            </TouchableOpacity>
-            <Text style={styles.bigText}>Edit Long Text</Text>
-            <TextInput
-              multiline={true}
-              style={styles.form}
-              onChangeText={(body) => this.setState({body})}
-              value={this.state.body}
-            />
-            <Button onPress={this.closeAndUpdate} title="Enter" />
-          </View>
-        </Animated.View>
-      </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={ () => { DismissKeyboard() } }>
+          <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
+            <View style={styles.innerModal}>
+              <TouchableOpacity onPress={this.closeModal}>
+                <Text style={styles.center}>Close Menu</Text>
+              </TouchableOpacity>
+              <Text style={styles.bigText}>Edit Long Text</Text>
+              <TextInput
+                multiline={true}
+                style={styles.form}
+                onChangeText={(body) => this.setState({body})}
+                value={this.state.body}
+              />
+              <Button onPress={this.closeAndUpdate} title="Enter" />
+            </View>
+          </Animated.View>
+        </TouchableWithoutFeedback>
+
     )
   }
 }
@@ -75,8 +76,8 @@ export const styles = StyleSheet.create({
     padding: 10,
     borderColor: '#eee',
     borderWidth: 1,
-    height: 250,
-    fontSize: 20,
+    height: 180,
+    fontSize: 16,
   },
   flexContainer: {
     flex: 1,
