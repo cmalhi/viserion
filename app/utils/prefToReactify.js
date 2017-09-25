@@ -38,6 +38,7 @@ module.exports = (rawPreferencesObj) => {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-size: 'cover',
 }
 
 /*.content.hero2body {*/
@@ -552,12 +553,12 @@ bigger {
       this.setState({
         mainTitle: nextProps.mainTitle,
         subTitle: nextProps.subTitle,
-        backgroundUrl: this.props.backgroundUrl,
+        backgroundUrl: nextProps.backgroundUrl,
         id: nextProps.id,
       });
     }
     handleHeaderClick() {
-      socket.emit('launchImageModal', { room: room, key: this.state.key, id: this.state.id, path: this.state.path});
+      socket.emit('launchImageModal', { room: room, key: this.state.key, id: this.state.id, path: this.state.pathBackground});
     }
     render() {
       return (
@@ -567,7 +568,8 @@ bigger {
             className="hero hero-wrapper"
             onClick={this.handleHeaderClick}
             style={{
-              backgroundImage: 'url('+this.state.background+')',
+              backgroundImage: 'url(' + this.state.backgroundUrl + ')',
+              backgroundSize: 'cover',
             }}
           >
             <div className="row">
