@@ -4,8 +4,6 @@ import styles from '../../styles';
 import LoginForm from './LoginForm';
 
 export default class LoginSplashScreen extends Component {
-  componentWillMount() {
-  }
   render() {
     return (
       <View style={styles.container}>

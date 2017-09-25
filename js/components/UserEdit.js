@@ -116,7 +116,7 @@ class UserEdit extends React.Component {
   handleAdd() {
     this.setState({ addComponentModal: true });
   }
-
+  
   handleSubmit() {
     const { navigate } = this.props.navigation;
     this.props.updateSite();
