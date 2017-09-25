@@ -10,6 +10,7 @@ import {
   View,
   Dimensions,
   Platform,
+  TouchableOpacity,
 } from 'react-native';
 import SortableList from 'react-native-sortable-list';
 
@@ -18,6 +19,7 @@ const window = Dimensions.get('window');
 export default class SequencedList extends Component {
 
   render() {
+    const {data, active} = this.props;
     return (
       <SortableList
         style={styles.list}
@@ -90,8 +92,28 @@ class Row extends Component {
         this._style,
       ]}>
         {/*<Image source={{uri: data.image}} style={styles.image} />*/}
-        <Text style={styles.text}>{data.componentName}</Text>
-        <Button onPress={() => this.props.handleDelete(data.id)} title="Delete" />
+        <View style={{flex: 1}}>
+          <Text style={styles.text}>{data.componentName}</Text>
+        </View>
+        <View style={{flex: 1.3}} pointerEvents="box-none">
+          <Button
+            onPress={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              this.props.handleDelete(data.id)
+            }}
+            title="Delete" />
+          {/*<TouchableOpacity*/}
+            {/*style={{flex : 1.1, height: 80, alignItems: 'center', justifyContent: 'center', backgroundColor: 'blue'}}*/}
+            {/*onPress={(e) => {*/}
+              {/*e.stopPropagation();*/}
+              {/*e.preventDefault();*/}
+              {/*this.props.handleDelete(data.id)*/}
+            {/*}}>*/}
+            {/*<Text style={{ color: '#3E84FB', fontSize: 20 }}>Delete</Text>*/}
+          {/*</TouchableOpacity>*/}
+        </View>
+
       </Animated.View>
     );
   }
@@ -123,7 +145,7 @@ const styles = StyleSheet.create({
 
   contentContainer: {
     // width: window.width,
-    width: 150,
+    width: '90%',
 
     ...Platform.select({
       ios: {
@@ -141,7 +163,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#060E22',
     padding: 16,
-    height: 80,
+    height: 60,
     flex: 1,
     marginTop: 7,
     marginBottom: 12,
@@ -172,7 +194,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: 24,
-    color: 'white',
+    fontSize: 19,
+    color: '#222222',
   },
 });

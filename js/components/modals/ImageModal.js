@@ -1,13 +1,14 @@
 import React from 'react';
-import { Animated, Dimensions, Image, Text, TouchableOpacity, View, Button, StyleSheet, TouchableHighlight, TextInput } from 'react-native';
+import { Animated, Dimensions, Image, Text, TouchableOpacity, View, Button, StyleSheet, TextInput, TouchableWithoutFeedback, TouchableHighlight } from 'react-native';
 import { ImagePicker } from 'expo';
 import { RNS3 } from 'react-native-aws3';
 import ImageSearch from './ImageSearch'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { updatePrefs } from '../../actions/index';
-const io = require('socket.io-client');
 import { updateComponent } from '../../utils.js';
+var DismissKeyboard = require('dismissKeyboard');
+const io = require('socket.io-client');
 import styles from '../../styles.js'
 
 var {
@@ -68,30 +69,31 @@ class ImageModal extends React.Component {
   render() {
     let { img } = this.state;
     return (
-      <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}, {maxHeight: '80%'}]}>
-        <View style={styles.innerModal}>
-          <TouchableOpacity onPress={this.closeModal}>
-            <Text style={[styles.center, styles.subtitle, styles.text]}>Close Menu</Text>
-          </TouchableOpacity>
-          <Text style={[styles.title, {color: 'white'}]}>Choose an image</Text>
-          <ImageSearch onSelect={this.imageSearchCallback}/>
-          {/*{img && <Image source={{ uri: img }} style={{ width: 200, height: 200 }} />}*/}
-          {/*<Button onPress={this.closeAndUpdate} title="Enter" />*/}
-          <View style={[{marginTop: '5%'}, styles.center]}>    
-            <TouchableHighlight
-              style={ [styles.buttonCentered, styles.continueButton] }
-              underlayColor='#1D59BF'
-              onPress={this._pickImage}
-            >
-              <Text style={ [styles.buttonText, { color: '#eee', }] }>Camera Roll</Text>
-            </TouchableHighlight>
+      <TouchableWithoutFeedback onPress={ () => { DismissKeyboard() } }>
+        <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}, {maxHeight: '80%'}]}>
+          <View style={styles.innerModal}>
+            <TouchableOpacity onPress={this.closeModal}>
+              <Text style={[styles.center, styles.subtitle, styles.text]}>Close Menu</Text>
+            </TouchableOpacity>
+            <Text style={[styles.title, {color: 'white'}]}>Choose an image</Text>
+            <ImageSearch onSelect={this.imageSearchCallback}/>
+            {/*{img && <Image source={{ uri: img }} style={{ width: 200, height: 200 }} />}*/}
+            {/*<Button onPress={this.closeAndUpdate} title="Enter" />*/}
+            <View style={[{marginTop: '5%'}, styles.center]}>    
+              <TouchableHighlight
+                style={ [styles.buttonCentered, styles.continueButton] }
+                underlayColor='#1D59BF'
+                onPress={this._pickImage}
+              >
+                <Text style={ [styles.buttonText, { color: '#eee', }] }>Camera Roll</Text>
+              </TouchableHighlight>
+            </View>
           </View>
-        </View>
-      </Animated.View>
+        </Animated.View>
+       </TouchableWithoutFeedback>
     )
   }
-
-  // <Button onPress={this._pickImage} title="Select From Camera Roll" />
+  
   imageSearchCallback(imgCB){
     const socket = io(global.HOST, { transports: ['websocket'] });    
     this.setState({img: imgCB});

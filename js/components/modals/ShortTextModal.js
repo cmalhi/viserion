@@ -1,11 +1,12 @@
 import React from 'react';
-import { Animated, Dimensions, Image, Text, TouchableOpacity, View, WebView, Button, StyleSheet, TouchableHighlight, TextInput } from 'react-native';
+import { Animated, Dimensions, Image, Text, TouchableOpacity, View, WebView, Button, StyleSheet, TextInput, TouchableWithoutFeedback, TouchableHighlight } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { updatePrefs } from '../../actions/index';
-const io = require('socket.io-client');
-import { updateComponent } from '../../utils.js';
 import ColorPalette from './ColorPalette';
+var DismissKeyboard = require('dismissKeyboard');
+import { updateComponent } from '../../utils.js';
+const io = require('socket.io-client');
 import styles from '../../styles.js';
 
 var {
@@ -71,31 +72,33 @@ class ShortTextModal extends React.Component {
 
   render() {
     return (
-      <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
-        <View style={styles.innerModal}>
-          <TouchableOpacity onPress={this.closeModal}>
-            <Text style={[styles.center, styles.subtitle, styles.text]}>Close Menu</Text>
-          </TouchableOpacity>
-          <Text style={[styles.title, {color: 'white'}]}>Edit Text</Text>
-          <TextInput
-            style={styles.form}
-            onChangeText={(title) => this.setState({title})}
-            placeholder={this.props.title}
-            value={this.state.title}
-          />
-          {/*<ColorPalette setColor={this.setColor} data={this.props.data}/>*/}
-          {/*<Text>{this.state.color}</Text>*/}
-          <View style={[{marginTop: '5%'}, styles.center]}>    
-            <TouchableHighlight
-              style={ [styles.buttonCentered, styles.continueButton] }
-              underlayColor='#1D59BF'
-              onPress={this.closeAndUpdate}
-            >
-              <Text style={ [styles.buttonText, { color: '#eee', }] }>Enter</Text>
-            </TouchableHighlight>
+      <TouchableWithoutFeedback onPress={ () => { DismissKeyboard() } }>
+        <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
+          <View style={styles.innerModal}>
+            <TouchableOpacity onPress={this.closeModal}>
+              <Text style={[styles.center, styles.subtitle, styles.text]}>Close Menu</Text>
+            </TouchableOpacity>
+            <Text style={[styles.title, {color: 'white'}]}>Edit Text</Text>
+            <TextInput
+              style={styles.form}
+              onChangeText={(title) => this.setState({title})}
+              placeholder={this.props.title}
+              value={this.state.title}
+            />
+            {/*<ColorPalette setColor={this.setColor} data={this.props.data}/>*/}
+            {/*<Text>{this.state.color}</Text>*/}
+            <View style={[{marginTop: '5%'}, styles.center]}>    
+              <TouchableHighlight
+                style={ [styles.buttonCentered, styles.continueButton] }
+                underlayColor='#1D59BF'
+                onPress={this.closeAndUpdate}
+              >
+                <Text style={ [styles.buttonText, { color: '#eee', }] }>Enter</Text>
+              </TouchableHighlight>
+            </View>
           </View>
-        </View>
-      </Animated.View>
+        </Animated.View>
+      </TouchableWithoutFeedback>
     )
   }
 }
