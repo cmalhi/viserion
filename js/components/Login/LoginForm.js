@@ -102,7 +102,7 @@ class LoginForm extends Component {
 
   render() {
     return (
-      (this.props.auth.isFetching || this.state.isLoading)
+      (this.props.auth.isFetching)
       ? (<Loading />) :
       (<KeyboardAvoidingView behavior="padding">
         <TextInput 
