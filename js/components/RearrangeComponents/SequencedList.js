@@ -161,14 +161,13 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#060E22',
     padding: 16,
     height: 60,
     flex: 1,
     marginTop: 7,
     marginBottom: 12,
     borderRadius: 4,
-
 
     ...Platform.select({
       ios: {

@@ -1,11 +1,12 @@
 import React from 'react';
-import { Animated, Dimensions, Image, Text, TouchableOpacity, View, Button, StyleSheet, TextInput, Platform, Easing } from 'react-native';
+import { Animated, Dimensions, Image, Text, TouchableOpacity, View, Button, StyleSheet, TextInput, TouchableHighlight, Platform, Easing } from 'react-native';
 import SequencedList from '../RearrangeComponents/SequencedList';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { setPrefs } from '../../actions/index';
 const io = require('socket.io-client');
-import { getObj, removeByValue } from '../../utils'
+import { getObj, removeByValue } from '../../utils';
+import styles from '../../styles';
 
 var {
   width: deviceWidth
@@ -125,22 +126,29 @@ class OrderModal extends React.Component {
   render() {
     return(
       <Animated.View style={[styles.modal, {transform: [{translateX: this.state.offset}]}]}>
-        <View style={styles.innerModal}>
+        <View style={styles2.innerModal}>
           <TouchableOpacity onPress={this.closeModal}>
-            <Text style={styles.center}>Close menu</Text>
+            <Text style={[styles.center, styles.subtitle, styles.text]}>Close menu</Text>
           </TouchableOpacity>
-          <Text style={styles.bigText}>Rearrange Components</Text>
+          <Text style={[styles.title, {color: 'white'}]}>Rearrange Components</Text>
           <SequencedList data={this.state.sequencedData} onChangeOrder={this.onChangeOrder} handleDelete={this.handleDelete} />
-          <View style={styles.options}>
-            <Button onPress={this.handleUpdate} title="Update" />
+          <View style={[{marginTop: '5%'}, styles.center]}>    
+            <TouchableHighlight
+              style={ [styles.buttonCentered, styles.continueButton] }
+              underlayColor='#1D59BF'
+              onPress={this.handleUpdate}
+            >
+              <Text style={ [styles.buttonText, { color: '#eee', }] }>Update</Text>
+            </TouchableHighlight>
           </View>
         </View>
       </Animated.View>
     )
   }
 }
+            //<Button onPress={this.handleUpdate} title="Update" />
 
-export const styles = StyleSheet.create({
+export const styles2 = StyleSheet.create({
   form: {
     padding: 10,
     borderColor: '#eee',
@@ -165,7 +173,7 @@ export const styles = StyleSheet.create({
   },
   innerModal:{
     width: '80%',
-    backgroundColor: '#fff',
+    backgroundColor: '#222A3C',
     padding: 10,
     position: 'relative',
     top: '5%',

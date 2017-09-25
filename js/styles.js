@@ -279,4 +279,30 @@ export default styles = StyleSheet.create({
     fontSize: 14,
     height: 20,
   },
+  // Image Search
+  scrollGrid: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  content: {
+    paddingVertical: 20,
+  },
+  pic: {
+    backgroundColor: '#CCC',
+    margin: 10,
+    width: 60,
+    height: 60,
+  },
+
+  //order modal
+  options:{
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+  },
+    flexContainer: {
+      flex: 1,
+    },
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated, Dimensions, Image, Text, TouchableOpacity, View, Button, StyleSheet, TextInput } from 'react-native';
+import { Animated, Dimensions, Image, Text, TouchableOpacity, View, Button, StyleSheet, TouchableHighlight, TextInput } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { updatePrefs } from '../../actions/index';
@@ -7,6 +7,7 @@ import { updateComponent } from '../../utils.js'
 import { TriangleColorPicker } from 'react-native-color-picker';
 import ColorPalette from './ColorPalette';
 import GradientPalette from './GradientPalette';
+import styles from '../../styles.js';
 const io = require('socket.io-client');
 
 
@@ -74,54 +75,26 @@ class ColorModal extends React.Component {
       <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
         <View style={styles.innerModal}>
           <TouchableOpacity onPress={this.closeModal}>
-            <Text style={styles.center}>Close menu</Text>
+            <Text style={[styles.center, styles.subtitle, styles.text]}>Close menu</Text>
           </TouchableOpacity>
-          <Text style={styles.bigText}>Choose a color</Text>
+          <Text style={[styles.title, {color: 'white'}]}>Choose a color</Text>
           {this.state.type === 'gradient' ? <GradientPalette setColor={this.setColor} type={this.props.data.type}/> : <ColorPalette setColor={this.setColor} type={this.props.data.type}/>}
           {/*<Text onPress={() => { navigate('ColorPicker')}}>Color picker</Text>*/}
           <Text>{this.state.color}</Text>
-          <Button onPress={this.closeAndUpdate} title="Enter" />
+          <View style={[{marginTop: '5%'}, styles.center]}>    
+            <TouchableHighlight
+              style={ [styles.buttonCentered, styles.continueButton] }
+              underlayColor='#1D59BF'
+              onPress={this.closeAndUpdate}
+            >
+              <Text style={ [styles.buttonText, { color: '#eee', }] }>Enter</Text>
+            </TouchableHighlight>
+          </View>
         </View>
       </Animated.View>
     );
   }
 }
-
-export const styles = StyleSheet.create({
-  form: {
-    padding: 10,
-    borderColor: '#eee',
-    borderWidth: 1,
-  },
-  flexContainer: {
-    flex: 1,
-  },
-  webView: {
-    padding: 10,
-    width: '100%',
-  },
-  modal: {
-    backgroundColor: 'rgba(0,0,0,.3)',
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    width: '100%',
-    alignItems: 'center',
-  },
-  innerModal: {
-    width: 300,
-    backgroundColor: '#fff',
-    padding: 10,
-    // position: 'relative',
-    top: '5%',
-    borderRadius: 10,
-  },
-  bigText: {
-    fontSize: 20,
-  },
-});
 
 function mapStateToProps({ preferences }) {
   return { preferences };

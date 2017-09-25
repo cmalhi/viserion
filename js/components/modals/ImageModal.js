@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated, Dimensions, Image, Text, TouchableOpacity, View, Button, StyleSheet, TextInput, TouchableWithoutFeedback } from 'react-native';
+import { Animated, Dimensions, Image, Text, TouchableOpacity, View, Button, StyleSheet, TextInput, TouchableWithoutFeedback, TouchableHighlight } from 'react-native';
 import { ImagePicker } from 'expo';
 import { RNS3 } from 'react-native-aws3';
 import ImageSearch from './ImageSearch'
@@ -9,6 +9,7 @@ import { updatePrefs } from '../../actions/index';
 import { updateComponent } from '../../utils.js';
 var DismissKeyboard = require('dismissKeyboard');
 const io = require('socket.io-client');
+import styles from '../../styles.js'
 
 var {
   height: deviceHeight
@@ -69,22 +70,30 @@ class ImageModal extends React.Component {
     let { img } = this.state;
     return (
       <TouchableWithoutFeedback onPress={ () => { DismissKeyboard() } }>
-        <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
+        <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}, {maxHeight: '80%'}]}>
           <View style={styles.innerModal}>
             <TouchableOpacity onPress={this.closeModal}>
-              <Text style={styles.center}>Close Menu</Text>
+              <Text style={[styles.center, styles.subtitle, styles.text]}>Close Menu</Text>
             </TouchableOpacity>
-            <Text style={styles.bigText}>Choose an image</Text>
+            <Text style={[styles.title, {color: 'white'}]}>Choose an image</Text>
             <ImageSearch onSelect={this.imageSearchCallback}/>
-            <Button onPress={this._pickImage} title="Select From Camera Roll" />
             {/*{img && <Image source={{ uri: img }} style={{ width: 200, height: 200 }} />}*/}
             {/*<Button onPress={this.closeAndUpdate} title="Enter" />*/}
+            <View style={[{marginTop: '5%'}, styles.center]}>    
+              <TouchableHighlight
+                style={ [styles.buttonCentered, styles.continueButton] }
+                underlayColor='#1D59BF'
+                onPress={this._pickImage}
+              >
+                <Text style={ [styles.buttonText, { color: '#eee', }] }>Camera Roll</Text>
+              </TouchableHighlight>
+            </View>
           </View>
         </Animated.View>
-      </TouchableWithoutFeedback>
+       </TouchableWithoutFeedback>
     )
   }
-
+  
   imageSearchCallback(imgCB){
     const socket = io(global.HOST, { transports: ['websocket'] });    
     this.setState({img: imgCB});
@@ -118,39 +127,3 @@ const matchDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(ImageModal);
-
-export const styles = StyleSheet.create({
-  form: {
-    padding: 10,
-    borderColor: '#eee',
-    borderWidth: 1,
-  },
-  flexContainer: {
-    flex: 1,
-  },
-  webView: {
-    padding: 10,
-    width: '100%'
-  },
-  modal: {
-    backgroundColor: 'rgba(0,0,0,.3)',
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    width: '100%',
-    alignItems: 'center',
-  },
-  innerModal:{
-    width: '80%',
-    backgroundColor: '#fff',
-    padding: 10,
-    position: 'relative',
-    top: '5%',
-    borderRadius: 10
-  },
-  bigText:{
-    fontSize: 30,
-  },
-});
