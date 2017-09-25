@@ -24,6 +24,16 @@ const componentMap = {
       subTitle: '',
     },
   },
+  ImageHero: {
+    id: 'notSet',
+    nickName: 'My ImageHero',
+    componentName: 'ImageHero',
+    attr: {
+      backgroundUrl: 'https://images.unsplash.com/photo-1493087670264-2f7f5844b402',
+      mainTitle: 'Welcome',
+      subTitle: '',
+    },
+  },
   // Currently not wired up
   // PricingList: {
   //   id: 'notSet',

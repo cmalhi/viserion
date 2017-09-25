@@ -36,6 +36,7 @@ module.exports = (rawPreferencesObj) => {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-size: 'cover',
 }
 
 /*.content.hero2body {*/
@@ -388,6 +389,9 @@ bigger {
         GradientHero: {
           componentName: <GradientHero />
         },
+        ImageHero: {
+          componentName: <ImageHero />
+        },
         ImageContent: {
           componentName: <ImageContent />,
         },
@@ -523,6 +527,56 @@ bigger {
                   color={this.state.textColor}
                 />
               </span>
+            </div>
+          </header>
+        </div>
+      )
+    }
+  }
+  class ImageHero extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        mainTitle: this.props.mainTitle,
+        subTitle: this.props.subTitle,
+        backgroundUrl: this.props.backgroundUrl,
+        id: this.props.id,
+        pathBackground: ['attr', 'backgroundUrl'],
+        path1: ['attr', 'mainTitle'],
+        path2: ['attr', 'subTitle'], 
+      }
+      this.handleHeaderClick = this.handleHeaderClick.bind(this);
+    }
+    componentWillReceiveProps(nextProps) {
+      this.setState({
+        mainTitle: nextProps.mainTitle,
+        subTitle: nextProps.subTitle,
+        backgroundUrl: nextProps.backgroundUrl,
+        id: nextProps.id,
+      });
+    }
+    handleHeaderClick() {
+      socket.emit('launchImageModal', { room: room, key: this.state.key, id: this.state.id, path: this.state.pathBackground});
+    }
+    render() {
+      return (
+        <div className="outer-wrap">
+
+          <header
+            className="hero hero-wrapper"
+            onClick={this.handleHeaderClick}
+            style={{
+              backgroundImage: 'url(' + this.state.backgroundUrl + ')',
+              backgroundSize: 'cover',
+            }}
+          >
+            <div className="row">
+              <div className="box">
+                <div className="centered color-inverse">
+                  <bigger><EditableShortText value={this.state.mainTitle} id={this.state.id} path={this.state.path1}/></bigger>
+                  {/*<h3><EditableShortText value={this.state.subTitle} id={this.state.id} path={this.state.path2}/></h3>*/}
+                </div>
+              </div>
             </div>
           </header>
         </div>
