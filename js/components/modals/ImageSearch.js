@@ -75,29 +75,5 @@ class ImageSearch extends React.Component {
     )
   }
 }
-       // <Button
-       //   onPress={this.searchForImages}
-       //   title="Search"
-       //   color="#000000"
-       // />
-
-// const styles = StyleSheet.create({
-//   scrollGrid: {
-//     flex: 1,
-//     flexDirection: 'row',
-//     flexWrap: 'wrap',
-//     alignItems: 'center',
-//     justifyContent: 'center'
-//   },
-//   content: {
-//     paddingVertical: 20,
-//   },
-//   pic: {
-//     backgroundColor: '#CCC',
-//     margin: 10,
-//     width: 80,
-//     height: 80
-//   },
-// });
 
 export default ImageSearch;
