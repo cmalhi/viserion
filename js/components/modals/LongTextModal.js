@@ -77,11 +77,7 @@ export const styles = StyleSheet.create({
     borderColor: '#eee',
     borderWidth: 1,
     height: 180,
-<<<<<<< HEAD
     fontSize: 16,
-=======
-    fontSize: 18,
->>>>>>> herotext
   },
   flexContainer: {
     flex: 1,
