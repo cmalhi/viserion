@@ -22,7 +22,7 @@ class ChooseLayout extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRightSwipe = this.handleRightSwipe.bind(this);
   }
-
+  
   handleLayoutPress(layout, index) {
     console.log('layout pressed', layout);
     this.setState({ currentLayout: layout });
