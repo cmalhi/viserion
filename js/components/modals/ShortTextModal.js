@@ -99,43 +99,6 @@ class ShortTextModal extends React.Component {
     )
   }
 }
-// <Button onPress={this.closeAndUpdate} title="Enter" />
-
-// const styles = StyleSheet.create({
-//   form: {
-//     padding: 10,
-//     borderColor: '#eee',
-//     borderWidth: 1,
-//   },
-//   flexContainer: {
-//     flex: 1,
-//   },
-//   webView: {
-//     padding: 10,
-//     width: '100%'
-//   },
-//   modal: {
-//     backgroundColor: 'rgba(0,0,0,.3)',
-//     position: 'absolute',
-//     top: 0,
-//     right: 0,
-//     bottom: 0,
-//     left: 0,
-//     width: '100%',
-//     alignItems: 'center',
-//   },
-//   innerModal:{
-//     width: '80%',
-//     backgroundColor: '#fff',
-//     padding: 10,
-//     position: 'relative',
-//     top: '5%',
-//     borderRadius: 10
-//   },
-//   bigText:{
-//     fontSize: 20,
-//   },
-// });
 
 function mapStateToProps({ preferences }) {
   return { preferences };
