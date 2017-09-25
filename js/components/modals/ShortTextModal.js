@@ -47,7 +47,7 @@ class ShortTextModal extends React.Component {
     this.closeModal();
     if (this.state.colorChange) {
       this.saveColorToPref();
-    } else if (this.state.title){
+    } else if (this.state.title !== null){
       // socket.emit('changeTitleDom', { key: this.props.id, textValue: this.state.title, data: this.props.data });
       var value = this.state.title;
       var { id, path, room } = this.props.data;

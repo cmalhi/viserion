@@ -63,7 +63,7 @@ class AddComponentModal extends React.Component {
       // console.log('img', img)
       // const imgUrl = img;
       // result.push({ attr: componentMap[key], displayName: mapped, img: this.images[key] });
-      result.push({ attr: componentMap[key], displayName: mapped, img: false });
+      // result.push({ attr: componentMap[key], displayName: mapped, img: false });
     }
     this.setState({ compList: result });
   }
