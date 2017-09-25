@@ -115,46 +115,6 @@ class AddComponentModal extends React.Component {
   }
 }
 
-// const styles = StyleSheet.create({
-//   flexContainer: {
-//     flex: 1,
-//   },
-//   center: {
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     textAlign: 'center',
-//   },
-//   webView: {
-//     padding: 10,
-//     width: '100%',
-//   },
-//   modal: {
-//     backgroundColor: 'rgba(0,0,0,.5)',
-//     position: 'absolute',
-//     top: 0,
-//     right: 0,
-//     bottom: 0,
-//     left: 0,
-//     width: '100%',
-//     alignItems: 'center',
-//   },
-//   innerModal: {
-//     width: '80%',
-//     backgroundColor: '#fff',
-//     padding: 10,
-//     position: 'relative',
-//     top: '5%',
-//     borderRadius: 10,
-//   },
-//   bigText: {
-//     fontSize: 20,
-//   },
-//     selected: {
-//     opacity: 0.5,
-//     backgroundColor: '#FFF',
-//   },
-// });
-
 function mapStateToProps({ preferences, siteId }) {
   return { preferences, siteId };
 }
