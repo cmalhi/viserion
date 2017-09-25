@@ -1,13 +1,14 @@
 import React from 'react';
-import { Animated, Dimensions, Image, Text, TouchableOpacity, View, Button, StyleSheet, TextInput } from 'react-native';
+import { Animated, Dimensions, Image, Text, TouchableOpacity, View, Button, StyleSheet, TextInput, TouchableWithoutFeedback } from 'react-native';
 import { ImagePicker } from 'expo';
 import { RNS3 } from 'react-native-aws3';
 import ImageSearch from './ImageSearch'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { updatePrefs } from '../../actions/index';
-const io = require('socket.io-client');
 import { updateComponent } from '../../utils.js';
+var DismissKeyboard = require('dismissKeyboard');
+const io = require('socket.io-client');
 
 var {
   height: deviceHeight
@@ -67,18 +68,20 @@ class ImageModal extends React.Component {
   render() {
     let { img } = this.state;
     return (
-      <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
-        <View style={styles.innerModal}>
-          <TouchableOpacity onPress={this.closeModal}>
-            <Text style={styles.center}>Close Menu</Text>
-          </TouchableOpacity>
-          <Text style={styles.bigText}>Choose an image</Text>
-          <ImageSearch onSelect={this.imageSearchCallback}/>
-          <Button onPress={this._pickImage} title="Select From Camera Roll" />
-          {/*{img && <Image source={{ uri: img }} style={{ width: 200, height: 200 }} />}*/}
-          {/*<Button onPress={this.closeAndUpdate} title="Enter" />*/}
-        </View>
-      </Animated.View>
+      <TouchableWithoutFeedback onPress={ () => { DismissKeyboard() } }>
+        <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
+          <View style={styles.innerModal}>
+            <TouchableOpacity onPress={this.closeModal}>
+              <Text style={styles.center}>Close Menu</Text>
+            </TouchableOpacity>
+            <Text style={styles.bigText}>Choose an image</Text>
+            <ImageSearch onSelect={this.imageSearchCallback}/>
+            <Button onPress={this._pickImage} title="Select From Camera Roll" />
+            {/*{img && <Image source={{ uri: img }} style={{ width: 200, height: 200 }} />}*/}
+            {/*<Button onPress={this.closeAndUpdate} title="Enter" />*/}
+          </View>
+        </Animated.View>
+      </TouchableWithoutFeedback>
     )
   }
 

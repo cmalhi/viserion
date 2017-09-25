@@ -1,11 +1,12 @@
 import React from 'react';
-import { Animated, Dimensions, Image, Text, TouchableOpacity, View, WebView, Button, StyleSheet, TextInput } from 'react-native';
+import { Animated, Dimensions, Image, Text, TouchableOpacity, View, WebView, Button, StyleSheet, TextInput, TouchableWithoutFeedback } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { updatePrefs } from '../../actions/index';
-const io = require('socket.io-client');
-import { updateComponent } from '../../utils.js';
 import ColorPalette from './ColorPalette';
+var DismissKeyboard = require('dismissKeyboard');
+import { updateComponent } from '../../utils.js';
+const io = require('socket.io-client');
 
 var {
   height: deviceHeight
@@ -70,23 +71,25 @@ class ShortTextModal extends React.Component {
 
   render() {
     return (
-      <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
-        <View style={styles.innerModal}>
-          <TouchableOpacity onPress={this.closeModal}>
-            <Text style={styles.center}>Close Menu</Text>
-          </TouchableOpacity>
-          <Text style={styles.bigText}>Edit Text</Text>
-          <TextInput
-            style={styles.form}
-            onChangeText={(title) => this.setState({title})}
-            placeholder={this.props.title}
-            value={this.state.title}
-          />
-          {/*<ColorPalette setColor={this.setColor} data={this.props.data}/>*/}
-          {/*<Text>{this.state.color}</Text>*/}
-          <Button onPress={this.closeAndUpdate} title="Enter" />
-        </View>
-      </Animated.View>
+      <TouchableWithoutFeedback onPress={ () => { DismissKeyboard() } }>
+        <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
+          <View style={styles.innerModal}>
+            <TouchableOpacity onPress={this.closeModal}>
+              <Text style={styles.center}>Close Menu</Text>
+            </TouchableOpacity>
+            <Text style={styles.bigText}>Edit Text</Text>
+            <TextInput
+              style={styles.form}
+              onChangeText={(title) => this.setState({title})}
+              placeholder={this.props.title}
+              value={this.state.title}
+            />
+            {/*<ColorPalette setColor={this.setColor} data={this.props.data}/>*/}
+            {/*<Text>{this.state.color}</Text>*/}
+            <Button onPress={this.closeAndUpdate} title="Enter" />
+          </View>
+        </Animated.View>
+      </TouchableWithoutFeedback>
     )
   }
 }
