@@ -31,7 +31,7 @@ class LoginForm extends Component {
     setTimeout(() => {
       this.props.rootNavigate('MainApp')
       this.setState({isLoading: false});
-    }, 2000);
+    }, 1000);
   }
 
   async emailLogin(email, password) {
@@ -102,7 +102,7 @@ class LoginForm extends Component {
 
   render() {
     return (
-      (this.props.auth.isFetching)
+      (this.props.auth.isFetching || this.state.isLoading)
       ? (<Loading />) :
       (<KeyboardAvoidingView behavior="padding">
         <TextInput 
