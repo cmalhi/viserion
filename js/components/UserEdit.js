@@ -111,10 +111,12 @@ class UserEdit extends React.Component {
 
   handleRearrange() {
     this.setState({ orderModal: true });
+    this.setState({ addComponentModal: false });
   }
 
   handleAdd() {
     this.setState({ addComponentModal: true });
+    this.setState({ orderModal: false });
   }
   
   handleSubmit() {
