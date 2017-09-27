@@ -21,6 +21,10 @@ and
 
 Dev vs. Production: You will need to change the server URLs in global.js and app/utils/prefsToReactify.js
 
+## Architecture ##
+
+![](images/architecture.png?raw=true)
+
 ## Screenshot ##
 
 ![](images/screenshot.png?raw=true)

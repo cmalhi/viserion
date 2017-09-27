@@ -386,7 +386,7 @@ bigger {
         Hero: {
           componentName: <Hero1 />,
         },
-        GradientHero: {
+        GradientHeader: {
           componentName: <GradientHero />
         },
         ImageHero: {
@@ -431,7 +431,8 @@ bigger {
       res.componentName = this.map(res.componentName);
       return res;
     }
-    /* Input: Raw is an array of objects [{componentName: 'TextContent', attr: }]
+    /* 
+     * Input: Raw is an array of objects [{componentName: 'TextContent', attr: }]
      * Output: Converts component to array of objects {componentName: <TextContent />, attr: }
      */
     toComponents(raw) {
@@ -447,7 +448,7 @@ bigger {
       this.setState({ sitePreferences: newPref})
     }
     componentWillMount() {
-      // Web client listens to 'addPrefDomStore' event emitted when the user hits 'Submit'
+      // Web client listens to 'addPrefDom' event emitted when the user hits 'Submit'
       socket.on('addPrefDom', (addition) => {
         if (addition.room === room){
           let newPref = this.state.sitePreferences;

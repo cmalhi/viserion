@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import SortableList from 'react-native-sortable-list';
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const window = Dimensions.get('window');
 
@@ -85,15 +86,19 @@ class Row extends Component {
   }
 
   render() {
-    const {data, active} = this.props;
+    const { data, active } = this.props;
     return (
       <Animated.View style={[
         styles.row,
         this._style,
       ]}>
         {/*<Image source={{uri: data.image}} style={styles.image} />*/}
+        <View style={{flex: 0.3}}>
+          <MaterialCommunityIcons name="drag-vertical" size={25} color="white" />
+          {/*<Text style={{color: 'white', fontSize: 30, fontWeight: 'bold'}}>...</Text>*/}
+        </View>
         <View style={{flex: 1}}>
-          <Text style={styles.text}>{data.componentName}</Text>
+          <Text style={[styles.text, styles.inverse, {color: 'white'}]}>{data.componentName}</Text>
         </View>
         <View style={{flex: 1.3}} pointerEvents="box-none">
           <Button
@@ -119,6 +124,7 @@ class Row extends Component {
   }
 }
 
+// TODO: move to styles.js
 const styles = StyleSheet.create({
   container: {
     flex: 1,

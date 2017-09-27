@@ -21,9 +21,9 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  content: {
-    padding: 10,
-  },
+  // content: {
+  //   padding: 10,
+  // },
   header: {
     paddingVertical: 20,
     paddingHorizontal: 25,
@@ -239,19 +239,19 @@ export default styles = StyleSheet.create({
   },
 
   // ImageSearch
-  scrollGrid: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  pic: {
-    backgroundColor: '#CCC',
-    margin: 10,
-    width: 80,
-    height: 80
-  },
+  // scrollGrid: {
+  //   flex: 1,
+  //   flexDirection: 'row',
+  //   flexWrap: 'wrap',
+  //   alignItems: 'center',
+  //   justifyContent: 'center'
+  // },
+  // pic: {
+  //   backgroundColor: '#CCC',
+  //   margin: 10,
+  //   width: 80,
+  //   height: 80
+  // },
 
   // Share link
   modalBottom: {
@@ -301,7 +301,12 @@ export default styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
   },
-    flexContainer: {
-      flex: 1,
-    },
+  flexContainer: {
+    flex: 1,
+  },
+
+  // Styles
+  inverse: {
+    color: 'white',
+  }
 });
