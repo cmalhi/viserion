@@ -28,7 +28,6 @@ class ChooseLayout extends React.Component {
   }
 
   handleLayoutPress(layout, index) {
-    console.log('layout pressed', layout.uri);
     this.setState({ currentLayout: layout });
   }
 
@@ -37,8 +36,6 @@ class ChooseLayout extends React.Component {
   }
 
   handleRightSwipe(index) {
-    console.log('chosen index >>', index);
-    console.log('chosen layouts >>>', this.state.chosenLayouts);
     const currentLayout = this.state.layoutsData[index];
     const newChosenLayouts = Object.assign({}, this.state.chosenLayouts);
     currentLayout.layout && currentLayout.layouts.forEach(layoutType => {
