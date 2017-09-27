@@ -47,7 +47,7 @@ class ShortTextModal extends React.Component {
     this.closeModal();
     if (this.state.colorChange) {
       this.saveColorToPref();
-    } else if (this.state.title !== null){
+    } if (this.state.title !== null){
       // socket.emit('changeTitleDom', { key: this.props.id, textValue: this.state.title, data: this.props.data });
       var value = this.state.title;
       var { id, path, room } = this.props.data;
@@ -85,8 +85,7 @@ class ShortTextModal extends React.Component {
               placeholder={this.props.title}
               value={this.state.title}
             />
-            {/*<ColorPalette setColor={this.setColor} data={this.props.data}/>*/}
-            {/*<Text>{this.state.color}</Text>*/}
+            <ColorPalette setColor={this.setColor} data={this.props.data}/>
             <View style={[{marginTop: '5%'}, styles.center]}>    
               <TouchableHighlight
                 style={ [styles.buttonCentered, styles.continueButton] }
