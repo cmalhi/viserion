@@ -23,7 +23,7 @@ const componentMap = {
         color2: '#29ffc6',
       },
       mainTitle: 'Welcome',
-      subTitle: '',
+      subTitle: 'subtitle',
     },
   },
   ImageHero: {
@@ -34,7 +34,11 @@ const componentMap = {
     attr: {
       backgroundUrl: 'https://images.unsplash.com/photo-1493087670264-2f7f5844b402',
       mainTitle: 'Welcome',
-      subTitle: '',
+      subTitle: 'subtitle',
+      textColors: {
+        mainTitleColor: '#FFFFFF',
+        subTitleColor: '#FFFFFF',
+      }
     },
   },
   // Currently not wired up

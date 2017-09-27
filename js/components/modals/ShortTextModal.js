@@ -33,6 +33,7 @@ class ShortTextModal extends React.Component {
       duration: 300,
       toValue: 0
     }).start();
+    console.log('the data in set color',this.props.data)
   }
 
   closeModal() {

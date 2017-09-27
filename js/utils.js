@@ -68,7 +68,7 @@ exports.updateComponent = (components, id, path, value) => {
   var newPath = path.slice();
   newPath.unshift(index);
   var temp = res;
-
+  console.log('NEW PATH VARIABLE after unshift', newPath)
   // 3) Update the attribute
   for (var i = 0; i < newPath.length -1; i++) {
     temp = temp[newPath[i]]
