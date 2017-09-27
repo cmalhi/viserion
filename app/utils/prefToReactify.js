@@ -383,7 +383,7 @@ bigger {
     }
     map(name) {
       const components = {
-        Header: {
+        Hero: {
           componentName: <Hero1 />,
         },
         GradientHeader: {
