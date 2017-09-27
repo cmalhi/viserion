@@ -6,7 +6,6 @@ import { addLayouts } from '../../actions/index';
 import layoutsData from './layoutsData';
 import LayoutItem from './LayoutItem';
 import styles from '../../styles';
-import Swiper from 'react-native-deck-swiper';
 
 class ChooseLayout extends React.Component {
   constructor(props) {
@@ -25,7 +24,7 @@ class ChooseLayout extends React.Component {
   }
   
   handleLayoutPress(layout, index) {
-    console.log('layout pressed', layout.uri);
+    console.log('layout pressed', layout);
     this.setState({ currentLayout: layout });
   }
 
@@ -58,66 +57,6 @@ class ChooseLayout extends React.Component {
     this.props.addLayouts(layouts);
   }
 
-//   render () {
-//     return (
-//       <View style={styles.container}>
-//           <Swiper
-//               cards={['DO', 'MORE', 'OF', 'WHAT', 'MAKES', 'YOU', 'HAPPY']}
-//               renderCard={(card) => {
-//                   return (
-//                       <View 
-//                       style={styles.card}
-//                       key={2}
-//                       >
-//                           <Text style={styles.text}>{card}</Text>
-//                       </View>
-//                   )
-//               }}
-//               onSwiped={(cardIndex) => {console.log(cardIndex)}}
-//               onSwipedAll={() => {console.log('onSwipedAll')}}
-//               cardIndex={0}
-//               backgroundColor={'#4FD0E9'}>
-//           </Swiper>
-//       </View>
-//     );
-// }
-
-  // render() {
-  //   return (
-  //     <View style={ [styles.container] }>
-  //       <View style={styles.headerContainer}>
-  //         <View style={styles.header}>
-  //           <Text style={[styles.text, styles.title]}>What kind of websites do you like?</Text>
-  //           <Text style={[styles.text, styles.subtitle]}>We'll use these for inspiration.</Text>
-  //         </View>
-  //       </View>
-  //       <View style={ [styles.mainContainer, {marginLeft: -100}] } >
-  //         <Swiper
-  //           ref={(c) => this._deckSwiper = c}
-  //           cards={this.state.layoutsData}
-  //           renderCard={(layout) =>
-  //             <LayoutItem
-  //               key={layout.uri}
-  //               layout={layout}
-  //               handleLayoutPress={this.handleLayoutPress}
-  //             />
-  //           }
-  //           >
-  //         </Swiper>
-  //       </View>
-  //       <View style={styles.footerContainer}>
-  //         <TouchableHighlight
-  //           style={[styles.buttonCentered, styles.continueButton]}
-  //           underlayColor='#1D59BF'
-  //           onPress={this.handleSubmit}
-  //         >
-  //           <Text style={ styles.buttonText }>Continue</Text>
-  //         </TouchableHighlight>
-  //       </View>
-  //     </View>
-  //   );
-  // }
-
   render() {
     return (
       <View style={ [styles.container] }>
@@ -138,15 +77,11 @@ class ChooseLayout extends React.Component {
               <View style={{ alignSelf: "center" }}>
                 <Text style={[styles.title, styles.text]}>That's all!</Text>
               </View>}
-            renderItem={(layout) => {
-              console.log('Next site >>', layout.uri);
-              return(<View>
-                <LayoutItem
-                  layout={layout}
-                  handleLayoutPress={this.handleLayoutPress}
-                />
-              </View>)
-            }
+            renderItem={(layout) =>
+              <LayoutItem
+                layout={layout}
+                handleLayoutPress={this.handleLayoutPress}
+              />
             }
           />
         </View>

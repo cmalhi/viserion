@@ -4,6 +4,7 @@ import React from 'react';
 const LayoutItem = (props) => {
   return (
     <TouchableHighlight
+      activeOpacity={1.0}
       style={styles.templateContainer}
       onPressIn={layout => props.handleLayoutPress(props.layout)}>
       <Image
