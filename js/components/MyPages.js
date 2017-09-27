@@ -61,7 +61,7 @@ class MyPages extends React.Component {
       return (
         <View key={site._id} style={[styles.galleryContainer, styles.center]}>
           <TouchableOpacity onPress={this.handleSitePress.bind(this, site)}>
-            <Image style={{marginBottom: 20, width: Dimensions.get('window').width - 50, height: Dimensions.get('window').height - 80}} source={{uri: `https://viserion-hr.s3.amazonaws.com/${site._id}.png`}} />
+            <Image style={{marginBottom: 20, width: Dimensions.get('window').width - 50, height: Dimensions.get('window').height - 80}} source={{uri: `https://viserion-hr.s3.amazonaws.com/${site._id}.png`}} key={`https://viserion-hr.s3.amazonaws.com/${site._id}.png`} />
               {/*<WebView style={{marginBottom: 20, width: Dimensions.get('window').width - 50, height: Dimensions.get('window').height - 130}}*/}
                 {/*automaticallyAdjustContentInsets={false}*/}
                 {/*scrollEnabled={false}*/}
