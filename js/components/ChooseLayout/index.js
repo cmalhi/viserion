@@ -1,11 +1,11 @@
 import React from 'react';
-import { StatusBar, StyleSheet, Text, Button, AsyncStorage, TouchableHighlight } from 'react-native';
-import { DeckSwiper, View } from 'native-base';
+import { StatusBar, StyleSheet, Text, Button, AsyncStorage, TouchableHighlight, Dimensions, View } from 'react-native';
 import { connect } from 'react-redux';
 import { addLayouts } from '../../actions/index';
 import layoutsData from './layoutsData';
 import LayoutItem from './LayoutItem';
 import styles from '../../styles';
+import Swiper from 'react-native-deck-swiper';
 
 class ChooseLayout extends React.Component {
   constructor(props) {
@@ -22,9 +22,12 @@ class ChooseLayout extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRightSwipe = this.handleRightSwipe.bind(this);
   }
-  
+
+  shouldComponentUpdate() {
+    return false;
+  }
+
   handleLayoutPress(layout, index) {
-    console.log('layout pressed', layout);
     this.setState({ currentLayout: layout });
   }
 
@@ -32,10 +35,10 @@ class ChooseLayout extends React.Component {
     return Object.keys(this.state.chosenLayouts);
   }
 
-  handleRightSwipe() {
-    const { currentLayout } = this.state;
+  handleRightSwipe(index) {
+    const currentLayout = this.state.layoutsData[index];
     const newChosenLayouts = Object.assign({}, this.state.chosenLayouts);
-    currentLayout.layouts.forEach(layoutType => {
+    currentLayout.layout && currentLayout.layouts.forEach(layoutType => {
       // Keep track of desired layout styles with shape chosenLayouts: {grid: 1, hero: 3}
       if (!!layoutType && newChosenLayouts[layoutType]) {
         newChosenLayouts[layoutType]++;
@@ -66,24 +69,21 @@ class ChooseLayout extends React.Component {
             <Text style={[styles.text, styles.subtitle]}>We'll use these for inspiration.</Text>
           </View>
         </View>
-        <View style={ [styles.mainContainer, {marginTop: 20}] } >
-          <DeckSwiper
+        <View style={ [styles.mainContainer, {alignSelf: 'baseline'}] } >
+          <Swiper
             ref={(c) => this._deckSwiper = c}
-            dataSource={this.state.layoutsData}
-            looping={false}
-            onSwipeRight={this.handleRightSwipe}
-            onSwipeLeft={this.handleRightSwipe}
-            renderEmpty={() =>
-              <View style={{ alignSelf: "center" }}>
-                <Text style={[styles.title, styles.text]}>That's all!</Text>
-              </View>}
-            renderItem={(layout) =>
+            cards={this.state.layoutsData}
+            onSwipedRight={(index) => this.handleRightSwipe(index)}
+            verticalSwipe={false}
+            renderCard={(layout) =>
               <LayoutItem
+                key={layout.uri}
                 layout={layout}
                 handleLayoutPress={this.handleLayoutPress}
               />
             }
-          />
+            >
+          </Swiper>
         </View>
         <View style={styles.footerContainer}>
           <TouchableHighlight

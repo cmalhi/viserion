@@ -59,6 +59,8 @@ const layoutsData = [
   { uri: require('../../../images/templates/restaurant-template.jpg'),
     layouts: ['List'],
   },
+  { uri: require('../../../images/templates/thats-all.png'),
+  },
 ];
 
 export default layoutsData;

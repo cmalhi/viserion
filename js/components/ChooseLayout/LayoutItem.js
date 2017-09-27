@@ -1,11 +1,12 @@
-import { StyleSheet, Image, TouchableHighlight } from 'react-native';
+import { StyleSheet, Image, TouchableWithoutFeedback, TouchableHighlight } from 'react-native';
 import React from 'react';
 
 const LayoutItem = (props) => {
   return (
     <TouchableHighlight
-      style={styles.templateContainer}
-      onPressIn={layout => props.handleLayoutPress(props.layout)}>
+      activeOpacity={1.0}
+      style={[styles.templateContainer]}
+      >
       <Image
         style={styles.template}
         source={props.layout.uri}/>
@@ -18,10 +19,12 @@ export default LayoutItem;
 const styles = StyleSheet.create({
   templateContainer: {
     alignSelf: 'center',
+    marginTop: -35,
   },
   template: {
     width: 270,
     height: 400,
     borderRadius: 5,
+    alignSelf: 'center',
   },
 });
