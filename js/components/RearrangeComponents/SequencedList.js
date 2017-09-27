@@ -86,7 +86,7 @@ class Row extends Component {
   }
 
   render() {
-    const {data, active} = this.props;
+    const { data, active } = this.props;
     return (
       <Animated.View style={[
         styles.row,

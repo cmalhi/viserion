@@ -23,7 +23,6 @@ class OrderModal extends React.Component {
     super(props);
     this.state = {
       offset: new Animated.Value(deviceWidth),
-      // currentOrder: null,
       sequencedData: this.toSequencedData(this.props.preferences),
       sitePreferences: this.props.preferences,
     };
@@ -130,7 +129,7 @@ class OrderModal extends React.Component {
           <TouchableOpacity onPress={this.closeModal}>
             <Text style={[styles.center, styles.subtitle, styles.text]}>Close menu</Text>
           </TouchableOpacity>
-          <Text style={[styles.title, styles.inverse]}>Rearrange Components</Text>
+          <Text style={[styles.title, styles.inverse, {fontSize: 25}]}>Rearrange Components</Text>
           <SequencedList data={this.state.sequencedData} onChangeOrder={this.onChangeOrder} handleDelete={this.handleDelete} />
           <View style={[{marginTop: '5%'}, styles.center]}>    
             <TouchableHighlight

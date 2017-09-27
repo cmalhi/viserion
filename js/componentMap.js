@@ -1,20 +1,22 @@
 // AddComponentModal uses this to generate default addable components
 
 const componentMap = {
-  Hero: {
+  Header: {
     id: 'notSet',
     nickName: 'My Hero',
-    componentName: 'Hero',
+    componentName: 'Header',
+    displayName: 'Header',
     attr: {
       bgColor: '#000000',
       title: 'Title',
       textColor: '#7BDBD5',
     },
   },
-  GradientHero: {
+  GradientHeader: {
     id: 'notSet',
     nickName: 'My GradientHero',
-    componentName: 'GradientHero',
+    componentName: 'GradientHeader',
+    displayName: 'Gradient Header',
     attr: {
       color: {
         color1: '#0cebeb',
@@ -28,6 +30,7 @@ const componentMap = {
     id: 'notSet',
     nickName: 'My ImageHero',
     componentName: 'ImageHero',
+    displayName: 'Image Header',
     attr: {
       backgroundUrl: 'https://images.unsplash.com/photo-1493087670264-2f7f5844b402',
       mainTitle: 'Welcome',
@@ -48,6 +51,7 @@ const componentMap = {
     id: 'notSet',
     nickName: 'My ImageContent',
     componentName: 'ImageContent',
+    displayName: 'Image and description',
     attr: {
       imageUrl: 'http://i.imgur.com/A1SGNax.png',
       mainTitle: 'What\'s on Spotify?',
@@ -63,6 +67,7 @@ const componentMap = {
     id: 'notSet',
     nickName: 'My PinterestText',
     componentName: 'PinterestText',
+    displayName: 'FAQ',
     attr: {
       headerColor: '#d3654b',
       content: [

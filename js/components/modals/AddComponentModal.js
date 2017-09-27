@@ -6,7 +6,6 @@ import { appendPrefs } from '../../actions/index';
 import componentMap from '../../componentMap';
 import styles from '../../styles';
 const io = require('socket.io-client');
-// const tempURL = require('../../../images/components/text_image.png');
 
 var {
   width: deviceWidth
@@ -57,12 +56,9 @@ class AddComponentModal extends React.Component {
   mapEach() {
     var result = [];
     for (var key in componentMap) {
-      // Turn "GradientHero" into "Gradient Hero"
-      let mapped = key.split(/(?=[A-Z])/).join(" ");
-      // const { img } = componentMap[key];
-      // console.log('img', img)
-      // const imgUrl = img;
-      // result.push({ attr: componentMap[key], displayName: mapped, img: this.images[key] });
+      // Turns "GradientHero" into "Gradient Hero"
+      // let mapped = key.split(/(?=[A-Z])/).join(" ");
+      let mapped = componentMap[key]['displayName'];
       result.push({ attr: componentMap[key], displayName: mapped, img: false });
     }
     this.setState({ compList: result });
@@ -87,17 +83,17 @@ class AddComponentModal extends React.Component {
       <Animated.View
         style={[styles.modal, { transform: [{ translateX: this.state.offset }] }]}
       >
-        <View style={[styles.innerModal, {height: 500}]}>
+        <View style={[styles.innerModal, {padding: 20, height: 500}]}>
           <TouchableOpacity onPress={this.closeModal}>
             <Text style={[styles.center, styles.subtitle, styles.text]}>Close Menu</Text>
           </TouchableOpacity>
-          <Text style={[styles.title, {color: 'white'}]}>Add Components</Text>
+          <Text style={[styles.title, {fontSize: 25, color: 'white'}]}>Add a Component</Text>
           <ScrollView>
             {this.state.compList.map((comp, index) =>
               <View key={index}>
                 <Text
                   onPress={this.handleAdd.bind(this, comp.attr)}
-                  style={[styles.center, styles.subtitle, styles.text, {fontSize: 30}]}>{comp.displayName}</Text>
+                  style={[styles.subtitle, styles.text, {fontSize: 25}]}>{comp.displayName}</Text>
                 <TouchableOpacity
                   onPress={this.handleAdd.bind(this, comp.attr)}
                 >
