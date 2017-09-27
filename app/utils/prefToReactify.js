@@ -598,10 +598,14 @@ bigger {
         subTitle: this.props.subTitle,
         color1: this.props.color.color1,
         color2: this.props.color.color2,
+        mainTitleColor: this.props.textColors.mainTitleColor,
+        subTitleColor: this.props.textColors.subTitleColor,
         id: this.props.id,
         pathGradient: ['attr', 'color'],
         path1: ['attr', 'mainTitle'],
-        path2: ['attr', 'subTitle'], 
+        path2: ['attr', 'subTitle'],
+        mainTitleColorPath: ['attr', 'textColors', 'mainTitleColor'],
+        subTitleColorPath: ['attr', 'textColors', 'subTitleColor'],
       }
       this.handleHeaderClick = this.handleHeaderClick.bind(this);
     }
@@ -611,6 +615,8 @@ bigger {
         subTitle: nextProps.subTitle,
         color1: nextProps.color.color1,
         color2: nextProps.color.color2,
+        mainTitleColor: nextProps.textColors.mainTitleColor,
+        subTitleColor: nextProps.textColors.subTitleColor,
         id: nextProps.id,
       });
     }
@@ -634,8 +640,8 @@ bigger {
             <div className="row">
               <div className="box">
                 <div className="centered color-inverse">
-                  <bigger><EditableShortText value={this.state.mainTitle} id={this.state.id} path={this.state.path1}/></bigger>
-                  {/*<h3><EditableShortText value={this.state.subTitle} id={this.state.id} path={this.state.path2}/></h3>*/}
+                  <bigger><EditableShortText color={this.state.mainTitleColor} colorPath={this.state.mainTitleColorPath} value={this.state.mainTitle} id={this.state.id} path={this.state.path1}/></bigger>
+                  <h3><EditableShortText color={this.state.subTitleColor} colorPath={this.state.subTitleColorPath} value={this.state.subTitle} id={this.state.id} path={this.state.path2}/></h3>
                 </div>
               </div>
             </div>

@@ -24,6 +24,10 @@ const componentMap = {
       },
       mainTitle: 'Welcome',
       subTitle: 'subtitle',
+      textColors: {
+        mainTitleColor: '#FFFFFF',
+        subTitleColor: '#FFFFFF',
+      },
     },
   },
   ImageHero: {
@@ -38,7 +42,7 @@ const componentMap = {
       textColors: {
         mainTitleColor: '#FFFFFF',
         subTitleColor: '#FFFFFF',
-      }
+      },
     },
   },
   // Currently not wired up
