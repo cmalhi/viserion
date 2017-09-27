@@ -4,9 +4,9 @@ import SequencedList from '../RearrangeComponents/SequencedList';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { setPrefs } from '../../actions/index';
-const io = require('socket.io-client');
 import { getObj, removeByValue } from '../../utils';
 import styles from '../../styles';
+const io = require('socket.io-client');
 
 var {
   width: deviceWidth
@@ -130,7 +130,7 @@ class OrderModal extends React.Component {
           <TouchableOpacity onPress={this.closeModal}>
             <Text style={[styles.center, styles.subtitle, styles.text]}>Close menu</Text>
           </TouchableOpacity>
-          <Text style={[styles.title, {color: 'white'}]}>Rearrange Components</Text>
+          <Text style={[styles.title, styles.inverse]}>Rearrange Components</Text>
           <SequencedList data={this.state.sequencedData} onChangeOrder={this.onChangeOrder} handleDelete={this.handleDelete} />
           <View style={[{marginTop: '5%'}, styles.center]}>    
             <TouchableHighlight
@@ -138,7 +138,7 @@ class OrderModal extends React.Component {
               underlayColor='#1D59BF'
               onPress={this.handleUpdate}
             >
-              <Text style={ [styles.buttonText, { color: '#eee', }] }>Update</Text>
+              <Text style={ [styles.buttonText, styles.inverse] }>Update</Text>
             </TouchableHighlight>
           </View>
         </View>
