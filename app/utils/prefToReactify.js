@@ -386,7 +386,7 @@ bigger {
         Hero: {
           componentName: <Hero1 />,
         },
-        GradientHeader: {
+        GradientHero: {
           componentName: <GradientHero />
         },
         ImageHero: {
