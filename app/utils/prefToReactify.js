@@ -663,6 +663,11 @@ bigger {
         subtitle3: this.props.subtitle3,
         body3: this.props.body3,
         id: this.props.id,
+        mainTitleColor: this.props.textColors.mainTitleColor,
+        subTitleColor: this.props.textColors.subTitleColor,
+        bodyColor: this.props.textColors.bodyColor,
+        mainTitleColorPath: ['attr', 'textColors', 'mainTitleColor'],
+        subTitleColorPath: ['attr', 'textColors', 'subTitleColor'],
       }
       this._path1 = ['attr', 'imageUrl'];
       this._path2 = ['attr', 'mainTitle'];
@@ -684,6 +689,9 @@ bigger {
         subtitle3: nextProps.subtitle3,
         body3: nextProps.body3,
         id: nextProps.id,
+        mainTitleColor: nextProps.textColors.mainTitleColor,
+        subTitleColor: nextProps.textColors.subTitleColor,
+        bodyColor: nextProps.textColors.bodyColor,
       })
     }
 
@@ -693,17 +701,17 @@ bigger {
           <div className="row middle-md">
             <div className="col-xs-12 col-sm-7 col-md-5">
               <div className="box">
-                <h1><EditableShortText value={this.state.mainTitle} id={this.state.id} path={this._path2}/></h1>
+                <h1><EditableShortText color={this.state.mainTitleColor} colorPath={this.state.mainTitleColorPath} value={this.state.mainTitle} id={this.state.id} path={this._path2}/></h1>
                 <p>
-                  <h3><EditableShortText value={this.state.subtitle1} id={this.state.id} path={this._path3}/></h3>
+                  <h3><EditableShortText color={this.state.subTitleColor} colorPath={this.state.subTitleColorPath} value={this.state.subtitle1} id={this.state.id} path={this._path3}/></h3>
                   <EditableLongText body={this.state.body1} id={this.state.id} path={this._path4}/>
                 </p>
                 <p>
-                  <h3><EditableShortText value={this.state.subtitle2} id={this.state.id} path={this._path5}/></h3>
+                  <h3><EditableShortText color={this.state.subTitleColor} colorPath={this.state.subTitleColorPath} value={this.state.subtitle2} id={this.state.id} path={this._path5}/></h3>
                   <EditableLongText body={this.state.body2} id={this.state.id} path={this._path6}/>
                 </p>
                 <p>
-                  <h3><EditableShortText value={this.state.subtitle3} id={this.state.id} path={this._path7}/></h3>
+                  <h3><EditableShortText color={this.state.subTitleColor} colorPath={this.state.subTitleColorPath} value={this.state.subtitle3} id={this.state.id} path={this._path7}/></h3>
                   <EditableLongText body={this.state.body3} id={this.state.id} path={this._path8}/>
                 </p>
               </div>

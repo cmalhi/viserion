@@ -69,6 +69,11 @@ const componentMap = {
       body2: 'You’ll find readymade playlists to match your mood, put together by music fans and experts.',
       subtitle3: 'New Releases',
       body3: 'Hear this week’s latest singles and albums, and check out what’s hot in the Top 50.',
+      textColors: {
+        mainTitleColor: '#000000',
+        subTitleColor: '#000000',
+        bodyColor: '#000000',
+      },
     },
   },
   PinterestText: {
