@@ -668,6 +668,7 @@ bigger {
         bodyColor: this.props.textColors.bodyColor,
         mainTitleColorPath: ['attr', 'textColors', 'mainTitleColor'],
         subTitleColorPath: ['attr', 'textColors', 'subTitleColor'],
+        bodyColorPath: ['attr', 'textColors', 'bodyColor'],
       }
       this._path1 = ['attr', 'imageUrl'];
       this._path2 = ['attr', 'mainTitle'];
@@ -704,15 +705,15 @@ bigger {
                 <h1><EditableShortText color={this.state.mainTitleColor} colorPath={this.state.mainTitleColorPath} value={this.state.mainTitle} id={this.state.id} path={this._path2}/></h1>
                 <p>
                   <h3><EditableShortText color={this.state.subTitleColor} colorPath={this.state.subTitleColorPath} value={this.state.subtitle1} id={this.state.id} path={this._path3}/></h3>
-                  <EditableLongText body={this.state.body1} id={this.state.id} path={this._path4}/>
+                  <EditableLongText color={this.state.bodyColor} colorPath={this.state.bodyColorPath} body={this.state.body1} id={this.state.id} path={this._path4}/>
                 </p>
                 <p>
                   <h3><EditableShortText color={this.state.subTitleColor} colorPath={this.state.subTitleColorPath} value={this.state.subtitle2} id={this.state.id} path={this._path5}/></h3>
-                  <EditableLongText body={this.state.body2} id={this.state.id} path={this._path6}/>
+                  <EditableLongText color={this.state.bodyColor} colorPath={this.state.bodyColorPath} body={this.state.body2} id={this.state.id} path={this._path6}/>
                 </p>
                 <p>
                   <h3><EditableShortText color={this.state.subTitleColor} colorPath={this.state.subTitleColorPath} value={this.state.subtitle3} id={this.state.id} path={this._path7}/></h3>
-                  <EditableLongText body={this.state.body3} id={this.state.id} path={this._path8}/>
+                  <EditableLongText color={this.state.bodyColor} colorPath={this.state.bodyColorPath} body={this.state.body3} id={this.state.id} path={this._path8}/>
                 </p>
               </div>
             </div>
@@ -732,6 +733,8 @@ bigger {
       this.state = {
         body: this.props.body,
         path: this.props.path,
+        color: this.props.color,
+        colorPath: this.props.colorPath,
         id: this.props.id,
         key: newId(),
       };
@@ -741,6 +744,8 @@ bigger {
       this.setState({
         body: nextProps.body,
         path: nextProps.path,
+        color: nextProps.color,
+        colorPath: nextProps.colorPath,
         id: nextProps.id,
       })
     }
@@ -753,11 +758,11 @@ bigger {
       e.stopPropagation();
       console.log('clicked');
 //      socket.emit('launchLongTextModal', {key: this.state.key, textValue: this.state.body});
-      socket.emit('launchLongTextModal', { room: room, key: this.state.key, textValue: this.state.body, id: this.state.id, path: this.state.path });
+      socket.emit('launchLongTextModal', { room: room, key: this.state.key, textValue: this.state.body, id: this.state.id, path: this.state.path, color: this.state.color, colorPath: this.state.colorPath, });
     }
     render() {
       return(
-        <span onClick={this.handleClick}>{this.state.body}</span>
+        <span style={{color: this.state.color}} onClick={this.handleClick}>{this.state.body}</span>
       )
     }
   }

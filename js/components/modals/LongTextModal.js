@@ -3,7 +3,8 @@ import { Animated, Dimensions, Image, Text, TouchableOpacity, View, WebView, But
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { updatePrefs } from '../../actions/index';
-import { updateComponent } from '../../utils.js'
+import { updateComponent } from '../../utils.js';
+import ColorPalette from './ColorPalette';
 var DismissKeyboard = require('dismissKeyboard');
 const io = require('socket.io-client');
 
@@ -17,9 +18,13 @@ class LongTextModal extends React.Component {
     this.state = {
       offset: new Animated.Value(deviceHeight),
       body: this.props.body,
+      color: null,
+      colorChange: false,
     };
     this.closeModal = this.closeModal.bind(this);
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
+    this.setColor = this.setColor.bind(this);
+    this.saveColorToPref = this.saveColorToPref.bind(this);
   }
 
   componentDidMount() {
@@ -39,12 +44,26 @@ class LongTextModal extends React.Component {
   closeAndUpdate() {
     const socket = io(global.HOST, { transports: ['websocket'] });
     this.closeModal();
-    // socket.emit('changeLongTextDom', { key: this.props.id, textValue: this.state.body });
-    // TODO: Make database call to save body to user preferences
-    var value = this.state.body;
-    var { id, path, room } = this.props.data;
-    var newPref = updateComponent(this.props.preferences, id, path, value);
-    socket.emit('updatePref', {room, newPref});
+    if (this.state.colorChange) {
+      this.saveColorToPref();
+    } if (this.state.title !== null){
+      var value = this.state.body;
+      var { id, path, room } = this.props.data;
+      var newPref = updateComponent(this.props.preferences, id, path, value);
+      socket.emit('updatePref', {room, newPref});
+    }
+  }
+
+  saveColorToPref() {
+    const socket = io(global.HOST, { transports: ['websocket'] });
+    var { id, room, colorPath } = this.props.data;
+    var newPref = updateComponent(this.props.preferences, id, colorPath, this.state.color);
+    socket.emit('updatePref', { room: room, newPref: newPref });
+  }
+
+  setColor(color) {
+    this.setState({color: color});
+    this.setState({colorChange: true});
   }
 
   render() {
@@ -62,6 +81,7 @@ class LongTextModal extends React.Component {
                 onChangeText={(body) => this.setState({body})}
                 value={this.state.body}
               />
+              <ColorPalette setColor={this.setColor} data={this.props.data}/>
               <Button onPress={this.closeAndUpdate} title="Enter" />
             </View>
           </Animated.View>

@@ -68,7 +68,7 @@ class UserEdit extends React.Component {
 
       socket.on('launchTitleModal', (data) => {
         if (data.room === this.props.siteId) {
-          this.setState({ shortTextModal: true, shortTextId: data.key, shortTextValue: data.textValue, shortTextData: data, });
+          this.setState({ shortTextModal: true, shortTextId: data.key, shortTextValue: data.textValue, shortTextData: data });
         }
       });
 
@@ -100,7 +100,7 @@ class UserEdit extends React.Component {
     socket.on('launchListModal2', (data) => {
       // TODO: get id
       if (data.room === this.props.siteId) {
-        this.setState({ listModal: true, listData: data, listId: data.key});
+        this.setState({ listModal: true, listData: data, listId: data.key });
       }
     });
 
