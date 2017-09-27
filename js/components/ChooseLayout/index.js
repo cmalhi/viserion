@@ -37,8 +37,9 @@ class ChooseLayout extends React.Component {
 
   handleRightSwipe(index) {
     const currentLayout = this.state.layoutsData[index];
+    console.log('current layout>>>', currentLayout);
     const newChosenLayouts = Object.assign({}, this.state.chosenLayouts);
-    currentLayout.layout && currentLayout.layouts.forEach(layoutType => {
+    currentLayout.layouts && currentLayout.layouts.forEach(layoutType => {
       // Keep track of desired layout styles with shape chosenLayouts: {grid: 1, hero: 3}
       if (!!layoutType && newChosenLayouts[layoutType]) {
         newChosenLayouts[layoutType]++;
@@ -46,6 +47,7 @@ class ChooseLayout extends React.Component {
         newChosenLayouts[layoutType] = 1;
       }
     });
+    console.log('chosen layouts>> ', this.state.chosenLayouts);
     this.setState({ 
       selectedLayouts: this.state.selectedLayouts + 1,
       chosenLayouts: newChosenLayouts 
