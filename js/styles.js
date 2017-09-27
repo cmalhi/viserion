@@ -58,6 +58,10 @@ export default styles = StyleSheet.create({
   selected: {
     backgroundColor: '#bbb',
   },
+  swiperContainer: {
+    width: Dimensions.get('window').width,
+    backgroundColor: '#222A3C',
+  },
 
   // Keywords
   keyword: {
