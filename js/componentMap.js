@@ -138,6 +138,10 @@ const componentMap = {
     attr: {
       title: 'With All Eyes on the South, the Most Important Art Show in America Is Underway in Pittsburgh',
       body: 'The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols.',
+      textColors: {
+        titleColor: '#000000',
+        bodyColor: '#000000',
+      },
     },
   },
   // Currently not wired up

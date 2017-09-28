@@ -1048,23 +1048,29 @@ bigger {
       this.state = {
         title: this.props.title,
         body: this.props.body,
+        titleColor: this.props.textColors.titleColor,
+        bodyColor: this.props.textColors.bodyColor,
         id: this.props.id,
         path1: ['attr', 'title'],
         path2: ['attr', 'body'],
+        titleColorPath: ['attr', 'textColors', 'titleColor'],
+        bodyColorPath: ['attr', 'textColors', 'bodyColor'],
       }
     }
     componentWillReceiveProps(nextProps) {
       this.setState({
         title: nextProps.title,
         body: nextProps.body,
+        titleColor: nextProps.textColors.titleColor,
+        bodyColor: nextProps.textColors.bodyColor,
         id: nextProps.id,
       });
     }
     render() {
       return (
         <div className="content">
-          <h1><EditableShortText value={this.state.title} id={this.state.id} path={this.state.path1} /></h1>
-          <EditableLongText body={this.state.body} id={this.state.id} path={this.state.path2} />
+          <h1><EditableShortText color={this.state.titleColor} colorPath={this.state.titleColorPath} value={this.state.title} id={this.state.id} path={this.state.path1} /></h1>
+          <EditableLongText color={this.state.bodyColor} colorPath={this.state.bodyColorPath} body={this.state.body} id={this.state.id} path={this.state.path2} />
         </div>
       )
     }
