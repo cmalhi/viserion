@@ -965,16 +965,24 @@ bigger {
       super(props);
       this.state = {
         imageUrls: this.props.imageUrls,
+        thumbnailColor: this.props.thumbnailColor,
         id: this.props.id,
         path: ['attr', 'imageUrls'],
+        thumbnailColorPath: ['attr', 'thumbnailColor'],
       }
+      this.handleClick = this.handleClick.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
       this.setState({
         id: nextProps.id,
         imageUrls: nextProps.imageUrls,
+        thumbnailColor: nextProps.thumbnailColor,
       })
+    }
+
+    handleClick() {
+      socket.emit('colorChange', { room: room, id: this.state.id, path: this.state.thumbnailColorPath });
     }
 
     render() {
@@ -982,7 +990,7 @@ bigger {
         var imgpath = [...this.state.path]
         imgpath.push(i);
         return (
-          <figure key={i}>
+          <figure onClick={this.handleClick} style={{backgroundColor: this.state.thumbnailColor}} key={i}>
             <EditableImage src={item} id={this.state.id} path={imgpath}/>
           </figure>
         )

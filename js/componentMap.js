@@ -108,7 +108,7 @@ const componentMap = {
     componentName: 'PinterestContent',
     displayName: 'PinterestContent',
     attr: {
-      headerColor: '#d3654b',
+      thumbnailColor: '#000000',
       imageUrls: [
         'https://68.media.tumblr.com/8c03ff7f9a45832be4a65783b5c39ecb/tumblr_ovebbfcc3S1s2tva9o1_1280.jpg',
         'https://68.media.tumblr.com/3523f18b84d111ca2d39797c766d6ab8/tumblr_ov7e3t3Dg61s2tva9o1_1280.jpg',
