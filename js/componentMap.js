@@ -127,6 +127,7 @@ const componentMap = {
     attr: {
       imageUrl: 'http://assets.vogue.com/photos/59970fd951182c18907ac941/master/w_1320,c_limit/04-studio-harlem.jpg',
       caption: 'Lorna Simpson, Dividing Lines, 1989',
+      textColor: '#000000',
     },
   },
   TextContent: {

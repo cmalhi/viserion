@@ -1010,9 +1010,11 @@ bigger {
       this.state = {
         imageUrl: this.props.imageUrl,
         caption: this.props.caption,
+        textColor: this.props.textColor,
         id: this.props.id,
         path1: ['attr', 'imageUrl'],
         path2: ['attr', 'caption'],
+        textColorPath: ['attr', 'textColor'],
       }
     }
 
@@ -1020,6 +1022,7 @@ bigger {
       this.setState({
         imageUrl: nextProps.imageUrl,
         caption: nextProps.caption,
+        textColor: nextProps.textColor,
         id: nextProps.id,
       })
     }
@@ -1032,7 +1035,7 @@ bigger {
               <div className="figcaption">
                 <EditableImage src={this.state.imageUrl} id={this.state.id} path={this.state.path1}/>
               </div>
-              <i><EditableShortText value={this.state.caption} id={this.state.id} path={this.state.path2}/></i>
+              <i><EditableShortText color={this.state.textColor} colorPath={this.state.textColorPath} value={this.state.caption} id={this.state.id} path={this.state.path2}/></i>
             </div>
           </div>
         </div>
