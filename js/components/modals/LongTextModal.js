@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated, Dimensions, Image, Text, TouchableOpacity, View, WebView, Button, StyleSheet, TextInput, TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native';
+import { Animated, Dimensions, Image, Text, TouchableOpacity, TouchableHighlight, View, WebView, Button, StyleSheet, TextInput, TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { updatePrefs } from '../../actions/index';
@@ -7,6 +7,7 @@ import { updateComponent } from '../../utils.js';
 import ColorPalette from './ColorPalette';
 var DismissKeyboard = require('dismissKeyboard');
 const io = require('socket.io-client');
+import styles from '../../styles.js';
 
 var {
   height: deviceHeight
@@ -72,17 +73,25 @@ class LongTextModal extends React.Component {
           <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
             <View style={styles.innerModal}>
               <TouchableOpacity onPress={this.closeModal}>
-                <Text style={styles.center}>Close Menu</Text>
+                <Text style={[styles.center, styles.subtitle, styles.text]}>Close Menu</Text>
               </TouchableOpacity>
-              <Text style={styles.bigText}>Edit Long Text</Text>
+              <Text style={[styles.title, {color: 'white'}]}>Edit Long Text</Text>
               <TextInput
                 multiline={true}
-                style={styles.form}
+                style={styles.longTextForm}
                 onChangeText={(body) => this.setState({body})}
                 value={this.state.body}
               />
               <ColorPalette setColor={this.setColor} data={this.props.data}/>
-              <Button onPress={this.closeAndUpdate} title="Enter" />
+              <View style={[{marginTop: '5%'}, styles.center]}>    
+                <TouchableHighlight
+                  style={ [styles.buttonCentered, styles.continueButton] }
+                  underlayColor='#1D59BF'
+                  onPress={this.closeAndUpdate}
+                >
+                  <Text style={ [styles.buttonText, { color: '#eee', }] }>Enter</Text>
+                </TouchableHighlight>
+              </View>
             </View>
           </Animated.View>
         </TouchableWithoutFeedback>
@@ -90,44 +99,45 @@ class LongTextModal extends React.Component {
     )
   }
 }
+             // <Button onPress={this.closeAndUpdate} title="Enter" />
 
-export const styles = StyleSheet.create({
-  form: {
-    padding: 10,
-    borderColor: '#eee',
-    borderWidth: 1,
-    height: 180,
-    fontSize: 16,
-  },
-  flexContainer: {
-    flex: 1,
-  },
-  webView: {
-    padding: 10,
-    width: '100%'
-  },
-  modal: {
-    backgroundColor: 'rgba(0,0,0,.3)',
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    width: '100%',
-    alignItems: 'center',
-  },
-  innerModal:{
-    width: '80%',
-    backgroundColor: '#fff',
-    padding: 10,
-    position: 'relative',
-    top: '5%',
-    borderRadius: 10
-  },
-  bigText:{
-    fontSize: 20,
-  },
-});
+// export const styles = StyleSheet.create({
+//   form: {
+//     padding: 10,
+//     borderColor: '#eee',
+//     borderWidth: 1,
+//     height: 180,
+//     fontSize: 16,
+//   },
+//   flexContainer: {
+//     flex: 1,
+//   },
+//   webView: {
+//     padding: 10,
+//     width: '100%'
+//   },
+//   modal: {
+//     backgroundColor: 'rgba(0,0,0,.3)',
+//     position: 'absolute',
+//     top: 0,
+//     right: 0,
+//     bottom: 0,
+//     left: 0,
+//     width: '100%',
+//     alignItems: 'center',
+//   },
+//   innerModal:{
+//     width: '80%',
+//     backgroundColor: '#fff',
+//     padding: 10,
+//     position: 'relative',
+//     top: '5%',
+//     borderRadius: 10
+//   },
+//   bigText:{
+//     fontSize: 20,
+//   },
+// });
 
 function mapStateToProps({ preferences }) {
   return { preferences };

@@ -312,5 +312,13 @@ export default styles = StyleSheet.create({
   // Styles
   inverse: {
     color: 'white',
-  }
+  },
+  longTextForm: {
+    padding: 10,
+    borderColor: '#eee',
+    borderWidth: 1,
+    height: 180,
+    fontSize: 16,
+    color: '#fff'
+  },
 });
