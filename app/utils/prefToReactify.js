@@ -1082,10 +1082,10 @@ bigger {
         text: this.props.text,
         bgColor: this.props.bgColor,
         textColor: this.props.textColor,
-        id: this.props.id,
         path1: ['attr', 'text'],
         path2: ['attr', 'bgColor'],
         textColorPath: ['attr', 'textColor'],
+        id: this.props.id,
       };
       this.handleFooterClick = this.handleFooterClick.bind(this);
     }
