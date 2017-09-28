@@ -884,13 +884,19 @@ bigger {
       super(props);
       this.state = {
         content: this.props.content,
+        titleColor: this.props.textColors.titleColor,
+        bodyColor: this.props.textColors.bodyColor,
         id: this.props.id,
         path: ['attr', 'content'],
+        titleColorPath: ['attr', 'textColors', 'titleColor'],
+        bodyColorPath: ['attr', 'textColors', 'bodyColor'], 
       }
     }
 
     componentWillReceiveProps(nextProps) {
       this.setState({
+        titleColor: nextProps.textColors.titleColor,
+        bodyColor: nextProps.textColors.bodyColor,
         id: nextProps.id,
         content: nextProps.content,
       })
@@ -906,8 +912,8 @@ bigger {
         path2.push('body');
         return (
           <figure key={i}>
-            <h2><EditableShortText color={this.props.headerColor} value={item.title} id={this.state.id} path={path1}/></h2>
-            <EditableLongText body={item.body} id={this.state.id} path={path2}/>
+            <h2><EditableShortText color={this.state.titleColor} colorPath={this.state.titleColorPath} value={item.title} id={this.state.id} path={path1}/></h2>
+            <EditableLongText color={this.state.bodyColor} colorPath={this.state.bodyColorPath} body={item.body} id={this.state.id} path={path2}/>
           </figure>
         )
       });

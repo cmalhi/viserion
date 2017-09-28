@@ -82,7 +82,10 @@ const componentMap = {
     componentName: 'PinterestText',
     displayName: 'PinterestText',
     attr: {
-      headerColor: '#d3654b',
+      textColors: {
+        titleColor: '#000000',
+        bodyColor: '#000000',
+      },
       content: [
         {
           title: 'Who can attend?',
