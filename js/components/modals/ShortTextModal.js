@@ -75,7 +75,7 @@ class ShortTextModal extends React.Component {
             <TouchableOpacity onPress={this.closeModal}>
               <Text style={[styles.center, styles.subtitle, styles.text]}>Close Menu</Text>
             </TouchableOpacity>
-            <Text style={[styles.title, {color: 'white'}]}>Edit Text</Text>
+            <Text style={[styles.title, styles.inverse]}>Edit Text</Text>
             <TextInput
               style={styles.form}
               onChangeText={(title) => this.setState({title})}

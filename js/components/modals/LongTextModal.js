@@ -75,7 +75,7 @@ class LongTextModal extends React.Component {
               <TouchableOpacity onPress={this.closeModal}>
                 <Text style={[styles.center, styles.subtitle, styles.text]}>Close Menu</Text>
               </TouchableOpacity>
-              <Text style={[styles.title, {color: 'white'}]}>Edit Long Text</Text>
+              <Text style={[styles.title, styles.inverse]}>Edit Long Text</Text>
               <TextInput
                 multiline={true}
                 style={styles.longTextForm}
