@@ -47,8 +47,7 @@ class ShortTextModal extends React.Component {
     this.closeModal();
     if (this.state.colorChange) {
       this.saveColorToPref();
-    } else if (this.state.title !== null){
-      // socket.emit('changeTitleDom', { key: this.props.id, textValue: this.state.title, data: this.props.data });
+    } if (this.state.title !== null){
       var value = this.state.title;
       var { id, path, room } = this.props.data;
       var newPref = updateComponent(this.props.preferences, id, path, value);
@@ -59,9 +58,7 @@ class ShortTextModal extends React.Component {
   saveColorToPref() {
     const socket = io(global.HOST, { transports: ['websocket'] });
     var { id, room, colorPath } = this.props.data;
-    // console.log('save color to pref', path, this.state.color );
     var newPref = updateComponent(this.props.preferences, id, colorPath, this.state.color);
-    // console.log('new prefs', newPref);
     socket.emit('updatePref', { room: room, newPref: newPref });
   }
 
@@ -78,15 +75,14 @@ class ShortTextModal extends React.Component {
             <TouchableOpacity onPress={this.closeModal}>
               <Text style={[styles.center, styles.subtitle, styles.text]}>Close Menu</Text>
             </TouchableOpacity>
-            <Text style={[styles.title, {color: 'white'}]}>Edit Text</Text>
+            <Text style={[styles.title, styles.inverse]}>Edit Text</Text>
             <TextInput
               style={styles.form}
               onChangeText={(title) => this.setState({title})}
               placeholder={this.props.title}
               value={this.state.title}
             />
-            {/*<ColorPalette setColor={this.setColor} data={this.props.data}/>*/}
-            {/*<Text>{this.state.color}</Text>*/}
+            <ColorPalette setColor={this.setColor} data={this.props.data}/>
             <View style={[{marginTop: '5%'}, styles.center]}>    
               <TouchableHighlight
                 style={ [styles.buttonCentered, styles.continueButton] }

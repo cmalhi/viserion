@@ -541,10 +541,14 @@ bigger {
         mainTitle: this.props.mainTitle,
         subTitle: this.props.subTitle,
         backgroundUrl: this.props.backgroundUrl,
+        mainTitleColor: this.props.textColors.mainTitleColor,
+        subTitleColor: this.props.textColors.subTitleColor,
         id: this.props.id,
         pathBackground: ['attr', 'backgroundUrl'],
         path1: ['attr', 'mainTitle'],
         path2: ['attr', 'subTitle'], 
+        mainTitleColorPath: ['attr', 'textColors', 'mainTitleColor'],
+        subTitleColorPath: ['attr', 'textColors', 'subTitleColor'],
       }
       this.handleHeaderClick = this.handleHeaderClick.bind(this);
     }
@@ -553,6 +557,8 @@ bigger {
         mainTitle: nextProps.mainTitle,
         subTitle: nextProps.subTitle,
         backgroundUrl: nextProps.backgroundUrl,
+        mainTitleColor: nextProps.textColors.mainTitleColor,
+        subTitleColor: nextProps.textColors.subTitleColor,
         id: nextProps.id,
       });
     }
@@ -574,8 +580,8 @@ bigger {
             <div className="row">
               <div className="box">
                 <div className="centered color-inverse">
-                  <bigger><EditableShortText value={this.state.mainTitle} id={this.state.id} path={this.state.path1}/></bigger>
-                  {/*<h3><EditableShortText value={this.state.subTitle} id={this.state.id} path={this.state.path2}/></h3>*/}
+                  <bigger><EditableShortText color={this.state.mainTitleColor} colorPath={this.state.mainTitleColorPath} value={this.state.mainTitle} id={this.state.id} path={this.state.path1}/></bigger>
+                  <h3><EditableShortText color={this.state.subTitleColor} colorPath={this.state.subTitleColorPath} value={this.state.subTitle} id={this.state.id} path={this.state.path2}/></h3>
                 </div>
               </div>
             </div>
@@ -592,10 +598,14 @@ bigger {
         subTitle: this.props.subTitle,
         color1: this.props.color.color1,
         color2: this.props.color.color2,
+        mainTitleColor: this.props.textColors.mainTitleColor,
+        subTitleColor: this.props.textColors.subTitleColor,
         id: this.props.id,
         pathGradient: ['attr', 'color'],
         path1: ['attr', 'mainTitle'],
-        path2: ['attr', 'subTitle'], 
+        path2: ['attr', 'subTitle'],
+        mainTitleColorPath: ['attr', 'textColors', 'mainTitleColor'],
+        subTitleColorPath: ['attr', 'textColors', 'subTitleColor'],
       }
       this.handleHeaderClick = this.handleHeaderClick.bind(this);
     }
@@ -605,6 +615,8 @@ bigger {
         subTitle: nextProps.subTitle,
         color1: nextProps.color.color1,
         color2: nextProps.color.color2,
+        mainTitleColor: nextProps.textColors.mainTitleColor,
+        subTitleColor: nextProps.textColors.subTitleColor,
         id: nextProps.id,
       });
     }
@@ -628,8 +640,8 @@ bigger {
             <div className="row">
               <div className="box">
                 <div className="centered color-inverse">
-                  <bigger><EditableShortText value={this.state.mainTitle} id={this.state.id} path={this.state.path1}/></bigger>
-                  {/*<h3><EditableShortText value={this.state.subTitle} id={this.state.id} path={this.state.path2}/></h3>*/}
+                  <bigger><EditableShortText color={this.state.mainTitleColor} colorPath={this.state.mainTitleColorPath} value={this.state.mainTitle} id={this.state.id} path={this.state.path1}/></bigger>
+                  <h3><EditableShortText color={this.state.subTitleColor} colorPath={this.state.subTitleColorPath} value={this.state.subTitle} id={this.state.id} path={this.state.path2}/></h3>
                 </div>
               </div>
             </div>
@@ -651,6 +663,12 @@ bigger {
         subtitle3: this.props.subtitle3,
         body3: this.props.body3,
         id: this.props.id,
+        mainTitleColor: this.props.textColors.mainTitleColor,
+        subTitleColor: this.props.textColors.subTitleColor,
+        bodyColor: this.props.textColors.bodyColor,
+        mainTitleColorPath: ['attr', 'textColors', 'mainTitleColor'],
+        subTitleColorPath: ['attr', 'textColors', 'subTitleColor'],
+        bodyColorPath: ['attr', 'textColors', 'bodyColor'],
       }
       this._path1 = ['attr', 'imageUrl'];
       this._path2 = ['attr', 'mainTitle'];
@@ -672,6 +690,9 @@ bigger {
         subtitle3: nextProps.subtitle3,
         body3: nextProps.body3,
         id: nextProps.id,
+        mainTitleColor: nextProps.textColors.mainTitleColor,
+        subTitleColor: nextProps.textColors.subTitleColor,
+        bodyColor: nextProps.textColors.bodyColor,
       })
     }
 
@@ -681,18 +702,18 @@ bigger {
           <div className="row middle-md">
             <div className="col-xs-12 col-sm-7 col-md-5">
               <div className="box">
-                <h1><EditableShortText value={this.state.mainTitle} id={this.state.id} path={this._path2}/></h1>
+                <h1><EditableShortText color={this.state.mainTitleColor} colorPath={this.state.mainTitleColorPath} value={this.state.mainTitle} id={this.state.id} path={this._path2}/></h1>
                 <p>
-                  <h3><EditableShortText value={this.state.subtitle1} id={this.state.id} path={this._path3}/></h3>
-                  <EditableLongText body={this.state.body1} id={this.state.id} path={this._path4}/>
+                  <h3><EditableShortText color={this.state.subTitleColor} colorPath={this.state.subTitleColorPath} value={this.state.subtitle1} id={this.state.id} path={this._path3}/></h3>
+                  <EditableLongText color={this.state.bodyColor} colorPath={this.state.bodyColorPath} body={this.state.body1} id={this.state.id} path={this._path4}/>
                 </p>
                 <p>
-                  <h3><EditableShortText value={this.state.subtitle2} id={this.state.id} path={this._path5}/></h3>
-                  <EditableLongText body={this.state.body2} id={this.state.id} path={this._path6}/>
+                  <h3><EditableShortText color={this.state.subTitleColor} colorPath={this.state.subTitleColorPath} value={this.state.subtitle2} id={this.state.id} path={this._path5}/></h3>
+                  <EditableLongText color={this.state.bodyColor} colorPath={this.state.bodyColorPath} body={this.state.body2} id={this.state.id} path={this._path6}/>
                 </p>
                 <p>
-                  <h3><EditableShortText value={this.state.subtitle3} id={this.state.id} path={this._path7}/></h3>
-                  <EditableLongText body={this.state.body3} id={this.state.id} path={this._path8}/>
+                  <h3><EditableShortText color={this.state.subTitleColor} colorPath={this.state.subTitleColorPath} value={this.state.subtitle3} id={this.state.id} path={this._path7}/></h3>
+                  <EditableLongText color={this.state.bodyColor} colorPath={this.state.bodyColorPath} body={this.state.body3} id={this.state.id} path={this._path8}/>
                 </p>
               </div>
             </div>
@@ -712,6 +733,8 @@ bigger {
       this.state = {
         body: this.props.body,
         path: this.props.path,
+        color: this.props.color,
+        colorPath: this.props.colorPath,
         id: this.props.id,
         key: newId(),
       };
@@ -721,6 +744,8 @@ bigger {
       this.setState({
         body: nextProps.body,
         path: nextProps.path,
+        color: nextProps.color,
+        colorPath: nextProps.colorPath,
         id: nextProps.id,
       })
     }
@@ -733,11 +758,11 @@ bigger {
       e.stopPropagation();
       console.log('clicked');
 //      socket.emit('launchLongTextModal', {key: this.state.key, textValue: this.state.body});
-      socket.emit('launchLongTextModal', { room: room, key: this.state.key, textValue: this.state.body, id: this.state.id, path: this.state.path });
+      socket.emit('launchLongTextModal', { room: room, key: this.state.key, textValue: this.state.body, id: this.state.id, path: this.state.path, color: this.state.color, colorPath: this.state.colorPath, });
     }
     render() {
       return(
-        <span onClick={this.handleClick}>{this.state.body}</span>
+        <span style={{color: this.state.color}} onClick={this.handleClick}>{this.state.body}</span>
       )
     }
   }
@@ -859,13 +884,19 @@ bigger {
       super(props);
       this.state = {
         content: this.props.content,
+        titleColor: this.props.textColors.titleColor,
+        bodyColor: this.props.textColors.bodyColor,
         id: this.props.id,
         path: ['attr', 'content'],
+        titleColorPath: ['attr', 'textColors', 'titleColor'],
+        bodyColorPath: ['attr', 'textColors', 'bodyColor'], 
       }
     }
 
     componentWillReceiveProps(nextProps) {
       this.setState({
+        titleColor: nextProps.textColors.titleColor,
+        bodyColor: nextProps.textColors.bodyColor,
         id: nextProps.id,
         content: nextProps.content,
       })
@@ -881,8 +912,8 @@ bigger {
         path2.push('body');
         return (
           <figure key={i}>
-            <h2><EditableShortText color={this.props.headerColor} value={item.title} id={this.state.id} path={path1}/></h2>
-            <EditableLongText body={item.body} id={this.state.id} path={path2}/>
+            <h2><EditableShortText color={this.state.titleColor} colorPath={this.state.titleColorPath} value={item.title} id={this.state.id} path={path1}/></h2>
+            <EditableLongText color={this.state.bodyColor} colorPath={this.state.bodyColorPath} body={item.body} id={this.state.id} path={path2}/>
           </figure>
         )
       });
@@ -934,16 +965,24 @@ bigger {
       super(props);
       this.state = {
         imageUrls: this.props.imageUrls,
+        thumbnailColor: this.props.thumbnailColor,
         id: this.props.id,
         path: ['attr', 'imageUrls'],
+        thumbnailColorPath: ['attr', 'thumbnailColor'],
       }
+      this.handleClick = this.handleClick.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
       this.setState({
         id: nextProps.id,
         imageUrls: nextProps.imageUrls,
+        thumbnailColor: nextProps.thumbnailColor,
       })
+    }
+
+    handleClick() {
+      socket.emit('colorChange', { room: room, id: this.state.id, path: this.state.thumbnailColorPath });
     }
 
     render() {
@@ -951,7 +990,7 @@ bigger {
         var imgpath = [...this.state.path]
         imgpath.push(i);
         return (
-          <figure key={i}>
+          <figure onClick={this.handleClick} style={{backgroundColor: this.state.thumbnailColor}} key={i}>
             <EditableImage src={item} id={this.state.id} path={imgpath}/>
           </figure>
         )
@@ -971,9 +1010,11 @@ bigger {
       this.state = {
         imageUrl: this.props.imageUrl,
         caption: this.props.caption,
+        textColor: this.props.textColor,
         id: this.props.id,
         path1: ['attr', 'imageUrl'],
         path2: ['attr', 'caption'],
+        textColorPath: ['attr', 'textColor'],
       }
     }
 
@@ -981,6 +1022,7 @@ bigger {
       this.setState({
         imageUrl: nextProps.imageUrl,
         caption: nextProps.caption,
+        textColor: nextProps.textColor,
         id: nextProps.id,
       })
     }
@@ -993,7 +1035,7 @@ bigger {
               <div className="figcaption">
                 <EditableImage src={this.state.imageUrl} id={this.state.id} path={this.state.path1}/>
               </div>
-              <i><EditableShortText value={this.state.caption} id={this.state.id} path={this.state.path2}/></i>
+              <i><EditableShortText color={this.state.textColor} colorPath={this.state.textColorPath} value={this.state.caption} id={this.state.id} path={this.state.path2}/></i>
             </div>
           </div>
         </div>
@@ -1006,23 +1048,29 @@ bigger {
       this.state = {
         title: this.props.title,
         body: this.props.body,
+        titleColor: this.props.textColors.titleColor,
+        bodyColor: this.props.textColors.bodyColor,
         id: this.props.id,
         path1: ['attr', 'title'],
         path2: ['attr', 'body'],
+        titleColorPath: ['attr', 'textColors', 'titleColor'],
+        bodyColorPath: ['attr', 'textColors', 'bodyColor'],
       }
     }
     componentWillReceiveProps(nextProps) {
       this.setState({
         title: nextProps.title,
         body: nextProps.body,
+        titleColor: nextProps.textColors.titleColor,
+        bodyColor: nextProps.textColors.bodyColor,
         id: nextProps.id,
       });
     }
     render() {
       return (
         <div className="content">
-          <h1><EditableShortText value={this.state.title} id={this.state.id} path={this.state.path1} /></h1>
-          <EditableLongText body={this.state.body} id={this.state.id} path={this.state.path2} />
+          <h1><EditableShortText color={this.state.titleColor} colorPath={this.state.titleColorPath} value={this.state.title} id={this.state.id} path={this.state.path1} /></h1>
+          <EditableLongText color={this.state.bodyColor} colorPath={this.state.bodyColorPath} body={this.state.body} id={this.state.id} path={this.state.path2} />
         </div>
       )
     }
@@ -1033,8 +1081,10 @@ bigger {
       this.state = {
         text: this.props.text,
         bgColor: this.props.bgColor,
+        textColor: this.props.textColor,
         path1: ['attr', 'text'],
         path2: ['attr', 'bgColor'],
+        textColorPath: ['attr', 'textColor'],
         id: this.props.id,
       };
       this.handleFooterClick = this.handleFooterClick.bind(this);
@@ -1043,6 +1093,7 @@ bigger {
       this.setState({
         text: nextProps.text,
         bgColor: nextProps.bgColor,
+        textColor: nextProps.textColor,
         id: nextProps.id,
       })
     }
@@ -1061,7 +1112,7 @@ bigger {
           style={{ backgroundColor: this.state.bgColor }}
           onClick={this.handleFooterClick}
         >
-          <p><EditableShortText value={this.state.text} id={this.state.id} path={this.state.path1}/></p>
+          <p><EditableShortText color={this.state.textColor} colorPath={this.state.textColorPath} value={this.state.text} id={this.state.id} path={this.state.path1}/></p>
         </footer>
       )
     }

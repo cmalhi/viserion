@@ -10,6 +10,7 @@ const componentMap = {
       bgColor: '#000000',
       title: 'Title',
       textColor: '#7BDBD5',
+      textSize: 8,
     },
   },
   GradientHero: {
@@ -23,7 +24,11 @@ const componentMap = {
         color2: '#29ffc6',
       },
       mainTitle: 'Welcome',
-      subTitle: '',
+      subTitle: 'subtitle',
+      textColors: {
+        mainTitleColor: '#FFFFFF',
+        subTitleColor: '#FFFFFF',
+      },
     },
   },
   ImageHero: {
@@ -34,7 +39,11 @@ const componentMap = {
     attr: {
       backgroundUrl: 'https://images.unsplash.com/photo-1493087670264-2f7f5844b402',
       mainTitle: 'Welcome',
-      subTitle: '',
+      subTitle: 'subtitle',
+      textColors: {
+        mainTitleColor: '#FFFFFF',
+        subTitleColor: '#FFFFFF',
+      },
     },
   },
   // Currently not wired up
@@ -61,6 +70,11 @@ const componentMap = {
       body2: 'You’ll find readymade playlists to match your mood, put together by music fans and experts.',
       subtitle3: 'New Releases',
       body3: 'Hear this week’s latest singles and albums, and check out what’s hot in the Top 50.',
+      textColors: {
+        mainTitleColor: '#000000',
+        subTitleColor: '#000000',
+        bodyColor: '#000000',
+      },
     },
   },
   PinterestText: {
@@ -69,7 +83,10 @@ const componentMap = {
     componentName: 'PinterestText',
     displayName: 'PinterestText',
     attr: {
-      headerColor: '#d3654b',
+      textColors: {
+        titleColor: '#000000',
+        bodyColor: '#000000',
+      },
       content: [
         {
           title: 'Who can attend?',
@@ -92,7 +109,7 @@ const componentMap = {
     componentName: 'PinterestContent',
     displayName: 'PinterestContent',
     attr: {
-      headerColor: '#d3654b',
+      thumbnailColor: '#000000',
       imageUrls: [
         'https://68.media.tumblr.com/8c03ff7f9a45832be4a65783b5c39ecb/tumblr_ovebbfcc3S1s2tva9o1_1280.jpg',
         'https://68.media.tumblr.com/3523f18b84d111ca2d39797c766d6ab8/tumblr_ov7e3t3Dg61s2tva9o1_1280.jpg',
@@ -111,6 +128,7 @@ const componentMap = {
     attr: {
       imageUrl: 'http://assets.vogue.com/photos/59970fd951182c18907ac941/master/w_1320,c_limit/04-studio-harlem.jpg',
       caption: 'Lorna Simpson, Dividing Lines, 1989',
+      textColor: '#000000',
     },
   },
   TextContent: {
@@ -121,6 +139,10 @@ const componentMap = {
     attr: {
       title: 'With All Eyes on the South, the Most Important Art Show in America Is Underway in Pittsburgh',
       body: 'The exhibition—which features works from the likes of Kerry J. Marshall, Jenny Holzer, Kara Walker, and Lorna Simpson—begins with “A More Perfect Union,” an examination of national identity and symbols.',
+      textColors: {
+        titleColor: '#000000',
+        bodyColor: '#000000',
+      },
     },
   },
   // Currently not wired up
@@ -139,8 +161,9 @@ const componentMap = {
     componentName: 'Footer',
     displayName: 'Footer',
     attr: {
-      bgColor: '#FFFFFF',
+      bgColor: '#000000',
       text: 'Footer',
+      textColor: 'red',
     },
   },
 };
