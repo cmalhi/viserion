@@ -1081,9 +1081,11 @@ bigger {
       this.state = {
         text: this.props.text,
         bgColor: this.props.bgColor,
+        textColor: this.props.textColor,
+        id: this.props.id,
         path1: ['attr', 'text'],
         path2: ['attr', 'bgColor'],
-        id: this.props.id,
+        textColorPath: ['attr', 'textColor'],
       };
       this.handleFooterClick = this.handleFooterClick.bind(this);
     }
@@ -1091,6 +1093,7 @@ bigger {
       this.setState({
         text: nextProps.text,
         bgColor: nextProps.bgColor,
+        textColor: nextProps.textColor,
         id: nextProps.id,
       })
     }
@@ -1109,7 +1112,7 @@ bigger {
           style={{ backgroundColor: this.state.bgColor }}
           onClick={this.handleFooterClick}
         >
-          <p><EditableShortText value={this.state.text} id={this.state.id} path={this.state.path1}/></p>
+          <p><EditableShortText color={this.state.textColor} colorPath={this.state.textColorPath} value={this.state.text} id={this.state.id} path={this.state.path1}/></p>
         </footer>
       )
     }

@@ -160,8 +160,9 @@ const componentMap = {
     componentName: 'Footer',
     displayName: 'Footer',
     attr: {
-      bgColor: '#FFFFFF',
+      bgColor: '#000000',
       text: 'Footer',
+      textColor: 'red',
     },
   },
 };
