@@ -6,7 +6,7 @@ export default class PresetPalettes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      fontSize: 4,
+      fontSize: this.props.data.size,
     };
     this.increase = this.increase.bind(this);
     this.decrease = this.decrease.bind(this);

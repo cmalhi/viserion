@@ -61,6 +61,8 @@ class ShortTextModal extends React.Component {
     this.closeModal();
     if (this.state.colorChange) {
       this.saveColorToPref();
+    } if (this.state.sizeChange) {
+      this.saveSizeToPref();
     } if (this.state.title !== null){
       var value = this.state.title;
       var { id, path, room } = this.props.data;
@@ -79,7 +81,7 @@ class ShortTextModal extends React.Component {
   saveSizeToPref() {
     const socket = io(global.HOST, { transports: ['websocket'] });
     var { id, room, sizePath } = this.props.data;
-    var newPref = updateComponent(this.props.preferences, id, sizePath, this.state.size);
+    var newPref = updateComponent(this.props.preferences, id, sizePath, this.state.fontSize);
     socket.emit('updatePref', { room: room, newPref: newPref });
   }
 

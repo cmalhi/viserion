@@ -10,7 +10,7 @@ const componentMap = {
       bgColor: '#000000',
       title: 'Title',
       textColor: '#7BDBD5',
-      textSize: 8,
+      textSize: 28,
     },
   },
   GradientHero: {

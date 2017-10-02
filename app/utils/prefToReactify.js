@@ -508,7 +508,7 @@ bigger {
             style={{ backgroundColor: this.state.bgColor }}
           >
             <div className="centered">
-              <span className="site-title">
+              <span className="site-title" style={{fontSize: this.state.textSize}}>
                 <EditableShortText
                   value={this.state.title}
                   id={this.state.id}
