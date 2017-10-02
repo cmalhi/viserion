@@ -1,13 +1,13 @@
-// module.exports = (rawPreferencesObj) => {
-//   var rawPreferences = JSON.stringify(rawPreferencesObj);
+module.exports = (rawPreferencesObj) => {
+  var rawPreferences = JSON.stringify(rawPreferencesObj);
 
-//   var selectedHost = "127.0.0.1:8080"; // Dev
-//   // var selectedHost = "spindleapp.com:8080"; // Production
+  var selectedHost = "127.0.0.1:8080"; // Dev
+  // var selectedHost = "spindleapp.com:8080"; // Production
 
-//   var HOST = `http://${selectedHost}`;
-//   var SOCKETJS= `http://${selectedHost}/socket.io/socket.io.js`;
+  var HOST = `http://${selectedHost}`;
+  var SOCKETJS= `http://${selectedHost}/socket.io/socket.io.js`;
 
-//   return `<!DOCTYPE html>
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />

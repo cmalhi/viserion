@@ -21,11 +21,13 @@ class ShortTextModal extends React.Component {
       title: null,
       color: null,
       colorChange: false,
+      palette: false,
     };
     this.closeModal = this.closeModal.bind(this);
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
     this.setColor = this.setColor.bind(this);
     this.saveColorToPref = this.saveColorToPref.bind(this);
+    this.textColorPress = this.textColorPress.bind(this);
   }
 
   componentDidMount() {
@@ -67,6 +69,11 @@ class ShortTextModal extends React.Component {
     this.setState({colorChange: true});
   }
 
+  textColorPress() {
+    console.log('textColorPress');
+    this.setState({palette: !this.state.palette});
+  }
+
   render() {
     return (
       <TouchableWithoutFeedback onPress={ () => { DismissKeyboard() } }>
@@ -82,7 +89,23 @@ class ShortTextModal extends React.Component {
               placeholder={this.props.title}
               value={this.state.title}
             />
-            <ColorPalette setColor={this.setColor} data={this.props.data}/>
+            <View style={styles.mainContainer}>
+              <View style={styles.keywordsContainer}>
+                <TouchableHighlight style={styles.keyword} onPress={this.textColorPress}>
+                  <Text style={[styles.text, styles.keywordText, { fontFamily: 'Avenir-Heavy' }]} >Text Color</Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+            <View style={styles.mainContainer}>
+              <View style={styles.keywordsContainer}>
+                <TouchableHighlight style={styles.keyword} onPress={this.textColorPress}>
+                  <Text style={[styles.text, styles.keywordText, { fontFamily: 'Avenir-Heavy' }]} >Text Size</Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+            {this.state.size && <TextSizeChanger />}
+            {this.state.font && <FontChanger />}
+            {this.state.palette && <ColorPalette setColor={this.setColor} data={this.props.data}/>}
             <View style={[{marginTop: '5%'}, styles.center]}>    
               <TouchableHighlight
                 style={ [styles.buttonCentered, styles.continueButton] }

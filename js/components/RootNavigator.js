@@ -28,8 +28,8 @@ import LoginSignUpNavigator from './LoginSignUpNavigator';
 
 export default RootNavigator = StackNavigator(
   {
-    Index: { screen: MainTabNavigator },
-    // Index: { screen: HomeScreen },
+    // Index: { screen: MainTabNavigator },
+    Index: { screen: UserEdit },
     // Index: { screen: LoginSignUpSplash },
     Prescreen: { screen: Prescreen },
     MainApp: { screen: MainTabNavigator },
