@@ -321,4 +321,8 @@ export default styles = StyleSheet.create({
     fontSize: 16,
     color: '#fff'
   },
+  textEdit: {
+    height: 25,
+    width: 80,
+  }
 });

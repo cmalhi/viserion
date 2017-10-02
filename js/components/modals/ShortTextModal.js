@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { updatePrefs } from '../../actions/index';
 import ColorPalette from './ColorPalette';
+import TextSizeChanger from '../TextEdit/TextSizeChanger';
+import FontChanger from '../TextEdit/FontChanger';
 var DismissKeyboard = require('dismissKeyboard');
 import { updateComponent } from '../../utils.js';
 const io = require('socket.io-client');
@@ -22,12 +24,16 @@ class ShortTextModal extends React.Component {
       color: null,
       colorChange: false,
       palette: false,
+      font: false,
+      size: true,
     };
     this.closeModal = this.closeModal.bind(this);
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
     this.setColor = this.setColor.bind(this);
     this.saveColorToPref = this.saveColorToPref.bind(this);
     this.textColorPress = this.textColorPress.bind(this);
+    this.textSizePress = this.textSizePress.bind(this);
+    this.fontPress = this.fontPress.bind(this);
   }
 
   componentDidMount() {
@@ -70,10 +76,22 @@ class ShortTextModal extends React.Component {
   }
 
   textColorPress() {
-    console.log('textColorPress');
     this.setState({palette: !this.state.palette});
+    this.setState({size: false});
+    this.setState({font: false});
   }
 
+  textSizePress() {
+    this.setState({size: !this.state.size});
+    this.setState({palette: false});
+    this.setState({font: false});
+  }
+
+  fontPress() {
+    this.setState({font: !this.state.font});
+    this.setState({palette: false});
+    this.setState({size: false});
+  }
   render() {
     return (
       <TouchableWithoutFeedback onPress={ () => { DismissKeyboard() } }>
@@ -89,20 +107,9 @@ class ShortTextModal extends React.Component {
               placeholder={this.props.title}
               value={this.state.title}
             />
-            <View style={styles.mainContainer}>
-              <View style={styles.keywordsContainer}>
-                <TouchableHighlight style={styles.keyword} onPress={this.textColorPress}>
-                  <Text style={[styles.text, styles.keywordText, { fontFamily: 'Avenir-Heavy' }]} >Text Color</Text>
-                </TouchableHighlight>
-              </View>
-            </View>
-            <View style={styles.mainContainer}>
-              <View style={styles.keywordsContainer}>
-                <TouchableHighlight style={styles.keyword} onPress={this.textColorPress}>
-                  <Text style={[styles.text, styles.keywordText, { fontFamily: 'Avenir-Heavy' }]} >Text Size</Text>
-                </TouchableHighlight>
-              </View>
-            </View>
+            <Button style={this.state.color} title={'T color'} onPress={this.textColorPress}/>
+            <Button title={'T size'} onPress={this.textSizePress}/>
+            <Button title={'T font'} onPress={this.fontPress}/>
             {this.state.size && <TextSizeChanger />}
             {this.state.font && <FontChanger />}
             {this.state.palette && <ColorPalette setColor={this.setColor} data={this.props.data}/>}
