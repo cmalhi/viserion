@@ -29,6 +29,10 @@ const componentMap = {
         mainTitleColor: '#FFFFFF',
         subTitleColor: '#FFFFFF',
       },
+      textSize: {
+        mainTitleSize: 8,
+        subTitleSize: 8,
+      },
     },
   },
   ImageHero: {
@@ -43,6 +47,10 @@ const componentMap = {
       textColors: {
         mainTitleColor: '#FFFFFF',
         subTitleColor: '#FFFFFF',
+      },
+      textSize: {
+        mainTitleSize: 8,
+        subTitleSize: 8,
       },
     },
   },

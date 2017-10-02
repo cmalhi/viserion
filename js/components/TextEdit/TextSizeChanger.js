@@ -6,19 +6,19 @@ export default class PresetPalettes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      fontSize: this.props.data.size,
+      fontSize: 4,
     };
     this.increase = this.increase.bind(this);
     this.decrease = this.decrease.bind(this);
   }
   increase() {
     var size = this.state.fontSize;
-    size++;
+    size += 1;
     this.setState({fontSize: size});
   }
   decrease() {
     var size = this.state.fontSize;
-    size--;
+    size -= 1;
     this.setState({fontSize: size});
   }
   render() {
@@ -27,6 +27,7 @@ export default class PresetPalettes extends React.Component {
         <Button onPress={this.increase} title={'+'}/>
         <Button onPress={this.decrease} title={'-'}/>
         <Text>Font Size: {this.state.fontSize}</Text>
+        <Button onPress={()=>{this.props.setTextSize(this.state.fontSize)}} title={'Set Font Size'}/>
       </View>
     )
   }

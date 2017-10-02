@@ -76,6 +76,13 @@ class ShortTextModal extends React.Component {
     socket.emit('updatePref', { room: room, newPref: newPref });
   }
 
+  saveSizeToPref() {
+    const socket = io(global.HOST, { transports: ['websocket'] });
+    var { id, room, sizePath } = this.props.data;
+    var newPref = updateComponent(this.props.preferences, id, sizePath, this.state.size);
+    socket.emit('updatePref', { room: room, newPref: newPref });
+  }
+
   setColor(color) {
     this.setState({color: color});
     this.setState({colorChange: true});
@@ -102,6 +109,7 @@ class ShortTextModal extends React.Component {
   setTextSize(size) {
     this.setState({fontSize: size});
     this.setState({sizeChange: true});
+    console.log('font size set')
   }
 
   setFont(font) {

@@ -359,23 +359,14 @@ bigger {
           },
         },
         {
-            id: 'ticker2',
-            nickName: 'My Ticker',
-            componentName: <Ticker />,
-            attr: {
-              bgColor: 'defaultColor',
-              title: 'Adrienne Tran, Matthew Go, Chet Malhi, Ed Sweezey',
-            }
+          id: 'footer12',
+          nickName: 'My Footer',
+          componentName: <Footer />,
+          attr: {
+            bgColor: 'defaultColor',
+            text: 'Footer',
           }
-          ,{
-            id: 'footer12',
-            nickName: 'My Footer',
-            componentName: <Footer />,
-            attr: {
-              bgColor: 'defaultColor',
-              text: 'Footer',
-            }
-          }],
+        }],
       };
 
       this.map = this.map.bind(this);
@@ -490,6 +481,7 @@ bigger {
         path1: ['attr', 'bgColor'],
         path2: ['attr', 'title'],
         path3: ['attr', 'textColor'],
+        sizePath: ['attr', 'textSize'],
       };
       this.handleHeaderClick = this.handleHeaderClick.bind(this);
     }
@@ -523,7 +515,8 @@ bigger {
                   path={this.state.path2}
                   colorPath={this.state.path3}
                   color={this.state.textColor}
-                  size={this.state.size}
+                  size={this.state.textSize}
+                  sizePath={this.state.sizePath}
                 />
               </span>
             </div>
@@ -598,12 +591,16 @@ bigger {
         color2: this.props.color.color2,
         mainTitleColor: this.props.textColors.mainTitleColor,
         subTitleColor: this.props.textColors.subTitleColor,
+        mainTitleSize: this.props.textSize.mainTitleSize,
+        subTitleSize: this.props.textSize.subTitleSize,
         id: this.props.id,
         pathGradient: ['attr', 'color'],
         path1: ['attr', 'mainTitle'],
         path2: ['attr', 'subTitle'],
         mainTitleColorPath: ['attr', 'textColors', 'mainTitleColor'],
         subTitleColorPath: ['attr', 'textColors', 'subTitleColor'],
+        mainTitleSizePath: ['attr', 'textSize', 'mainTitleSize'],
+        subTitleSizePath: ['attr', 'textSize', 'subTitleSize'],
       }
       this.handleHeaderClick = this.handleHeaderClick.bind(this);
     }
@@ -615,6 +612,8 @@ bigger {
         color2: nextProps.color.color2,
         mainTitleColor: nextProps.textColors.mainTitleColor,
         subTitleColor: nextProps.textColors.subTitleColor,
+        mainTitleSize: nextProps.textSize.mainTitleSize,
+        subTitleSize: nextProps.textSize.subTitleSize,
         id: nextProps.id,
       });
     }
@@ -638,8 +637,8 @@ bigger {
             <div className="row">
               <div className="box">
                 <div className="centered color-inverse">
-                  <bigger><EditableShortText color={this.state.mainTitleColor} colorPath={this.state.mainTitleColorPath} value={this.state.mainTitle} id={this.state.id} path={this.state.path1}/></bigger>
-                  <h3><EditableShortText color={this.state.subTitleColor} colorPath={this.state.subTitleColorPath} value={this.state.subTitle} id={this.state.id} path={this.state.path2}/></h3>
+                  <bigger><EditableShortText size={this.state.mainTitleSize} sizePath={this.state.mainTitleSizePath} color={this.state.mainTitleColor} colorPath={this.state.mainTitleColorPath} value={this.state.mainTitle} id={this.state.id} path={this.state.path1}/></bigger>
+                  <h3><EditableShortText size={this.state.subTitleSize} sizePath={this.state.subTitleSizePath} color={this.state.subTitleColor} colorPath={this.state.subTitleColorPath} value={this.state.subTitle} id={this.state.id} path={this.state.path2}/></h3>
                 </div>
               </div>
             </div>
@@ -813,6 +812,7 @@ bigger {
         id: this.props.id,
         colorPath: this.props.colorPath,
         size: this.props.size,
+        sizePath: this.props.sizePath,
         key: newId(),
       };
       this.handleClick = this.handleClick.bind(this);
@@ -824,13 +824,14 @@ bigger {
         path: nextProps.path,
         colorPath: nextProps.colorPath,
         size: nextProps.size,
+        sizePath: nextProps.sizePath,
         id: nextProps.id,
       })
     }
     handleClick(e) {
       e.stopPropagation();
       console.log('short text clicked!')
-      socket.emit('launchTitleModal', { room: room, key: this.state.key, textValue: this.state.textValue, id: this.state.id, path: this.state.path, color: this.state.color, colorPath: this.state.colorPath });
+      socket.emit('launchTitleModal', { room: room, key: this.state.key, textValue: this.state.textValue, id: this.state.id, path: this.state.path, color: this.state.color, colorPath: this.state.colorPath, size: this.state.size, sizePath: this.state.sizePath });
     }
     render() {
       return(
