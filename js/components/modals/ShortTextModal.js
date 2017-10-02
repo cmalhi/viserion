@@ -3,13 +3,13 @@ import { Animated, Dimensions, Image, Text, TouchableOpacity, View, WebView, But
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { updatePrefs } from '../../actions/index';
+import { updateComponent } from '../../utils.js';
 import ColorPalette from './ColorPalette';
 import TextSizeChanger from '../TextEdit/TextSizeChanger';
 import FontChanger from '../TextEdit/FontChanger';
-var DismissKeyboard = require('dismissKeyboard');
-import { updateComponent } from '../../utils.js';
-const io = require('socket.io-client');
 import styles from '../../styles.js';
+var DismissKeyboard = require('dismissKeyboard');
+const io = require('socket.io-client');
 
 var {
   height: deviceHeight
@@ -25,7 +25,11 @@ class ShortTextModal extends React.Component {
       colorChange: false,
       palette: false,
       font: false,
-      size: true,
+      size: false,
+      fontSize: null,
+      fontType: null,
+      fontChange: false,
+      sizeChange: false,
     };
     this.closeModal = this.closeModal.bind(this);
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
@@ -34,6 +38,8 @@ class ShortTextModal extends React.Component {
     this.textColorPress = this.textColorPress.bind(this);
     this.textSizePress = this.textSizePress.bind(this);
     this.fontPress = this.fontPress.bind(this);
+    this.setTextSize = this.setTextSize.bind(this);
+    this.setFont = this.setFont.bind(this);
   }
 
   componentDidMount() {
@@ -92,6 +98,16 @@ class ShortTextModal extends React.Component {
     this.setState({palette: false});
     this.setState({size: false});
   }
+
+  setTextSize(size) {
+    this.setState({fontSize: size});
+    this.setState({sizeChange: true});
+  }
+
+  setFont(font) {
+    this.setState({fontType: font});
+    this.setState({fontChange: true});
+  }
   render() {
     return (
       <TouchableWithoutFeedback onPress={ () => { DismissKeyboard() } }>
@@ -110,7 +126,7 @@ class ShortTextModal extends React.Component {
             <Button style={this.state.color} title={'T color'} onPress={this.textColorPress}/>
             <Button title={'T size'} onPress={this.textSizePress}/>
             <Button title={'T font'} onPress={this.fontPress}/>
-            {this.state.size && <TextSizeChanger />}
+            {this.state.size && <TextSizeChanger setTextSize={this.setTextSize} data={this.props.data}/>}
             {this.state.font && <FontChanger />}
             {this.state.palette && <ColorPalette setColor={this.setColor} data={this.props.data}/>}
             <View style={[{marginTop: '5%'}, styles.center]}>    

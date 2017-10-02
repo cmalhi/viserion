@@ -9,10 +9,11 @@ export default class PresetPalettes extends React.Component {
       placeholder: null
     };
   }
+
   render() {
     return (
-      <View style={[styles.container, {marginBottom: 30, marginTop: 40}]}>
-        <Text syle={{color: 'white'}}>TOGGLED TEXT FONT CHANGER COMPONENT</Text>
+      <View style={[styles.container, styles.inverse, {marginBottom: 30, marginTop: 40}]}>
+        <Text syle={{color: '#ffffff'}}>TOGGLED TEXT FONT CHANGER COMPONENT</Text>
       </View>
     )
   }
