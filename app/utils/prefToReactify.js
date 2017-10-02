@@ -1,13 +1,13 @@
-module.exports = (rawPreferencesObj) => {
-  var rawPreferences = JSON.stringify(rawPreferencesObj);
+// module.exports = (rawPreferencesObj) => {
+//   var rawPreferences = JSON.stringify(rawPreferencesObj);
 
-  var selectedHost = "127.0.0.1:8080"; // Dev
-  // var selectedHost = "spindleapp.com:8080"; // Production
+//   var selectedHost = "127.0.0.1:8080"; // Dev
+//   // var selectedHost = "spindleapp.com:8080"; // Production
 
-  var HOST = `http://${selectedHost}`;
-  var SOCKETJS= `http://${selectedHost}/socket.io/socket.io.js`;
+//   var HOST = `http://${selectedHost}`;
+//   var SOCKETJS= `http://${selectedHost}/socket.io/socket.io.js`;
 
-  return `<!DOCTYPE html>
+//   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -43,7 +43,7 @@ module.exports = (rawPreferencesObj) => {
 /*top: 145vh;*/
 /*}*/
 
-.site-title {
+.site-title-backup {
     margin: 0 0 1em;
     padding: 1em 0;
     font-size: 2em;
@@ -484,6 +484,7 @@ bigger {
       this.state = {
         bgColor: this.props.bgColor,
         textColor: this.props.textColor,
+        textSize: this.props.textSize,
         title: this.props.title,
         id: this.props.id,
         path1: ['attr', 'bgColor'],
@@ -498,12 +499,8 @@ bigger {
         title: nextProps.title,
         id: nextProps.id,
         textColor: nextProps.textColor,
+        textSize: nextProps.textSize,
       });
-    }
-    componentDidMount() {
-//      socket.on('colorChange2', (bgColor) => {
-//        this.setState({ bgColor })
-//      })
     }
     handleHeaderClick() {
       // alert(room);
@@ -526,6 +523,7 @@ bigger {
                   path={this.state.path2}
                   colorPath={this.state.path3}
                   color={this.state.textColor}
+                  size={this.state.size}
                 />
               </span>
             </div>
@@ -814,6 +812,7 @@ bigger {
         path: this.props.path,
         id: this.props.id,
         colorPath: this.props.colorPath,
+        size: this.props.size,
         key: newId(),
       };
       this.handleClick = this.handleClick.bind(this);
@@ -824,13 +823,9 @@ bigger {
         textValue: nextProps.value,
         path: nextProps.path,
         colorPath: nextProps.colorPath,
+        size: nextProps.size,
         id: nextProps.id,
       })
-    }
-    componentDidMount() {
-//      socket.on('changeTitleDom2', (data) => {
-//        if (data.key === this.state.key) this.setState({ textValue: data.textValue });
-//      })
     }
     handleClick(e) {
       e.stopPropagation();
@@ -839,7 +834,7 @@ bigger {
     }
     render() {
       return(
-        <span style={{color: this.state.color}} key={this.state.key} onClick={this.handleClick}>{this.state.textValue}</span>
+        <span style={{color: this.state.color, textSize: this.state.size}} key={this.state.key} onClick={this.handleClick}>{this.state.textValue}</span>
       )
     }
   }
