@@ -30,8 +30,8 @@ const componentMap = {
         subTitleColor: '#FFFFFF',
       },
       textSize: {
-        mainTitleSize: 8,
-        subTitleSize: 8,
+        mainTitleSize: 60,
+        subTitleSize: 30,
       },
     },
   },
@@ -49,8 +49,8 @@ const componentMap = {
         subTitleColor: '#FFFFFF',
       },
       textSize: {
-        mainTitleSize: 8,
-        subTitleSize: 8,
+        mainTitleSize: 60,
+        subTitleSize: 30,
       },
     },
   },
@@ -82,6 +82,11 @@ const componentMap = {
         mainTitleColor: '#000000',
         subTitleColor: '#000000',
         bodyColor: '#000000',
+      },
+      textSize: {
+        mainTitleSize: 30,
+        subTitleSize: 24,
+        bodySize: 18,
       },
     },
   },
