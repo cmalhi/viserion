@@ -720,12 +720,12 @@ bigger {
                   <div style={{fontSize: this.state.bodySize}}><EditableLongText size={this.state.bodySize} sizePath={this.state.bodySizePath} color={this.state.bodyColor} colorPath={this.state.bodyColorPath} body={this.state.body1} id={this.state.id} path={this._path4}/></div>
                 </p>
                 <p>
-                  <h3><EditableShortText size={this.state.subTitleSize} sizePath={this.state.subTitleSizePath} color={this.state.subTitleColor} colorPath={this.state.subTitleColorPath} value={this.state.subtitle2} id={this.state.id} path={this._path5}/></h3>
-                  <EditableLongText size={this.state.bodySize} sizePath={this.state.bodySizePath} color={this.state.bodyColor} colorPath={this.state.bodyColorPath} body={this.state.body2} id={this.state.id} path={this._path6}/>
+                  <div style={{fontSize: this.state.subTitleSize}}><EditableShortText size={this.state.subTitleSize} sizePath={this.state.subTitleSizePath} color={this.state.subTitleColor} colorPath={this.state.subTitleColorPath} value={this.state.subtitle2} id={this.state.id} path={this._path5}/></div>
+                  <div style={{fontSize: this.state.bodySize}}><EditableLongText size={this.state.bodySize} sizePath={this.state.bodySizePath} color={this.state.bodyColor} colorPath={this.state.bodyColorPath} body={this.state.body2} id={this.state.id} path={this._path6}/></div>
                 </p>
                 <p>
-                  <h3><EditableShortText size={this.state.subTitleSize} sizePath={this.state.subTitleSizePath} color={this.state.subTitleColor} colorPath={this.state.subTitleColorPath} value={this.state.subtitle3} id={this.state.id} path={this._path7}/></h3>
-                  <EditableLongText size={this.state.bodySize} sizePath={this.state.bodySizePath} color={this.state.bodyColor} colorPath={this.state.bodyColorPath} body={this.state.body3} id={this.state.id} path={this._path8}/>
+                  <div style={{fontSize: this.state.subTitleSize}}><EditableShortText size={this.state.subTitleSize} sizePath={this.state.subTitleSizePath} color={this.state.subTitleColor} colorPath={this.state.subTitleColorPath} value={this.state.subtitle3} id={this.state.id} path={this._path7}/></div>
+                  <div style={{fontSize: this.state.bodySize}}><EditableLongText size={this.state.bodySize} sizePath={this.state.bodySizePath} color={this.state.bodyColor} colorPath={this.state.bodyColorPath} body={this.state.body3} id={this.state.id} path={this._path8}/></div>
                 </p>
               </div>
             </div>
