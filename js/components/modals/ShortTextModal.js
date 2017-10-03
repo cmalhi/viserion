@@ -35,6 +35,7 @@ class ShortTextModal extends React.Component {
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
     this.setColor = this.setColor.bind(this);
     this.saveColorToPref = this.saveColorToPref.bind(this);
+    this.saveSizeToPref = this.saveSizeToPref.bind(this);
     this.textColorPress = this.textColorPress.bind(this);
     this.textSizePress = this.textSizePress.bind(this);
     this.fontPress = this.fontPress.bind(this);

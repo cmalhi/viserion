@@ -5,9 +5,11 @@ import { connect } from 'react-redux';
 import { updatePrefs } from '../../actions/index';
 import { updateComponent } from '../../utils.js';
 import ColorPalette from './ColorPalette';
+import TextSizeChanger from '../TextEdit/TextSizeChanger';
+import FontChanger from '../TextEdit/FontChanger';
+import styles from '../../styles.js';
 var DismissKeyboard = require('dismissKeyboard');
 const io = require('socket.io-client');
-import styles from '../../styles.js';
 
 var {
   height: deviceHeight
@@ -21,11 +23,24 @@ class LongTextModal extends React.Component {
       body: this.props.body,
       color: null,
       colorChange: false,
+      palette: false,
+      font: false,
+      size: false,
+      fontSize: null,
+      fontType: null,
+      fontChange: false,
+      sizeChange: false,
     };
     this.closeModal = this.closeModal.bind(this);
     this.closeAndUpdate = this.closeAndUpdate.bind(this);
     this.setColor = this.setColor.bind(this);
     this.saveColorToPref = this.saveColorToPref.bind(this);
+    this.saveSizeToPref = this.saveSizeToPref.bind(this);
+    this.textColorPress = this.textColorPress.bind(this);
+    this.textSizePress = this.textSizePress.bind(this);
+    this.fontPress = this.fontPress.bind(this);
+    this.setTextSize = this.setTextSize.bind(this);
+    this.setFont = this.setFont.bind(this);
   }
 
   componentDidMount() {
@@ -47,6 +62,8 @@ class LongTextModal extends React.Component {
     this.closeModal();
     if (this.state.colorChange) {
       this.saveColorToPref();
+    } if (this.state.sizeChange) {
+      this.saveSizeToPref();
     } if (this.state.title !== null){
       var value = this.state.body;
       var { id, path, room } = this.props.data;
@@ -62,11 +79,46 @@ class LongTextModal extends React.Component {
     socket.emit('updatePref', { room: room, newPref: newPref });
   }
 
+  saveSizeToPref() {
+    const socket = io(global.HOST, { transports: ['websocket'] });
+    var { id, room, sizePath } = this.props.data;
+    var newPref = updateComponent(this.props.preferences, id, sizePath, this.state.fontSize);
+    socket.emit('updatePref', { room: room, newPref: newPref });
+  }
+
   setColor(color) {
     this.setState({color: color});
     this.setState({colorChange: true});
   }
 
+  textColorPress() {
+    this.setState({palette: !this.state.palette});
+    this.setState({size: false});
+    this.setState({font: false});
+  }
+
+  textSizePress() {
+    this.setState({size: !this.state.size});
+    this.setState({palette: false});
+    this.setState({font: false});
+  }
+
+  fontPress() {
+    this.setState({font: !this.state.font});
+    this.setState({palette: false});
+    this.setState({size: false});
+  }
+
+  setTextSize(size) {
+    this.setState({fontSize: size});
+    this.setState({sizeChange: true});
+    console.log('font size set')
+  }
+
+  setFont(font) {
+    this.setState({fontType: font});
+    this.setState({fontChange: true});
+  }
   render() {
     return (
         <TouchableWithoutFeedback onPress={ () => { DismissKeyboard() } }>
@@ -82,7 +134,12 @@ class LongTextModal extends React.Component {
                 onChangeText={(body) => this.setState({body})}
                 value={this.state.body}
               />
-              <ColorPalette setColor={this.setColor} data={this.props.data}/>
+              <Button style={this.state.color} title={'T color'} onPress={this.textColorPress}/>
+              <Button title={'T size'} onPress={this.textSizePress}/>
+              <Button title={'T font'} onPress={this.fontPress}/>
+              {this.state.size && <TextSizeChanger setTextSize={this.setTextSize} data={this.props.data}/>}
+              {this.state.font && <FontChanger />}
+              {this.state.palette && <ColorPalette setColor={this.setColor} data={this.props.data}/>}
               <View style={[{marginTop: '5%'}, styles.center]}>    
                 <TouchableHighlight
                   style={ [styles.buttonCentered, styles.continueButton] }

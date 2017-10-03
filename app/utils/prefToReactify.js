@@ -677,7 +677,7 @@ bigger {
         bodyColorPath: ['attr', 'textColors', 'bodyColor'],
         mainTitleColorPath: ['attr', 'textSize', 'mainTitleSize'],
         subTitleColorPath: ['attr', 'textSize', 'subTitleSize'],
-        bodyColorPath: ['attr', 'textSize', 'bodySize'],
+        bodySizePath: ['attr', 'textSize', 'bodySize'],
       }
       this._path1 = ['attr', 'imageUrl'];
       this._path2 = ['attr', 'mainTitle'];
@@ -747,6 +747,8 @@ bigger {
         path: this.props.path,
         color: this.props.color,
         colorPath: this.props.colorPath,
+        size: this.props.size,
+        sizePath: this.props.sizePath,
         id: this.props.id,
         key: newId(),
       };
@@ -758,19 +760,15 @@ bigger {
         path: nextProps.path,
         color: nextProps.color,
         colorPath: nextProps.colorPath,
+        size: nextProps.size,
+        sizePath: nextProps.sizePath,
         id: nextProps.id,
       })
-    }
-    componentDidMount() {
-//      socket.on('changeLongTextDom2', (data) => {
-//        if (data.key === this.state.key) this.setState({ body: data.textValue })
-//      })
     }
     handleClick(e) {
       e.stopPropagation();
       console.log('clicked');
-//      socket.emit('launchLongTextModal', {key: this.state.key, textValue: this.state.body});
-      socket.emit('launchLongTextModal', { room: room, key: this.state.key, textValue: this.state.body, id: this.state.id, path: this.state.path, color: this.state.color, colorPath: this.state.colorPath, });
+      socket.emit('launchLongTextModal', { room: room, key: this.state.key, textValue: this.state.body, id: this.state.id, path: this.state.path, color: this.state.color, colorPath: this.state.colorPath, size: this.state.size, sizePath: this.state.sizePath });
     }
     render() {
       return(
