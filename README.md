@@ -1,7 +1,19 @@
 # Viserion #
 
-Generate landing pages via a mobile app.
+Generate and customize landing pages using a mobile app.
  
+## Latest stable version can be found at https://spindleapp.com
+
+## For the latest version please download the Expo app from the iOS App Store and scan the qr code below. ##
+New features in this version: 
+You can now change text color
+You can now change text size
+You can now change the background color on pinterest content
+Some modals have been upgraded to dark theme
+
+![](images/qr.png?raw=true)
+
+
 ## Getting started ##
 To install: `npm install`
 
