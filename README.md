@@ -6,7 +6,7 @@ Generate and customize landing pages using a mobile app.
 
 ## For the latest build please download the Expo app from the iOS App Store and scan the qr code below. ##
 
-# New features in this version: #
+### New features in this version: ###
 
 You can now change text color
 
