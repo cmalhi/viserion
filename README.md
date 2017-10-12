@@ -1,4 +1,4 @@
-# Viserion #
+# Spindle #
 
 Generate and customize landing pages using a mobile app.
  
