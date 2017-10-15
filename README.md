@@ -4,7 +4,7 @@ Generate and customize landing pages using a mobile app.
  
 ## Latest stable version can be found at https://spindleapp.com
 
-## For the latest build please download the Expo app from the iOS App Store and scan the qr code below. ##
+## New in the latest build: ##
 
 ### New features in this version: ###
 
@@ -15,9 +15,6 @@ You can now change text size
 You can now change the background color on pinterest content
 
 Some modals have been upgraded to dark theme
-
-
-![](images/qr.png?raw=true)
 
 
 ## Getting started ##
