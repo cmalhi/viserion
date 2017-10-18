@@ -6,8 +6,6 @@ Generate and customize landing pages using a mobile app.
 
 ## New in the latest build: ##
 
-### New features in this version: ###
-
 You can now change text color
 
 You can now change text size
