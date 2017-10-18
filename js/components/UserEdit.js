@@ -193,15 +193,6 @@ class UserEdit extends React.Component {
             /> : null }
 
         </View>
-        <View style={styles.absoluteBottom}>
-          <TouchableHighlight
-            style={ [styles.buttonCentered, styles.continueButton] }
-            underlayColor='#1D59BF'
-            onPress={this.handleSubmit}
-          >
-            <Text style={ [styles.buttonText, { color: '#eee', }] }>Save</Text>
-          </TouchableHighlight>
-        </View>
         <View style={styles.absoluteRight} >
           <TouchableHighlight
             style={[styles.sideButton, styles.buttonCentered]}
@@ -225,6 +216,14 @@ class UserEdit extends React.Component {
             onPress={() => { this.setState({shareModal: true}) }}
           >
             <Ionicons name="ios-share-outline" color="#fff" size={32} />
+          </TouchableHighlight>
+          
+          <TouchableHighlight
+            style={[styles.sideButton, styles.buttonCentered]}
+            underlayColor='#3D6DF9'
+            onPress={this.handleSubmit}
+          >
+            <Ionicons name="md-checkmark" color="#fff" size={32} />
           </TouchableHighlight>
         </View>
       </View>
