@@ -40,7 +40,7 @@ class MyPages extends React.Component {
   fetchSavedSites(userId) {
     axios.get(`${global.HOST}/sites/all/${userId}`)
       .then((res) => {
-        this.setState({ sites: res.data});
+        this.setState({ sites: res.data.slice(0,6) });
       })
       .catch((err) => console.log('Err getting /sites/all ', err));
   }
@@ -61,13 +61,13 @@ class MyPages extends React.Component {
       return (
         <View key={site._id} style={[styles.galleryContainer, styles.center]}>
           <TouchableOpacity onPress={this.handleSitePress.bind(this, site)}>
-            <Image style={{marginBottom: 20, width: Dimensions.get('window').width - 50, height: Dimensions.get('window').height - 80}} source={{uri: `https://viserion-hr.s3.amazonaws.com/${site._id}.png`}} key={`img-${new Date().getTime()}`} />
-              {/*<WebView style={{marginBottom: 20, width: Dimensions.get('window').width - 50, height: Dimensions.get('window').height - 130}}*/}
-                {/*automaticallyAdjustContentInsets={false}*/}
-                {/*scrollEnabled={false}*/}
-                {/*scalesPageToFit={true}*/}
-                {/*source={{ uri: `${global.HOST}/id/${site._id}` }}>*/}
-            {/*</WebView>*/}
+            {/*<Image style={{marginBottom: 20, width: Dimensions.get('window').width - 50, height: Dimensions.get('window').height - 80}} source={{uri: `https://viserion-hr.s3.amazonaws.com/${site._id}.png`}} key={`img-${new Date().getTime()}`} />*/}
+            <WebView style={{marginBottom: 20, width: Dimensions.get('window').width - 50, height: Dimensions.get('window').height - 130}}
+              automaticallyAdjustContentInsets={false}
+              scrollEnabled={false}
+              scalesPageToFit={true}
+              source={{ uri: `${global.HOST}/id/${site._id}` }}>
+            </WebView>
           </TouchableOpacity>
         </View>
       );

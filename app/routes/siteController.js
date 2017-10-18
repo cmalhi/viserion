@@ -118,7 +118,9 @@ exports.serveOne = function(req, res) {
   Site.findOne( {_id:siteId } )
     .exec()
     .then(site => {
+      console.log('The site being shown is ',site)
       const html = prefToReactify(site.preferences);
+      console.log('the html is ',html)
       res.send(html);
     })
     .catch(err => res.status(500).send({ success: false, error: 'Error rendering site ' + err}));
