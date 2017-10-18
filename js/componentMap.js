@@ -100,6 +100,10 @@ const componentMap = {
         titleColor: '#000000',
         bodyColor: '#000000',
       },
+      textSize: {
+        titleSize: 24,
+        bodySize: 12,
+      },
       content: [
         {
           title: 'Who can attend?',

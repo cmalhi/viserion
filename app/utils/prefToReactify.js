@@ -896,9 +896,13 @@ bigger {
         titleColor: this.props.textColors.titleColor,
         bodyColor: this.props.textColors.bodyColor,
         id: this.props.id,
+        titleSize: this.props.textSize.titleSize,
+        bodySize: this.props.textSize.bodySize,
         path: ['attr', 'content'],
         titleColorPath: ['attr', 'textColors', 'titleColor'],
         bodyColorPath: ['attr', 'textColors', 'bodyColor'], 
+        titleSizePath: ['attr', 'textSize', 'titleSize'],
+        bodySizePath: ['attr', 'textSize', 'bodySize'],
       }
     }
 
@@ -908,6 +912,8 @@ bigger {
         bodyColor: nextProps.textColors.bodyColor,
         id: nextProps.id,
         content: nextProps.content,
+        titleSize: nextProps.textSize.titleSize,
+        bodySize: nextProps.textSize.bodySize,
       })
     }
 
@@ -921,8 +927,8 @@ bigger {
         path2.push('body');
         return (
           <figure key={i}>
-            <h2><EditableShortText color={this.state.titleColor} colorPath={this.state.titleColorPath} value={item.title} id={this.state.id} path={path1}/></h2>
-            <EditableLongText color={this.state.bodyColor} colorPath={this.state.bodyColorPath} body={item.body} id={this.state.id} path={path2}/>
+            <div style={{fontSize: this.state.titleSize}}><EditableShortText size={this.state.titleSize} sizePath={this.state.titleSizePath} color={this.state.titleColor} colorPath={this.state.titleColorPath} value={item.title} id={this.state.id} path={path1}/></div>
+            <div style={{fontSize: this.state.bodySize}}><EditableLongText size={this.state.bodySize} sizePath={this.state.bodySizePath} color={this.state.bodyColor} colorPath={this.state.bodyColorPath} body={item.body} id={this.state.id} path={path2}/></div>
           </figure>
         )
       });
