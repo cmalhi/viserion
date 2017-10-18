@@ -1026,10 +1026,12 @@ bigger {
         imageUrl: this.props.imageUrl,
         caption: this.props.caption,
         textColor: this.props.textColor,
+        textSize: this.props.textSize,
         id: this.props.id,
         path1: ['attr', 'imageUrl'],
         path2: ['attr', 'caption'],
         textColorPath: ['attr', 'textColor'],
+        textSizePath: ['attr', 'textSize'],
       }
     }
 
@@ -1038,6 +1040,7 @@ bigger {
         imageUrl: nextProps.imageUrl,
         caption: nextProps.caption,
         textColor: nextProps.textColor,
+        textSize: nextProps.textSize,
         id: nextProps.id,
       })
     }
@@ -1050,7 +1053,7 @@ bigger {
               <div className="figcaption">
                 <EditableImage src={this.state.imageUrl} id={this.state.id} path={this.state.path1}/>
               </div>
-              <i><EditableShortText color={this.state.textColor} colorPath={this.state.textColorPath} value={this.state.caption} id={this.state.id} path={this.state.path2}/></i>
+              <div style={{fontSize: this.state.textSize}}><EditableShortText size={this.state.textSize} sizePath={this.state.textSizePath} color={this.state.textColor} colorPath={this.state.textColorPath} value={this.state.caption} id={this.state.id} path={this.state.path2}/></div>
             </div>
           </div>
         </div>
@@ -1065,11 +1068,15 @@ bigger {
         body: this.props.body,
         titleColor: this.props.textColors.titleColor,
         bodyColor: this.props.textColors.bodyColor,
+        titleSize: this.props.textSize.titleSize,
+        bodySize: this.props.textSize.bodySize,
         id: this.props.id,
         path1: ['attr', 'title'],
         path2: ['attr', 'body'],
         titleColorPath: ['attr', 'textColors', 'titleColor'],
         bodyColorPath: ['attr', 'textColors', 'bodyColor'],
+        titleSizePath: ['attr', 'textSize', 'titleSize'],
+        bodySizePath: ['attr', 'textSize', 'bodySize'],
       }
     }
     componentWillReceiveProps(nextProps) {
@@ -1078,14 +1085,16 @@ bigger {
         body: nextProps.body,
         titleColor: nextProps.textColors.titleColor,
         bodyColor: nextProps.textColors.bodyColor,
+        titleSize: nextProps.textSize.titleSize,
+        bodySize: nextProps.textSize.bodySize,
         id: nextProps.id,
       });
     }
     render() {
       return (
         <div className="content">
-          <h1><EditableShortText color={this.state.titleColor} colorPath={this.state.titleColorPath} value={this.state.title} id={this.state.id} path={this.state.path1} /></h1>
-          <EditableLongText color={this.state.bodyColor} colorPath={this.state.bodyColorPath} body={this.state.body} id={this.state.id} path={this.state.path2} />
+          <div style={{fontSize: this.state.titleSize}}><EditableShortText size={this.state.titleSize} sizePath={this.state.titleSizePath} color={this.state.titleColor} colorPath={this.state.titleColorPath} value={this.state.title} id={this.state.id} path={this.state.path1} /></div>
+          <div style={{fontSize: this.state.bodySize}}><EditableLongText size={this.state.bodySize} sizePath={this.state.bodySizePath} color={this.state.bodyColor} colorPath={this.state.bodyColorPath} body={this.state.body} id={this.state.id} path={this.state.path2} /></div>
         </div>
       )
     }
@@ -1097,9 +1106,11 @@ bigger {
         text: this.props.text,
         bgColor: this.props.bgColor,
         textColor: this.props.textColor,
+        textSize: this.props.textSize,
         path1: ['attr', 'text'],
         path2: ['attr', 'bgColor'],
         textColorPath: ['attr', 'textColor'],
+        textSizePath: ['attr', 'textSize'],
         id: this.props.id,
       };
       this.handleFooterClick = this.handleFooterClick.bind(this);
@@ -1109,14 +1120,10 @@ bigger {
         text: nextProps.text,
         bgColor: nextProps.bgColor,
         textColor: nextProps.textColor,
+        textSize: nextProps.textSize,
         id: nextProps.id,
       })
     }
-//    componentDidMount() {
-//      socket.on('colorChange2', (bgColor) => {
-//        this.setState({ bgColor })
-//      })
-//    }
     handleFooterClick() {
       socket.emit('colorChange', { room: room, id: this.state.id, path: this.state.path2 });
     }
@@ -1127,7 +1134,7 @@ bigger {
           style={{ backgroundColor: this.state.bgColor }}
           onClick={this.handleFooterClick}
         >
-          <p><EditableShortText color={this.state.textColor} colorPath={this.state.textColorPath} value={this.state.text} id={this.state.id} path={this.state.path1}/></p>
+          <div style={{fontSize: this.state.textSize}}><EditableShortText  size={this.state.textSize} sizePath={this.state.textSizePath} color={this.state.textColor} colorPath={this.state.textColorPath} value={this.state.text} id={this.state.id} path={this.state.path1}/></div>
         </footer>
       )
     }

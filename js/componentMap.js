@@ -101,8 +101,8 @@ const componentMap = {
         bodyColor: '#000000',
       },
       textSize: {
-        titleSize: 24,
-        bodySize: 12,
+        titleSize: 32,
+        bodySize: 18,
       },
       content: [
         {
@@ -146,6 +146,7 @@ const componentMap = {
       imageUrl: 'http://assets.vogue.com/photos/59970fd951182c18907ac941/master/w_1320,c_limit/04-studio-harlem.jpg',
       caption: 'Lorna Simpson, Dividing Lines, 1989',
       textColor: '#000000',
+      textSize: 18,
     },
   },
   TextContent: {
@@ -159,6 +160,10 @@ const componentMap = {
       textColors: {
         titleColor: '#000000',
         bodyColor: '#000000',
+      },
+      textSize: {
+        titleSize: 26,
+        bodySize: 16,
       },
     },
   },
@@ -181,6 +186,7 @@ const componentMap = {
       bgColor: '#000000',
       text: 'Footer',
       textColor: 'red',
+      textSize: 32,
     },
   },
 };
