@@ -11,6 +11,7 @@ import {
   Dimensions,
   Platform,
   TouchableOpacity,
+  TouchableHighlight,
 } from 'react-native';
 import SortableList from 'react-native-sortable-list';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -100,14 +101,27 @@ class Row extends Component {
         <View style={{flex: 1}}>
           <Text style={[styles.text, styles.inverse, {color: 'white'}]}>{data.componentName}</Text>
         </View>
-        <View style={{flex: 1.3}} pointerEvents="box-none">
-          <Button
+        <View style={{flex: .35}} pointerEvents="box-none">
+          
+          {/*<Button
             onPress={(e) => {
               e.stopPropagation();
               e.preventDefault();
               this.props.handleDelete(data.id)
             }}
-            title="Delete" />
+            title="Delete" />*/}
+
+          <TouchableHighlight
+            style={[styles.sideButton, styles.buttonCentered]}
+            underlayColor='#3D6DF9'
+            onPress={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              this.props.handleDelete(data.id)
+            }}
+          >
+            <MaterialIcons name="close" color="#fff" size={25} />
+          </TouchableHighlight>
           {/*<TouchableOpacity*/}
             {/*style={{flex : 1.1, height: 80, alignItems: 'center', justifyContent: 'center', backgroundColor: 'blue'}}*/}
             {/*onPress={(e) => {*/}

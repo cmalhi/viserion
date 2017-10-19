@@ -173,7 +173,7 @@ export default styles = StyleSheet.create({
     width: 50,
     height: 50,
     backgroundColor: '#222A3C',
-
+    opacity: .65,
   },
   buttonCentered: {
     justifyContent: 'center',
@@ -324,5 +324,5 @@ export default styles = StyleSheet.create({
   textEdit: {
     height: 25,
     width: 80,
-  }
+  },
 });
