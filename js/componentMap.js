@@ -11,6 +11,7 @@ const componentMap = {
       title: 'Title',
       textColor: '#7BDBD5',
       textSize: 28,
+      font: '',
     },
   },
   GradientHero: {
