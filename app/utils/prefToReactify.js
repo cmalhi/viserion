@@ -675,8 +675,8 @@ bigger {
         mainTitleColorPath: ['attr', 'textColors', 'mainTitleColor'],
         subTitleColorPath: ['attr', 'textColors', 'subTitleColor'],
         bodyColorPath: ['attr', 'textColors', 'bodyColor'],
-        mainTitleColorPath: ['attr', 'textSize', 'mainTitleSize'],
-        subTitleColorPath: ['attr', 'textSize', 'subTitleSize'],
+        mainTitleSizePath: ['attr', 'textSize', 'mainTitleSize'],
+        subTitleSizePath: ['attr', 'textSize', 'subTitleSize'],
         bodySizePath: ['attr', 'textSize', 'bodySize'],
       }
       this._path1 = ['attr', 'imageUrl'];
