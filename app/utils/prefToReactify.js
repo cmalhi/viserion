@@ -1053,7 +1053,7 @@ bigger {
               <div className="figcaption">
                 <EditableImage src={this.state.imageUrl} id={this.state.id} path={this.state.path1}/>
               </div>
-              <div style={{fontSize: this.state.textSize}}><EditableShortText size={this.state.textSize} sizePath={this.state.textSizePath} color={this.state.textColor} colorPath={this.state.textColorPath} value={this.state.caption} id={this.state.id} path={this.state.path2}/></div>
+              <div style={{fontSize: this.state.textSize, fontWeight: 600}}><EditableShortText size={this.state.textSize} sizePath={this.state.textSizePath} color={this.state.textColor} colorPath={this.state.textColorPath} value={this.state.caption} id={this.state.id} path={this.state.path2}/></div>
             </div>
           </div>
         </div>
