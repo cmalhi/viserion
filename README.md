@@ -38,9 +38,10 @@ Dev vs. Production: You will need to change the server URLs in global.js and app
 
 ![](images/architecture.png?raw=true)
 
-## Screenshot ##
+## Screenshots ##
 
 ![](images/screenshot.png?raw=true)
+![](images/spindle.png?raw=true)
 
 ## Technology Stack ##
 
